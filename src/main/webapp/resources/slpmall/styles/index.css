@@ -1,0 +1,125 @@
+/**banner左侧**/
+.big-wrapper{ width:100%; float:left;height:10px; min-width:1200px; position: relative;}
+.banner-left{ width:120px; height:460px; background:#452206; position:absolute; left:0;top:136px; z-index:3;}
+.banner-left ul{ width:120px; float:left; margin-top:30px;}
+.banner-left ul li{margin-bottom:60px;}
+/**移动**/
+.banner-left .Mobile:hover{ background:url(../images/left-a1.png) no-repeat #f4792c; }
+.banner-left ul .Mobile .Mobile-hover{ width:600px; height:460px; background:#fff1e6; position:absolute; left:120px; top:0; opacity: 0.9;}
+.banner-left ul .Mobile .Mobile-hover ul{ width:555px; float:left; margin-left:18px; border-bottom:1px solid #d5d5d5; padding-bottom:20px;}
+.banner-left ul .Mobile .Mobile-hover ul li{ float:left; margin:0; margin-top:18px; color:#333; margin-right:20px; width:auto; height:auto;}
+.banner-left ul .Mobile .Mobile-hover ul li a{ color:#333; padding:3px 5px; float:left; font-size:14px; background:none;}
+.banner-left ul .Mobile .Mobile-hover ul li a:hover{ background:#f4792c; color:#fff;}
+.banner-left ul .Mobile .Mobile-hover ul .current a{ background:#f4792c; color:#fff;}
+/**联通**/
+.banner-left .Unicom:hover{ background:url(../images/left-b1.png) no-repeat #f4792c; }
+.banner-left ul .Unicom .Unicom-hover{ width:600px; height:460px; background:#fff1e6; position:absolute; left:120px; top:0; opacity: 0.9;}
+.banner-left ul .Unicom .Unicom-hover ul{ width:555px; float:left; margin-left:18px; border-bottom:1px solid #d5d5d5; padding-bottom:20px;}
+.banner-left ul .Unicom .Unicom-hover ul li{ float:left; margin:0; margin-top:18px; color:#333; margin-right:20px; width:auto; height:auto;}
+.banner-left ul .Unicom .Unicom-hover ul li a{ color:#333; padding:3px 5px; float:left; font-size:14px; background:none;}
+.banner-left ul .Unicom .Unicom-hover ul li a:hover{ background:#f4792c; color:#fff;}
+.banner-left ul .Unicom .Unicom-hover ul .current a{ background:#f4792c; color:#fff;}
+/**电信**/
+.banner-left .telecom:hover{ background:url(../images/left-c1.png) no-repeat #f4792c; }
+.banner-left ul .telecom .telecom-hover{ width:600px; height:460px; background:#fff1e6; position:absolute; left:120px; top:0; opacity: 0.9;}
+.banner-left ul .telecom .telecom-hover ul{ width:555px; float:left; margin-left:18px; border-bottom:1px solid #d5d5d5; padding-bottom:20px;}
+.banner-left ul .telecom .telecom-hover ul li{ float:left; margin:0; margin-top:18px; color:#333; margin-right:20px; width:auto; height:auto;}
+.banner-left ul .telecom .telecom-hover ul li a{ color:#333; padding:3px 5px; float:left; font-size:14px; background:none;}
+.banner-left ul .telecom .telecom-hover ul li a:hover{ background:#f4792c; color:#fff;}
+.banner-left ul .telecom .telecom-hover ul .current a{ background:#f4792c; color:#fff;}
+
+
+.left-hover p{ width:100%; float:left; color:#333;}
+
+/**右banner侧**/
+.banner-right{ width:290px; height:460px;position:absolute; right:10px;  top:136px; z-index:3}
+/**快充**/
+.fast-charge{ width:290px; float:left; height:216px; background:#fff; margin-top:25px; padding:0 20px;}
+.charge-title{ width:100%; float:left; border-bottom:1px solid #e6e6e6; margin-top:16px; padding-bottom:6px;}
+.charge-title ul{ float: left;}
+.charge-title ul li{ float:left;}
+.charge-title ul li a{ color:#333; font-size:16px; margin-right:16px;}
+.charge-title ul .current{ border-bottom:2px solid #f4792c; padding-bottom:9px; }
+.charge-list{ width:100%; float:left; margin-top:10px;}
+.charge-list ul{ width:100%;}
+.charge-list ul li{ float:left; width:100%; margin-bottom:8px;}
+.charge-list ul .congz p{ float:left;}
+.charge-list ul .congz{}
+.charge-list ul .congz .se-mar{ margin-left:6px;}
+.charge-list ul .word{}
+.charge-list ul .word span{ color:#d4251f;}
+/**公告促销**/
+.notice{width:290px; height:190px; float:left; background:#fff; margin-top:12px; padding:0 20px;}
+.notice-title{ width:100%; float:left; border-bottom:1px solid #e6e6e6; margin-top:16px; height:30px;}
+.notice-title ul{ float: left; width:100%;}
+.notice-title ul li{ float:left; font-size:16px; color:#333;}
+.notice-title ul .right{ float:right;}
+.notice-title ul li a{ font-size:14px; color:#333;}
+.notice-title ul .word{border-bottom:2px solid #f4792c; padding-bottom:4px;}
+.notice-list{ width:100%; float:left;}
+.notice-list ul{ width:100%; float:left; margin-top:10px;}
+.notice-list ul li{ float:left; line-height:30px;}
+.notice-list ul li a{ font-size:12px; color:#333;}
+.notice-list ul li a:hover{ color:#f4792c;}
+
+/**small banner**/
+.small-banner{ width:100%; background:#fff;height:154px; display:inline-block;}
+.small-banner p{ width:1200px; margin:0  auto; margin-top:18px;}
+
+/**图片列表**/
+.plist{ width:1200px; margin:0 auto;margin-top:30px;}
+/**图片列表左侧**/
+.plist-left{ width:224px;float:left;}
+.plist-left-title{ width:100%; float:left; color:#333; font-size:24px; height:45px;}
+.plist-left-list{ width:100%; float:left;}
+.plist-left-list p{ float:left; height:293px; width:100%;}
+.plist-left-list .mar-img{margin-top:20px;}
+/**图片列表右侧**/
+.plist-right{ width:976px;float:left;height: 660px;}
+.plist-right-title,.plist-right-title-tow{ width:100%; float:left; height:45px;}
+.plist-right-title ul,.plist-right-title-tow ul{float:right;}
+.plist-right-title ul li,.plist-right-title-tow ul li{ float:left; margin-right:12px;}
+.plist-right-title ul li a,.plist-right-title-tow ul li a{ color:#333;}
+.plist-right-title ul li .current,.plist-right-title-tow ul li .current{ background:#f4792c; padding:5px 8px; color:#fff;}
+/**{ width:100%; float:left; height:45px;}**/
+.plist-right-title ul{ float:right;}
+.plist-right-title ul li{ float:left; margin-right:12px;}
+.plist-right-title ul li a{ color:#333;}
+.plist-right-title ul li .current{ background:#f4792c; padding:5px 8px; color:#fff;}
+.plist-right-list{ width:100%; float:left;}
+.plist-right-list ul{ width:230px; height:293px; float:left;background:#fafafa;padding:0 12px; }
+.plist-right-list a{ width:230px;height:313px;float:left;margin-left:14px;}
+.plist-right-list ul:hover{margin-top:-5px;float:left;-webkit-box-shadow:3px 3px 3px #e2dcdc;-moz-box-shadow:3px 3px 3px #e2dcdc;box-shadow: 3px 3px 3px #e2dcdc;  }
+
+.plist-right-list ul li{text-align:center; line-height:25px; font-size:16px;}
+.plist-right-list ul img{ margin-top:20px; width:140px; height:140px;}
+.plist-right-list ul .ash{ color:#7c7c7c;}
+.plist-right-list ul .dred{ color:#f4792c;text-align:center;margin-top:10px;}
+.plist-right-list ul .dred img{ width:64px; height:64px;}
+.plist-right-list ul .tit{height:40px;margin-top:30px; color:#333; text-align:left;}
+.plist-right-list ul .tit1{ margin-top:70px; color:#333; font-size:24px;}
+/**推荐**/
+.recommend{width:1200px;margin:0 auto; margin-top:30px;}
+.recommend-title{ width:100%; float:left;}
+.recommend-title ul{ width:100%; float:left;}
+.recommend-title ul li{ float:left;}
+.recommend-title ul .right{ float:right; margin:8px 10px 0 0;}
+.recommend-title ul .word{ color:#333; font-size:24px;}
+.recommend-title ul .right a{ font-size:14px; color:#333;}
+.recommend-title ul .right i{ color:#cac8c8; margin-left:4px;}
+.recommend-list{ width:100%; float:left; margin-top:13px;}
+.recommend-list ul{ width:292px; height:320px; float:left;background:#fff; padding:0 20px; }
+.recommend-list a{ width:292px;height:343px;float:left; margin-left:10px;}
+.recommend-list ul:hover{margin-top:-5px;float:left;-webkit-box-shadow:3px 3px 3px #e2dcdc;-moz-box-shadow:3px 3px 3px #e2dcdc;box-shadow: 3px 3px 3px #e2dcdc; }
+.recommend-list  .mar-none{ margin-left:0px;}
+.recommend-list ul li{ width:100%;ine-height:28px; color:#333; text-align:center;}
+.recommend-list ul .word{ margin-top:30px; font-size:18px; text-align:left;height:50px;}
+.recommend-list ul .ash{ font-size:14px; color:#7c7c7c;text-align:left;}
+.recommend-list ul .dred{ font-size:18px; color:#e3020c;text-align:left;}
+.recommend-list ul li img{ text-align:center; width:140px; height:140px;}
+
+/**首页充值流量边框**/
+.int-border{width:235px;float:left; border:1px solid #e7e7e7; height:30px;font-size:12px;line-height:30px;padding-right:4px;}
+.int-dex-none{width:105px; height:28px; float:left;border:none; padding:0 4px;font-size:12px;}
+.charge-list ul .int-border .word{width:135px;float:left; text-align:right;}
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans	
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://code.alibabatech.com/schema/dubbo  
+        http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+	">
+
+	<bean id="dubboConfig"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="order" value="1" />
+		<property name="ignoreUnresolvablePlaceholders" value="true" />
+		<property name="locations" value="classpath:dubbo.properties" />
+	</bean>
+
+	<!-- 消费方 -->
+	<dubbo:application name="${dubbo.appname}" />
+	<dubbo:registry protocol="${dubbo.registry.protocol}"
+		address="${baas.dubbo.registry.address}" id="baasRegistry" />
+	<dubbo:consumer timeout="${dubbo.provider.timeout}" />
+
+	<context:component-scan base-package="com.ai.ch" />
+
+	
+
+	<!-- 商品查询服务 -->
+	<dubbo:reference id="iSearchProductSV"
+		interface="com.ai.slp.product.api.webfront.interfaces.ISearchProductSV" />
+
+	<dubbo:reference id="iProductDetailSV"
+		interface="com.ai.slp.product.api.webfront.interfaces.IProductDetailSV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="iProductHomeSV"
+		interface="com.ai.slp.product.api.webfront.interfaces.IProductHomeSV"
+		registry="baasRegistry" />
+
+	
+	<!-- 地区查询 -->
+	<dubbo:reference id="iGnAreaQuerySV"
+		interface="com.ai.slp.common.api.area.interfaces.IGnAreaQuerySV" />
+	<!-- 缓存 -->
+	<dubbo:reference id="iCacheSV"
+		interface="com.ai.slp.common.api.cache.interfaces.ICacheSV" />
+	
+	<!-- 商品类目 -->
+	<dubbo:reference id="iProductCatSV"
+		interface="com.ai.slp.product.api.productcat.interfaces.IProductCatSV" />
+	<!-- 行业类型 -->
+	<dubbo:reference id="iIndustrySV"
+		interface="com.ai.slp.common.api.industry.interfaces.IIndustrySV" />
+	<!-- 路由管理 -->
+	<dubbo:reference id="routeManageSV"
+		interface="com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV" />
+	
+</beans>
