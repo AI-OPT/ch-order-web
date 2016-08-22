@@ -28,10 +28,20 @@
 
 	<context:component-scan base-package="com.ai.ch" />
 
-	
+	<dubbo:reference id="iAccountManageSV"
+		interface="com.ai.opt.uac.api.account.interfaces.IAccountManageSV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="iIndustryManageSV"
+		interface="com.ai.opt.uac.api.account.interfaces.IIndustryManageSV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="iTenantManageSV"
+		interface="com.ai.opt.uac.api.account.interfaces.ITenantManageSV"
+		registry="baasRegistry" />
 
 	<!-- 商品查询服务 -->
-	<dubbo:reference id="iSearchProductSV"
+<!-- 	<dubbo:reference id="iSearchProductSV"
 		interface="com.ai.slp.product.api.webfront.interfaces.ISearchProductSV" />
 
 	<dubbo:reference id="iProductDetailSV"
@@ -42,22 +52,77 @@
 		interface="com.ai.slp.product.api.webfront.interfaces.IProductHomeSV"
 		registry="baasRegistry" />
 
-	
-	<!-- 地区查询 -->
+	购物车
+	<dubbo:reference id="iShopCartSV"
+		interface="com.ai.slp.order.api.shopcart.interfaces.IShopCartSV"
+		registry="baasRegistry" />
+
+	订单查询
+	<dubbo:reference id="iOrderListSV"
+		interface="com.ai.slp.order.api.orderlist.interfaces.IOrderListSV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="iUcUserSV"
+		interface="com.ai.slp.user.api.ucuser.intefaces.IUcUserSV" registry="baasRegistry" />
+
+	<dubbo:reference id="iUcKeyInfoSV"
+		interface="com.ai.slp.user.api.keyinfo.interfaces.IUcKeyInfoSV"
+		registry="baasRegistry" />
+		
+		银行信息
+	<dubbo:reference id="iUcBankInfoSV"
+		interface="com.ai.slp.user.api.bankinfo.interfaces.IUcBankInfoSV"
+		registry="baasRegistry" />
+		
+	联系人信息
+	<dubbo:reference id="iUcContactsInfoSV"
+		interface="com.ai.slp.user.api.contactsinfo.interfaces.IUcContactsInfoSV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="IUcUserSecurityManageSV"
+		interface="com.ai.slp.user.api.ucUserSecurity.interfaces.IUcUserSecurityManageSV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="iOrderPaySV"
+		interface="com.ai.slp.order.api.orderpay.interfaces.IOrderPaySV"
+		registry="baasRegistry" />
+
+	<dubbo:reference id="iCreateSeqSV"
+		interface="com.ai.slp.user.api.seq.interfaces.ICreateSeqSV" />
+
+	<dubbo:reference id="sMSServices"
+		interface="com.ai.runner.center.mmp.api.manager.interfaces.SMSServices" />
+
+	<dubbo:reference id="iRegisterSV"
+		interface="com.ai.slp.user.api.register.interfaces.IRegisterSV" />
+
+	<dubbo:reference id="iUserPhoneBooksSV"
+		interface="com.ai.slp.user.api.ucuserphonebooks.interfaces.IUserPhoneBooksSV" />
+
+	地区查询
 	<dubbo:reference id="iGnAreaQuerySV"
 		interface="com.ai.slp.common.api.area.interfaces.IGnAreaQuerySV" />
-	<!-- 缓存 -->
+	缓存
 	<dubbo:reference id="iCacheSV"
 		interface="com.ai.slp.common.api.cache.interfaces.ICacheSV" />
-	
-	<!-- 商品类目 -->
-	<dubbo:reference id="iProductCatSV"
-		interface="com.ai.slp.product.api.productcat.interfaces.IProductCatSV" />
-	<!-- 行业类型 -->
-	<dubbo:reference id="iIndustrySV"
-		interface="com.ai.slp.common.api.industry.interfaces.IIndustrySV" />
-	<!-- 路由管理 -->
-	<dubbo:reference id="routeManageSV"
-		interface="com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV" />
-	
+	根据手机号查询
+	<dubbo:reference id="iServiceNumSV"
+		interface="com.ai.slp.common.api.servicenum.interfaces.IServiceNumSV" />
+
+	<dubbo:reference id="iFundQuerySV"
+		interface="com.ai.slp.balance.api.fundquery.interfaces.IFundQuerySV" />
+
+	<dubbo:reference id="iPaymentQuerySV"
+		interface="com.ai.slp.charge.api.paymentquery.interfaces.IPaymentQuerySV" />
+	<dubbo:reference id="iOrderTradeCenterSV"
+		interface="com.ai.slp.order.api.ordertradecenter.interfaces.IOrderTradeCenterSV" /> -->
+	<!-- 订单查询 -->
+	<dubbo:reference id="iOrderListSV"
+		interface="com.ai.slp.order.api.orderlist.interfaces.IOrderListSV"
+		registry="baasRegistry" />
+		
+	<dubbo:reference id="deliveryOrderPrintSV"
+		interface="com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV" />
+	<dubbo:reference id="iInvoicePrintSV"
+		interface="com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV" />
 </beans>
