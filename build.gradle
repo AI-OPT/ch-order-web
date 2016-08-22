@@ -91,7 +91,12 @@ dependencies {
     compile 'com.ai.slp.product:webfront:1.1-SNAPSHOT'
     
     compile 'com.ai.slp.route:routemanage:1.0-SNAPSHOT'
-	
+
+    //订单
+    compile 'com.ai.slp.order:deliveryorderprint:1.01-SNAPSHOT'
+    compile 'com.ai.slp.order:invoiceprint:1.01-SNAPSHOT'
+    compile 'com.ai.slp.order:orderlist:1.01-SNAPSHOT'
+
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
             "junit:junit:4.12"
