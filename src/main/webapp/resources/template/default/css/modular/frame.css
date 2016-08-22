@@ -6988,7 +6988,7 @@ svg {
 #elem{width:65%;height:56px;overflow:hidden; float:left;}
 
 /**查询条件**/
-.form-label{width:100%;display:inline-block;padding:0px 0  10px 20px;}
+.form-label{width:100%;display:inline-block;padding:0px 0  10px 0px;}
 .form-label ul{width:100%;display:inline-block;margin-bottom:0;}
 .form-label ul li{height:auto;font-size:14px;float:left;line-height:30px;margin-top: 10px; }
 .form-label ul li p{float:left;margin-right:10px;position:relative;margin-bottom:0px;}
