@@ -125,4 +125,9 @@
 		interface="com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV" />
 	<dubbo:reference id="iInvoicePrintSV"
 		interface="com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV" />
+		
+	<dubbo:reference id="orderRuleSV"
+		interface="com.ai.slp.order.api.orderrule.interfaces.IOrderRuleSV" />
+		
+			
 </beans>
