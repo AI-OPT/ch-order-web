@@ -39,7 +39,7 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
     	},
     	_orderRuleSetting:function(){
     		var data = $("#orderRuleSettingForm").serialize();
-    		alert(data);
+    		//alert(data);
     		ajaxController.ajax({
 					type: "POST",
 					dataType: "text",
