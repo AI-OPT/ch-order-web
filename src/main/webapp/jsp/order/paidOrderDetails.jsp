@@ -30,17 +30,17 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p>代理商订单</p>
+					                    <p>${orderInfos.chlId}</p>
 					                </li>
 					               	<li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p>流量充值订单（直充类）</p>
+					                    <p>${orderInfos.orderType}</p>
 					                </li> 
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库ID：</p>
-					                    <p>111111</p>
+					                    <p>${orderInfos.routeId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
@@ -69,71 +69,43 @@
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
-							                			<span>20103910019301</span>
+							                			<span>${orderInfos.parentOrderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>——&nbsp;</span>
-							                			<span>微信支付</span>
+							                			<span>${orderInfos.payStyleName}</span>
 							                		</p>
 							                	</div>
 							                	<div>
 							                		<p>
 							                			<span>子（商家平台）订单号:</span>
-							                			<span>20103910019301</span>
+							                			<span>${orderInfos.orderId }</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
-							                			<span>20103910019301</span>
+							                			<span>${orderInfos.balacneIfId }</span>
 							                		</p>	
 							                	</div>
 							                </td>
 						              </tr>
+						              <c:forEach var="prod" items="${orderInfos.productList}">
 							          <tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">
 							                         <tr>
 							                             <td><img src=""></td>
-							                             <td class="word"><a href="#">中国移动全国通用1G流量包半年包111111111111111111111</a></td>	
+							                             <td class="word"><a href="#">${prod.prodName}</a></td>	
 							                         </tr>
 							                      </table>
 							                 </td>
-							                <td>5.2元/件</td>
-							                <td>2016-06-11</td>
+							                <td>${prod.salePrice}元/件</td>
+							                <td>${orderInfos.orderTime}</td>
 							                <td></td>
-							                <td class="color-red">交易完成</td>
-							                <td>30.00</td>
-							                <td>2.00</td>
+							                <td>${prod.state }</td>
+							                <td>${prod.adjustFee }</td>
+							                <td>${prod.discountFee }</td>
 						              </tr> 
-						              <tr>
-							                 <td class="sp"  width="45%">
-							                      <table width="100%" border="0">
-							                         <tr>
-							                             <td><img src=""></td>
-							                             <td class="word"><a href="#">中国移动全国通用1G流量包半年包中国移动全国通用1G流量包半年包中国移动全国通用1G流量包半年包</a></td>	
-							                         </tr>
-							                      </table>
-							                 </td>
-							                <td>5.2元/件</td>
-							                <td>2016-06-11</td>
-							                <td></td>
-							                <td class="color-red">交易完成</td>
-							                <td>30.00</td>
-							                <td>2.00</td>
-						              </tr> 
-						              <tr class="bj-f3">
-							                <td class="tl" colspan="7">
-							                	<div>
-							                		<p>
-							                			<span>库存ID:</span>
-							                			<span>123456</span>
-							                		</p>
-							                		<p>
-							                			<span>库存名称:</span>
-							                			<span>北京中关村</span>
-							                		</p>	
-							                	</div>
-							                </td>
-						              </tr>
+						              </c:forEach>
                                     </tbody>
                                     </table>
                                
@@ -146,38 +118,39 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p>章叁</p>
+					                    <p>${orderInfos.userId}</p>
 					                </li>
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>
-					                    <p>玉姐</p>
+					                    <p>${orderInfos.contactName}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
-					                    <p>1529172791</p>
+					                    <p>${orderInfos.contactTel }</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
-					                    <p>北京市 海淀区 西北旺路中关村软件园二期亚信大厦, 贺英灿, 18058102226</p>
+					                    <p>${orderInfos.provinceCode}${orderInfos.cityCode }${orderInfos.countyCode}
+					                    ${orderInfos.address },${orderInfos.contactName},${orderInfos.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家留言：</p>
-					                    <p>.....</p>
+					                    <p>${orderInfos.remark }</p>
 					                </li>
 					            </ul>
 					  	</div>
 					  		 <div class="bc-ang mb-10">
-					  		 <input type="hidden" id="orderId" value="111">
+					  		 <input type="hidden" id="orderId" value="${orderInfos.orderId }">
 					  		 <c:choose>
-					       <c:when test="${state==14}">
+					       <c:when test="${orderInfos.state!=13}">
 					       		 <input type="button" class="btn btn-primary" disabled="disabled"
 					  		 onclick="pager._queryDeliveryOrder();"  value="打印提货单">
 					       </c:when>
