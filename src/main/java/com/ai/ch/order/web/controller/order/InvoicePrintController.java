@@ -11,24 +11,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SLPClientUser;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
-import com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintRequest;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintResponse;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderQueryResponse;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
 import com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV;
 import com.ai.slp.order.api.invoiceprint.param.InvoicePrintInfosRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoicePrintRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoicePrintResponse;
 import com.ai.slp.order.api.invoiceprint.param.InvoicePrintVo;
 import com.alibaba.fastjson.JSON;
-import com.esotericsoftware.minlog.Log;
 
 @Controller
 @RequestMapping("/invoice")
@@ -45,7 +38,6 @@ public class InvoicePrintController {
 		/*	SLPClientUser user = (SLPClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			if (user==null)
 			    throw new BusinessException("","请先登录");*/
-			
 			req.setOrderId(35913355l);
 			req.setTenantId("SLP");
 			IInvoicePrintSV iInvoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
@@ -77,7 +69,6 @@ public class InvoicePrintController {
 			req.setOrderId(Long.valueOf(orderId));
 			req.setInvoicePrintVos(invoicePrintVos);
 			req.setTenantId("SLP");
-		//	req.setInvoiceDate(invoiceDate);
 			IInvoicePrintSV invoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
 			BaseResponse response = invoicePrintSV.print(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
@@ -87,9 +78,7 @@ public class InvoicePrintController {
 			}
 		} catch (Exception e) {			responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "打印出错,出现未知异常");
 			LOG.error("打印信息出错",e);
-		} finally {
 		}
 		return responseData;
 	}
-	
 }
