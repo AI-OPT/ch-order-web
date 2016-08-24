@@ -71,11 +71,13 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 				var extendInfo=$("#"+i+"_extendInfo").text();
 				var salePrice=$("#"+i+"_salePrice").text();
 				var buySum=$("#"+i+"_buySum").text();
-				var prodObj = {"skuId":skuId,"prodName":prodName,"extendInfo":extendInfo,"salePrice":salePrice,"buySum":buySum};
+				var horOrderId=$("#"+i+"_horOrderId").text();
+				var prodObj = {"skuId":skuId,"prodName":prodName,"extendInfo":extendInfo,
+						"salePrice":salePrice,"buySum":buySum,"horOrderId":horOrderId};
 				orderInfo.push(prodObj);
 			 })
 			var _orderInfos=JSON.stringify(orderInfo);
-			var _orderId = $('#orignOrderId').html();
+			var _orderId = $('#invoiceId').html();
 			ajaxController.ajax({
 				type : "POST",
 				url :_base+"/invoice/print",
