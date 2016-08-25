@@ -62,6 +62,7 @@
 <script src="${uedroot}/scripts/modular/scripts.js"></script>
 <!--日期-->
 <script src="${uedroot}/scripts/date/WdatePicker.js"></script>
+<script src="${uedroot}/scripts/My97DatePicker/WdatePicker.js"></script>
 <!--ztree-->
 <script src="${uedroot}/scripts/ztree/jquery-1.4.4.min.js"></script>  
 <script src="${uedroot}/scripts/ztree/jquery.ztree.core-3.2.min.js"></script>  

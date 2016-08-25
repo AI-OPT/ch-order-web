@@ -64,7 +64,7 @@ dependencies {
     }
 
 
-	compile 'com.ai.opt.sdk:opt-sdk:2.0-SNAPSHOT'
+	compile 'com.ai.opt.sdk:opt-sdk:2.2-SNAPSHOT'
 	compile 'com.ai.opt.xss.filter:opt-xss-firewall:1.0-SNAPSHOT'
 	compile 'com.ai.opt.uni.session:opt-uni-session:2.0-SNAPSHOT'
 	compile 'com.ai.opt.sso.client:opt-sso-client:1.0.2-SNAPSHOT'
@@ -96,7 +96,7 @@ dependencies {
     compile 'com.ai.slp.order:deliveryorderprint:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:invoiceprint:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:orderlist:1.01-SNAPSHOT'
-    
+    compile 'com.ai.slp.order:aftersaleorder:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:orderrule:1.0.1-SNAPSHOT'
 
     testCompile(
