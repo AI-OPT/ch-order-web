@@ -44,205 +44,18 @@
                                                 <th>详情</th>
                                             </tr>
                                         </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td> up平台</td>
-                                            <td>3123231</td>
-                                            <td>北京八方达公司</td>
-                                            <td>13989890011</td>
-                                            <td>20优惠卷</td>
-                                            <td>bella</td>
-                                            <td>积分12</td>
-                                           <td>优惠12</td>
-                                           <td>实付12</td>
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">全国移动</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >全国移动</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >全国移动</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">待付款</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >待付款</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >待付款</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">3223</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >4321</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >4123</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">3223</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >4321</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >4123</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                             <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style=""><a href="${_base}/backFirstDetail" target="mainFrame">订单详情（退货申请）</a></td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" ><a href="${_base}/changeFirstDetail" target="mainFrame">订单详情（换货申请）</a></td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" ><a href="#">订单详情</a></td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                   <tbody>
-                                        <tr>
-                                        		<td> up平台</td>
-                                            <td>3123231</td>
-                                            <td>北京八方达公司</td>
-                                            <td>13989890011</td>
-                                            <td>20优惠卷</td>
-                                            <td>bella</td>
-                                             <td>积分12</td>
-                                           <td>优惠12</td>
-                                            <td>实付款12</td>
-                                           
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">全国移动</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >全国移动</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >全国移动</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">待付款</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >待付款</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >待付款</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                             <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">3223</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >4321</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >4123</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                            <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style="">3223</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" >4321</td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" >4123</td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                             <td>
-                                            	 <table class="table close-border" width="100%">
-                                            	<tbody>
-                                            		<tr>
-                                            		<td class="new-td" style=""><a href="#">订单详情</a></td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td" ><a href="#">订单详情</a></td>	
-                                            		</tr>
-                                            		<tr>
-                                            		<td class="new-td bot-none" ><a href="#">订单详情</a></td>	
-                                            		</tr>
-                                            	</tbody>	
-                                            	</table>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                   
+	                                     <tbody id="paidData"></tbody>
                                     </table>
-                               
                                 </div>
-                           
                            <!--/table表格结束-->
                                 </div>
-                                	<!--/table表格结束-->
                                 <!--分页-->
-                                
-                                
-                                <div class="paging">
-                            		<ul class="pagination">
-									<li class="disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-								</ul>
-								</div>
+								 <div>
+					 				 <nav style="text-align: right">
+										<ul id="pagination">
+										</ul>
+									</nav>
+								  </div>
 								<!--分页结束-->
                             </div>
                         </div>
@@ -250,6 +63,34 @@
                 </div>
             </div>
     	</div>
-   </div>      
+   </div>
+   	<script id="paidTemple" type="text/template">
+				<tr>
+		   				<td>{{:chlId}}</td>
+		   				<td>{{:parentOrderId}}</td>
+						<td>{{:userId}}</td>
+						<td>XXXXX</td>
+		   				<td>{{:contactTel}}</td>
+						<td>XXXX</td>
+						<td>XXXX</td>
+						<td>{{:discountFee}}</td>
+						<td>{{:~liToYuan(adjustFee)}}</td>
+						<td>{{:orderId}}</td>
+						<td>{{:deliveryFlag}}</td>
+
+						<td>{{:contactTel}}</td>
+						<td>{{:stateName}}</td>
+						<td>查看详情 </td>
+					</tr>
+  </script> 
+   <script type="text/javascript">
+			var pager;
+			(function () {
+				seajs.use('app/jsp/order/paidOrderList', function (paidOrderPager) {
+					pager = new paidOrderPager({element: document.body});
+					pager.render();
+				});
+			})();
+ </script>       
 </body>
 </html>

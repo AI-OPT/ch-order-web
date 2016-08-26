@@ -33,13 +33,13 @@
 					           <ul>
 					                <li class="col-md-6">
 					                    <p class="word">开始时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker()"/>
+					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker()" id="orderTimeBegin" name="orderTimeBegin"/>
 					                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 					                    </p>
 					                </li>
 					                <li class="col-md-6">
 					                    <p class="word">结束时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker()"/>
+					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker()" id="orderTimeEnd" name="orderTimeEnd"/>
 					                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 					                    </p>
 					                </li>  
@@ -47,8 +47,8 @@
 								<ul>
 								 	<li class="col-md-6">
 					                    <p class="word">关键字</p>
-					                    <p><input name="control_date" class="int-text int-medium " value="订单号"type="text"/></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					                    <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="搜索"></p>
+					                    <p><input name="control_date" class="int-text int-medium"id="orderId" name="orderId" value="订单号"type="text"/></p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					                    <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="搜索" id="search"></p>
 					                </li>
 					                <li >
 					                	<p> 高级搜索<img id="showQuery" src="${uedroot}/images/daosanjiao.png"/></p>
@@ -59,10 +59,8 @@
 						            <li class="col-md-4">用户名<input class="int-text int-medium" type="text" value="用户名"></li>
 						            	<li class="col-md-4">
 						            		订单来源
-						            		<select class="select select-medium">
-						            			<option>苏宁</option>
-						            			<option>京东</option>
-						            			<option>淘宝</option>
+						            		<select class="select select-medium" id="orderSource">
+						            			<option>请选择</option>
 						            		</select>
 						            	</li>
 						            	<li class="col-md-4">
@@ -78,9 +76,8 @@
 						            	<li class="col-md-4">收货人手机号<input class="int-text int-medium" type="text" value="手机号"></li>
 						            	<li class="col-md-4">
 						            		是否需要物流
-						            		<select class="select select-small">
-						            			<option>是</option>
-						            			<option>否</option>
+						            		<select class="select select-small" id="deliveryFlag">
+						            			<option>请选择</option>
 						            		</select>
 						            	</li>
 						            	<li> <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="搜索"></p></li>

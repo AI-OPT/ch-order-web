@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<<meta charset="UTF-8"/>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>查询列表</title>
@@ -189,7 +189,6 @@
 							                	<p class="word"><span>*</span>拒绝理由:</p>
 							                    <p class="word"><textarea id="refuseInfo" rows="7" cols="32" class="int-text"></textarea></p>
 							                </li>
-							                
 						            	</ul>
 								    </div>	
 										<!--按钮-->
@@ -199,7 +198,8 @@
 								                   <input id="add-close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5 edit-close" value="取  消">
 								                </p>
 								        </div>
-								</div>	
+								</div>
+								<div class="mask" id="eject-mask"></div>		
 								<!-- 换货理由end -->
                        </div>	
                    </div>

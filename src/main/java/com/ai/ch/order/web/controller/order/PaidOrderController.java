@@ -14,12 +14,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.opt.base.vo.BaseResponse;
+import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV;
 import com.ai.slp.order.api.ordercheck.param.OrderCheckRequest;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
+import com.ai.slp.order.api.orderlist.param.BehindOrdOrderVo;
+import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
+import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListResponse;
 import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
@@ -53,6 +57,42 @@ public class PaidOrderController {
 
 		return new ModelAndView("jsp/order/backGoodsSecond");
 	}
+	
+	
+	
+	/**
+     * 数据查询
+     * @param request
+     * @return
+     */
+    @RequestMapping("/getPaidOrderData")
+    public ResponseData<PageInfo<BehindOrdOrderVo>> getList(HttpServletRequest request,BehindQueryOrderListRequest req){
+        //HttpSession session = request.getSession();
+        //SSOClientUser user = (SSOClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+        IOrderListSV iQueryImportLogSV = DubboConsumerFactory.getService(IOrderListSV.class);
+        ResponseData<PageInfo<BehindOrdOrderVo>> responseData = null;
+       // req.setTenantId(user.getTenantId());
+        req.setTenantId("SLP");
+        req.setUserId("2000000978695921l");
+        String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
+        String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
+        try {
+            req.setPageNo(Integer.parseInt(strPageNo));
+            req.setPageSize(Integer.parseInt(strPageSize));
+            BehindQueryOrderListResponse resultInfo = iQueryImportLogSV.behindQueryOrderList(req);
+            PageInfo<BehindOrdOrderVo> result= resultInfo.getPageInfo();
+            responseData = new ResponseData<PageInfo<BehindOrdOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
+        } catch (Exception e) {
+            responseData = new ResponseData<PageInfo<BehindOrdOrderVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
+            LOG.error("获取信息出错：", e);
+        }
+        return responseData;
+    }
+	
+	
+	
+	
+	
 	@RequestMapping("/changeFirstDetail")
 	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId) {
 		Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();

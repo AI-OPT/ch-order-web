@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<<meta charset="UTF-8"/>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>查询列表</title>
@@ -186,8 +186,8 @@
                             	</li>
                             </ul>
                             </div>
-                            <!-- 退货理由start -->
-                             <div class="eject-samll" id="add-samll">
+                             <!-- 拒绝退货理由 start-->
+                            	 <div class="eject-samll" id="add-samll">
 									<div class="form-label mt-20">
 						           		<ul>
 							                <li>
@@ -204,11 +204,9 @@
 								                   <input id="add-close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5 edit-close" value="取  消">
 								                </p>
 								        </div>
-								</div>	
-								<div class="eject-mask" id="eject-mask"></div>
-								<div class="eject-big">	
-                            <!-- 换货理由end -->
-                       </div>	
+								</div>
+								<div class="mask" id="eject-mask"></div>		
+                            <!--  拒绝退货理由end-->
                    </div>
                 </div>
               </div> 

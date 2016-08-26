@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<<meta charset="UTF-8"/>
+<meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>查询列表</title>
@@ -203,13 +203,68 @@
                             		<p>
                              			<input type="button" class="biu-btn btn-primary btn-blue btn-small " value="同意退款 ">
                              			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             			<input type="button" class="biu-btn btn-primary btn-blue btn-small " value="退款金额修改">
+                             			<input type="button" class="biu-btn btn-primary btn-blue  btn-medium " id="edit" value="退款金额修改">
                              			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             			<input type="button" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退款">
+                             			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退款">
                              		</p>
                             	</li>
                             </ul>
                             </div>
+                            <!-- 拒绝退款理由 start-->
+                            <div class="eject-big">
+                            	 <div class="eject-samll" id="add-samll">
+									<div class="form-label mt-20">
+						           		<ul>
+							                <li>
+							                	<p class="word"><span>*</span>拒绝理由:</p>
+							                    <p class="word"><textarea id="refuseMoneyInfo" rows="7" cols="32" class="int-text"></textarea></p>
+							                </li>
+							                
+						            	</ul>
+								    </div>	
+										<!--按钮-->
+										<div class="row mt-15"><!--删格化-->
+								               <p class="center pr-30 mt-30">
+								                   <input type="button" id="refuseBackMoney" class="biu-btn  btn-primary  btn-auto  ml-5" value="确  认">
+								                   <input id="add-close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5 edit-close" value="取  消">
+								                </p>
+								        </div>
+								</div>
+								<div class="mask" id="eject-mask"></div>
+							</div>	
+                            <!--  拒绝退款理由end-->
+                            <!--编辑名称弹出框-->
+							<div class="eject-big">
+									<div class="eject-medium" id="edit-medium">
+										<div class="eject-medium-title">
+											<p>编辑名称</p>
+											<p class="img"><i class="fa fa-times"></i></p>
+										</div>
+										<div class="form-label">
+							           		<ul>
+								                <li>
+								                    <p class="word"><span>*</span>修改金额:</p>
+								                    <p><input type="text" class="int-text int-medium" value="不能多余用户申请金额" id="updateMoneyData"></p>
+								                    </li>
+								                <li>
+								                	<p class="word"><span>*</span>修改理由:</p>
+								                    <p>
+										 				<textarea id="updateMoneyInfo" rows="7" cols="32" class="int-text"></textarea>
+										 			</p>
+								                </li>
+							            	</ul>
+							      	    </div>
+											<!--按钮-->
+										<div class="row mt-15"><!--删格化-->
+											 <p class="right pr-30">
+												<input type="button" class="biu-btn  btn-primary  btn-auto  ml-5" id="updateMoney" value="确  认">
+												<input id="edit-close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5" value="取  消">
+											 </p>
+										 </div>
+									</div>	
+									<div class="mask" id="eject-mask"></div>	
+							</div>
+							<!--编辑名称弹出框 结束-->	
                        </div>	
                    </div>
                 </div>
@@ -217,5 +272,14 @@
           </div>
          </div>
     </div>
+    <script type="text/javascript">
+			var pager;
+			(function () {
+				seajs.use('app/jsp/order/backGoodSecond', function (backSecondPager) {
+					pager = new backSecondPager({element: document.body});
+					pager.render();
+				});
+			})();
+ </script>   
 </body>
 </html>

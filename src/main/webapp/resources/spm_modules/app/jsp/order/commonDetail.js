@@ -27,6 +27,7 @@ define('app/jsp/order/commonDetail', function (require, exports, module) {
     	//重写父类
     	setup: function () {
     		commonPager.superclass.setup.call(this);
+    		this._bindSelect();
     	},
 		
 		_showQueryInfo: function(){
@@ -37,6 +38,30 @@ define('app/jsp/order/commonDetail', function (require, exports, module) {
 		    }else{
 		    	$("#queryInfo").hide();
 		    }
+		},
+		
+		// 下拉
+		_bindSelect : function() {
+			var this_=this;
+				$.ajax({
+					type : "post",
+					processing : false,
+					url : _base+ "/getSelect",
+					dataType : "json",
+					data : {
+						paramCode:"ORD_LOGISTICS_FLAG",
+						typeCode:"ORD_ORDER"
+						},
+					message : "正在加载数据..",
+					success : function(data) {
+						var d=data.data;
+						$.each(d,function(index,item){
+							var paramName = d[index].columnDesc;
+							var paramCode = d[index].columnValue;
+							$("#deliveryFlag").append('<option value="'+paramCode+'">'+paramName+'</option>');
+						})
+					}
+				});
 		}
     });
     
