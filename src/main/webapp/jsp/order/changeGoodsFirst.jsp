@@ -36,7 +36,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p>XXXXX</p>
+					                    <p>${order.routeName}</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -88,11 +88,11 @@
 							                 </td>
 							                <td>${sp.salePrice}/件</td>
 							                <td>${order.orderTime}</td>
-							                <td>xxxxx</td>
+							                <td>${order.busiCode}</td>
 							                <td class="color-red">${order.stateName}</td>
 							                <td>${sp.adjustFee}</td>
 							                <td>${sp.operDiscountFee}</td>
-							                 <td>XXXXX</td>
+							                 <td>${sp.integral}</td>
 						              </tr>
 						             </c:forEach>
                                     </tbody>
@@ -104,11 +104,11 @@
                             	<ul>
                             		<li class="col-md-3">
                             			<p class="word">售后订单号：</p>
-                            			<p >YYYY</p>
+                            			<p >${order.orderId}</p>
                             		</li>
                             		<li class="col-md-3">
 	                            		<p class="word">原始订单号：</p>
-	                            		<p >YYYY</p>
+	                            		<p >${order.origOrderId}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -135,7 +135,7 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">支付账号：</p>
-                            			<p>XXXXXXX</p>
+                            			<p>${order.acctId}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -147,22 +147,20 @@
                             	<ul>
                             		<li class="col-md-2"><p class="word"><h2>售后详细</h2></p></li>
                             	</ul>
-								<c:forEach items="${order.payDataList}" var="cg">
 	                            	<ul>
 	                            		<li class="col-md-3">
 	                            			<p class="word">子订单号：</p>
-	                            			<p>XXX</p>
+	                            			<p>${order.orderId}</p>
 	                            		</li>
 	                            		<li class="col-md-3">
 	                            			<p class="word">类型：</p>
-	                            			<p>${cg.payStyleName}</p>
+	                            			<p>${order.busiCode}</p>
 	                            		</li>
 	                            		<li class="col-md-3">
 	                            			<p class="word">运费</p>
-	                            			<p>${cg.paidFee}</p>
+	                            			<p>XXXXX</p>
 	                            		</li>
 	                            	</ul>
-                            	</c:forEach>
                             	<ul>
                             		<li class="col-md-3">
                             		<p class="word">换货理由:</p>

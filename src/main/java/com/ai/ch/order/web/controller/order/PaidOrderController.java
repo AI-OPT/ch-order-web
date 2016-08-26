@@ -9,13 +9,16 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.CollectionUtil;
-import com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleSV;
-import com.ai.slp.order.api.aftersaleorder.param.OrderReturnRequest;
+import com.ai.opt.sdk.web.model.ResponseData;
+import com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV;
+import com.ai.slp.order.api.ordercheck.param.OrderCheckRequest;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
@@ -89,51 +92,39 @@ public class PaidOrderController {
 		return responseData;
 	}
 	//第一次换货点击同意调用换货服务
-	@RequestMapping("/aggreeChange")
-	public ModelAndView aggreeChange(HttpServletRequest request, String orderId) {
-		Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
+	@RequestMapping("/firstChange")
+	@ResponseBody
+	public ResponseData<String> Change(HttpServletRequest request, String orderId,String refuseInfo,boolean isRefuse) {
+		ResponseData<String> responseData = null;
+		BaseResponse base = null;
+		OrderCheckRequest req = new OrderCheckRequest();
 		try {
-			OrderReturnRequest req = new OrderReturnRequest();
-			IOrderAfterSaleSV iOrderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
+			IOrderCheckSV iOrderCheckSV = DubboConsumerFactory.getService(IOrderCheckSV.class);
 			req.setTenantId("SLP");
-			req.setProdDetalId(1232l);
 			req.setOrderId(35913355l);
-			//改变状态，跳转页面
-			iOrderAfterSaleSV.exchange(req);
-			OrdOrderVo order= getOrder(request,orderId);
-			List<OrdProductVo> proList = order.getProductList();
-			/*//获取图片
-			if (!CollectionUtil.isEmpty(proList)) {
-				for (OrdProductVo vo:proList) {
-					vo.setImageUrl(
-							ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
-				}
-			}*/
-			 model.put("order", order);
+			req.setOperId("33213");
+			//判断是拒绝还是同意换货
+			if(isRefuse==false){
+				//改变状态
+				 req.setCheckResult("1");
+				 base =  iOrderCheckSV.check(req);
+			}else{
+				 req.setCheckResult("2");
+				 req.setRemark(refuseInfo);
+				 base = iOrderCheckSV.check(req);
+			}
+			
+			if(base.getResponseHeader().getIsSuccess()==true){
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意换货成功", null);
+			}else{
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意换货失败", null);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOG.error("同意换货审核查询报错：", e);
 		}
-		return new ModelAndView("jsp/order/changeGoodsSecond", model);
+		return responseData;
 	}
-		//第一次换货点击拒绝调用换货服务
-		@RequestMapping("/refuseChange")
-		public ModelAndView refuseChange(HttpServletRequest request, String orderId,String refuseInfo) {
-			try {
-				OrderReturnRequest req = new OrderReturnRequest();
-				IOrderAfterSaleSV iOrderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
-				req.setTenantId("SLP");
-				req.setProdDetalId(1232l);
-				req.setOrderId(35913355l);
-				System.out.println("================"+refuseInfo);
-				//填写拒绝理由，跳转售后列表页面
-				iOrderAfterSaleSV.exchange(req);
-			} catch (Exception e) {
-				e.printStackTrace();
-				LOG.error("拒绝换货审核查询报错：", e);
-			}
-			return new ModelAndView("jsp/order/paidOrderList");
-		}
 		
 		
 		@RequestMapping("/backFirstDetail")
@@ -142,13 +133,13 @@ public class PaidOrderController {
 			try {
 				OrdOrderVo order= getOrder(request,orderId);
 				List<OrdProductVo> proList = order.getProductList();
-				/*//获取图片
+				//获取图片
 				if (!CollectionUtil.isEmpty(proList)) {
 					for (OrdProductVo vo:proList) {
 						vo.setImageUrl(
 								ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
 					}
-				}*/
+				}
 				 model.put("order", order);
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -156,50 +147,41 @@ public class PaidOrderController {
 			}
 			return new ModelAndView("jsp/order/backGoodsFirst", model);
 		}
+		
+		
 		//第一次换货点击同意调用换货服务
-		@RequestMapping("/aggreeBack")
-		public ModelAndView aggreeBack(HttpServletRequest request, String orderId) {
-			Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
+		@RequestMapping("/firstBack")
+		@ResponseBody
+		public ResponseData<String> Back(HttpServletRequest request, String orderId,String refuseInfo,boolean isRefuse) {
+			ResponseData<String> responseData = null;
+			BaseResponse base = null;
+			OrderCheckRequest req = new OrderCheckRequest();
 			try {
-				OrderReturnRequest req = new OrderReturnRequest();
-				IOrderAfterSaleSV iOrderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
+				IOrderCheckSV iOrderCheckSV = DubboConsumerFactory.getService(IOrderCheckSV.class);
 				req.setTenantId("SLP");
-				req.setProdDetalId(1232l);
 				req.setOrderId(35913355l);
-				//改变状态，跳转页面
-				iOrderAfterSaleSV.back(req);
-				OrdOrderVo order= getOrder(request,orderId);
-				List<OrdProductVo> proList = order.getProductList();
-				/*//获取图片
-				if (!CollectionUtil.isEmpty(proList)) {
-					for (OrdProductVo vo:proList) {
-						vo.setImageUrl(
-								ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
-					}
-				}*/
-				 model.put("order", order);
+				req.setOperId("33213");
+				//判断是拒绝还是同意换货
+				if(isRefuse==false){
+					//改变状态
+					 req.setCheckResult("1");
+					 base =  iOrderCheckSV.check(req);
+				}else{
+					 req.setCheckResult("2");
+					 req.setRemark(refuseInfo);
+					 base = iOrderCheckSV.check(req);
+				}
+				
+				if(base.getResponseHeader().getIsSuccess()==true){
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退货成功", null);
+				}else{
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退货失败", null);
+				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				LOG.error("同意换货审核查询报错：", e);
 			}
-			return new ModelAndView("jsp/order/backGoodsSecond", model);
-		}
-			//第一次换货点击拒绝调用换货服务
-			@RequestMapping("/refuseBack")
-			public ModelAndView refuseBack(HttpServletRequest request, String orderId,String refuseInfo) {
-				try {
-					OrderReturnRequest req = new OrderReturnRequest();
-					IOrderAfterSaleSV iOrderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
-					req.setTenantId("SLP");
-					req.setProdDetalId(1232l);
-					req.setOrderId(35913355l);
-					//填写拒绝理由，跳转售后列表页面
-					iOrderAfterSaleSV.back(req);
-				} catch (Exception e) {
-					e.printStackTrace();
-					LOG.error("拒绝退货审核查询报错：", e);
-				}
-				return new ModelAndView("jsp/order/paidOrderList");
-			}
-
+			return responseData;
+		}		
+		
 }

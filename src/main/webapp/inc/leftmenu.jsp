@@ -82,7 +82,26 @@
                     </ul>
                 <!--二级菜单结束-->
                 </li>
-                
+                <!-- 订单测试 start -->
+                 <li>
+                    <a href="${_base}/toUnpaidOrder " target="mainFrame" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>待付款列表</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="${_base}/toPaidOrder" target="mainFrame" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>售后列表</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="${_base}/toAlertOrder" target="mainFrame" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>预警订单</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                </li>
+                <!-- 订单测试 end -->
                 </ul>
             </div>
         </div>

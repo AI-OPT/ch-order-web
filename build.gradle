@@ -98,6 +98,7 @@ dependencies {
     compile 'com.ai.slp.order:orderlist:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:aftersaleorder:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:orderrule:1.0.1-SNAPSHOT'
+    compile 'com.ai.slp.order:ordercheck:1.01-SNAPSHOT'
 
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",

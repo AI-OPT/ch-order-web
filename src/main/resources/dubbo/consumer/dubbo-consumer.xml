@@ -128,8 +128,13 @@
 		
 	<dubbo:reference id="orderRuleSV"
 		interface="com.ai.slp.order.api.orderrule.interfaces.IOrderRuleSV" />
-		<dubbo:reference id="iOrderAfterSaleSV"
-		interface="com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleSV"
+	
+	<dubbo:reference id="iOrderAfterSaleSV"
+	interface="com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleSV"
+	registry="baasRegistry" />
+	
+	<dubbo:reference id="iOrderCheckSV"
+		interface="com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV"
 		registry="baasRegistry" />
 			
 </beans>
