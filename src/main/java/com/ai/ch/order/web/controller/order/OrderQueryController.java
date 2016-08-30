@@ -1,5 +1,7 @@
 package com.ai.ch.order.web.controller.order;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -8,10 +10,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.opt.sdk.constants.ExceptCodeConstants;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
+import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
+import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
 
@@ -45,6 +50,13 @@ public class OrderQueryController {
 				LOG.info(e.getMessage());
 	            // 遇到异常也同上处理
 	            return "redirect:/order/fail";
+			}
+			List<OrdProductVo> productList = ordOrderVo.getProductList();
+			if (!CollectionUtil.isEmpty(productList)) {
+				for (OrdProductVo vo:productList) {
+					vo.setImageUrl(
+							ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
+				}
 			}
 			model.addAttribute("orderInfos",ordOrderVo);
 			return "jsp/order/paidOrderDetails";
