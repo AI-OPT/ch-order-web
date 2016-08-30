@@ -44,7 +44,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p>北京某某</p>
+					                    <p>${orderInfos.routeName }</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -61,11 +61,12 @@
                                                 <th>订单状态</th>
                                                 <th>实付金额</th>
                                                 <th>优惠扣减金额</th>
+                                                 <th>积分</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
                                     	 <tr class="bj-f3">
-							                <td class="tl" colspan="7">
+							                <td class="tl" colspan="8">
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
@@ -88,24 +89,152 @@
 							                	</div>
 							                </td>
 						              </tr>
-						              <c:forEach var="prod" items="${orderInfos.productList}">
+						              <c:forEach var="prod" items="${orderInfos.productList}" varStatus="status">
 							          <tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">
 							                         <tr>
-							                             <td><img src=""></td>
+							                             <td><img src="${prod.imageUrl}"></td>
 							                             <td class="word"><a href="#">${prod.prodName}</a></td>	
 							                         </tr>
 							                      </table>
 							                 </td>
 							                <td>${prod.salePrice}元/件</td>
 							                <td>${orderInfos.orderTime}</td>
-							                <td></td>
+							                <td>${orderInfos.busiCode }</td>
 							                <td>${prod.state }</td>
 							                <td>${prod.adjustFee }</td>
-							                <td>${prod.discountFee }</td>
+							                <td>${prod.discountFee }&nbsp;<br/>
+											<c:choose>
+										       <c:when test="${orderInfos.state!=13}">
+										  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
+										       </c:when>
+										       <c:otherwise>
+												 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
+										       </c:otherwise>
+											</c:choose>
+							                </td>
+							                <td></td>
 						              </tr> 
-						              </c:forEach>
+						              
+				 <!-- 模态框（Modal） -->
+				 <div class="modal fade" id="myModal${status.index}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							 <div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+									&times;
+								</button>
+								 <h4 class="modal-title" id="myModalLabel${status.index}">
+									售后处理
+								</h4>
+							</div>  
+							 <div class="modal-body text-center">
+							 <br/><br/>
+								<!--   <input type="button"  class="btn btn-primary"
+						  		 onclick="pager._backOrder('');"  value="退货"> -->
+						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
+						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
+								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
+								</button>&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal" 
+								data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
+								<br/><br/>
+							</div> 
+							<!-- <div>
+							</div> -->
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal -->
+				</div> 
+				
+				
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="backModal${status.index}" tabindex="-1" role="dialog" 
+aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="backModalLabel${status.index}">
+					提示
+				</h4>
+			</div>
+			<div class="modal-body">
+				<h5 class="word">确认进行退货处理吗?</h5> 
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
+				onclick="pager._backOrder('${prod.prodDetalId}')">
+					确认
+				</button>
+				<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="exchangeModal${status.index}" tabindex="-1" role="dialog" 
+aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="exchangeModalLabel1${status.index}">
+					提示
+				</h4>
+			</div>
+			<div class="modal-body">
+				<h5 class="word">确认进行换货处理吗?</h5> 
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius">
+					确认
+				</button>
+				<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+
+<!-- 模态框（Modal） -->
+<div class="modal fade" id="refundModal${status.index}" tabindex="-1" role="dialog" 
+aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+					&times;
+				</button>
+				<h4 class="modal-title" id="refundModalLabel${status.index}">
+					提示
+				</h4>
+			</div>
+			<div class="modal-body">
+				<h5 class="word">确认进行退款处理吗?</h5> 
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius">
+					确认
+				</button>
+				<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
+				</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal -->
+</div>
+				
+				
+				
+			 </c:forEach>
                                     </tbody>
                                     </table>
                                
@@ -205,7 +334,29 @@
              </div><!-- /.modal-content -->
          </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-
+	
+	
+	
+	<!--提示弹出框 操作-->	
+	<div class="eject-big">
+		<div class="prompt-samll" id="prompt">
+		<div class="eject-medium-title">
+				<p>提示</p>
+				<p class="img"><i class="fa fa-times"></i></p>
+		</div>
+		<!--确认删除-->
+		<div class="prompt-samll-confirm">
+			<ul>
+			<li class="word">确定要删除已选联系人吗？</li>
+			<li>
+				<input type="button"  class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" value="确认">
+				<input id="prompt-close" type="button"  class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" id="closebtn" value="取消"></li>		
+			</ul>
+		</div>
+		</div>	
+	<div class="mask" id="eject-mask"></div>
+	</div>
+<!--/提示弹出框操作结束-->
 
 </body>
 <script id="deliveryOrderTempalte" type="text/x-jsrender">
