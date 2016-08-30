@@ -101,13 +101,13 @@
 
 	地区查询
 	<dubbo:reference id="iGnAreaQuerySV"
-		interface="com.ai.slp.common.api.area.interfaces.IGnAreaQuerySV" />
+		interface="com.ai.platform.common.api.area.interfaces.IGnAreaQuerySV" />
 	缓存
 	<dubbo:reference id="iCacheSV"
-		interface="com.ai.slp.common.api.cache.interfaces.ICacheSV" />
+		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV" />
 	根据手机号查询
 	<dubbo:reference id="iServiceNumSV"
-		interface="com.ai.slp.common.api.servicenum.interfaces.IServiceNumSV" />
+		interface="com.ai.platform.common.api.servicenum.interfaces.IServiceNumSV" />
 
 	<dubbo:reference id="iFundQuerySV"
 		interface="com.ai.slp.balance.api.fundquery.interfaces.IFundQuerySV" />
@@ -138,7 +138,7 @@
 		registry="baasRegistry" />
 	<!-- 缓存 -->
 	<dubbo:reference id="ICacheSV"
-		interface="com.ai.slp.common.api.cache.interfaces.ICacheSV"
+		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV"
 		registry="baasRegistry" />	
 			
 </beans>
