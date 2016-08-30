@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
-import com.ai.slp.common.api.cache.interfaces.ICacheSV;
-import com.ai.slp.common.api.cache.param.SysParam;
-import com.ai.slp.common.api.cache.param.SysParamMultiCond;
+import com.ai.platform.common.api.cache.interfaces.ICacheSV;
+import com.ai.platform.common.api.cache.param.SysParam;
+import com.ai.platform.common.api.cache.param.SysParamMultiCond;
 
 @RestController
 public class SysParamController {
