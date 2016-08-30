@@ -135,6 +135,46 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					}
 				}
 			});
+		 },
+		 
+		 _backOrder:function(orderObject) {
+			 var _orderId = $('#orderId').val();
+			 var _prodDetalId=orderObject;
+			 ajaxController.ajax({
+					type : "POST",
+					url :_base+"/aftersaleorder/back",
+					data: {
+						orderId:  _orderId,
+						prodDetalId:_prodDetalId
+					},
+					processing: true,
+					message : "正在处理中，请稍候...",
+					success : function(data) {
+						if(data.statusCode == "1"){
+							var d = Dialog({
+								title: '消息',
+								content:"退货申请成功",
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}else{
+	    	        		var d = Dialog({
+								title: '消息',
+								content:"退货失败:"+data.statusInfo,
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}
+					}
+				});
 		 }
     	
     });
