@@ -135,7 +135,7 @@
         </td>
         <td>{{:state}}</td>
          <td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}')">订单性情</a></td>
-         <td>关闭订单</td>
+         <td><a  href="javascript:void(0);" onclick="pager._closeOrder('{{:orderId}}')">关闭订单</a></td>
     </tr>
  </script> 
   <script type="text/javascript">

@@ -16,5 +16,9 @@ public final class Constants {
 	public static final String ORD_IF_WARNING = "ORD_IF_WARNING";
 	/** 订单状态paramCode */
 	public static final String ORD_STATE = "ORD_STATE";
+	/** 订单类型*/
+	public static final String ORDER_TYPE = "ORD_TYPE";
+	/** 配送方式*/
+	public static final String ORD_LOGISTICS_TYPE = "ORD_LOGISTICS_TYPE";
 	
 }

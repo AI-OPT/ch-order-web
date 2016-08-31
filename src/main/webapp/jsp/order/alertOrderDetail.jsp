@@ -22,11 +22,11 @@
 						           	<ul>
 						                <li  class="col-md-6">
 						                    <p class="word">预警类型：</p>
-						                    <p>${order.warningType}</p>
+						                    <p class="color-red">${order.warningType}</p>
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">预警信息：</p>
-						                    <p>IP:${order.ipAddress}</p>
+						                    <p class="color-red">IP:${order.ipAddress}</p>
 						                </li>  
 						            </ul>  
 						            <ul>
@@ -66,26 +66,26 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>XXXX</span>
+							                			<span id="orderId">${order.orderId}</span>
 							                		</p>
 							                	</div>
 							                </td>
 						              </tr>
-						              <c:forEach items="${order.prodInfo}" var="sp">
+						              <c:forEach items="${order.productList}" var="sp">
 								          <tr>
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
 								                         <tr>
-								                             <td><img src=""></td>
+								                             <td><img src="${sp.imageUrl}"></td>
 								                             <td class="word"><a href="#">${sp.prodName}</a></td>	
 								                         </tr>
 								                      </table>
 								                 </td>
-								                <td>${sp.salePrice}/件</td>
+								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
 								                <td class="color-red">${order.state}</td>
-								                <td>${~liToYuan(sp.adjustFee)}</td>
-								                <td>${sp.discountFee}</td>
+								                <td>${sp.prodAdjustFee}</td>
+								                <td>${sp.prodDiscountFee}</td>
 								                 <td>${sp.jf}</td>
 							              </tr> 
 						              </c:forEach>
@@ -117,13 +117,20 @@
                             			<p class="word">配送方式：</p>
                             			<p>${order.logisticsType}</p>
                             		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
                             			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div>
+	                            <ul>
+	                            	<li class="col-md-5">
+	                            		<p>
+	                             			<input type="button" id="close" class="biu-btn btn-primary btn-blue btn-small " value="关闭订单">
+	                             		</p>
+	                            	</li>
+	                            </ul>
                             </div>
                    		</div>
                 	</div>
@@ -131,5 +138,14 @@
           	</div>
          </div>
     </div> 
+    <script type="text/javascript">
+			var pager;
+			(function () {
+				seajs.use('app/jsp/order/alertOrderDetail', function (alertOrderDetailPager) {
+					pager = new alertOrderDetailPager({element: document.body});
+					pager.render();
+				});
+			})();
+ </script> 
 </body>
 </html>
