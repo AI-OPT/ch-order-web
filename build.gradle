@@ -9,6 +9,7 @@ compileJava.dependsOn clean
 sourceCompatibility = 1.7
 configurations {
     optUedTemplate
+    jsCommonLibs
 }
 configurations.all { 
 	    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
@@ -34,6 +35,7 @@ buildscript {
 }
 dependencies {
 	optUedTemplate 'com.ai.opt.uniframe:opt-ued-template:1.0-SNAPSHOT'
+	jsCommonLibs 'com.ai.opt.uniframe:opt-jscommon-libs:1.0-SNAPSHOT'
     compile 'org.sitemesh:sitemesh:3.0.1'
     compile "jstl:jstl:1.2"
     compile "org.springframework:spring-web:4.1.7.RELEASE"
@@ -99,6 +101,7 @@ dependencies {
     compile 'com.ai.slp.order:aftersaleorder:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:orderrule:1.0.1-SNAPSHOT'
     compile 'com.ai.slp.order:ordercheck:1.01-SNAPSHOT'
+    compile 'com.ai.slp.order:warmorder:1.0.0-SNAPSHOT'
 	compile 'junit:junit:4.12'
 
     testCompile(
@@ -110,7 +113,10 @@ def getUedTemplate=task("getUedTemplate",type:com.ai.runner.gradle.plugin.jar.AP
 	jarPaths=configurations.optUedTemplate.files.asType(List)
     destinationDir file("src/main/webapp/resources/template") //这里面的路径建议保持默认
 }
-
+def getJsCommonLibs=task("getJsCommonLibs",type:com.ai.runner.gradle.plugin.jar.APIJarProcessTask){
+	jarPaths=configurations.jsCommonLibs.files.asType(List)
+    destinationDir file("src/main/webapp/resources/spm_modules") //这里面的路径建议保持默认
+}
 eclipse {
     wtp {
         facet {

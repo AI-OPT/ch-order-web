@@ -136,6 +136,10 @@
 	<dubbo:reference id="iOrderCheckSV"
 		interface="com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV"
 		registry="baasRegistry" />
+		
+	<dubbo:reference id="iOrderWarmSV"
+	interface="com.ai.slp.order.api.warmorder.interfaces.IOrderWarmSV"
+	registry="baasRegistry" />
 	<!-- 缓存 -->
 	<dubbo:reference id="ICacheSV"
 		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV"

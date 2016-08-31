@@ -41,7 +41,6 @@
 
 <script src="${_base}/resources/spm_modules/app/util/common.js" type="text/javascript"></script>
 
-
 <!-- <link rel="stylesheet" type="text/css" href="${_base}/resources/slpmall/styles/bootstrap.css"> -->
 
 <img id="img_logincheck" style="display:none;" src="${_base}/logincheck?req=<%=new Date().getTime() %>">
@@ -57,12 +56,13 @@
 <script src="${uedroot}/scripts/modular/p-skin-changer.js"></script>  
 <script src="${uedroot}/scripts/plugin/jquery.nanoscroller.min.js"></script>
 <script src="${uedroot}/scripts/modular/skin.js"></script>  
-<script src="${uedroot}/scripts/modular/frame.js"></script>
+<!--  <script src="${uedroot}/scripts/modular/frame.js"></script>
+<script src="${uedroot}/scripts/modular/scripts.js"></script>-->
 <script src="${uedroot}/scripts/modular/eject.js"></script>  
-<script src="${uedroot}/scripts/modular/scripts.js"></script>
 <!--日期-->
-<script src="${uedroot}/scripts/date/WdatePicker.js"></script>
-<script src="${uedroot}/scripts/My97DatePicker/WdatePicker.js"></script>
+<!--  <script src="${uedroot}/scripts/date/WdatePicker.js"></script>
+<script src="${uedroot}/scripts/My97DatePicker/WdatePicker.js"></script>-->
+<script src="${_base}/resources/spm_modules/my97DatePicker/WdatePicker.js"></script>
 <!--ztree-->
 <script src="${uedroot}/scripts/ztree/jquery-1.4.4.min.js"></script>  
 <script src="${uedroot}/scripts/ztree/jquery.ztree.core-3.2.min.js"></script>  

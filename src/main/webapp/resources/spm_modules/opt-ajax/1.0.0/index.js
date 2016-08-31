@@ -1,7 +1,7 @@
 define('opt-ajax/1.0.0/index', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Base = require('arale-base/1.2.0/base');
     
     require('jquery-form/3.51.0/jquery.form');
@@ -19,6 +19,7 @@ define('opt-ajax/1.0.0/index', function (require, exports, module) {
 			SELECTOR_AJAX_SUBMIT_CONTAINER: "#_X_AJAX_SUBMIT_CONTAINER_DIV",
 			AJAX_STATUS_SUCCESS: "1",
 			AJAX_STATUS_FAILURE: "0",
+			AJAX_STATUS_LOGIN: "2",
 			STATUS_CODE: "statusCode",
 			STATUS_INFO: "statusInfo"
         },
@@ -51,15 +52,26 @@ define('opt-ajax/1.0.0/index', function (require, exports, module) {
 				var statusInfo = transport[AjaxController.STATUS_INFO];
 				if(status && status == AjaxController.AJAX_STATUS_FAILURE){
 					var failureDialog = Dialog({
-					    title: '交易失败',
+					    title: '操作失败',
+					    icon: 'fail',
 					    content: statusInfo,
 					    cancel: false,
+					    okValue:'确定',
 					    ok: function () {
 					    	callbacks["failure"] && callbacks["failure"].call(_this,transport); 
 					    }
 					});
 					failureDialog.showModal();
-				}else{
+				} else if(status && status == AjaxController.AJAX_STATUS_LOGIN){
+					//取得当前页面地址
+					var winLocal = window.location.href;
+					var nowUrl = winLocal.substring(0,winLocal.indexOf('?'))
+						+".chk"+window.location.search;
+					var loginUrl = ssoLoginUrl+'?service='+ encodeURIComponent(nowUrl);
+					console.log(loginUrl);
+					window.location = loginUrl;
+				}
+				else{
 					if(postmode=="update")$(target).html(transport);
 					callbacks["success"] && callbacks["success"].call(_this,transport);
 				} 
@@ -71,8 +83,10 @@ define('opt-ajax/1.0.0/index', function (require, exports, module) {
 				if(processing)processingDialog.close();
 				var failureDialog = Dialog({
 				    title: '请求失败',
+				    icon:'fail',
 				    content: "网络请求错误,错误码:"+transport.status+",请重试。",
 				    cancel: false,
+				    okValue:'确定',
 				    ok: function () {
 				    	callbacks["error"] && callbacks["error"].call(_this,transport); 
 				    }
