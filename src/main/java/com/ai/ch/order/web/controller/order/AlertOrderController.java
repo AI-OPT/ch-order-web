@@ -96,6 +96,16 @@ public class AlertOrderController {
             		if(sysParam!=null){
             			order.setWarningType(sysParam.getColumnDesc());
             		}
+            		//翻译订单来源
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(order.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			order.setChlId(chldParam.getColumnDesc());
+            		}
             		//翻译是否需要物流
             		param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);
@@ -184,6 +194,16 @@ public class AlertOrderController {
             		SysParam typeOrder = iCacheSV.getSysParamSingle(param);
             		if(typeOrder!=null){
             			orderDetail.setOrderType(typeOrder.getColumnDesc());
+            		}
+            		//翻译订单来源
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			orderDetail.setChlId(chldParam.getColumnDesc());
             		}
             		//翻译配货方式
             		param = new SysParamSingleCond();
