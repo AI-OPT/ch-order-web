@@ -55,7 +55,7 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 			}
 		},
 		 _detailPage:function(orderid){
-		    window.location.href = _base+"/orderDetail?orderId="
+		    window.location.href = _base+"/order/orderDetail?orderId="
 		            + orderid;
 		},
 		_changeOrderState:function(orderStateDiv,state){
