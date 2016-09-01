@@ -40,5 +40,21 @@ public class SysParamController {
         return responseData;
     }
     
+    
+    @RequestMapping("/getChlIdSelect")
+    @ResponseBody
+    public ResponseData<List<SysParam>> getChlIdSelect(SysParamMultiCond param,HttpServletRequest request) {
+        ResponseData<List<SysParam>> responseData=null;
+        try{
+            ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
+            param.setTenantId("changhong");
+            List<SysParam> info=iCacheSV.getSysParamList(param);
+            responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_SUCCESS,"获取数据成功",info);
+        }catch(Exception e){
+            responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_FAILURE,"获取数据失败",null);
+        }
+        return responseData;
+    }
+    
    
 }
