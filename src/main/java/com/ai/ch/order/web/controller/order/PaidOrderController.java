@@ -67,7 +67,7 @@ public class PaidOrderController {
      */
     @RequestMapping("/getPaidOrderData")
     @ResponseBody
-    public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,BehindQueryOrderListRequest req){
+    public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,BehindQueryOrderListRequest req,String inputOrderId){
         //HttpSession session = request.getSession();
         //SSOClientUser user = (SSOClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
         IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);

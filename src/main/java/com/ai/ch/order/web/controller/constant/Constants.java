@@ -21,7 +21,7 @@ public final class Constants {
 	/** 配送方式*/
 	public static final String ORD_LOGISTICS_TYPE = "ORD_LOGISTICS_TYPE";
 	/** 订单来源*/
-	public static final String ORD_CHL_ID = "ORD_CHL_ID";
+	public static final String ORD_CHL_ID = "CHL_ID";
 	 
 }
 

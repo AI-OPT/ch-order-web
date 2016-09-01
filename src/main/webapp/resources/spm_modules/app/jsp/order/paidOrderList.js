@@ -52,7 +52,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 			    	_this.orderTimeEnd = jQuery.trim($("#orderTimeEnd").val());
 			        return _this.orderTimeEnd;
 			    },
-			    "orderId":function () {
+			    "inputOrderId":function () {
 			    	_this.orderId = jQuery.trim($("#orderId").val());
 			        return _this.orderId;
 			    }
