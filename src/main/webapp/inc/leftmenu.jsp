@@ -5,7 +5,7 @@
         <div id="col-left-inner" class="col-left-nano-content">
             <div class="collapse navbar-collapse navbar-ex1-collapse" id="sidebar-nav">
                 <ul class="nav nav-pills nav-stacked">
-                	<li class="active"><a href="#"><i class="fa fa-home"></i><span>系统控制台</span><!--<span class="label label-info label-circle pull-right">28</span>--></a></li>
+         <%--        	<li class="active"><a href="#"><i class="fa fa-home"></i><span>系统控制台</span><!--<span class="label label-info label-circle pull-right">28</span>--></a></li>
                     <li>
                         <a href="#" class="dropdown-toggle">
                         <i class="fa fa-sitemap"></i><span>服务器对接管理</span>
@@ -81,8 +81,28 @@
                         <li><a href="#">路由添加成本价</a></li>
                     </ul>
                 <!--二级菜单结束-->
-                </li>
+                </li> --%>
                 <!-- 订单测试 start -->
+                
+       <%--            <li>
+                    <a href="#" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>订单管理</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                <!--二级菜单-->    
+                    <ul class="submenu">
+                        <li><a href="${_base}/toAlertOrder" target="mainFrame">订单处理</a></li>
+                    </ul>
+                <!--二级菜单结束-->
+                </li> --%>
+                 <li>
+                    <a href="${_base}/order/toOrderList " target="mainFrame" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>订单处理</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                </li>
+                
+            
                  <li>
                     <a href="${_base}/toUnpaidOrder " target="mainFrame" class="dropdown-toggle">
                     <i class="fa fa-usd"></i>

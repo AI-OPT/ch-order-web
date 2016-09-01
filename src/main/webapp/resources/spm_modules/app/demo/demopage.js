@@ -39,7 +39,7 @@ define('app/demo/demopage', function (require, exports, module) {
     		this._demopage();
     	},
     	_demopage:function(){
-    		alert('demopage');
+    		alert('deliveryTemplate');
     	},
     	_queryAccountBalanceDetailList:function(objId){
     		//alert('objId'+objId);

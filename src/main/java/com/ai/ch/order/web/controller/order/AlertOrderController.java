@@ -1,6 +1,7 @@
 package com.ai.ch.order.web.controller.order;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,15 +15,24 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
+import com.ai.ch.order.web.model.OrderWarmDetail;
+import com.ai.ch.order.web.model.ProductVo;
+import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
+import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
+import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
+import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
 import com.ai.platform.common.api.cache.param.SysParamSingleCond;
+import com.ai.slp.order.api.ordercancel.interfaces.IOrderCancelSV;
+import com.ai.slp.order.api.ordercancel.param.OrderCancelRequest;
 import com.ai.slp.order.api.warmorder.interfaces.IOrderWarmSV;
 import com.ai.slp.order.api.warmorder.param.OrderWarmDetailRequest;
 import com.ai.slp.order.api.warmorder.param.OrderWarmDetailResponse;
@@ -48,11 +58,12 @@ public class AlertOrderController {
     @RequestMapping("/getAlertOrderData")
     @ResponseBody
     public ResponseData<PageInfo<OrderWarmVo>> getList(HttpServletRequest request,String orderTimeBegin,String orderTimeEnd){
+    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	IOrderWarmSV iOrderWarmSV = DubboConsumerFactory.getService(IOrderWarmSV.class);
     	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	OrderWarmRequest req = new OrderWarmRequest();
     	ResponseData<PageInfo<OrderWarmVo>> responseData = null;
-        req.setTenantId("SLP");
+        req.setTenantId(user.getTenantId());
         if (!StringUtil.isBlank(orderTimeBegin)) {
         	orderTimeBegin = orderTimeBegin + " 00:00:00";
 			Timestamp ts  = Timestamp.valueOf(orderTimeBegin);
@@ -85,6 +96,16 @@ public class AlertOrderController {
             		if(sysParam!=null){
             			order.setWarningType(sysParam.getColumnDesc());
             		}
+            		//翻译订单来源
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(order.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			order.setChlId(chldParam.getColumnDesc());
+            		}
             		//翻译是否需要物流
             		param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);
@@ -112,7 +133,7 @@ public class AlertOrderController {
             		param.setTypeCode(Constants.TYPE_CODE);
             		param.setParamCode(Constants.ORD_STATE);
             		SysParam stateOrder = iCacheSV.getSysParamSingle(param);
-            		if(ifWarmOrder!=null){
+            		if(stateOrder!=null){
             			order.setState(stateOrder.getColumnDesc());
             		}
             	}
@@ -125,34 +146,123 @@ public class AlertOrderController {
         return responseData;
     }
     @RequestMapping("/alertDetail")
-	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId) {
-		Map<String, OrderWarmVo> model = new HashMap<String, OrderWarmVo>();
+	public ModelAndView alertDetail(HttpServletRequest request, String orderId) {
+    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+    	Map<String, OrderWarmVo> model = new HashMap<String, OrderWarmVo>();
 		IOrderWarmSV iOrderWarmSV = DubboConsumerFactory.getService(IOrderWarmSV.class);
+		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		OrderWarmDetailRequest  query =new OrderWarmDetailRequest ();
-		OrderWarmVo orderWarm = new OrderWarmVo();
+		OrderWarmDetail orderDetail = new OrderWarmDetail();
+		List<ProductVo> productList = new ArrayList<ProductVo>();
+		SysParamSingleCond param = new SysParamSingleCond();
 		try {
 			Long Id = Long.parseLong(orderId);
 			query.setOrderId(Id);
-			query.setTenantId("SLP");
+			query.setTenantId(user.getTenantId());
 			OrderWarmDetailResponse response = iOrderWarmSV.searchWarmorderDetail(query);
 			if(response!=null && response.getResponseHeader().isSuccess()){
-				 orderWarm =  response.getOrderWarmVo();
+				OrderWarmVo  orderWarm =  response.getOrderWarmVo();
 				if(orderWarm!=null){
+					BeanUtils.copyProperties(orderDetail, orderWarm);
+					//翻译预警类型
+	         		param = new SysParamSingleCond();
+	         		param.setTenantId(Constants.TENANT_ID);
+	         		param.setColumnValue(orderDetail.getWarningType());
+	         		param.setTypeCode(Constants.TYPE_CODE);
+	         		param.setParamCode(Constants.ORD_WARNING_TYPE);
+	         		SysParam sysParam = iCacheSV.getSysParamSingle(param);
+	         		if(sysParam!=null){
+	         			orderDetail.setWarningType(sysParam.getColumnDesc());
+	         		}
+	         		//翻译订单状态
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getState());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_STATE);
+            		SysParam stateOrder = iCacheSV.getSysParamSingle(param);
+            		if(stateOrder!=null){
+            			orderDetail.setState(stateOrder.getColumnDesc());
+            		}
+            		
+            		//翻译订单类型
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getOrderType());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORDER_TYPE);
+            		SysParam typeOrder = iCacheSV.getSysParamSingle(param);
+            		if(typeOrder!=null){
+            			orderDetail.setOrderType(typeOrder.getColumnDesc());
+            		}
+            		//翻译订单来源
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			orderDetail.setChlId(chldParam.getColumnDesc());
+            		}
+            		//翻译配货方式
+            		param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getLogisticsType());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_LOGISTICS_TYPE);
+            		SysParam logicOrder = iCacheSV.getSysParamSingle(param);
+            		if(logicOrder!=null){
+            			orderDetail.setLogisticsType(logicOrder.getColumnDesc());
+            		}
 					List<ProductInfo> proList = orderWarm.getProdInfo();
 					//获取图片
 					if (!CollectionUtil.isEmpty(proList)) {
 						for (ProductInfo vo:proList) {
-							vo.setImageUrl(
-									ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
+							ProductVo product = new ProductVo();
+							//翻译金额
+							product.setProdDiscountFee(AmountUtil.LiToYuan(vo.getDiscountFee()));
+							product.setProdSalePrice(AmountUtil.LiToYuan(vo.getSalePrice()));
+							product.setProdAdjustFee(AmountUtil.LiToYuan(vo.getAdjustFee()));
+							product.setImageUrl(ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
+							product.setProdName(vo.getProdName());
+							product.setBuySum(vo.getBuySum());
+							product.setJf(vo.getJf());
+							productList.add(product);
 						}
 					}
+					orderDetail.setProductList(productList);
 				}
 			}
-			 model.put("order", orderWarm);
+			 model.put("order", orderDetail);
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOG.error("预警订单详情查询报错：", e);
 		}
 		return new ModelAndView("jsp/order/alertOrderDetail", model);
 	}
+    	//关闭订单服务
+  		@RequestMapping("/closeOrder")
+  		@ResponseBody
+  		public ResponseData<String> Back(HttpServletRequest request, String orderId) {
+  			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+  			ResponseData<String> responseData = null;
+  			OrderCancelRequest query = new OrderCancelRequest();
+  			try {
+  				IOrderCancelSV iOrderCancelSV = DubboConsumerFactory.getService(IOrderCancelSV.class);
+  				Long Id = Long.parseLong(orderId);
+  				query.setOrderId(Id);
+  				query.setTenantId(user.getTenantId());
+  				BaseResponse base = iOrderCancelSV.handCancelNoPayOrder(query);
+  				if(base.getResponseHeader().getIsSuccess()==true){
+  					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "关闭订单成功", null);
+  				}else{
+  					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "关闭订单失败", null);
+  				}
+  			} catch (Exception e) {
+  				e.printStackTrace();
+  				LOG.error("关闭订单报错：", e);
+  			}
+  			return responseData;
+  		}		
 }

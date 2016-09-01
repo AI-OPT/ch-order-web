@@ -140,6 +140,11 @@
 	<dubbo:reference id="iOrderWarmSV"
 	interface="com.ai.slp.order.api.warmorder.interfaces.IOrderWarmSV"
 	registry="baasRegistry" />
+	<!-- 关闭订单 -->
+	<dubbo:reference id="iOrderCancelSV"
+	interface="com.ai.slp.order.api.ordercancel.interfaces.IOrderCancelSV"
+	registry="baasRegistry" />
+	
 	<!-- 缓存 -->
 	<dubbo:reference id="ICacheSV"
 		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV"
