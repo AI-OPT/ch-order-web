@@ -12,12 +12,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
+import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.opt.sdk.util.StringUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
+import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV;
 import com.ai.slp.order.api.ordercheck.param.OrderCheckRequest;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
@@ -67,13 +71,30 @@ public class PaidOrderController {
      */
     @RequestMapping("/getPaidOrderData")
     @ResponseBody
-    public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,BehindQueryOrderListRequest req,String inputOrderId){
-        //HttpSession session = request.getSession();
-        //SSOClientUser user = (SSOClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+    public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,BehindQueryOrderLisReqVo reqVo){
+    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
         IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
+        BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
         ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
-       // req.setTenantId(user.getTenantId());
-        req.setTenantId("SLP");
+        String startT =  reqVo.getStartTime();
+        String endT = reqVo.getEndTime();
+	    if(!StringUtil.isBlank(startT)){
+	    	startT = startT+" 00:00:00" ;
+	    	req.setOrderTimeBegin(startT);
+	    }
+	    if(!StringUtil.isBlank(endT)){
+	    	endT = endT+" 00:00:00" ;
+	    	req.setOrderTimeEnd(endT);
+	    }
+        req.setChlId(reqVo.getChlId());
+        req.setDeliveryFlag(reqVo.getDeliveryFlag());
+        req.setContactTel(reqVo.getContactTel());
+        req.setRouteId(reqVo.getRouteId());
+        if(!StringUtil.isBlank(reqVo.getInputOrderId())){
+        	 Long Id = Long.parseLong(reqVo.getInputOrderId());
+        	 req.setOrderId(Id);
+        }
+        req.setTenantId(user.getTenantId());
         String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
         String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
         try {

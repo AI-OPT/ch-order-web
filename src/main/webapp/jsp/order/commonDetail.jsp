@@ -30,6 +30,7 @@
 							     	</div> 	
 					   		</div> 
 	                    	<!--查询条件-->
+	                    	<form id="dataForm" method="post" >
 	                    	<div class="form-label">
 					           <ul>
 					                <li class="col-md-6">
@@ -48,7 +49,7 @@
 								<ul>
 								 	<li class="col-md-6">
 					                   	<p class="word" >关键字</p>
-					                    <p><input  class="int-text int-medium"id="orderId" name="orderId" placeholder="请输入父订单号查询" type="text"/>
+					                    <p><input  class="int-text int-medium" id="orderId" name="orderId" placeholder="请输入父订单号查询" type="text"/>
 					                    </p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					                    <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="搜索" id="search"></p>
 					                </li>
@@ -87,6 +88,7 @@
 						            </ul>
 					            </div>
 					         </div>
+					         </form>
 					   	<!--查询结束-->      
 	         			</div>
 	                </div>
