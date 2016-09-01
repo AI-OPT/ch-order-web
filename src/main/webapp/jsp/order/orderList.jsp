@@ -54,7 +54,6 @@
                                                 <th>数量</th>
                                                 <th>订单状态</th>
                                                 <th>详情</th>
-                                                <th>操作</th>
                                             </tr>
                                         </thead>
                                          <tbody id="orderListData"></tbody>
@@ -79,7 +78,7 @@
    </div> 
 <script id="orderListTemple" type="text/template">
 <tr>
-    	<td>{{:chlId}}</td>
+    	<td>{{:chlIdName}}</td>
         <td>{{:pOrderId}}</td>
         <td>{{:userId}}</td>
         <td>绑定手机号</td>
@@ -87,7 +86,7 @@
 		<td>{{:discountFee}}</td>
  		<td>{{:adjustFee}}</td>
 		<td>{{:contactTel}}</td>
-        <td>{{:deliveryFlag}}</td>
+        <td>{{:deliveryFlagName}}</td>
 
 		 <td>
         	 <table class="table close-border" width="100%">
@@ -95,7 +94,7 @@
 					{{if orderList!=null}}
 	 					{{for orderList}}  
         					<tr>
-									<td class="new-td" style="">{{:orderId}}</td>	
+									<td rowspan={{:prodSize}}>{{:orderId}}</td>	
         					</tr>
 						{{/for}}	
 					{{/if}}
@@ -110,7 +109,7 @@
 							{{if productList!=null}}
 								{{for productList}}	 
         							<tr>
-        								<td class="new-td" style="">{{:prodName}}</td>	
+        								<td>{{:prodName}}</td>	
         							</tr>
 								{{/for}}
 							{{/if}}
@@ -143,7 +142,7 @@
 					{{if orderList!=null}}
 						{{for orderList}}  
         					<tr>
-								<td class="new-td" style="">{{:state}}</td>	
+								<td class="new-td" style="">{{:stateName}}</td>	
         					</tr>
 						{{/for}}
 				    {{/if}}	
@@ -158,19 +157,6 @@
 
         					<tr>
         						<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}')">订单详情</a></td>
-        					</tr>
-						{{/for}}
-				    {{/if}}	
-        		</tbody>	
-        	</table>
-        </td>
-		 <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if orderList!=null}}
-						{{for orderList}}  
-        					<tr>
-        						<td><a  href="javascript:void(0);" onclick="">关闭订单</a></td>
         					</tr>
 						{{/for}}
 				    {{/if}}	
