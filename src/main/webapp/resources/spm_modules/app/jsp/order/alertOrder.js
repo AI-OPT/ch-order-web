@@ -57,6 +57,34 @@ define('app/jsp/order/alertOrder', function (require, exports, module) {
 		    window.location.href = _base+"/alertDetail?orderId="
 		            + orderid;
 		},
+		_closeOrder:function(orderId){
+    	    var url=_base+"/closeOrder";
+    	    ajaxController.ajax({
+    	    	type: "post",
+				dataType: "json",
+				processing: false,
+				message: "查询中，请等待...",
+				url: url,
+				data:{"orderId":orderId},
+    	        success: function (data) {
+    	        	if(data.statusCode == "1"){
+    	        		window.location.href=_base+"/toAlertOrder";
+    	        	}else{
+    	        		var d = Dialog({
+							title: '消息',
+							content:"关闭订单失败:"+data.statusInfo,
+							icon:'prompt',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
+    	        },
+                
+    	    }); 
+    	},
 		_searchList:function(){
 			var _this=this;
 			var queryParams = this._getQueryParams();
