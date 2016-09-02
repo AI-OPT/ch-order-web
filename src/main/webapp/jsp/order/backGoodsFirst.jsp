@@ -188,6 +188,10 @@
                             </div>
                              <!-- 拒绝退货理由 start-->
                             	 <div class="eject-samll" id="add-samll">
+	                            	 <div class="eject-medium-title">
+										<p></p>
+										<p class="img"><i class="fa fa-times"></i></p>
+									</div>
 									<div class="form-label mt-20">
 						           		<ul>
 							                <li>

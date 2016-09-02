@@ -183,7 +183,11 @@
                             </div>
                             <!-- 换货理由start -->
                             <form id="dataForm" method="post" >
-                            <div class="eject-medium" id="add-samll">
+	                            <div class="eject-medium" id="add-samll">
+		                            <div class="eject-medium-title">
+											<p></p>
+											<p class="img"><i class="fa fa-times"></i></p>
+									</div>
 									<div class="form-label mt-20">
 						           		<ul>
 						           			<li>
@@ -197,16 +201,16 @@
 							                </li>
 						            	</ul>
 								    </div>	
-										<!--按钮-->
-										<div class="row mt-15"><!--删格化-->
-								               <p class="center pr-30 mt-30">
-								                   <input type="button" id="refuse" class="biu-btn  btn-primary  btn-auto  ml-5" value="确  认">
-								                   <input id="close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5 edit-close" value="取  消">
-								                </p>
-								        </div>
+									<!--按钮-->
+									<div class="row mt-15"><!--删格化-->
+							               <p class="center pr-30 mt-30">
+							                   <input type="button" id="refuse" class="biu-btn  btn-primary  btn-auto  ml-5" value="确  认">
+							                   <input id="close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5 edit-close" value="取  消">
+							                </p>
+							        </div>
 								</div>
 								<div class="mask" id="eject-mask"></div>
-								</form>		
+							</form>		
 								<!-- 换货理由end -->
                        </div>	
                    </div>
