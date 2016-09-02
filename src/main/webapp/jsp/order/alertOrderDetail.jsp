@@ -121,6 +121,10 @@
                             			<p class="word">收货信息:</p>
                             			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
+                            		<li class="col-md-6">
+                            			<p class="word">买家留言:</p>
+                            			<p>${order.remark}</p>
+                            		</li>
                             	</ul>
                             </div>
                             <div>
