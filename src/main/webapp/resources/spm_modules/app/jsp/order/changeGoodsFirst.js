@@ -10,6 +10,9 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     require("bootstrap-paginator/bootstrap-paginator.min");
     require("app/util/jsviews-ext");
     
+    require("jquery-validation/1.15.1/jquery.validate");
+	require("app/util/aiopt-validate-ext");
+	
     require("opt-paging/aiopt.pagination");
     require("twbs-pagination/jquery.twbsPagination.min");
     require('bootstrap/js/modal');
@@ -29,29 +32,50 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     	events: {
     		//查询
             "click #agrren":"_agrrenChangeGoods",
-            "click #refuse":"_refuseChangeGoods"
+            "click #refuse":"_refuseChangeGoods",
+            "click #close":"_closeDialog"
         },
     	//重写父类
     	setup: function () {
     		changePager.superclass.setup.call(this);
+    		var formValidator=this._initValidate();
+			$(":input").bind("focusout",function(){
+				formValidator.element(this);
+			});
+    	},
+    	_initValidate:function(){
+    		var formValidator=$("#dataForm").validate({
+    			 errorPlacement: function(error, element) {
+                    $("#errorMessage").append( error );
+                 },
+    			rules: {
+    				refuseInfo: {
+    					required:true,
+    					maxlength:100,
+    					minlength:1
+    					}
+    			},
+    			messages: {
+    				refuseInfo: {
+    					required:"请输入拒绝理由!",
+    					maxlength:"最大长度不能超过{0}",
+    					minlength:"最小长度不能小于{0}"
+    					}
+    			}
+    		});
+    		
+    		return formValidator;
     	},
     	_refuseChangeGoods:function(){
+    		var _this= this;
     	    var url=_base+"/firstChange";
     	    var isRefuse = true;
-    	    var refuseInfo = $("#refuseInfo").val();
-    	    if(refuseInfo=="" || refuseInfo==null){
-    	    	var d = Dialog({
-					title: '提示',
-					content:"拒绝理由不能为空",
-					icon:'prompt',
-					okValue: '确 定',
-					ok:function(){
-						this.close();
-					}
-				});
-				d.show();
+    	    var formValidator=_this._initValidate();
+			formValidator.form();
+			if(!$("#dataForm").valid()){
+				//alert('验证不通过！！！！！');
 				return false;
-    	    }
+			}
     	    ajaxController.ajax({
     	    	type: "post",
 				dataType: "json",
@@ -77,6 +101,11 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     	        },
                 
     	    }); 
+    	},
+    	_closeDialog:function(){
+    		$("#errorMessage").html("");
+    		$('#eject-mask').fadeOut(100);
+    		$('#add-samll').slideUp(150);
     	},
     	_agrrenChangeGoods:function(){
     	    var url=_base+"/firstChange";
