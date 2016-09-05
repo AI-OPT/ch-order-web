@@ -32,7 +32,7 @@
 					                    </p>
 					                </li> 
 					                <li class="col-md-4">
-					            		<p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="搜索" id="search"></p>
+					            		<p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="查询" id="search"></p>
 					            	</li> 
 					            </ul> 
 					         </div>

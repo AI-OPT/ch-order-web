@@ -145,6 +145,11 @@
 	interface="com.ai.slp.order.api.ordercancel.interfaces.IOrderCancelSV"
 	registry="baasRegistry" />
 	
+	<!-- 金额修改 -->
+	<dubbo:reference id="iNotPaidOrderModifySV"
+	interface="com.ai.slp.order.api.ordermodify.interfaces.INotPaidOrderModifySV"
+	registry="baasRegistry" />
+	
 	<!-- 缓存 -->
 	<dubbo:reference id="ICacheSV"
 		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV"

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
@@ -18,9 +19,12 @@ import com.ai.ch.order.web.model.order.OrdProdInfo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.opt.sdk.util.StringUtil;
+import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
@@ -32,6 +36,8 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.order.api.ordermodify.interfaces.INotPaidOrderModifySV;
+import com.ai.slp.order.api.ordermodify.param.OrderModifyRequest;
 import com.alibaba.fastjson.JSON;
 
 @Controller
@@ -105,4 +111,32 @@ public class UnPaidOrderController {
 		}
 		return new ModelAndView("jsp/order/unpaidOrderDetail", model);
 	}
+		//修改金额
+		@RequestMapping("/changeMoney")
+		@ResponseBody
+		public ResponseData<String> Change(HttpServletRequest request, String orderId,String changeInfo,String money) {
+			ResponseData<String> responseData = null;
+			OrderModifyRequest req = new OrderModifyRequest();
+			try {
+				INotPaidOrderModifySV iNotPaidOrderModifySV = DubboConsumerFactory.getService(INotPaidOrderModifySV.class);
+				Long Id = Long.parseLong(orderId);
+				Long updateFee = Long.parseLong(money);
+				req.setTenantId("changhong");
+				req.setOrderId(Id);
+				if(!StringUtil.isBlank(changeInfo)){
+					req.setUpdateRemark(changeInfo);
+				}
+				req.setUpdateAmount(updateFee);
+				BaseResponse base = iNotPaidOrderModifySV.modify(req);
+				if(base.getResponseHeader().getIsSuccess()==true){
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "修改金额成功", null);
+				}else{
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				LOG.error("修改金额报错：", e);
+			}
+			return responseData;
+		}
 }

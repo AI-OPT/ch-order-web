@@ -65,7 +65,7 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     		return formValidator;
     	},
     	_closeOrder:function(){
-			var orderId = $("#orderId").text();
+			var orderId = $("#orderid").text();
     	    var url=_base+"/closeOrder";
     	    ajaxController.ajax({
     	    	type: "post",
@@ -96,28 +96,31 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     	},
     	_updateMobey:function(){
     		var _this= this;
-    	    var url=_base+"/firstChange";
-    	    var isRefuse = true;
+    	    var url=_base+"/changeMoney";
     	    var formValidator=_this._initValidate();
 			formValidator.form();
 			if(!$("#dataForm").valid()){
-				//alert('验证不通过！！！！！');
 				return false;
 			}
+			//获取参数
+			var orderId = $("#orderid").text();
+			var changeinfo = $("#updateRemark").text();
+			var money = $("#updateFee").val();
     	    ajaxController.ajax({
     	    	type: "post",
 				dataType: "json",
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":31323,"refuseInfo":refuseInfo,"isRefuse":isRefuse},
+				data:{"orderId":orderId,"changeInfo":changeinfo,"money":money},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
-    	        		window.location.href=_base+"/toPaidOrder";
+    	        		//如果金额修改成功返回订单处理首页
+    	        		alert("sucess");
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',
-							content:"换货审核失败:"+data.statusInfo,
+							content:"金额修改失败:"+data.statusInfo,
 							icon:'prompt',
 							okValue: '确 定',
 							ok:function(){

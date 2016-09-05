@@ -7,7 +7,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>查询列表</title>
+<title>待付款详情</title>
 <%@include file="/inc/inc.jsp" %>
 </head>
 <body>
@@ -53,8 +53,8 @@
 							                			<span>${order.parentOrderId}</span>
 							                		</p>
 							                		<p>
-							                			<span>子（商家平台）订单号:</span>
-							                			<span id="orderId">${order.orderId}</span>
+							                			<span>子订单号:</span>
+							                			<span>${order.orderId}</span>
 							                		</p>
 							                	</div>
 							                </td>
@@ -154,19 +154,19 @@
 										<ul>
 							                <li>
 						                    <p class="word">订单号:</p>
-						                    <p>${order.orderId}</p>
+						                    <p id="orderid">${order.orderId}</p>
 							                </li>
 						            	</ul>
 						            	<ul>
 							                <li>
-						                    <p class="word">订单金额:</p>
+						                    <p class="word">订单金额(元):</p>
 						                    <p>${order.ordAdjustFee}</p>
 							                </li>
 						            	</ul>
 						           		<ul>
 							                <li>
 							                    <p class="word"><span>*</span>改动价格:</p>
-							                    <p><input type="text" class="int-text int-small" name="updateFee"></p>
+							                    <p><input type="text" class="int-text int-small" name="updateFee" id="updateFee"></p>
 						                    	<p id="errorMessage"></p>
 							                </li>
 						            	</ul>
