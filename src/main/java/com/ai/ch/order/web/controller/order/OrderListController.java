@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.ProductVo;
 import com.ai.ch.order.web.model.order.OrdOrderListVo;
+import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
@@ -117,7 +118,7 @@ public class OrderListController {
 
 
     @RequestMapping("/orderListDetail")
-	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId,String state) {
+	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
     	try {
@@ -126,7 +127,7 @@ public class OrderListController {
 			//queryRequest.setTenantId(user.getTenantId());
 			queryRequest.setTenantId(Constants.TENANT_ID);
 			OrderDetail orderDetail = new OrderDetail();
-			List<ProductVo> prodList = new ArrayList<ProductVo>();
+			List<OrdProdVo> prodList = new ArrayList<OrdProdVo>();
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			QueryOrderResponse orderResponse = iOrderListSV.queryOrder(queryRequest);
 			OrdOrderVo ordOrderVo=null;
@@ -134,34 +135,27 @@ public class OrderListController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
-					//获取积分
-					long JF=0;
-					List<OrderPayVo> payDataList = ordOrderVo.getPayDataList();
-					if(!CollectionUtil.isEmpty(payDataList)) {
-						for (OrderPayVo orderPayVo : payDataList) {
-							if(Constants.OrdOrder.PayStyle.JF.equals(orderPayVo.getPayStyle())) {
-								JF+=orderPayVo.getPaidFee();
-							}
-						}
-					}
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
-							ProductVo product = new ProductVo();
+							OrdProdVo product = new OrdProdVo();
 							//翻译金额
-							product.setProdDiscountFee(AmountUtil.LiToYuan(ordProductVo.getDiscountFee()));
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
 							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
+							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
+							product.setJfFee(ordProductVo.getJfFee());
+							product.setProdDetalId(ordProductVo.getProdDetalId());
 							prodList.add(product);
-							//ordProductVo.set  积分
 						}
 					}
+					orderDetail.setProdList(prodList);
 				}
 			}
-			model.put("ordOrderVo", ordOrderVo);
+			model.put("orderDetail", orderDetail);
 			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)) { //待付款
 				return new ModelAndView("", model);
 			}
@@ -170,7 +164,7 @@ public class OrderListController {
 			}
 			if(Constants.OrdOrder.State.WAIT_DELIVERY.equals(state)||
 					Constants.OrdOrder.State.WAIT_SEND.equals(state)) { //待发货
-				return new ModelAndView("jsp/order/paidOrderDetailswaitInvoiceDetails", model);
+				return new ModelAndView("jsp/order/waitInvoiceDetails", model);
 			}
 			if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
 				return new ModelAndView("", model);
