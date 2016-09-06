@@ -2,7 +2,7 @@ define('app/jsp/order/orderList', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -55,8 +55,9 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 			}
 		},
 		 _detailPage:function(orderid,state){
+			 var pOrderId = $("#pOrder").text();
 		    window.location.href = _base+"/order/orderListDetail?orderId="
-		            + orderid+"&state="+state;
+		            + orderid+"&state="+state+"&pOrderId="+pOrderId;
 		},
 		_changeOrderState:function(orderStateDiv,state){
 			$(".order-list-table a").removeClass("current");
@@ -73,7 +74,8 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 				url:url,
 				method: "POST",
 				dataType: "json",
-				processing: true,
+				messageId:"showMessage",
+				renderId:"orderListData",
 				data : queryData,
 				pageSize: OrderListPager.DEFAULT_PAGE_SIZE,
 				visiblePages:5,

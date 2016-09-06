@@ -30,14 +30,15 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
+import com.ai.platform.common.api.cache.interfaces.ICacheSV;
+import com.ai.platform.common.api.cache.param.SysParam;
+import com.ai.platform.common.api.cache.param.SysParamSingleCond;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
-import com.ai.slp.order.api.orderlist.param.BehindOrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.BehindParentOrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListResponse;
 import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
-import com.ai.slp.order.api.orderlist.param.OrderPayVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
 
@@ -118,12 +119,17 @@ public class OrderListController {
 
 
     @RequestMapping("/orderListDetail")
-	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state) {
+	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state,String pOrderId) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+    	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
     	try {
-			QueryOrderRequest queryRequest=new QueryOrderRequest();
-			queryRequest.setOrderId(Long.parseLong(orderId));
+				QueryOrderRequest queryRequest=new QueryOrderRequest();
+				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)){
+					queryRequest.setOrderId(Long.parseLong(pOrderId));
+				}else{
+					queryRequest.setOrderId(Long.parseLong(orderId));
+				}
 			//queryRequest.setTenantId(user.getTenantId());
 			queryRequest.setTenantId(Constants.TENANT_ID);
 			OrderDetail orderDetail = new OrderDetail();
@@ -135,6 +141,18 @@ public class OrderListController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
+					//翻译订单来源
+					SysParamSingleCond	param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			orderDetail.setChlId(chldParam.getColumnDesc());
+            		}
+					//翻译订单应收金额
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
@@ -157,7 +175,7 @@ public class OrderListController {
 			}
 			model.put("orderDetail", orderDetail);
 			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)) { //待付款
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/unpaidOrderDetail", model);
 			}
 			if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state)) { //已付款(待配货)
 				return new ModelAndView("jsp/order/paidOrderDetails", model);

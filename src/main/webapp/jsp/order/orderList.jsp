@@ -58,6 +58,7 @@
                                         </thead>
                                          <tbody id="orderListData"></tbody>
                                     </table>
+                                    <div id="showMessage"></div>
                                 </div>
                            		<!--/table表格结束-->
                                 </div>
@@ -79,7 +80,7 @@
 <script id="orderListTemple" type="text/template">
 <tr>
     	<td>{{:chlIdName}}</td>
-        <td>{{:pOrderId}}</td>
+        <td id="pOrder">{{:pOrderId}}</td>
         <td>{{:userId}}</td>
         <td>绑定手机号</td>
  		<td>{{:points}}</td>
@@ -94,7 +95,7 @@
 					{{if orderList!=null}}
 	 					{{for orderList}}  
         					<tr>
-									<td>{{:orderId}}</td>	
+									<td class="new-td">{{:orderId}}</td>	
         					</tr>
 						{{/for}}	
 					{{/if}}
@@ -109,7 +110,7 @@
 							{{if productList!=null}}
 								{{for productList}}	 
         							<tr>
-        								<td>{{:prodName}}</td>	
+        								<td class="new-td">{{:prodName}}</td>	
         							</tr>
 								{{/for}}
 							{{/if}}
@@ -156,7 +157,7 @@
 						{{for orderList}}  
 
         					<tr>
-        						<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}')">订单详情</a></td>
+        						<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}')">订单详情</a></td>
         					</tr>
 						{{/for}}
 				    {{/if}}	

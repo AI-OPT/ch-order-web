@@ -26,68 +26,89 @@
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'16')" style="border-right-style: none;" >已发货订单</a></li>
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'90')" style="border-right-style: none;" >已完成订单</a></li>
            									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'91')" style="border-right-style: none;" >已关闭</a></li>
+           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'21,22,23,31,92,93,94')" style="border-right-style: none;" >售后列表</a></li>
 							           </ul>                                        
 							     	</div> 	
 					   		</div> 
 	                    	<!--查询条件-->
 	                    	<form id="dataForm" method="post" >
-	                    	<div class="form-label">
-					           <ul>
-					                <li class="col-md-6">
-					                    <p class="word">开始时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="orderTimeBegin"/>
-					                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
-					                    </p>
-					                </li>
-					                <li class="col-md-6">
-					                    <p class="word">结束时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="orderTimeEnd"/>
-					                     <span class="time"><i class="fa  fa-calendar" ></i></span>
-					                    </p>
-					                </li>  
-					            </ul> 
-								<ul>
-								 	<li class="col-md-6">
-					                   	<p class="word" >关键字</p>
-					                    <p><input  class="int-text int-medium" id="orderId" name="orderId" placeholder="请输入父订单号查询" type="text"/>
-					                    </p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					                    <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="查询" id="search"></p>
-					                </li>
-					                <li >
-					                	<p> 高级搜索<img id="showQuery" src="${uedroot}/images/daosanjiao.png"/></p>
-					                </li>
-					            </ul>
-					            <div id="queryInfo" style="display:none">
+		                    	<div class="form-label">
+						           <ul>
+						                <li class="col-md-6">
+						                    <p class="word">开始时间</p>
+						                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="orderTimeBegin"/>
+						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
+						                    </p>
+						                </li>
+						                <li class="col-md-6">
+						                    <p class="word">结束时间</p>
+						                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="orderTimeEnd"/>
+						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
+						                    </p>
+						                </li>  
+						            </ul> 
+									<ul>
+									 	<li class="col-md-6">
+						                   	<p class="word" >关键字</p>
+						                    <p><input  class="int-text int-medium" id="orderId" name="orderId" placeholder="请输入父订单号查询" type="text"/>
+						                    </p>
+						                	<p>高级搜索<a href="javascript:void(0);"><i class="fa fa-caret-down" id="showQuery"></i></a></p>
+						                </li>
+						            </ul>
+						            <div  id="selectDiv" style="display:none" >
+							            <ul>
+								            <li class="col-md-6">
+									            <p class="word">用户名</p>
+									            <p><input class="int-text int-medium" id="username" type="text" placeholder="请输入用户名" ></p>
+								            </li>
+							            	<li class="col-md-6">
+								            	<p class="word">订单来源</p>
+							            		<p>
+								            		<select class="select select-medium" id="orderSource">
+								            			<option value="">请选择</option>
+								            		</select>
+							            		</p>
+							            	</li>
+							            </ul>
+							            <ul>
+							            	<li class="col-md-6">
+								            	<p class="word">仓库</p>
+								            	<p>
+									            	<select class="select select-medium" id="routeSource">
+									            			<option value="">请选择</option>
+									            			<option>仓库1</option>
+									            			<option>仓库2</option>
+									            			<option>仓库3</option>
+									            	</select>
+								            	</p>
+							            	</li>
+							            	<li class="col-md-6">
+								            	<p class="word">收货人手机号</p>
+								            	<p>
+								            		<input class="int-text int-medium" id="contactTelQ" type="text" placeholder="请输入收货人手机号" >
+								            	</p>
+							            	</li>
+							            </ul>
+							             <ul>
+							            	
+							            	<li class="col-md-6">
+								            	<p class="word">是否需要物流</p>
+							            		<p>
+								            		<select class="select select-small" id="deliveryFlag">
+								            			<option value="">请选择</option>
+								            		</select>
+							            		</p>
+							            	</li>
+							            </ul>
+						            </div>
 						            <ul>
-						            <li class="col-md-4">用户名&nbsp;<input class="int-text int-medium" id="username" type="text" placeholder="请输入用户名" ></li>
-						            	<li class="col-md-4">
-						            		订单来源
-						            		<select class="select select-medium" id="orderSource">
-						            			<option value="">请选择</option>
-						            		</select>
-						            	</li>
-						            	<li class="col-md-4">
-							            	仓库
-							            	<select class="select select-medium" id="routeSource">
-							            			<option value="">请选择</option>
-							            			<option>仓库1</option>
-							            			<option>仓库2</option>
-							            			<option>仓库3</option>
-							            	</select>
-						            	</li>
-						            </ul>
-						             <ul>
-						            	<li class="col-md-4">收货人手机号&nbsp;<input class="int-text int-medium" id="contactTelQ" type="text" placeholder="请输入收货人手机号" ></li>
-						            	<li class="col-md-4">
-						            		是否需要物流
-						            		<select class="select select-small" id="deliveryFlag">
-						            			<option value="">请选择</option>
-						            		</select>
-						            	</li>
-						            	<li> <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" id="moreSearch" value="查询"></p></li>
-						            </ul>
-					            </div>
-					         </div>
+										<li class="width-xlag">
+											<p class="word">&nbsp;</p>
+											<p><input type="button" class="biu-btn  btn-primary btn-blue btn-medium ml-10"
+													  id="search" value="查  询"></p>
+										</li>
+									</ul>
+						         </div>
 					         </form>
 					   	<!--查询结束-->      
 	         			</div>

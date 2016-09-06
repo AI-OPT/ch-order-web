@@ -33,8 +33,8 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
     	events: {
     		//查询
             //"click #agrren":"_agrrenChangeGoods",
-            "click #search":"_searchList",
-            "click #moreSearch":"_highSearch"
+            "click #search":"_searchList"
+            //"click #moreSearch":"_highSearch"
         },
     	//重写父类
     	setup: function () {
@@ -83,7 +83,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 			    }
 			}
 		},
-		//获取高级查询参数
+		/*//获取高级查询参数
 		_getHignQueryParams:function(){
 			var _this = this;
 			return{
@@ -142,7 +142,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 					}
 				},
 			});
-		},
+		},*/
 		_searchList:function(){
 			var _this = this;
 			var formValidator=_this._initValidate();
