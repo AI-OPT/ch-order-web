@@ -30,6 +30,9 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
+import com.ai.platform.common.api.cache.interfaces.ICacheSV;
+import com.ai.platform.common.api.cache.param.SysParam;
+import com.ai.platform.common.api.cache.param.SysParamSingleCond;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.BehindOrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.BehindParentOrdOrderVo;
@@ -120,16 +123,15 @@ public class OrderListController {
     @RequestMapping("/orderListDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state,String pOrderId) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+    	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
     	try {
-			QueryOrderRequest queryRequest=new QueryOrderRequest();
-			if(!StringUtil.isBlank(orderId)){
+				QueryOrderRequest queryRequest=new QueryOrderRequest();
 				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)){
 					queryRequest.setOrderId(Long.parseLong(pOrderId));
 				}else{
 					queryRequest.setOrderId(Long.parseLong(orderId));
 				}
-			}
 			//queryRequest.setTenantId(user.getTenantId());
 			queryRequest.setTenantId(Constants.TENANT_ID);
 			OrderDetail orderDetail = new OrderDetail();
@@ -141,6 +143,16 @@ public class OrderListController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
+					//翻译订单来源
+					SysParamSingleCond	param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(orderDetail.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			orderDetail.setChlId(chldParam.getColumnDesc());
+            		}
 					//翻译订单应收金额
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					List<OrdProductVo> productList = ordOrderVo.getProductList();

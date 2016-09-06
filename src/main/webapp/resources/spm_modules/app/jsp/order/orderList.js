@@ -54,9 +54,10 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 			    }
 			}
 		},
-		 _detailPage:function(orderid,state,pOrderId){
+		 _detailPage:function(orderid,state){
+			 var pOrderId = $("#pOrder").text();
 		    window.location.href = _base+"/order/orderListDetail?orderId="
-		            + orderid+"&state="+state+"&pOrderId="+pOrderId";
+		            + orderid+"&state="+state+"&pOrderId="+pOrderId;
 		},
 		_changeOrderState:function(orderStateDiv,state){
 			$(".order-list-table a").removeClass("current");
