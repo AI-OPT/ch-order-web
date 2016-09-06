@@ -51,7 +51,7 @@
 					                   	<p class="word" >关键字</p>
 					                    <p><input  class="int-text int-medium" id="orderId" name="orderId" placeholder="请输入父订单号查询" type="text"/>
 					                    </p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					                    <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="搜索" id="search"></p>
+					                    <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="查询" id="search"></p>
 					                </li>
 					                <li >
 					                	<p> 高级搜索<img id="showQuery" src="${uedroot}/images/daosanjiao.png"/></p>
@@ -84,7 +84,7 @@
 						            			<option value="">请选择</option>
 						            		</select>
 						            	</li>
-						            	<li> <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" id="moreSearch" value="搜索"></p></li>
+						            	<li> <p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" id="moreSearch" value="查询"></p></li>
 						            </ul>
 					            </div>
 					         </div>
