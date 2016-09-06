@@ -32,35 +32,90 @@
                                         </thead>                                                                                                
                                     <tbody>
                                       <tr>
-							                <td>京东</td>
+							                <td>顺丰</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 							          <tr>
-							                <td>顺丰</td>
+							                <td>申通</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 						               <tr>
-							                <td>京东</td>
+							                <td>圆通</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 							          <tr>
-							                <td>顺丰</td>
+							                <td>中通</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 						               <tr>
-							                <td>京东</td>
+							                <td>韵达</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 							          <tr>
-							                <td>顺丰</td>
+							                <td>宅急送</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
+						               <tr>
+							                <td>全峰</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>天天</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>EMS</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>中国邮政</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>百世汇通</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>德邦</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>圆通</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>DHL</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>优速</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						              <tr>
+							                <td>UPS</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						              </tr>
+						               <tr>
+							                <td>其他</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td>确认发货</td>
+						               </tr>
 						                <tr>
 							                <td><input type="text" class="int-text int-medium" value="请填写快递公司名"></td>
 							                <td><input type="text" class="int-text int-medium"></td>

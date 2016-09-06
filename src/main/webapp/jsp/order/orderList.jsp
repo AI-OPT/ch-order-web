@@ -58,6 +58,7 @@
                                         </thead>
                                          <tbody id="orderListData"></tbody>
                                     </table>
+                                    <div id="showMessage"></div>
                                 </div>
                            		<!--/table表格结束-->
                                 </div>

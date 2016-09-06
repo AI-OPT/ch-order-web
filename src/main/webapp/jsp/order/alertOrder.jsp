@@ -78,6 +78,7 @@
                                         </thead>
                                          <tbody id="alertData"></tbody>
                                     </table>
+                                    <div id="showMessageDiv"></div>
                                 </div>
                            		<!--/table表格结束-->
                                 </div>
@@ -113,7 +114,10 @@
 					{{if prodInfo!=null}}
 						{{for prodInfo}}
         					<tr>
-        						<td class="new-td" style="">{{:prodName}}</td>	
+								<td class="hind1 new-td">
+									<div class="center-hind" >{{:prodName}}</div>
+                                    <div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:prodName}}</div>
+								</td>
         					</tr>
 						{{/for}}
 					{{/if}}
@@ -126,7 +130,7 @@
 					{{if prodInfo!=null}}
 						{{for prodInfo}}
         					<tr>
-        						<td class="new-td" style="">{{:buySum}}</td>	
+        						<td class="new-td">{{:buySum}}</td>	
         					</tr>
 						{{/for}}
 					{{/if}}

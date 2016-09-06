@@ -33,11 +33,11 @@ define('app/jsp/order/commonDetail', function (require, exports, module) {
 		
 		_showQueryInfo: function(){
 			//展示查询条件
-			var info= $("#queryInfo").is(":hidden"); //是否隐藏
+			var info= $("#selectDiv").is(":hidden"); //是否隐藏
 		    if(info==true){
-		    	$("#queryInfo").show();
+		    	$("#selectDiv").show();
 		    }else{
-		    	$("#queryInfo").hide();
+		    	$("#selectDiv").hide();
 		    }
 		},
 		

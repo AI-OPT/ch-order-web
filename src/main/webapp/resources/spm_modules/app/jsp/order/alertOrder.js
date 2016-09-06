@@ -2,7 +2,7 @@ define('app/jsp/order/alertOrder', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -29,7 +29,6 @@ define('app/jsp/order/alertOrder', function (require, exports, module) {
     	//事件代理
     	events: {
     		//查询
-            //"click #agrren":"_agrrenChangeGoods",
             "click #search":"_searchList"
         },
     	//重写父类
@@ -92,18 +91,18 @@ define('app/jsp/order/alertOrder', function (require, exports, module) {
 				url: _base+"/getAlertOrderData",
 				method: "POST",
 				dataType: "json",
-				processing: true,
 				data : queryParams,
 				pageSize: alertOrderPager.DEFAULT_PAGE_SIZE,
 				visiblePages:5,
-				message: "正在为您查询数据..",
+				messageId:"showMessageDiv",
+				renderId:"alertData",
 				render: function (data) {
 					if(data&&data.length>0){
 						var template = $.templates("#alertTemple");
 						var htmlOut = template.render(data);
 						$("#alertData").html(htmlOut);
 					}else{
-						$("#alertData").html("未搜索到信息");
+						alert("no data");
 					}
 				},
 			});
