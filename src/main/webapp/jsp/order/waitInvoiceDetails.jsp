@@ -31,21 +31,21 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p>${orderInfos.chlId}</p>
+					                    <p>${orderDetail.chlId}</p>
 					                </li>
 					               	<li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p>${orderInfos.orderType}</p>
+					                    <p>${orderDetail.orderType}</p>
 					                </li> 
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库ID：</p>
-					                    <p>${orderInfos.routeId}</p>
+					                    <p>${orderDetail.routeId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p>北京某某</p>
+					                    <p>${orderDetail.routeName}</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -57,54 +57,56 @@
                                             <tr>
                                             		<th>商品</th>
                                                 <th>单价/数量</th>
-                                                <th>下单时间</th>
                                                 <th>售后</th>
+                                                <th>下单时间</th>
                                                 <th>订单状态</th>
                                                 <th>实付金额</th>
                                                 <th>优惠扣减金额</th>
+                                                <th>积分</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
                                     	 <tr class="bj-f3">
-							                <td class="tl" colspan="7">
+							                <td class="tl" colspan="8">
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
-							                			<span>${orderInfos.parentOrderId}</span>
+							                			<span>${orderDetail.parentOrderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>——&nbsp;</span>
-							                			<span>${orderInfos.payStyleName}</span>
+							                			<span>${orderDetail.payStyleName}</span>
 							                		</p>
 							                	</div>
 							                	<div>
 							                		<p>
 							                			<span>子（商家平台）订单号:</span>
-							                			<span>${orderInfos.orderId }</span>
+							                			<span>${orderDetail.orderId }</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
-							                			<span>${orderInfos.balacneIfId }</span>
+							                			<span>${orderDetail.balacneIfId }</span>
 							                		</p>	
 							                	</div>
 							                </td>
 						              </tr>
-						               <c:forEach var="prod" items="${orderInfos.productList}">
+						               <c:forEach var="prod" items="${orderDetail.prodList}">
 							          <tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">
 							                         <tr>
-							                             <td><img src=""></td>
+							                             <td><img src="${prod.imageUrl}"></td>
 							                             <td class="word"><a href="#">${prod.prodName}</a></td>	
 							                         </tr>
 							                      </table>
 							                 </td>
-							                <td>${prod.salePrice}元/件</td>
-							                <td>${orderInfos.orderTime}</td>
-							                <td></td>
-							                <td>${prod.state }</td>
-							                <td>${prod.adjustFee }</td>
-							                <td>${prod.discountFee }</td>
+							                <td>${prod.prodSalePrice}元/${prod.buySum}件</td>
+							                <td>${prod.prodState}</td>
+							                <td>${orderDetail.orderTime}</td>
+							                <td>${orderDetail.stateName }</td>
+							                <td>${prod.prodAdjustFee }</td>
+							                <td>${prod.prodCouponFee }</td>
+							                <td>${prod.jfFee }</td>
 						              </tr> 
 						              </c:forEach>
                                     </tbody>
@@ -119,32 +121,32 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p>${orderInfos.userId}</p>
+					                    <p>${orderDetail.userId}</p>
 					                </li>
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>
-					                    <p>${orderInfos.contactName}</p>
+					                    <p>${orderDetail.contactName}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
-					                    <p>${orderInfos.contactTel }</p>
+					                    <p>${orderDetail.contactTel }</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
-					                    <p>${orderInfos.provinceCode}${orderInfos.cityCode }${orderInfos.countyCode}
-					                    ${orderInfos.address },${orderInfos.contactName},${orderInfos.contactTel}</p>
+					                    <p>${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
+					                    ${orderDetail.address },${orderDetail.contactName},${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家留言：</p>
-					                    <p>${orderInfos.remark }</p>
+					                    <p>${orderDetail.remark }</p>
 					                </li>
 					            </ul>
 					  	</div>
@@ -153,21 +155,27 @@
                             <h5 class="pull-left">发票信息</h5>
                         		</header>
 					  	  <div class="form-label text">
+					  	  		<ul>
+					                <li  class="col-md-6">
+					                    <p class="word">发票类型：</p>
+					                    <p>${orderDetail.invoiceType }</p>
+					                </li>
+					            </ul>  
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
-					                    <p>${orderInfos.invoiceType }</p>
+					                    <p>${orderDetail.invoiceType }</p>
 					                </li>
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票抬头：</p>
-					                    <p>${orderInfos.invoiceTitle }</p>
+					                    <p>${orderDetail.invoiceTitle }</p>
 					                </li>
 					            </ul>
 					  	</div>
 					  		 <div class="bc-ang mb-10">
-					  		 <input type="hidden" id="orderId" value="${orderInfos.orderId }">
+					  		 <input type="hidden" id="orderId" value="${orderDetail.orderId }">
 					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
 					  		 onclick="pager._displayInvoiceOrder();" value="打印发货单"></div>
 							</div>	
