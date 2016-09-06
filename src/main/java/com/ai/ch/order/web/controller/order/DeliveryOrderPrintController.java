@@ -116,7 +116,7 @@ public class DeliveryOrderPrintController {
 			responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "提货单信息显示出错,出现未知异常");
 			LOG.error("提货单信息显示出错",e);
 		}
-	    Log.info("responseData:"+com.alibaba.fastjson.JSON.toJSONString(responseData));
+	    Log.info("responseData:"+JSON.toJSONString(responseData));
 	    return responseData;
 	}
 	
