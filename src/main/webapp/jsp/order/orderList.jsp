@@ -95,7 +95,7 @@
 					{{if orderList!=null}}
 	 					{{for orderList}}  
         					<tr>
-									<td>{{:orderId}}</td>	
+									<td class="new-td">{{:orderId}}</td>	
         					</tr>
 						{{/for}}	
 					{{/if}}
@@ -110,7 +110,7 @@
 							{{if productList!=null}}
 								{{for productList}}	 
         							<tr>
-        								<td>{{:prodName}}</td>	
+        								<td class="new-td">{{:prodName}}</td>	
         							</tr>
 								{{/for}}
 							{{/if}}
@@ -157,7 +157,7 @@
 						{{for orderList}}  
 
         					<tr>
-        						<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}')">订单详情</a></td>
+        						<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}','{{:pOrderId}}')">订单详情</a></td>
         					</tr>
 						{{/for}}
 				    {{/if}}	

@@ -54,9 +54,9 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 			    }
 			}
 		},
-		 _detailPage:function(orderid,state){
+		 _detailPage:function(orderid,state,pOrderId){
 		    window.location.href = _base+"/order/orderListDetail?orderId="
-		            + orderid+"&state="+state;
+		            + orderid+"&state="+state+"&pOrderId="+pOrderId";
 		},
 		_changeOrderState:function(orderStateDiv,state){
 			$(".order-list-table a").removeClass("current");

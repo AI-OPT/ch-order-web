@@ -118,12 +118,18 @@ public class OrderListController {
 
 
     @RequestMapping("/orderListDetail")
-	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state) {
+	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state,String pOrderId) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
     	try {
 			QueryOrderRequest queryRequest=new QueryOrderRequest();
-			queryRequest.setOrderId(Long.parseLong(orderId));
+			if(!StringUtil.isBlank(orderId)){
+				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)){
+					queryRequest.setOrderId(Long.parseLong(pOrderId));
+				}else{
+					queryRequest.setOrderId(Long.parseLong(orderId));
+				}
+			}
 			//queryRequest.setTenantId(user.getTenantId());
 			queryRequest.setTenantId(Constants.TENANT_ID);
 			OrderDetail orderDetail = new OrderDetail();
@@ -135,6 +141,8 @@ public class OrderListController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
+					//翻译订单应收金额
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
@@ -157,7 +165,7 @@ public class OrderListController {
 			}
 			model.put("orderDetail", orderDetail);
 			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)) { //待付款
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/unpaidOrderDetail", model);
 			}
 			if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state)) { //已付款(待配货)
 				return new ModelAndView("jsp/order/paidOrderDetails", model);

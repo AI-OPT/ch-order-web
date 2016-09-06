@@ -22,11 +22,11 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p>${order.chlId}</p>
+					                    <p>${orderDetail.chlId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p>${order.orderTypeName}</p>
+					                    <p>${orderDetail.orderTypeName}</p>
 					                </li>  
 					            </ul>  
 					  	</div>
@@ -50,16 +50,16 @@
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
-							                			<span>${order.parentOrderId}</span>
+							                			<span>${orderDetail.parentOrderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>${order.orderId}</span>
+							                			<span>${orderDetail.orderId}</span>
 							                		</p>
 							                	</div>
 							                </td>
 						              </tr>
-						               <c:forEach items="${order.prodInfo}" var="sp">
+						               <c:forEach items="${orderDetail.prodList}" var="sp">
 								          <tr>
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
@@ -90,7 +90,7 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家：</p>
-					                    <p>${order.userId}</p>
+					                    <p>${orderDetail.userId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">绑定手机号：</p>
@@ -104,11 +104,11 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货信息：</p>
-					                    <p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
+					                    <p>${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">买家留言：</p>
-					                    <p>${order.remark}</p>
+					                    <p>${orderDetail.remark}</p>
 					                </li>
 					            </ul>
 					  		</div>
@@ -154,13 +154,13 @@
 										<ul>
 							                <li>
 						                    <p class="word">订单号:</p>
-						                    <p id="orderid">${order.orderId}</p>
+						                    <p id="orderid">${orderDetail.orderId}</p>
 							                </li>
 						            	</ul>
 						            	<ul>
 							                <li>
 						                    <p class="word">订单金额(元):</p>
-						                    <p>${order.ordAdjustFee}</p>
+						                    <p>${orderDetail.ordAdjustFee}</p>
 							                </li>
 						            	</ul>
 						           		<ul>
