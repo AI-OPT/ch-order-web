@@ -49,11 +49,19 @@
                                                 <th>实付款</th>
                                                 <th>收货人手机号</th>
                                                 <th>是否需要物流</th>
-                                                <th>子订单号</th>
-                                                <th>商品信息</th>
-                                                <th>数量</th>
-                                                <th>订单状态</th>
-                                                <th>详情</th>
+                                                <th>
+                                                	<table class="table table-hover table-border table-bordered">
+	                                            		 <thead>
+	                                            			<tr>
+	                                            				<th>子订单号</th>
+	                                            				<th>商品信息</th>
+	                                            				<th>数量</th>
+                                                				<th>订单状态</th>
+                                               					<th>详情</th>
+	                                            			</tr>
+	                                            		</thead>
+	                                            	</table>
+                                                </th>
                                             </tr>
                                         </thead>
                                          <tbody id="orderListData"></tbody>
@@ -83,86 +91,48 @@
         <td id="pOrder">{{:pOrderId}}</td>
         <td>{{:userId}}</td>
         <td>绑定手机号</td>
- 		<td>{{:points}}</td>
-		<td>{{:discountFee}}</td>
- 		<td>{{:adjustFee}}</td>
+ 		<td>{{:totalJF}}</td>
+		<td>{{:totalCouponFee}}</td>
+ 		<td>{{:totalAdjustFee}}</td>
 		<td>{{:contactTel}}</td>
         <td>{{:deliveryFlagName}}</td>
 
 		 <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if orderList!=null}}
-	 					{{for orderList}}  
+			{{if orderList!=null}}
+				{{for orderList}}  
+        	 		<table class="table table-hover table-border" width="100%">
+        				<tbody>
         					<tr>
-									<td class="new-td">{{:orderId}}</td>	
+									<td>{{:orderId}}</td>
+									<td>
+										<table class="table table-hover table-border" width="100%">
+        								<tbody>
+											{{if productList!=null}}
+												{{for productList}}	  
+													<tr>
+        												<td title="{{:prodName}}">{{:~subStr(5,prodName)}}</td>	
+														<td>
+															<table class="table table-hover table-border" width="100%">
+        														<tbody>
+																	<tr>
+																		<td>{{:buySum}}</td>
+        															</tr>
+																</tbody>
+        													</table>
+														</td>
+        											</tr>
+												{{/for}}
+											{{/if}}
+										</tbody>
+        								</table>	
+									</td>
+									<td>{{:stateName}}</td>
+									<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}')">订单详情</a></td>
         					</tr>
-						{{/for}}	
-					{{/if}}
-        		</tbody>	
-        	</table>
-        </td>
-		 <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if orderList!=null}}
-						{{for orderList}}  
-							{{if productList!=null}}
-								{{for productList}}	 
-        							<tr>
-        								<td class="new-td">{{:prodName}}</td>	
-        							</tr>
-								{{/for}}
-							{{/if}}
-						{{/for}}
-				    {{/if}}	
-        		</tbody>	
-        	</table>
-        </td>
-		<td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if orderList!=null}}
-						{{for orderList}}  
-							{{if productList!=null}}
-								{{for productList}}	 
-        							<tr>
-        								<td class="new-td" style="">{{:buySum}}</td>	
-        							</tr>
-								{{/for}}
-							{{/if}}
-						{{/for}}
-				    {{/if}}	
-        		</tbody>	
-        	</table>
-        </td>
-
-		 <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if orderList!=null}}
-						{{for orderList}}  
-        					<tr>
-								<td class="new-td" style="">{{:stateName}}</td>	
-        					</tr>
-						{{/for}}
-				    {{/if}}	
-        		</tbody>	
-        	</table>
-        </td>
-		 <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if orderList!=null}}
-						{{for orderList}}  
-
-        					<tr>
-        						<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}')">订单详情</a></td>
-        					</tr>
-						{{/for}}
-				    {{/if}}	
-        		</tbody>	
-        	</table>
+        				</tbody>	
+        			</table>
+				{{/for}}
+			{{/if}}	
         </td>
  </tr>
  </script> 
