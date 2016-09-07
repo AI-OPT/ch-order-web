@@ -101,7 +101,10 @@
 <tr>
     	<td>{{:chlId}}</td>
         <td>{{:parentOrderId}}</td>
-        <td>{{:userId}}</td>
+		<td class="hind1">
+			<div class="center-hind" >{{:userId}}</div>
+        	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userId}}</div>
+		</td>
         <td>绑定手机号</td>
         <td>{{:ifWarning}}</td>
 		<td>{{:warningType}}</td>
