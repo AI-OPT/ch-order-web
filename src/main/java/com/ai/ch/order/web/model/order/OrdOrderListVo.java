@@ -6,17 +6,17 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String totalDiscountFee;
+	private String totalCouponFee;
 	
 	private String totalAdjustFee;
 	
 	private String totalJF;
 	
-	public String getTotalDiscountFee() {
-		return totalDiscountFee;
+	public String getTotalCouponFee() {
+		return totalCouponFee;
 	}
-	public void setTotalDiscountFee(String totalDiscountFee) {
-		this.totalDiscountFee = totalDiscountFee;
+	public void setTotalCouponFee(String totalCouponFee) {
+		this.totalCouponFee = totalCouponFee;
 	}
 	public String getTotalAdjustFee() {
 		return totalAdjustFee;
