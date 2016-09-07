@@ -99,7 +99,7 @@ public class OrderListController {
 						OrdOrderListVo orderListVo=new OrdOrderListVo();
 						BeanUtils.copyProperties(orderListVo, behindParentOrdOrderVo);
 						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustFee()));
-						orderListVo.setTotalDiscountFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getDiscountFee()));
+						//orderListVo.setTotalCouponFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.get));
 						orderListVo.setTotalJF(AmountUtil.LiToYuan(behindParentOrdOrderVo.getPoints()));
 						orderList.add(orderListVo);
 					}
@@ -119,7 +119,8 @@ public class OrderListController {
 
 
     @RequestMapping("/orderListDetail")
-	public ModelAndView orderListDetail(HttpServletRequest request, String orderId,String state,String pOrderId) {
+	public ModelAndView orderListDetail(HttpServletRequest request, String busiCode,
+			String orderId,String state,String pOrderId) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
@@ -191,6 +192,15 @@ public class OrderListController {
 				return new ModelAndView("", model);
 			}
 			if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
+				return new ModelAndView("", model);
+			}
+			if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)) { //换货单
+				return new ModelAndView("", model);
+			}
+			if(Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)) { //退货单
+				return new ModelAndView("", model);
+			}
+			if(Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)) { //退费单
 				return new ModelAndView("", model);
 			}
 		} catch (Exception e) {
