@@ -95,7 +95,16 @@
                                                 <th>部门类型</th>
                                                 <th>部门级别</th>
                                                 <th>上级部门</th>
-                                                <th>归属省份</th>
+                                                <th>
+                                                	<table class="table table-hover table-border table-bordered">
+	                                            		 <thead>
+	                                            			<tr>
+	                                            				<th>子订单号</th>
+	                                            				<th>商品名称</th>
+	                                            			</tr>
+	                                            		</thead>
+	                                            	</table>
+                                                </th>
                                                 <th>归属地市</th>
                                                 <th>联系人</th>
                                                 <th>操作</th>
@@ -108,9 +117,72 @@
                                             <td>分公司</td>
                                             <td>全国</td>
                                             <td>总部</td>
-                                            <td>北京</td>
-                                            <td>北京</td>
-                                            <td></td>
+                                            <td>
+                                           	<table class="table table-hover table-border">
+                                            		
+                                            		<tbody>
+                                            			<tr>
+                                            				<td rowspan="3">sssss</td>
+                                            				<td>
+                                            					<table class="table table-hover table-border">
+				                                            		<tbody>
+				                                            			<tr>
+				                                            				<td>sssss</td>
+				                                            				
+				                                            			</tr>
+				                                            			<tr>
+				                                            				<td>sssss</td>
+				                                            				
+				                                            			</tr>
+				                                            			<tr>
+				                                            				<td>sssss</td>
+				                                            				
+				                                            			</tr>
+				                                            		</tbody>
+                                            		
+                                            					</table>
+                                            				</td>
+                                            			</tr>
+                                            			
+                                            			
+                                            		</tbody>
+                                            		
+                                            	</table>
+                                            	<table class="table table-hover table-border">
+                                            		
+                                            		<tbody>
+                                            			<tr>
+                                            				<td rowspan="3">sssss</td>
+                                            				<td>
+                                            					<table class="table table-hover table-border">
+				                                            		<tbody>
+				                                            			<tr>
+				                                            				<td>sssss</td>
+				                                            				
+				                                            			</tr>
+				                                            			<tr>
+				                                            				<td>sssss</td>
+				                                            				
+				                                            			</tr>
+				                                            			<tr>
+				                                            				<td>sssss</td>
+				                                            				
+				                                            			</tr>
+				                                            		</tbody>
+                                            		
+                                            					</table>
+                                            				</td>
+                                            			</tr>
+                                            			
+                                            			
+                                            		</tbody>
+                                            		
+                                            	</table>
+                                            </td>
+                                            <td>
+                                            	
+                                            </td>
+                                            <td>lilei</td>
                                             <td  id="operation"><a href="#">修改</a></td>
                                         </tr>
                                          <tr>
