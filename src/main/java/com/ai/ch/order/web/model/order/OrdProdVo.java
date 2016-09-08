@@ -57,6 +57,11 @@ public class OrdProdVo implements Serializable{
 	 * 图片路径
 	 */
 	private String imageUrl;
+	
+	/**
+	 * 商品售后是否标识
+	 */
+	private String cusServiceFlag;
 
 	public String getProdSalePrice() {
 		return prodSalePrice;
@@ -137,4 +142,13 @@ public class OrdProdVo implements Serializable{
 	public void setProdDetalId(long prodDetalId) {
 		this.prodDetalId = prodDetalId;
 	}
+
+	public String getCusServiceFlag() {
+		return cusServiceFlag;
+	}
+
+	public void setCusServiceFlag(String cusServiceFlag) {
+		this.cusServiceFlag = cusServiceFlag;
+	}
+	
 }
