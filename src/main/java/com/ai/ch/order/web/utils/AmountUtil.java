@@ -17,5 +17,16 @@ public class AmountUtil {
         BigDecimal balance = BigDecimal.valueOf(amount).divide(new BigDecimal(1000L),2,BigDecimal.ROUND_HALF_UP);
         return new DecimalFormat(",###,##0.00").format(balance);
     }
+    /** 
+     * 将元为单位的转换为里 （乘1000）  
+     * 
+     */
+    public static Long YuanToLi(Long amount){
+        if(amount == null || amount == 0){
+            return 0L;
+        }
+        BigDecimal balance = BigDecimal.valueOf(amount).multiply(new BigDecimal(1000L));
+        return balance.longValue();
+    }
     
 }

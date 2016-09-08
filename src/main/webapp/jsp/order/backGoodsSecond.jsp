@@ -156,7 +156,7 @@
                             	<ul>
                             		<li class="col-md-5">
                             			<p class="word">子订单号：</p>
-                            			<p>${order.oederId}</p>
+                            			<p>${order.orderId}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款类型：</p>
@@ -197,9 +197,7 @@
                             <ul>
                             	<li class="col-md-5">
                             		<p>
-                             			<input type="button" class="biu-btn btn-primary btn-blue btn-small " value="同意退款 ">
-                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             			<input type="button" class="biu-btn btn-primary btn-blue  btn-medium " id="edit" value="退款金额修改">
+                             			<input type="button" class="biu-btn btn-primary btn-blue  btn-medium " id="edit" value="同意退款">
                              			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                              			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退款">
                              		</p>

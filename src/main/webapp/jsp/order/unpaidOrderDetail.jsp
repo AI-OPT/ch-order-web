@@ -180,7 +180,7 @@
 						            	<ul>
 							                <li>
 						                    <p class="word">订单金额(元):</p>
-						                    <p>${orderDetail.ordAdjustFee}</p>
+						                    <p id="currentMony">${orderDetail.ordAdjustFee}</p>
 							                </li>
 						            	</ul>
 						           		<ul>
