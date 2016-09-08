@@ -71,6 +71,20 @@ public final class Constants {
 			 */
 			public static final String JF = "5";
 		}
+		
+		public static class BusiCode {
+			    // 1：正常单
+	            public static final String NORMAL_ORDER = "1";
+	
+	            // 2.换货单
+	            public static final String EXCHANGE_ORDER = "2";
+	
+	            // 3.退货单
+	            public static final String UNSUBSCRIBE_ORDER = "3";
+	
+	            // 4：退费单
+	            public static final String CANCEL_ORDER = "4";
+		}
 	}
 
 }
