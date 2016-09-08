@@ -70,7 +70,7 @@ public class AlertOrderController {
 			req.setOrderTimeStart(ts);
 		}
         if (!StringUtil.isBlank(orderTimeEnd)) {
-        	orderTimeEnd = orderTimeEnd + " 00:00:00";
+        	orderTimeEnd = orderTimeEnd + " 23:59:59";
 			Timestamp ts  = Timestamp.valueOf(orderTimeEnd);
 			req.setOrderTimeEnd(ts);
 		}
