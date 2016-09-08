@@ -38,10 +38,8 @@ define('app/jsp/order/orderList', function (require, exports, module) {
     		OrderListPager.superclass.setup.call(this);
     		// 初始化执行搜索
     		var staFlag = $("#stateFlag").val();
-    		alert("======"+staFlag);
     		if(staFlag==11){
-    			alert("0p0p0=======");
-    			var state  ="11";
+    			var state ="11";
     			this._changeWaitOrderState(state);
     		}else{
     			this._searchOrderList();
@@ -52,7 +50,7 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 		    window.location.href = _base+"/order/orderListDetail?orderId="
 		            + orderid+"&state="+state+"&pOrderId="+pOrderId
 		},
-		_changeWaitOrderState:function(sate){
+		_changeWaitOrderState:function(state){
 			$(".order-list-table a").removeClass("current");
 			$("#waitMoney").addClass("current");
 			$("#searchOrderState").val(state);

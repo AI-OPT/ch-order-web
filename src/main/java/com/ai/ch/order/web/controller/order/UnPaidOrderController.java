@@ -29,6 +29,9 @@ import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
 import com.ai.platform.common.api.cache.param.SysParamSingleCond;
+import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListResponse;
@@ -67,7 +70,7 @@ public class UnPaidOrderController {
 		SysParamSingleCond param = new SysParamSingleCond();
 		try {
 			//Long Id = Long.parseLong(orderId);
-			query.setOrderId(3345703912l);
+			query.setOrderId(35913355l);
 			query.setTenantId("changhong");
 			QueryOrderResponse response = orderListSV.queryOrder(query);
 			if(response!=null && response.getResponseHeader().isSuccess()){
@@ -114,14 +117,24 @@ public class UnPaidOrderController {
 		//修改金额
 		@RequestMapping("/changeMoney")
 		@ResponseBody
-		public ResponseData<String> Change(HttpServletRequest request, String orderId,String changeInfo,String money) {
+		public ResponseData<String> Change(HttpServletRequest request, String orderId,String changeInfo,String money,String operId) {
 			ResponseData<String> responseData = null;
 			OrderModifyRequest req = new OrderModifyRequest();
+			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			try {
 				INotPaidOrderModifySV iNotPaidOrderModifySV = DubboConsumerFactory.getService(INotPaidOrderModifySV.class);
+				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+				userReq.setTenantId(user.getTenantId());
+				userReq.setId(operId);
+				SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+				if(response!=null){
+					String no = response.getNo();
+					req.setOperId(no);
+				}
 				Long Id = Long.parseLong(orderId);
 				Long updateFee = Long.parseLong(money);
-				req.setTenantId("changhong");
+				req.setTenantId(user.getTenantId());
 				req.setOrderId(Id);
 				if(!StringUtil.isBlank(changeInfo)){
 					req.setUpdateRemark(changeInfo);

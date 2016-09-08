@@ -99,7 +99,7 @@
                             	<p class="f-16">买家信息</p>
 					           	<ul>
 					                <li >
-					                    <p class="word">买家：${orderDetail.userId}</p>
+					                    <p class="word" id="userId">买家：${orderDetail.userId}</p>
 					                </li>
 					                <li>
 					                    <p class="word">绑定手机号：</p>

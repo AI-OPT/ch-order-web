@@ -21,7 +21,7 @@
 							           <input id="searchOrderState" value="" style="display:none"/>
 							           <ul>
 								            <li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this)" class="current">全部</a></li>
-          									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'11')">待付款订单</a></li>
+          									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'11')" id="waitMoney">待付款订单</a></li>
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'13,14,15')">待发货订单</a></li>
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'16')" style="border-right-style: none;" >已发货订单</a></li>
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'90')" style="border-right-style: none;" >已完成订单</a></li>

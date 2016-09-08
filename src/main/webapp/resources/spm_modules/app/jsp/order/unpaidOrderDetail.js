@@ -108,13 +108,14 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
 			var orderId = $("#orderid").text();
 			var changeinfo = $("#updateRemark").text();
 			var money = $("#updateFee").val();
+			var operId = $("#userId").text();
     	    ajaxController.ajax({
     	    	type: "post",
 				dataType: "json",
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":orderId,"changeInfo":changeinfo,"money":money},
+				data:{"orderId":orderId,"changeInfo":changeinfo,"money":money,"operId":operId},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
     	        		//调到订单列表页面
