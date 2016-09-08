@@ -61,7 +61,7 @@
                                         <thead>
                                             <tr>
                                             	<th>订单来源</th>
-                                                <th>父订单号</th>
+                                                <th>订单号</th>
                                                 <th>用户账号</th>
                                                 <th>绑定手机号</th>
                                                 <th>是否预警订单</th>
@@ -100,7 +100,7 @@
 <script id="alertTemple" type="text/template">
 <tr>
     	<td>{{:chlId}}</td>
-        <td>{{:parentOrderId}}</td>
+        <td>{{:orderId}}</td>
 		<td class="hind1">
 			<div class="center-hind" >{{:userId}}</div>
         	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userId}}</div>
@@ -141,7 +141,7 @@
         	</table>
         </td>
         <td>{{:state}}</td>
-         <td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}')">订单性情</a></td>
+         <td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}')">订单详情</a></td>
          <td><a  href="javascript:void(0);" onclick="pager._closeOrder('{{:orderId}}')">关闭订单</a></td>
     </tr>
  </script> 

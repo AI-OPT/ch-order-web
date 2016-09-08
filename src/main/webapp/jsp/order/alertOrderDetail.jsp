@@ -127,14 +127,12 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div>
-	                            <ul>
-	                            	<li class="col-md-5">
-	                            		<p>
-	                             			<input type="button" id="operation" class="biu-btn btn-primary btn-blue btn-small " value="关闭订单">
-	                             		</p>
-	                            	</li>
-	                            </ul>
+                            <div class="text-c">
+                           		<p>
+                           			<input type="button" id="operation" class="biu-btn btn-primary btn-blue btn-small " value="关闭订单">
+                           			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           			<input type="button" id="back" class="biu-btn btn-primary btn-blue btn-small " value="返回">
+                            	</p>
                             </div>
                             <!--提示弹出框 操作-->	
 							<div class="eject-big">

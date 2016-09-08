@@ -28,12 +28,16 @@ define('app/jsp/order/alertOrderDetail', function (require, exports, module) {
     	//事件代理
     	events: {
     		//查询
-            "click #close":"_closeOrder"
+            "click #close":"_closeOrder",
+            "click #back":"_back"
         },
     	//重写父类
     	setup: function () {
     		alertOrderDetailPager.superclass.setup.call(this);
 			
+    	},
+    	_back:function(){
+    		window.location.href = _base+"/toAlertOrder";
     	},
 		_closeOrder:function(){
 			var orderId = $("#orderId").text();

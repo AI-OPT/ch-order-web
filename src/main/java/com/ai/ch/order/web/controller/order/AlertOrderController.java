@@ -165,6 +165,7 @@ public class AlertOrderController {
 				OrderWarmVo  orderWarm =  response.getOrderWarmVo();
 				if(orderWarm!=null){
 					BeanUtils.copyProperties(orderDetail, orderWarm);
+					orderDetail.setUserTel(user.getMobile());
 					//翻译预警类型
 	         		param = new SysParamSingleCond();
 	         		param.setTenantId(Constants.TENANT_ID);
