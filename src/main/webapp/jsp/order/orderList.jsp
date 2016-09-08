@@ -103,14 +103,14 @@
         	 		<table class="table table-hover table-border" width="100%">
         				<tbody>
         					<tr>
-									<td>{{:orderId}}</td>
+									<td rowspan="{{:prodSize}}">{{:orderId}}</td>
 									<td>
 										<table class="table table-hover table-border" width="100%">
         								<tbody>
 											{{if productList!=null}}
 												{{for productList}}	  
 													<tr>
-        												<td title="{{:prodName}}">{{:~subStr(5,prodName)}}</td>	
+        												<td title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
 														<td>
 															<table class="table table-hover table-border" width="100%">
         														<tbody>
