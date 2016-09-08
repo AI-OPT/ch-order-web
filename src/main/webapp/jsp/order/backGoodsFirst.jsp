@@ -36,7 +36,7 @@
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">仓库信息：</p>
-						                    <p>XXXXX</p>
+						                    <p>${order.routeName}</p>
 						                </li>  
 						            </ul>
 					  			</div>
@@ -67,7 +67,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>XXXX</span>
+							                			<span>${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -104,10 +104,14 @@
                             	<ul>
                             		<li class="col-md-3">
                             			<p class="word">售后订单号：</p>
-                            			<p >XXX</p>
+                            			<p>${order.origOrderId}</p>
                             		</li>
                             		<li class="col-md-3">
 	                            		<p class="word">原始订单号：</p>
+	                            		<p >${order.origOrderId}</p>
+                            		</li>
+                            		<li class="col-md-3">
+	                            		<p class="word">售后操作人：</p>
 	                            		<p >XXXX5</p>
                             		</li>
                             	</ul>
@@ -135,7 +139,7 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">支付账号：</p>
-                            			<p>XXXXX</p>
+                            			<p>${order.acctId}</p>
                             		</li>
                             	</ul>
                             	<ul>

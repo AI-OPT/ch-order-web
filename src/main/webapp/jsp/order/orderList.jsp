@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>订单列表</title>
-
+<input type="hidden" name="stateFlag" id="stateFlag" value="${requestScope.stateFlag}"/>
 </head>
 <body>
    <div class="content-wrapper-iframe" ><!--右侧灰色背景-->
@@ -88,7 +88,7 @@
 <script id="orderListTemple" type="text/template">
 <tr>
     	<td>{{:chlIdName}}</td>
-        <td id="pOrder">{{:pOrderId}}</td>
+        <td>{{:pOrderId}}</td>
         <td>{{:userId}}</td>
         <td>绑定手机号</td>
  		<td>{{:totalJF}}</td>
@@ -127,7 +127,7 @@
         								</table>	
 									</td>
 									<td>{{:stateName}}</td>
-									<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}')">订单详情</a></td>
+									<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}','{{:parentOrderId}}')">订单详情</a></td>
         					</tr>
         				</tbody>	
         			</table>

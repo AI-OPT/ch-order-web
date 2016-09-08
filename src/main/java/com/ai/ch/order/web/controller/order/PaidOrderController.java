@@ -1,6 +1,7 @@
 package com.ai.ch.order.web.controller.order;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -76,6 +77,13 @@ public class PaidOrderController {
         IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
         BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
         ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
+        String states="21,22,23,31,92,93,94";
+        String[] stateArray = states.split(",");
+		List<String> stateList = new LinkedList<String>();
+		for(String state : stateArray){
+			stateList.add(state);
+		}
+		req.setStateList(stateList);
         String startT =  reqVo.getStartTime();
         String endT = reqVo.getEndTime();
 	    if(!StringUtil.isBlank(startT)){

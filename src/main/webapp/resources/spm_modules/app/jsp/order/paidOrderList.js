@@ -33,7 +33,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
     	events: {
     		//查询
             //"click #agrren":"_agrrenChangeGoods",
-            "click #search":"_searchList"
+            "click #search":"_highSearch"
             //"click #moreSearch":"_highSearch"
         },
     	//重写父类
@@ -44,46 +44,24 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				formValidator.element(this);
 			});
     		// 初始化执行搜索
-			this._searchList();
+			this._highSearch();
     	},
     	_initValidate:function(){
     		var formValidator=$("#dataForm").validate({
     			rules: {
     				orderId: {
-    					digits:true,
-    					min:1,
-    					max:20
+    					digits:true
     				}
     			},
     			messages: {
     				orderId: {
-    					digits: "只能输入数字",
-    					min:"最小值为{0}",
-    					max:"最大值为{0}"
+    					digits: "只能输入数字"
     				}
     			}
     		});
     		return formValidator;
     	},
-    	//获取查询参数
-		_getQueryParams:function(){
-			var _this = this;
-			return{
-			    "startTime":function () {
-			    	_this.startTime = jQuery.trim($("#orderTimeBegin").val());
-			        return _this.startTime;
-			    },
-			    "endTime":function () {
-			    	_this.endTime = jQuery.trim($("#orderTimeEnd").val());
-			        return _this.endTime;
-			    },
-			    "inputOrderId":function () {
-			    	_this.inputOrderId = jQuery.trim($("#orderId").val());
-			        return _this.inputOrderId;
-			    }
-			}
-		},
-		/*//获取高级查询参数
+		//获取高级查询参数
 		_getHignQueryParams:function(){
 			var _this = this;
 			return{
@@ -142,39 +120,17 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 					}
 				},
 			});
-		},*/
-		_searchList:function(){
-			var _this = this;
-			var formValidator=_this._initValidate();
-			formValidator.form();
-			if(!$("#dataForm").valid()){
-				alert('验证不通过！！！！！');
-				return;
-			}
-			var queryParams = this._getQueryParams();
-			$("#pagination").runnerPagination({
-				url: _base+"/getPaidOrderData",
-				method: "POST",
-				dataType: "json",
-				processing: true,
-				data : queryParams,
-				pageSize: paidOrderPager.DEFAULT_PAGE_SIZE,
-				visiblePages:5,
-				message: "正在为您查询数据..",
-				render: function (data) {
-					if(data&&data.length>0){
-						var template = $.templates("#paidTemple");
-						var htmlOut = template.render(data);
-						$("#paidData").html(htmlOut);
-					}else{
-						$("#paidData").html("未搜索到信息");
-					}
-				},
-			});
 		},
-		_detailPage:function(orderid){
-		    window.location.href = _base+"/alertDetail?orderId="
-		            + orderid;
+		_detail:function(orderid,busiCode){
+			alert(busiCode);
+			if(busiCode==2){
+				window.location.href = _base+"/changeFirstDetail?orderId="
+	            + orderid;
+			}else{
+				window.location.href = _base+"/backFirstDetail?orderId="
+	            + orderid;
+			}
+		    
 		},
 		
     });

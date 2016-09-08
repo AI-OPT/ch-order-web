@@ -49,7 +49,8 @@ public class OrderListController {
 	private static final Logger logger = Logger.getLogger(OrderListController.class);
 	
 	@RequestMapping("/toOrderList")
-	public ModelAndView toAlertOrder(HttpServletRequest request) {
+	public ModelAndView toAlertOrder(HttpServletRequest request,String stateFlag ) {
+		request.setAttribute("stateFlag", stateFlag);
 		return new ModelAndView("jsp/order/orderList");
 	}
 	
@@ -123,7 +124,7 @@ public class OrderListController {
 			String orderId,String state,String pOrderId) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
-    	Map<String, OrdOrderVo> model = new HashMap<String, OrdOrderVo>();
+    	Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();
     	try {
 				QueryOrderRequest queryRequest=new QueryOrderRequest();
 				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)){
@@ -152,8 +153,10 @@ public class OrderListController {
             		if(chldParam!=null){
             			orderDetail.setChlId(chldParam.getColumnDesc());
             		}
-					//翻译订单应收金额
+            		//翻译订单应收/优惠金额、运费
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {

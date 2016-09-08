@@ -7,7 +7,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>查询列表</title>
+<title>发货</title>
 <%@include file="/inc/inc.jsp" %>
 </head>
 <body>
@@ -111,11 +111,6 @@
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
-						               <tr>
-							                <td>其他</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						               </tr>
 						                <tr>
 							                <td><input type="text" class="int-text int-medium" value="请填写快递公司名"></td>
 							                <td><input type="text" class="int-text int-medium"></td>

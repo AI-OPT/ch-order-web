@@ -37,27 +37,24 @@ define('app/jsp/order/orderList', function (require, exports, module) {
     	setup: function () {
     		OrderListPager.superclass.setup.call(this);
     		// 初始化执行搜索
-    		this._searchOrderList();
+    		var staFlag = $("#stateFlag").val();
+    		if(staFlag==11){
+    			var state ="11";
+    			this._changeWaitOrderState(state);
+    		}else{
+    			this._searchOrderList();
+    		}
     	},
     	
-    	//获取查询参数
-		_getQueryParams:function(){
-			var _this = this;
-			return{
-			    "orderTimeBegin":function () {
-			    	_this.orderTimeBegin = jQuery.trim($("#orderTimeBegin").val());
-			        return _this.orderTimeBegin;
-			    },
-			    "orderTimeEnd":function () {
-			    	_this.orderTimeEnd = jQuery.trim($("#orderTimeEnd").val());
-			        return _this.orderTimeEnd;
-			    }
-			}
-		},
-		 _detailPage:function(orderid,state){
-			 var pOrderId = $("#pOrder").text();
+		 _detailPage:function(orderid,state,pOrderId){
 		    window.location.href = _base+"/order/orderListDetail?orderId="
-		            + orderid+"&state="+state+"&pOrderId="+pOrderId;
+		            + orderid+"&state="+state+"&pOrderId="+pOrderId
+		},
+		_changeWaitOrderState:function(state){
+			$(".order-list-table a").removeClass("current");
+			$("#waitMoney").addClass("current");
+			$("#searchOrderState").val(state);
+			this._searchOrderList();
 		},
 		_changeOrderState:function(orderStateDiv,state){
 			$(".order-list-table a").removeClass("current");
@@ -93,9 +90,9 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 		},
 		_getSearchParams:function(){
     		return {
-    			"orderTimeBegin":jQuery.trim($("#orderTimeBegin").val()),
-    			"orderTimeEnd":jQuery.trim($("#orderTimeEnd").val()),
-    			"orderId":jQuery.trim($("#orderId").val()),
+    			"timeStart":jQuery.trim($("#orderTimeBegin").val()),
+    			"timeEnd":jQuery.trim($("#orderTimeEnd").val()),
+    			"reqOrderId":jQuery.trim($("#orderId").val()),
     			"username":jQuery.trim($("#username").val()),
     			"chlId":jQuery.trim($("#orderSource option:selected").val()),
     			"routeId":jQuery.trim($("#routeSource option:selected").val()),
