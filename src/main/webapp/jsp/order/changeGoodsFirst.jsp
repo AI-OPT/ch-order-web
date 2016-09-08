@@ -67,7 +67,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>XXXXX</span>
+							                			<span>${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -158,12 +158,12 @@
 	                            		</li>
 	                            		<li class="col-md-3">
 	                            			<p class="word">运费</p>
-	                            			<p>XXXXX</p>
+	                            			<p>${order.freight}</p>
 	                            		</li>
 	                            	</ul>
                             	<ul>
                             		<li class="col-md-3">
-                            		<p class="word">换货理由:</p>
+                            		<p class="word">换货理由:xxx</p>
                             		</li>
                             		<li class="col-md-3">
                             		<p class="word">图片:</p>

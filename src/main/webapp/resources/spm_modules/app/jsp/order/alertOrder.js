@@ -101,8 +101,6 @@ define('app/jsp/order/alertOrder', function (require, exports, module) {
 						var template = $.templates("#alertTemple");
 						var htmlOut = template.render(data);
 						$("#alertData").html(htmlOut);
-					}else{
-						alert("no data");
 					}
 				},
 			});

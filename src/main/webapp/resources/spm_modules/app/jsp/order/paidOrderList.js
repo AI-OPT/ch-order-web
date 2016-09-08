@@ -2,7 +2,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -32,9 +32,8 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
     	//事件代理
     	events: {
     		//查询
-            //"click #agrren":"_agrrenChangeGoods",
+    		"click #showQuery":"_showQueryInfo",
             "click #search":"_highSearch"
-            //"click #moreSearch":"_highSearch"
         },
     	//重写父类
     	setup: function () {
@@ -44,8 +43,68 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				formValidator.element(this);
 			});
     		// 初始化执行搜索
+			this._bindSelect();
+    		this._bindChlIdSelect();
 			this._highSearch();
     	},
+    	_showQueryInfo: function(){
+			//展示查询条件
+			var info= $("#selectDiv").is(":hidden"); //是否隐藏
+		    if(info==true){
+		    	$("#selectDiv").show();
+		    }else{
+		    	$("#selectDiv").hide();
+		    }
+		},
+		
+		// 下拉
+		_bindSelect : function() {
+			var this_=this;
+			$.ajax({
+				type : "post",
+				processing : false,
+				url : _base+ "/getSelect",
+				dataType : "json",
+				data : {
+					paramCode:"ORD_DELIVERY_FLAG",
+					typeCode:"ORD_ORDER"
+				},
+				message : "正在加载数据..",
+				success : function(data) {
+					var d=data.data;
+					$.each(d,function(index,item){
+						var paramName = d[index].columnDesc;
+						var paramCode = d[index].columnValue;
+						$("#deliveryFlag").append('<option value="'+paramCode+'">'+paramName+'</option>');
+					})
+				}
+			});
+		},
+		
+		// 下拉 订单来源
+		_bindChlIdSelect : function() {
+			var this_=this;
+			$.ajax({
+				type : "post",
+				processing : false,
+				url : _base+ "/getChlIdSelect",
+				dataType : "json",
+				data : {
+					paramCode:"CHL_ID",
+					typeCode:"ORD_ORDER"
+				},
+				message : "正在加载数据..",
+				success : function(data) {
+					var d=data.data;
+					$.each(d,function(index,item){
+						var paramName = d[index].columnDesc;
+						var paramCode = d[index].columnValue;
+						$("#orderSource").append('<option value="'+paramCode+'">'+paramName+'</option>');
+					})
+				}
+			});
+		},
+		
     	_initValidate:function(){
     		var formValidator=$("#dataForm").validate({
     			rules: {
@@ -97,38 +156,38 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 			var formValidator=_this._initValidate();
 			formValidator.form();
 			if(!$("#dataForm").valid()){
-				alert('验证不通过！！！！！');
-				return;
+				return false;
 			}
 			var queryParams = this._getHignQueryParams();
 			$("#pagination").runnerPagination({
 				url: _base+"/getPaidOrderData",
 				method: "POST",
 				dataType: "json",
-				processing: true,
 				data : queryParams,
 				pageSize: paidOrderPager.DEFAULT_PAGE_SIZE,
 				visiblePages:5,
 				message: "正在为您查询数据..",
+				messageId:"showMessageDiv",
+				renderId:"paidData",
 				render: function (data) {
 					if(data&&data.length>0){
 						var template = $.templates("#paidTemple");
 						var htmlOut = template.render(data);
 						$("#paidData").html(htmlOut);
-					}else{
-						$("#paidData").html("未搜索到信息");
 					}
 				},
 			});
 		},
-		_detail:function(orderid,busiCode){
-			alert(busiCode);
+		_detail:function(orderid,busiCode,state){
 			if(busiCode==2){
 				window.location.href = _base+"/changeFirstDetail?orderId="
 	            + orderid;
-			}else{
+			}else if(busiCode==3){
 				window.location.href = _base+"/backFirstDetail?orderId="
 	            + orderid;
+			}else{
+				window.location.href = _base+"/order/orderListDetail?orderId="
+	            + orderid+"&state="+state;
 			}
 		    
 		},
