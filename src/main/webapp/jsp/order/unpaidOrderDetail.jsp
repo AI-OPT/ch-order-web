@@ -70,54 +70,74 @@
 								                      </table>
 								                 </td>
 								                <td>${sp.prodSalePrice}元/件</td>
-								                <td>${order.orderTime}</td>
-								                <td>${order.stateName}</td>
+								                <td>${orderDetail.orderTime}</td>
+								                <td>${orderDetail.stateName}</td>
 								                <td>${sp.prodAdjustFee}</td>
-								                <td>${sp.prodDiscountFee}</td>
-								                <td>xxxxxxxxxxx</td>
+								                <td>${sp.prodCouponFee}</td>
+								                <td>${sp.jfFee}</td>
 							              </tr>
 							            </c:forEach> 
 						           
                                     </tbody>
                                     </table>
-                               
                                 </div>
                             <!--/table表格结束-->
-                            <header class="main-box-header clearfix">
-                            	<h5 class="pull-left">买家信息</h5>
-                        	</header>
-                            <div class="form-label">
+                            <div class="text-r">
+                            	<ul>
+                            		<li>
+                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            		</li>
+                            	</ul>
+                            </div>
+                            <div class="text-l">
+                            	<p class="f-16">买家信息</p>
 					           	<ul>
-					                <li  class="col-md-6">
-					                    <p class="word">买家：</p>
-					                    <p>${orderDetail.userId}</p>
+					                <li >
+					                    <p class="word">买家：${orderDetail.userId}</p>
 					                </li>
-					                <li  class="col-md-6">
+					                <li>
 					                    <p class="word">绑定手机号：</p>
-					                    <p>shouji</p>
 					                </li>  
 					            </ul>  
 					            <ul>
-					                <li  class="col-md-6">
-					                    <p class="word">配送方式：</p>
-					                    <p>xxxxxxxxxxx</p>
+					                <li>
+					                    <p class="word">配送方式：${orderDetail.logisticsType}</p>
 					                </li>
-					                <li  class="col-md-6">
-					                    <p class="word">收货信息：</p>
-					                    <p>${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                <li>
+					                    <p class="word">收货信息：${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
-					                <li  class="col-md-6">
-					                    <p class="word">买家留言：</p>
-					                    <p>${orderDetail.remark}</p>
+					                <li >
+					                    <p class="word">买家留言：${orderDetail.remark}</p>
 					                </li>
 					            </ul>
 					  		</div>
-					  		<div>
+					  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					  		<div class="text-l mc-50">
+                            	<p class="f-16">发票信息</p>
+					           	<ul>
+					                <li >
+					                    <p class="word">发票类型：${orderDetail.invoiceTypeName}</p>
+					                </li>
+					                <li>
+					                    <p class="word">发票类目：${orderDetail.invoiceContent}</p>
+					                </li>  
+					                <li>
+					                    <p class="word">发票抬头：${orderDetail.invoiceTitle}</p>
+					                </li>
+					            </ul>
+					  		</div>
+					  		<div  class="text-c">
 	                            <ul>
-	                            	<li class="col-md-5">
+	                            	<li>
 	                            		<p>
 	                             			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="价格修改">
-	                             			&nbsp;&nbsp;&nbsp;
+	                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	                             			<input type="button" id="operation" class="biu-btn btn-primary btn-blue btn-small " value="关闭订单">
 	                             		</p>
 	                            	</li>
@@ -194,7 +214,7 @@
               </div> 
           </div>
     </div>
-     <script type="text/javascript">
+    <script type="text/javascript">
 			var pager;
 			(function () {
 				seajs.use('app/jsp/order/unpaidOrderDetail', function (unpaidOrderPager) {
@@ -202,6 +222,6 @@
 					pager.render();
 				});
 			})();
- </script> 
+	</script>
 </body>
 </html>

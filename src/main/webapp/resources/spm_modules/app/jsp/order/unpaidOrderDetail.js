@@ -77,7 +77,9 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
     	        		//调到订单列表页面
-    	        		alert("success!!!!");
+    	        		var state = "11";
+    	        		window.location.href = _base+"/order/toOrderList?stateFlag="
+    		            + state
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',
@@ -115,8 +117,10 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
 				data:{"orderId":orderId,"changeInfo":changeinfo,"money":money},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
-    	        		//如果金额修改成功返回订单处理首页
-    	        		alert("sucess");
+    	        		//调到订单列表页面
+    	        		var state = "11";
+    	        		window.location.href = _base+"/order/toOrderList?stateFlag="
+    		            + state
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',

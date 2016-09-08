@@ -80,7 +80,7 @@
 									{{if orderList!=null}}
 										{{for orderList}}
         									<tr>
-												<td class="new-td" style="">{{:orderId}}</td>
+												<td class="new-td">{{:orderId}}</td>
         									</tr>
 										{{/for}}
 									{{/if}}
@@ -94,8 +94,11 @@
 										{{for orderList}}
 											{{if productList!=null}}
 											{{for productList}}
-        										<tr>
-													<td class="new-td" style="">{{:prodName}}</td>
+												<tr>
+													<td class="hind1 new-td">
+														<div class="center-hind" >{{:prodName}}</div>
+        												<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:prodName}}</div>
+													</td>
         										</tr>
 											{{/for}}
 											{{/if}}
@@ -110,7 +113,7 @@
 									{{if orderList!=null}}
 										{{for orderList}}
         									<tr>
-												<td class="new-td" style="">{{:stateName}}</td>
+												<td class="new-td">{{:stateName}}</td>
         									</tr>
 										{{/for}}
 									{{/if}}
@@ -122,9 +125,19 @@
         						<tbody>
 									{{if orderList!=null}}
 										{{for orderList}}
-        									<tr>
-												<td class="new-td" style="">查看详情</td>
-        									</tr>
+											{{if busiCode=='2'}}
+												<tr>
+													<td class="new-td" ><a  href="javascript:void(0);" onclick="pager._detail('{{:pOrderId}}','{{:busiCode}}')">查看详情(换货)</a></td>
+        										</tr>			
+											{{else  busiCode=='3'}}
+												<tr>
+													<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detail('{{:pOrderId}}','{{:busiCode}}')">查看详情(退货)</a></td>
+        										</tr>
+											{{else}}
+												<tr>
+													<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detail('{{:pOrderId}}','{{:busiCode}}')">查看详情</a></td>
+        										</tr>
+											{{/if}}
 										{{/for}}
 									{{/if}}
         						</tbody>	
