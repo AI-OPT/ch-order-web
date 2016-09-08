@@ -3,7 +3,6 @@ package com.ai.ch.order.web.controller.order;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,10 +10,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
-import com.ai.opt.sso.client.filter.SLPClientUser;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV;
 import com.ai.slp.order.api.invoiceprint.param.InvoicePrintInfosRequest;
@@ -32,14 +31,13 @@ public class InvoicePrintController {
 	@RequestMapping("/query")
 	@ResponseBody
 	public ResponseData<InvoicePrintResponse> query(HttpServletRequest request,String orderId) {
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<InvoicePrintResponse> responseData =null;
 		try {
 			InvoicePrintRequest req=new InvoicePrintRequest();
-		/*	SLPClientUser user = (SLPClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
-			if (user==null)
-			    throw new BusinessException("","请先登录");*/
-			req.setOrderId(35913355l);
-			req.setTenantId("SLP");
+			req.setOrderId(Long.valueOf(orderId));
+			//req.setTenantId(user.getTenantId());
+			req.setTenantId("changhong");
 			IInvoicePrintSV iInvoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
 			InvoicePrintResponse response = iInvoicePrintSV.query(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
@@ -59,16 +57,15 @@ public class InvoicePrintController {
 	@ResponseBody
 	public ResponseData<BaseResponse> print(HttpServletRequest request,String orderId,
 			String orderInfos) {
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<BaseResponse> responseData =null;
 		try {
 			InvoicePrintInfosRequest req=new InvoicePrintInfosRequest();
-		/*	SLPClientUser user = (SLPClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
-			if (user==null)
-			    throw new BusinessException("","请先登录");*/
 			List<InvoicePrintVo> invoicePrintVos = JSON.parseArray(orderInfos, InvoicePrintVo.class); 
 			req.setOrderId(Long.valueOf(orderId));
 			req.setInvoicePrintVos(invoicePrintVos);
-			req.setTenantId("SLP");
+			//req.setTenantId(user.getTenantId());
+			req.setTenantId("changhong");
 			IInvoicePrintSV invoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
 			BaseResponse response = invoicePrintSV.print(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
