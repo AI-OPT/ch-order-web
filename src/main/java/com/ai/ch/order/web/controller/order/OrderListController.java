@@ -167,6 +167,7 @@ public class OrderListController {
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
+							//product.setCusServiceFlag(ordProductVo.getC);
 							product.setProdDetalId(ordProductVo.getProdDetalId());
 							prodList.add(product);
 						}
