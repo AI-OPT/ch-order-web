@@ -180,10 +180,10 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 		},
 		_detail:function(orderid,busiCode,state){
 			if(busiCode==2){
-				window.location.href = _base+"/changeFirstDetail?orderId="
+				window.location.href = _base+"/changeDetail?orderId="
 	            + orderid;
 			}else if(busiCode==3){
-				window.location.href = _base+"/backFirstDetail?orderId="
+				window.location.href = _base+"/backDetail?orderId="
 	            + orderid;
 			}else{
 				window.location.href = _base+"/order/orderListDetail?orderId="

@@ -26,7 +26,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p>${order.orderType}</p>
+					                    <p>${order.orderTypeName}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
@@ -67,7 +67,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>${order.orderId}</span>
+							                			<span id="orderID">${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -76,7 +76,7 @@
 							                	</div>
 							                </td>
 						              </tr>
-						              <c:forEach items="${order.productList}" var="sp">
+						              <c:forEach items="${order.prodList}" var="sp">
 							          		<tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">
@@ -86,18 +86,17 @@
 							                         </tr>
 							                      </table>
 							                 </td>
-							                <td>${sp.salePrice}/件</td>
+							                <td>${sp.prodSalePrice}/件</td>
 							                <td>${order.orderTime}</td>
-							                <td>${order.busiCode}</td>
-							                <td class="color-red">${order.stateName}</td>
-							                <td>${sp.adjustFee}</td>
-							                <td>${sp.operDiscountFee}</td>
-							                 <td>${sp.integral}</td>
+							                <td>${order.busiCodeName}</td>
+							                <td>${order.stateName}</td>
+							                <td>${sp.prodAdjustFee}</td>
+							                <td>${sp.prodCouponFee}</td>
+							                <td>${sp.jfFee}</td>
 						              </tr>
 						             </c:forEach>
                                     </tbody>
                                    </table>
-                               
                                 </div>
                             <!--/table表格结束-->
                             <div class="form-label">
@@ -109,6 +108,10 @@
                             		<li class="col-md-3">
 	                            		<p class="word">原始订单号：</p>
 	                            		<p >${order.origOrderId}</p>
+                            		</li>
+                            		<li class="col-md-3">
+	                            		<p class="word">售后操作人：</p>
+	                            		<p>XXXXX</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -139,7 +142,7 @@
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
                             			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
@@ -154,11 +157,11 @@
 	                            		</li>
 	                            		<li class="col-md-3">
 	                            			<p class="word">类型：</p>
-	                            			<p>${order.busiCode}</p>
+	                            			<p>${order.busiCodeName}</p>
 	                            		</li>
 	                            		<li class="col-md-3">
 	                            			<p class="word">运费</p>
-	                            			<p>${order.freight}</p>
+	                            			<p>用户承担？？？？？</p>
 	                            		</li>
 	                            	</ul>
                             	<ul>

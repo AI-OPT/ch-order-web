@@ -67,9 +67,11 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     		return formValidator;
     	},
     	_refuseChangeGoods:function(){
+    		var orderid=$("#orderID").text();
     		var _this= this;
     	    var url=_base+"/firstChange";
     	    var isRefuse = true;
+    	    var refuseInfo = $("#refuseInfo").val();
     	    var formValidator=_this._initValidate();
 			formValidator.form();
 			if(!$("#dataForm").valid()){
@@ -82,7 +84,7 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":31323,"refuseInfo":refuseInfo,"isRefuse":isRefuse},
+				data:{"orderId":orderid,"refuseInfo":refuseInfo,"isRefuse":isRefuse},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
     	        		window.location.href=_base+"/toPaidOrder";
@@ -108,6 +110,7 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     		$('#add-samll').slideUp(150);
     	},
     	_agrrenChangeGoods:function(){
+    		var orderid=$("#orderID").text();
     	    var url=_base+"/firstChange";
     	    var isRefuse = false;
     	    ajaxController.ajax({
@@ -116,10 +119,11 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":31323},
+				data:{"orderId":orderid},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
-    	        		window.location.href=_base+"/toChangeOrderSecond";
+    	        		var flag = "1";
+    	        		window.location.href=_base+"/changeDetail?orderId="+orderid+"&flag="+flag;
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',

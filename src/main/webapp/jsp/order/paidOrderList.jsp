@@ -159,7 +159,7 @@
 		   				<td>{{:chlId}}</td>
 		   				<td>{{:pOrderId}}</td>
 						<td>{{:userId}}</td>
-						<td>XXXXX</td>
+						<td>{{:userTel}}</td>
 		   				<td>{{:contactTel}}</td>
 						<td>{{:deliveryFlagName}}</td>
 						<td>

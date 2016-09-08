@@ -67,7 +67,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>${order.orderId}</span>
+							                			<span id="orderId">${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -76,7 +76,7 @@
 							                	</div>
 							                </td>
 						              </tr>
-						              <c:forEach items="${order.productList}" var="sp">
+						              <c:forEach items="${order.prodList}" var="sp">
 								          <tr>
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
@@ -86,13 +86,13 @@
 								                         </tr>
 								                      </table>
 								                 </td>
-								                <td>${sp.salePrice}/件</td>
+								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
-								                <td>XXXXX</td>
-								                <td class="color-red">${order.stateName}</td>
-								                <td>${sp.adjustFee}</td>
-								                <td>${sp.operDiscountFee}</td>
-								                 <td>积分</td>
+								                <td>${order.busiCodeName}</td>
+								                <td>${order.stateName}</td>
+								                <td>${sp.prodAdjustFee}</td>
+							                    <td>${sp.prodCouponFee}</td>
+							                    <td>${sp.jfFee}</td>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
@@ -155,7 +155,7 @@
 	                            	<ul>
 	                            		<li class="col-md-3">
 	                            			<p class="word">子订单号：</p>
-	                            			<p>XXXXXX</p>
+	                            			<p>${order.orderId}</p>
 	                            		</li>
 	                            		<li class="col-md-3">
 	                            			<p class="word">退款类型：</p>

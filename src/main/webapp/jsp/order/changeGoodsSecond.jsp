@@ -36,7 +36,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p>XXXXX</p>
+					                    <p>${order.routeName}</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -66,7 +66,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>XXXXX</span>
+							                			<span>${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -75,7 +75,7 @@
 							                	</div>
 							                </td>
 						              	</tr>
-						              	<c:forEach items="${order.productList}" var="sp">
+						              	<c:forEach items="${order.prodList}" var="sp">
 								          	<tr>
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
@@ -85,12 +85,12 @@
 								                         </tr>
 								                      </table>
 								                 </td>
-								                <td>${sp.salePrice}/件</td>
+								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
-								                <td>xxxxxx</td>
-								                <td class="color-red">${order.stateName}</td>
-								                <td>退款类型123</td>
-								                <td>退款金额234</td>
+								                <td>${order.busiCodeName}</td>
+								                <td>${order.stateName}</td>
+								                <td>XXXX</td>
+								                <td>${sp.prodTotalFee}</td>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
@@ -101,12 +101,16 @@
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-3">
-                            			<p class="word">退款编号：</p>
-                            			<p >XXX</p>
+                            			<p class="word">售后订单号：</p>
+                            			<p >${order.orderId}</p>
                             		</li>
                             		<li class="col-md-3">
-	                            		<p class="word">订单号：</p>
-	                            		<p >XXXX</p>
+	                            		<p class="word">原始订单号：</p>
+	                            		<p >${order.origOrderId}</p>
+                            		</li>
+                            		<li class="col-md-3">
+	                            		<p class="word">售后操作人：</p>
+	                            		<p>XXXXX</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -133,17 +137,17 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">支付账号：</p>
-                            			<p>XXXX</p>
+                            			<p>${order.acctId}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-5">
                             			<p class="word">退款类型：</p>
-                            			<p>XXXX</p>
+                            			<p>xxxxxx</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款金额：</p>
-                            			<p>XXX</p>
+                            			<p>${order.ordTotalFee}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -152,11 +156,11 @@
                             	<ul>
                             		<li class="col-md-3">
                             			<p class="word">快递公司：</p>
-                            			<p>XXX</p>
+                            			<p>${order.expressId}</p>
                             		</li>
                             		<li class="col-md-3">
                             			<p class="word">快递单号：</p>
-                            			<p>XXXX</p>
+                            			<p>${order.expressOddNumber}</p>
                             		</li>
                             	</ul>
                             </div>

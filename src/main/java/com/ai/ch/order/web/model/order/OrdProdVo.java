@@ -36,6 +36,10 @@ public class OrdProdVo implements Serializable{
 	 * 状态
 	 */
 	private String prodState;
+	/**
+	 * 总费用
+	 */
+	private String prodTotalFee;
 	
 	/**
 	 * 商品名称
@@ -149,6 +153,14 @@ public class OrdProdVo implements Serializable{
 
 	public void setCusServiceFlag(String cusServiceFlag) {
 		this.cusServiceFlag = cusServiceFlag;
+	}
+
+	public String getProdTotalFee() {
+		return prodTotalFee;
+	}
+
+	public void setProdTotalFee(String prodTotalFee) {
+		this.prodTotalFee = prodTotalFee;
 	}
 	
 }

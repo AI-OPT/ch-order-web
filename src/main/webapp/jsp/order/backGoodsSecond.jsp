@@ -36,7 +36,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p>XXXXX</p>
+					                    <p>${order.routeName}</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -60,30 +60,22 @@
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
-							                			<span>xxxx</span>
-							                		</p>
-							                		<p>
-							                			<span>支付流水号:</span>
-							                			<span>xxx</span>
+							                			<span>${order.parentOrderId}</span>
 							                		</p>
 							                	</div>
 							                	<div>
 							                		<p>
 							                			<span>子（商家平台）订单号:</span>
-							                			<span>xxxx</span>
+							                			<span>${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
-							                			<span>xxxx</span>
+							                			<span>${order.balacneIfId}</span>
 							                		</p>	
-							                		<p>
-							                			<span>支付时间:</span>
-							                			<span>xxxxxx</span>
-							                		</p>
 							                	</div>
 							                </td>
 						              </tr>
-						                <c:forEach items="${order.productList}" var="sp">
+						                <c:forEach items="${order.prodList}" var="sp">
 								          <tr>
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
@@ -93,12 +85,12 @@
 								                         </tr>
 								                      </table>
 								                 </td>
-								                <td>${sp.salePrice}/件</td>
+								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
-								                <td>xxxxx</td>
-								                <td class="color-red">${order.stateName}</td>
-								                <td>退款类型30.00</td>
-								                <td>退款金额</td>
+								                <td>${order.busiCodeName}</td>
+								                <td>${order.stateName}</td>
+								                <td>XXXXX</td>
+								                <td>${sp.prodTotalFee}</td>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
@@ -108,13 +100,17 @@
                             <!--/table表格结束-->
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-2">
-                            			<p class="word">退款编号：</p>
-                            			<p >xxx</p>
+                            		<li class="col-md-3">
+                            			<p class="word">售后订单号：</p>
+                            			<p >${order.orderId}</p>
                             		</li>
-                            		<li class="col-md-2">
-	                            		<p class="word">订单号：</p>
-	                            		<p >xxxx</p>
+                            		<li class="col-md-3">
+	                            		<p class="word">原始订单号：</p>
+	                            		<p >${order.origOrderId}</p>
+                            		</li>
+                            		<li class="col-md-3">
+	                            		<p class="word">售后操作人：</p>
+	                            		<p>XXXXX</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -141,11 +137,11 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">支付账号：</p>
-                            			<p>xxxxxx</p>
+                            			<p>${order.acctId}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
                             			<p>${order.address}</p>
                             		</li>
@@ -160,7 +156,7 @@
                             	<ul>
                             		<li class="col-md-5">
                             			<p class="word">子订单号：</p>
-                            			<p>xxxxxxxxx</p>
+                            			<p>${order.oederId}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款类型：</p>
@@ -168,7 +164,7 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款金额：</p>
-                            			<p>xxxxxxxx</p>
+                            			<p>${order.ordTotalFee}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款理由：</p>

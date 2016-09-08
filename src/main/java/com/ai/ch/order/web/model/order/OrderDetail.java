@@ -21,6 +21,11 @@ public class OrderDetail extends OrdOrderVo {
 	 * 运费
 	 */
 	private String ordFreight;
+	/**
+	 * 总费用
+	 */
+	private String ordTotalFee;
+	
 
 	public String getOrdDiscountFee() {
 		return ordDiscountFee;
@@ -52,6 +57,14 @@ public class OrderDetail extends OrdOrderVo {
 
 	public void setOrdFreight(String ordFreight) {
 		this.ordFreight = ordFreight;
+	}
+
+	public String getOrdTotalFee() {
+		return ordTotalFee;
+	}
+
+	public void setOrdTotalFee(String ordTotalFee) {
+		this.ordTotalFee = ordTotalFee;
 	}
 
 }

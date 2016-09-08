@@ -40,6 +40,7 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
     		 var isRefuse = true;
     	    var url=_base+"/firstBack";
     	    var refuseInfo = $("#refuseInfo").val();
+    	    var orderid= $("#orderId").text();
     	    if(refuseInfo=="" || refuseInfo==null){
     	    	var d = Dialog({
 					title: '提示',
@@ -59,7 +60,7 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":31323,"refuseInfo":refuseInfo},
+				data:{"orderId":orderid,"refuseInfo":refuseInfo},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
     	        		window.location.href=_base+"/toPaidOrder";
@@ -80,6 +81,7 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
     	    }); 
     	},
     	_agrrenBackGoods:function(){
+    		var orderid= $("#orderId").text();
     	    var url=_base+"/firstBack";
     	    var isRefuse = false;
     	    ajaxController.ajax({
@@ -88,10 +90,11 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":31323},
+				data:{"orderId":orderid},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
-    	        		window.location.href=_base+"/toBackOrderSecond";
+    	        		var flag="1";
+    	        		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',
