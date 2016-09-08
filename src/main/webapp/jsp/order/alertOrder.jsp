@@ -17,17 +17,17 @@
 	                 <div class="col-lg-12"><!--删格化-->
 	                    <div class="main-box clearfix"><!--白色背景-->
 	                    	<!--查询条件-->
-	                    	<div class="form-label">
+	                    	<div class="form-label" id="selectDiv">
 					           <ul>
 					                <li class="col-md-4">
 					                    <p class="word">开始时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="orderTimeBegin"/>
+					                    <p><input name="control_date" class="int-text int-medium " type="text"  id="orderTimeBegin" name="orderTimeBegin"/>
 					                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 					                    </p>
 					                </li>
 					                <li class="col-md-4">
 					                    <p class="word">结束时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="orderTimeEnd"/>
+					                    <p><input name="control_date" class="int-text int-medium " type="text"  id="orderTimeEnd" name="orderTimeEnd"/>
 					                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 					                    </p>
 					                </li> 
@@ -146,6 +146,13 @@
     </tr>
  </script> 
   <script type="text/javascript">
+  <%-- 展示日历 --%>
+	$('#selectDiv').delegate('.fa-calendar','click',function(){
+		var calInput = $(this).parent().prev();
+		var timeId = calInput.attr('id');
+		console.log("click calendar "+timeId);
+		WdatePicker({el:timeId,readOnly:true});
+	});
 			var pager;
 			(function () {
 				seajs.use('app/jsp/order/alertOrder', function (alertOrderPager) {
