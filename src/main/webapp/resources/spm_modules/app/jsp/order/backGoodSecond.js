@@ -33,7 +33,8 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     	events: {
     		//查询
             "click #refuseBackMoney":"_refuseBackMoney",
-            "click #updateMoney":"_updateMoney"
+            "click #updateMoney":"_updateMoney",
+            "click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {
@@ -43,6 +44,11 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				formValidator.element(this);
 			});
     	},
+    	_back:function(){
+    		var orderid = $("#orderId").text();
+    		window.location.href=_base+"/backDetail?orderId="
+            + orderid;
+    	}
     	_initValidate:function(){
     		var currentMoney = $("#currentMoney").text();
     		var formValidator=$("#dataForm").validate({

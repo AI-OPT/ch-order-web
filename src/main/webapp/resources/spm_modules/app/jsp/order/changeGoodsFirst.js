@@ -2,7 +2,7 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -33,7 +33,8 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     		//查询
             "click #agrren":"_agrrenChangeGoods",
             "click #refuse":"_refuseChangeGoods",
-            "click #close":"_closeDialog"
+            "click #close":"_closeDialog",
+            "click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {
@@ -42,6 +43,9 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
 			$(":input").bind("focusout",function(){
 				formValidator.element(this);
 			});
+    	},
+    	_back:function(){
+    		window.location.href=_base+"/toPaidOrder";
     	},
     	_initValidate:function(){
     		var formValidator=$("#dataForm").validate({
@@ -122,6 +126,7 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
 				data:{"orderId":orderid,"isRefuse":isRefuse},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
+    	        		//判断跳转的页面是第2次审核
     	        		var flag = "1";
     	        		window.location.href=_base+"/changeDetail?orderId="+orderid+"&flag="+flag;
     	        	}else{

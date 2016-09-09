@@ -33,7 +33,8 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
     	events: {
     		//查询
             "click #agrren":"_agrrenBackGoods",
-            "click #refuse":"_refuseBackGoods"
+            "click #refuse":"_refuseBackGoods",
+            "click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {
@@ -43,8 +44,14 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
 				formValidator.element(this);
 			});
     	},
+    	_back:function(){
+    		window.location.href=_base+"/toPaidOrder";
+    	},
     	_refuseInitValidate:function(){
     		var formValidator=$("#refuseDataForm").validate({
+    			 errorPlacement: function(error, element) {
+                     $("#errorMessage").append( error );
+                  },
     			rules: {
     				refuseInfo:{
 	                	 required: true,
@@ -111,6 +118,7 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
 				data:{"orderId":orderid,"isRefuse":isRefuse},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
+    	        		//用于判断跳转到哪个审核页面
     	        		var flag="1";
     	        		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
     	        	}else{

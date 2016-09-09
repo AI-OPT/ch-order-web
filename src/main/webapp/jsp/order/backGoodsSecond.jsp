@@ -17,7 +17,9 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     
+	                     		<div class="form-label">
+	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
+	                     		</div>
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -64,7 +66,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子（商家平台）订单号:</span>
-							                			<span>${order.orderId}</span>
+							                			<span id="orderId">${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -106,7 +108,7 @@
                             		</li>
                             		<li class="col-md-3">
 	                            		<p class="word">售后操作人：</p>
-	                            		<p>XXXXX</p>
+	                            		<p>${order.username}</p>
                             		</li>
                             	</ul>
                             	<ul>

@@ -25,6 +25,10 @@ public class OrderDetail extends OrdOrderVo {
 	 * 总费用
 	 */
 	private String ordTotalFee;
+	/**
+	 * 售后操作人
+	 */
+	private String username;
 	
 
 	public String getOrdDiscountFee() {
@@ -65,6 +69,14 @@ public class OrderDetail extends OrdOrderVo {
 
 	public void setOrdTotalFee(String ordTotalFee) {
 		this.ordTotalFee = ordTotalFee;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
 	}
 
 }

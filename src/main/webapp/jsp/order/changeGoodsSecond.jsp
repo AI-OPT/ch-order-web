@@ -17,8 +17,10 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     
-						<div class="form-label">
+	                     		<div class="form-label">
+	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
+	                     		</div>
+							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
@@ -64,7 +66,7 @@
 							                	<div>
 							                		<p>
 							                			<span>子订单号:</span>
-							                			<span>${order.orderId}</span>
+							                			<span id="orderId">${order.orderId}</span>
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
@@ -96,65 +98,65 @@
                             <!--/table表格结束-->
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
                             			<p class="word">售后订单号：</p>
                             			<p >${order.orderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">原始订单号：</p>
 	                            		<p >${order.origOrderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">售后操作人：</p>
-	                            		<p>XXXXX</p>
+	                            		<p>${order.username}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-2">
+                            		<li class="col-md-6">
 	                            		<p class="word">
 	                            			<h2>退款人信息</h2>
 	                            		</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
                             			<p>${order.userId}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">手机号：</p>
                             			<p>${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">支付方式：</p>
                             			<p>${order.payStyleName}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">支付账号：</p>
                             			<p>${order.acctId}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">业务类型：</p>
                             			<p>${order.busiCodeName}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">退款金额：</p>
                             			<p>${order.ordTotalFee}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-2"><p class="word"><h2>买家退货物流信息</h2></p></li>
+                            		<li class="col-md-6"><p class="word"><h2>买家退货物流信息</h2></p></li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-3">
+                            		<li class="col-md-6">
                             			<p class="word">快递公司：</p>
                             			<p>${order.expressId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-6">
                             			<p class="word">快递单号：</p>
                             			<p>${order.expressOddNumber}</p>
                             		</li>
@@ -176,5 +178,14 @@
           </div>
          </div>
     </div>
+    <script type="text/javascript">
+			var pager;
+			(function () {
+				seajs.use('app/jsp/order/changeGoodsSecond', function (changeSecondPager) {
+					pager = new changeSecondPager({element: document.body});
+					pager.render();
+				});
+			})();
+ </script>   
 </body>
 </html>

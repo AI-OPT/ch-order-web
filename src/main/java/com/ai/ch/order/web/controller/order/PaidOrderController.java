@@ -87,6 +87,7 @@ public class PaidOrderController {
     public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,BehindQueryOrderLisReqVo reqVo){
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
         IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
+        ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
         BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
         ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
         String states="21,22,23,31,92,93,94";
@@ -126,6 +127,16 @@ public class PaidOrderController {
             if(!CollectionUtil.isEmpty(list)){
             	for(BehindParentOrdOrderVo vo:list){
             		vo.setUserTel(user.getMobile());
+            		//翻译订单来源
+					SysParamSingleCond	param = new SysParamSingleCond();
+            		param.setTenantId(Constants.TENANT_ID);
+            		param.setColumnValue(vo.getChlId());
+            		param.setTypeCode(Constants.TYPE_CODE);
+            		param.setParamCode(Constants.ORD_CHL_ID);
+            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+            		if(chldParam!=null){
+            			vo.setChlId(chldParam.getColumnDesc());
+            		}
             	}
             }
             responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
@@ -158,6 +169,15 @@ public class PaidOrderController {
 					if(ordOrderVo!=null) {
 						BeanUtils.copyProperties(orderDetail, ordOrderVo);
 						orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
+						//获取售后操作人
+						ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+						SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+						userReq.setTenantId(user.getTenantId());
+						userReq.setNo(orderDetail.getOperId());
+						SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+						if(response!=null){
+							orderDetail.setUsername(response.getName());
+						}
 						//翻译订单来源
 						SysParamSingleCond	param = new SysParamSingleCond();
 	            		param.setTenantId(Constants.TENANT_ID);
@@ -265,6 +285,15 @@ public class PaidOrderController {
 					ordOrderVo = orderResponse.getOrdOrderVo();
 					if(ordOrderVo!=null) {
 						BeanUtils.copyProperties(orderDetail, ordOrderVo);
+						//获取售后操作人
+						ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+						SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+						userReq.setTenantId(user.getTenantId());
+						userReq.setNo(orderDetail.getOperId());
+						SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+						if(response!=null){
+							orderDetail.setUsername(response.getName());
+						}
 						//翻译订单来源
 						SysParamSingleCond	param = new SysParamSingleCond();
 	            		param.setTenantId(Constants.TENANT_ID);

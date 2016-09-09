@@ -17,7 +17,9 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     
+	                     		<div class="form-label">
+	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
+	                     		</div>
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -111,7 +113,7 @@
                             		</li>
                             		<li class="col-md-4">
 	                            		<p class="word">售后操作人：</p>
-	                            		<p>XXXXX</p>
+	                            		<p>${order.username}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -122,21 +124,21 @@
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
                             			<p>${order.userId}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">手机号：</p>
                             			<p>${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">支付方式：</p>
                             			<p>${order.payStyleName}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">支付账号：</p>
                             			<p>${order.acctId}</p>
                             		</li>
@@ -151,21 +153,23 @@
                             		<li class="col-md-2"><p class="word"><h2>售后详细</h2></p></li>
                             	</ul>
 	                            	<ul>
-	                            		<li class="col-md-5">
+	                            		<li class="col-md-6">
 	                            			<p class="word">子订单号：</p>
 	                            			<p>${order.orderId}</p>
 	                            		</li>
-	                            		<li class="col-md-5">
+	                            		<li class="col-md-6">
 	                            			<p class="word">类型：</p>
 	                            			<p>${order.busiCodeName}</p>
 	                            		</li>
 	                            	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
 	                            		<p class="word">换货理由:</p>
 	                            		<p>${order.remark}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            	</ul>
+                            	<ul>
+                            		<li class="col-md-6">
                             			<p class="word">图片:</p>
                             		</li>
                             	</ul>
@@ -188,12 +192,10 @@
 						           		<ul>
 						           			<li>
 						           				<p class="word"><span>*</span>拒绝理由:</p>
-						           				<p id="errorMessage"></p>
-						           			</li>
-							                <li>
-							                    <p class="word">
+							                    <p>
 							                    	<textarea  id="refuseInfo" name="refuseInfo" rows="7" cols="35" class="int-text" placeholder="请输入拒绝理由" required></textarea>
 							                    </p>
+							                    <p id="errorMessage"></p>
 							                </li>
 						            	</ul>
 								    </div>	
