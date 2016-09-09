@@ -35,6 +35,10 @@ import com.ai.platform.common.api.cache.param.SysParamSingleCond;
 import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
+import com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleJudgeSV;
+import com.ai.slp.order.api.aftersaleorder.param.OrderAfterVo;
+import com.ai.slp.order.api.aftersaleorder.param.OrderJuageRequest;
+import com.ai.slp.order.api.aftersaleorder.param.OrderJuageResponse;
 import com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV;
 import com.ai.slp.order.api.ordercheck.param.OrderCheckRequest;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
@@ -351,6 +355,33 @@ public class PaidOrderController {
 				LOG.error("同意换货审核查询报错：", e);
 			}
 			return responseData;
-		}		
+		}
+		
+		@RequestMapping("/judge")
+		public String paidQuery(HttpServletRequest request,String orderId,String skuId) {
+			try {
+				GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+				OrderJuageRequest req=new OrderJuageRequest(); 
+				req.setOrderId(Long.parseLong(orderId));
+				req.setSkuId(skuId);
+				//req.setTenantId(user.getTenantId());
+				req.setTenantId("changhong");
+				IOrderAfterSaleJudgeSV iOrderAfterSaleJudgeSV = DubboConsumerFactory.getService(IOrderAfterSaleJudgeSV.class);
+				OrderJuageResponse response = iOrderAfterSaleJudgeSV.judge(req);
+				if(response!=null&&response.getResponseHeader().isSuccess()) {
+					OrderAfterVo orderAfterVo = response.getAfterVo();
+					String busiCode = orderAfterVo.getBusiCode();
+					if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)) {
+						return "redirect:/changeDetail?orderId="+orderAfterVo.getOrderId();
+					}else if(Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)) {
+						return "redirect:/backDetail?orderId="+orderAfterVo.getOrderId();
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				LOG.error("售后详情查询报错：", e);
+			}
+			return null;
+		}
 		
 }
