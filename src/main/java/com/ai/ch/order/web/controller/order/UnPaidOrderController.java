@@ -117,7 +117,7 @@ public class UnPaidOrderController {
 		//修改金额
 		@RequestMapping("/changeMoney")
 		@ResponseBody
-		public ResponseData<String> Change(HttpServletRequest request, String orderId,String changeInfo,String money,String operId) {
+		public ResponseData<String> Change(HttpServletRequest request, String orderId,String changeInfo,String money) {
 			ResponseData<String> responseData = null;
 			OrderModifyRequest req = new OrderModifyRequest();
 			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
@@ -126,20 +126,20 @@ public class UnPaidOrderController {
 				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
 				userReq.setTenantId(user.getTenantId());
-				userReq.setId(operId);
+				userReq.setId(user.getUserId());
 				SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
 				if(response!=null){
 					String no = response.getNo();
 					req.setOperId(no);
 				}
 				Long Id = Long.parseLong(orderId);
-				Long updateFee = Long.parseLong(money);
 				req.setTenantId(user.getTenantId());
 				req.setOrderId(Id);
 				if(!StringUtil.isBlank(changeInfo)){
 					req.setUpdateRemark(changeInfo);
 				}
-				req.setUpdateAmount(updateFee);
+				//将元转换里
+				req.setUpdateAmount(AmountUtil.YToLi(money));
 				BaseResponse base = iNotPaidOrderModifySV.modify(req);
 				if(base.getResponseHeader().getIsSuccess()==true){
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "修改金额成功", null);

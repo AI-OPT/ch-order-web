@@ -33,7 +33,8 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     		//查询
             "click #update":"_updateMobey",
             "click #close":"_closeDialog",
-            "click #closeOrder":"_closeOrder"
+            "click #closeOrder":"_closeOrder",
+            "click #backPage":"_back"
             
         },
     	//重写父类
@@ -44,7 +45,14 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
 				formValidator.element(this);
 			});
     	},
+    	_back:function(){
+    		//调到订单列表页面
+    		var state = "11";
+    		window.location.href = _base+"/order/toOrderList?stateFlag="
+            + state
+    	},
     	_initValidate:function(){
+    		var currentMoney = $("#currentMony").text();
     		var formValidator=$("#dataForm").validate({
     			 errorPlacement: function(error, element) {
                     $("#errorMessage").append( error );
@@ -52,12 +60,14 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     			rules: {
     				updateFee: {
     					required: true,
-    					moneyNumber: true
+    					moneyNumber: true,
+    					max:currentMoney
     					}
     			},
     			messages: {
     				updateFee: {
     					required:"请输入修改金额!",
+    					max:"修改金额不能大于当前金额!",
     				}
     			}
     		});
@@ -108,14 +118,13 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
 			var orderId = $("#orderid").text();
 			var changeinfo = $("#updateRemark").text();
 			var money = $("#updateFee").val();
-			var operId = $("#userId").text();
     	    ajaxController.ajax({
     	    	type: "post",
 				dataType: "json",
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":orderId,"changeInfo":changeinfo,"money":money,"operId":operId},
+				data:{"orderId":orderId,"changeInfo":changeinfo,"money":money},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
     	        		//调到订单列表页面

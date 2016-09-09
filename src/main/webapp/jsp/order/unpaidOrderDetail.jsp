@@ -17,7 +17,9 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     
+	                     		<div class="form-label">
+	                     			<p class="word"><a id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：待付款订单</p>
+	                     		</div>
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -102,7 +104,7 @@
 					                    <p class="word" id="userId">买家：${orderDetail.userId}</p>
 					                </li>
 					                <li>
-					                    <p class="word">绑定手机号：</p>
+					                    <p class="word">手机号：${orderDetail.contactTel}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
@@ -180,7 +182,7 @@
 						            	<ul>
 							                <li>
 						                    <p class="word">订单金额(元):</p>
-						                    <p>${orderDetail.ordAdjustFee}</p>
+						                    <p id="currentMony">${orderDetail.ordAdjustFee}</p>
 							                </li>
 						            	</ul>
 						           		<ul>

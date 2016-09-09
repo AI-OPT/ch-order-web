@@ -2,13 +2,16 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
     require("jsviews/jsviews.min");
     require("bootstrap-paginator/bootstrap-paginator.min");
     require("app/util/jsviews-ext");
+    
+    require("jquery-validation/1.15.1/jquery.validate");
+	require("app/util/aiopt-validate-ext");
     
     require("opt-paging/aiopt.pagination");
     require("twbs-pagination/jquery.twbsPagination.min");
@@ -30,75 +33,91 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     	events: {
     		//查询
             "click #refuseBackMoney":"_refuseBackMoney",
-            "click #updateMoney":"_updateMoney"
-            	
+            "click #updateMoney":"_updateMoney",
+            "click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {
     		backSecondPager.superclass.setup.call(this);
+    		var formValidator=this._initValidate();
+			$(":input").bind("focusout",function(){
+				formValidator.element(this);
+			});
+    	},
+    	_back:function(){
+    		var orderid = $("#orderId").text();
+    		window.location.href=_base+"/backDetail?orderId="
+            + orderid;
+    	}
+    	_initValidate:function(){
+    		var currentMoney = $("#currentMoney").text();
+    		var formValidator=$("#dataForm").validate({
+    			rules: {
+    				updateMoneyData: {
+    					required: true,
+    					moneyNumber: true,
+    					max:currentMoney,
+    					min:1
+    					},
+	                 updateMoneyInfo:{
+	                	 
+	                	 required: true
+	                 }
+    			},
+    			messages: {
+    				updateMoneyData: {
+    					required:"请输入退款金额!",
+    					max:"退款金额不能大于{0}!",
+    					min:"退款金额不能为小于{0}！"
+    				},
+    				updateMoneyInfo:{
+    					required:"请输入修改理由!"
+    				}
+    			}
+    		});
+    		
+    		return formValidator;
+    	},
+    	_refuseInitValidate:function(){
+    		var formValidator=$("#refuseDataForm").validate({
+    			rules: {
+    				refuseMoneyInfo:{
+	                	 required: true,
+	                	 maxlength:200
+	                 }
+    			},
+    			messages: {
+    				refuseMoneyInfo:{
+    					required:"请输入拒绝理由!",
+    				    maxlength:"最大长度不能超过{0}"
+    				}
+    			}
+    		});
+    		
+    		return formValidator;
     	},
     	_refuseBackMoney:function(){
-    		 var isRefuse = true;
+    		var _this= this;
+    		var formValidator=_this._refuseInitValidate();
+ 			formValidator.form();
+ 			if(!$("#refuseDataForm").valid()){
+ 				return false;
+ 			}
+    		var isRefuse = true;
     	    var url=_base+"/firstBack";
     	    var refuseInfo = $("#refuseMoneyInfo").val();
-    	    if(refuseInfo=="" || refuseInfo==null){
-    	    	var d = Dialog({
-					title: '提示',
-					content:"拒绝理由不能为空",
-					icon:'prompt',
-					okValue: '确 定',
-					ok:function(){
-						this.close();
-					}
-				});
-				d.show();
-				return false;
-    	    }
     	},
     	_updateMoney:function(){
+    		var _this= this;
+    		var formValidator=_this._initValidate();
+ 			formValidator.form();
+ 			if(!$("#dataForm").valid()){
+ 				return false;
+ 			}
 	   		var isRefuse = true;
 	   	    var url=_base+"/firstBack";
-	   	    var updateMoneyInfo = $("#updateMoneyInfo").val();
-	   	    var money = $("#updateMoneyData").val();
-	   	    if(money=="" || money==null){
-		    	var d = Dialog({
-						title: '提示',
-						content:"修改金额不能为空",
-						icon:'prompt',
-						okValue: '确 定',
-						ok:function(){
-							this.close();
-						}
-					});
-					d.show();
-					return false;
-		    }else if(!/^(([1-9]\d{0,9})|0)(\.\d{1,2})?$/.test(money)){
-		    	var d = Dialog({
-					title: '提示',
-					content:"金额格式错误",
-					icon:'prompt',
-					okValue: '确 定',
-					ok:function(){
-						this.close();
-					}
-		    	});
-				d.show();
-				return false;
-		    }
-	   	    if(updateMoneyInfo=="" || updateMoneyInfo==null){
-	   	    	var d = Dialog({
-						title: '提示',
-						content:"修改理由不能为空",
-						icon:'prompt',
-						okValue: '确 定',
-						ok:function(){
-							this.close();
-						}
-					});
-					d.show();
-					return false;
-	   	    }
     	}
+    		
     });
     
     module.exports = backSecondPager

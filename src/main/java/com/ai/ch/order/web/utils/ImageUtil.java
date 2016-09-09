@@ -6,8 +6,6 @@ import com.ai.paas.ipaas.util.StringUtil;
 
 public class ImageUtil {
     public static String getImage(String vsid, String pictype) {
-    	vsid="57bea0d9c9e77c0006309cb4";
-    	pictype="jpg";
         IImageClient im = null;
         // 应用场景
         String idpsns = "slp-mall-web-idps";
