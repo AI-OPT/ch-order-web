@@ -48,9 +48,7 @@
                                             	<th>商品</th>
                                                 <th>单价/数量</th>
                                                 <th>下单时间</th>
-                                                <th>售后</th>
                                                 <th>订单状态</th>
-                                                <th>退款类型</th>
                                                 <th>退款金额</th>
                                             </tr>
                                         </thead>                                                                                                
@@ -87,9 +85,7 @@
 								                 </td>
 								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
-								                <td>${order.busiCodeName}</td>
 								                <td>${order.stateName}</td>
-								                <td>XXXX</td>
 								                <td>${sp.prodTotalFee}</td>
 							              </tr> 
 						              </c:forEach>
@@ -142,8 +138,8 @@
                             	</ul>
                             	<ul>
                             		<li class="col-md-5">
-                            			<p class="word">退款类型：</p>
-                            			<p>xxxxxx</p>
+                            			<p class="word">业务类型：</p>
+                            			<p>${order.busiCodeName}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款金额：</p>

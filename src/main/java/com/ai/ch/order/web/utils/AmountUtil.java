@@ -3,6 +3,8 @@ package com.ai.ch.order.web.utils;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
+import com.ai.opt.sdk.util.StringUtil;
+
 public class AmountUtil {
   
     
@@ -26,6 +28,15 @@ public class AmountUtil {
             return 0L;
         }
         BigDecimal balance = BigDecimal.valueOf(amount).multiply(new BigDecimal(1000L));
+        return balance.longValue();
+    }
+    
+    public static Long YToLi(String amount){
+        if(StringUtil.isBlank(amount)){
+            return 0L;
+        }
+        BigDecimal money=new BigDecimal(amount);
+        BigDecimal balance = money.multiply(new BigDecimal(1000L));
         return balance.longValue();
     }
     

@@ -101,15 +101,15 @@
                             <!--/table表格结束-->
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
                             			<p class="word">售后订单号：</p>
                             			<p >${order.orderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">原始订单号：</p>
 	                            		<p >${order.origOrderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">售后操作人：</p>
 	                            		<p>XXXXX</p>
                             		</li>
@@ -151,38 +151,31 @@
                             		<li class="col-md-2"><p class="word"><h2>售后详细</h2></p></li>
                             	</ul>
 	                            	<ul>
-	                            		<li class="col-md-3">
+	                            		<li class="col-md-5">
 	                            			<p class="word">子订单号：</p>
 	                            			<p>${order.orderId}</p>
 	                            		</li>
-	                            		<li class="col-md-3">
+	                            		<li class="col-md-5">
 	                            			<p class="word">类型：</p>
 	                            			<p>${order.busiCodeName}</p>
 	                            		</li>
-	                            		<li class="col-md-3">
-	                            			<p class="word">运费</p>
-	                            			<p>用户承担？？？？？</p>
-	                            		</li>
 	                            	</ul>
                             	<ul>
-                            		<li class="col-md-3">
-                            		<p class="word">换货理由:xxx</p>
+                            		<li class="col-md-5">
+	                            		<p class="word">换货理由:</p>
+	                            		<p>${order.remark}</p>
                             		</li>
-                            		<li class="col-md-3">
-                            		<p class="word">图片:</p>
+                            		<li class="col-md-5">
+                            			<p class="word">图片:</p>
                             		</li>
                             	</ul>
                             </div>
-                            <div>
-                            <ul>
-                            	<li class="col-md-5">
+                            <div class="text-c">
                             		<p>
                              			<input type="button" id="agrren" class="biu-btn btn-primary btn-blue btn-small " value="同意换货">
                              			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                              			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝换货">
                              		</p>
-                            	</li>
-                            </ul>
                             </div>
                             <!-- 换货理由start -->
                             <form id="dataForm" method="post" >

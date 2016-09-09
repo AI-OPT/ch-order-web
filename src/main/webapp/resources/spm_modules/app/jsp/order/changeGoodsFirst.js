@@ -119,7 +119,7 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":orderid},
+				data:{"orderId":orderid,"isRefuse":isRefuse},
     	        success: function (data) {
     	        	if(data.statusCode == "1"){
     	        		var flag = "1";

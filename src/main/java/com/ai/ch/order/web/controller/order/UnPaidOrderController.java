@@ -133,14 +133,13 @@ public class UnPaidOrderController {
 					req.setOperId(no);
 				}
 				Long Id = Long.parseLong(orderId);
-				Long updateFee = Long.parseLong(money);
 				req.setTenantId(user.getTenantId());
 				req.setOrderId(Id);
 				if(!StringUtil.isBlank(changeInfo)){
 					req.setUpdateRemark(changeInfo);
 				}
 				//将元转换里
-				req.setUpdateAmount(AmountUtil.YuanToLi(updateFee));
+				req.setUpdateAmount(AmountUtil.YToLi(money));
 				BaseResponse base = iNotPaidOrderModifySV.modify(req);
 				if(base.getResponseHeader().getIsSuccess()==true){
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "修改金额成功", null);

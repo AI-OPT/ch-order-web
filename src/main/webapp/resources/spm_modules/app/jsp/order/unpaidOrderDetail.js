@@ -33,7 +33,8 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     		//查询
             "click #update":"_updateMobey",
             "click #close":"_closeDialog",
-            "click #closeOrder":"_closeOrder"
+            "click #closeOrder":"_closeOrder",
+            "click #backPage":"_back"
             
         },
     	//重写父类
@@ -43,6 +44,12 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
 			$(":input").bind("focusout",function(){
 				formValidator.element(this);
 			});
+    	},
+    	_back:function(){
+    		//调到订单列表页面
+    		var state = "11";
+    		window.location.href = _base+"/order/toOrderList?stateFlag="
+            + state
     	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMony").text();

@@ -48,9 +48,7 @@
                                             	<th>商品</th>
                                                 <th>单价/数量</th>
                                                 <th>下单时间</th>
-                                                <th>售后</th>
                                                 <th>订单状态</th>
-                                                <th>退款类型</th>
                                                 <th>退款金额</th>
                                             </tr>
                                         </thead>                                                                                                
@@ -80,16 +78,14 @@
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
 								                         <tr>
-								                             <td><img src="../images/tp-01.png"></td>
+								                             <td><img src="${sp.imageUrl}"></td>
 								                             <td class="word"><a href="#">${sp.prodName}</a></td>	
 								                         </tr>
 								                      </table>
 								                 </td>
 								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
-								                <td>${order.busiCodeName}</td>
 								                <td>${order.stateName}</td>
-								                <td>XXXXX</td>
 								                <td>${sp.prodTotalFee}</td>
 							              </tr> 
 						              </c:forEach>
@@ -159,16 +155,16 @@
                             			<p>${order.orderId}</p>
                             		</li>
                             		<li class="col-md-5">
-                            			<p class="word">退款类型：</p>
-                            			<p>xxxxxxxxxxx</p>
+                            			<p class="word">业务类型：</p>
+                            			<p>${order.busiCodeName}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款金额：</p>
-                            			<p>${order.ordTotalFee}</p>
+                            			<p id="currentMoney">${order.ordTotalFee}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">退款理由：</p>
-                            			<p>5345545</p>
+                            			<p>${order.remark}</p>
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">图片：</p>
@@ -181,11 +177,11 @@
                             	<ul>
                             		<li class="col-md-3">
                             			<p class="word">快递公司：</p>
-                            			<p>${order.expressId }</p>
+                            			<p>${order.expressId}</p>
                             		</li>
                             		<li class="col-md-3">
                             			<p class="word">快递单号：</p>
-                            			<p>xxxxx</p>
+                            			<p>${order.expressOddNumber}</p>
                             		</li>
                             		<li class="col-md-3">
                             			<p class="word">图片：</p>
@@ -193,25 +189,25 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div>
-                            <ul>
-                            	<li class="col-md-5">
-                            		<p>
-                             			<input type="button" class="biu-btn btn-primary btn-blue  btn-medium " id="edit" value="同意退款">
-                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退款">
-                             		</p>
-                            	</li>
-                            </ul>
+                            <div class="text-c">
+                           		<p>
+                           			<input type="button" class="biu-btn btn-primary btn-blue  btn-medium " id="edit" value="同意退款">
+                           			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退款">
+                            	</p>
                             </div>
                             <!-- 拒绝退款理由 start-->
+                           <form id="refuseDataForm" method="post" >
                             <div class="eject-big">
-                            	 <div class="eject-samll" id="add-samll">
+                            	 <div class="eject-medium" id="add-samll">
+                            	 	<div class="eject-medium-title">
+										<p class="img"><i class="fa fa-times"></i></p>
+									</div>
 									<div class="form-label mt-20">
 						           		<ul>
 							                <li>
 							                	<p class="word"><span>*</span>拒绝理由:</p>
-							                    <p class="word"><textarea id="refuseMoneyInfo" rows="7" cols="32" class="int-text"></textarea></p>
+							                    <p><textarea id="refuseMoneyInfo" name="refuseMoneyInfo" rows="4" cols="25" class="int-text"></textarea></p>
 							                </li>
 							                
 						            	</ul>
@@ -221,43 +217,46 @@
 								               <p class="center pr-30 mt-30">
 								                   <input type="button" id="refuseBackMoney" class="biu-btn  btn-primary  btn-auto  ml-5" value="确  认">
 								                   <input id="add-close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5 edit-close" value="取  消">
-								                </p>
+								               </p>
 								        </div>
 								</div>
 								<div class="mask" id="eject-mask"></div>
 							</div>	
+							</form>
                             <!--  拒绝退款理由end-->
                             <!--编辑名称弹出框-->
+                             <form id="dataForm" method="post" >
 							<div class="eject-big">
 									<div class="eject-medium" id="edit-medium">
 										<div class="eject-medium-title">
-											<p>编辑名称</p>
 											<p class="img"><i class="fa fa-times"></i></p>
 										</div>
-										<div class="form-label">
+										<div class="form-label mt-20">
 							           		<ul>
 								                <li>
-								                    <p class="word"><span>*</span>修改金额:</p>
-								                    <p><input type="text" class="int-text int-medium" value="不能多余用户申请金额" id="updateMoneyData"></p>
+								                    <p class="word"><span>*</span>退款金额:</p>
+								                    <p><input type="text" class="int-text int-medium" placeholder="不能多余用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
 								                    </li>
 								                <li>
 								                	<p class="word"><span>*</span>修改理由:</p>
 								                    <p>
-										 				<textarea id="updateMoneyInfo" rows="7" cols="32" class="int-text"></textarea>
+										 				<textarea id="updateMoneyInfo" name="updateMoneyInfo" rows="4" cols="25" class="int-text"></textarea>
 										 			</p>
 								                </li>
 							            	</ul>
 							      	    </div>
 											<!--按钮-->
-										<div class="row mt-15"><!--删格化-->
-											 <p class="right pr-30">
+										<div class="row mt-15" ><!--删格化-->
+											 <p class="center pr-30 mt-30">
 												<input type="button" class="biu-btn  btn-primary  btn-auto  ml-5" id="updateMoney" value="确  认">
+												&nbsp;&nbsp;&nbsp;&nbsp;
 												<input id="edit-close" type="button" class="biu-btn  btn-primary  btn-auto  ml-5" value="取  消">
 											 </p>
 										 </div>
 									</div>	
 									<div class="mask" id="eject-mask"></div>	
 							</div>
+							</form>
 							<!--编辑名称弹出框 结束-->	
                        </div>	
                    </div>

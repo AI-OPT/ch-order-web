@@ -143,7 +143,7 @@
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
                             			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
@@ -151,26 +151,24 @@
                             	<ul>
                             		<li class="col-md-2"><p class="word"><h2>售后详细</h2></p></li>
                             	</ul>
-                            	<c:forEach items="${order.payDataList}" var="cg">
-	                            	<ul>
-	                            		<li class="col-md-3">
-	                            			<p class="word">子订单号：</p>
-	                            			<p>${order.orderId}</p>
-	                            		</li>
-	                            		<li class="col-md-3">
-	                            			<p class="word">退款类型：</p>
-	                            			<p>${cg.payStyleName}</p>
-	                            		</li>
-	                            		<li class="col-md-3">
-	                            			<p class="word">退款金额:</p>
-	                            			<p>${cg.paidFee}</p>
-	                            		</li>
-	                            	</ul>
-                            	</c:forEach>
+                            	<ul>
+                            		<li class="col-md-3">
+                            			<p class="word">子订单号：</p>
+                            			<p>${order.orderId}</p>
+                            		</li>
+                            		<li class="col-md-3">
+                            			<p class="word">业务类型：</p>
+                            			<p>${order.busiCodeName}</p>
+                            		</li>
+                            		<li class="col-md-3">
+                            			<p class="word">退款金额:</p>
+                            			<p>${oeder.ordTotalFee}</p>
+                            		</li>
+                            	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款理由:</p>
-                            			<p>尺码不合适，需要更换XL</p>
+                            			<p>${order.remark}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -179,19 +177,16 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div>
-                            <ul>
-                            	<li class="col-md-5">
-                            		<p>
-                             			<input type="button" id="agrren" class="biu-btn btn-primary btn-blue btn-small " value="同意退货">
-                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退货">
-                             		</p>
-                            	</li>
-                            </ul>
+                            <div class="text-c">
+                           		<p>
+                           			<input type="button" id="agrren" class="biu-btn btn-primary btn-blue btn-small " value="同意退货">
+                           			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                           			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退货">
+                            	</p>
                             </div>
+                             <form id="refuseDataForm" method="post" >
                              <!-- 拒绝退货理由 start-->
-                            	 <div class="eject-samll" id="add-samll">
+                            	 <div class="eject-medium" id="add-samll">
 	                            	 <div class="eject-medium-title">
 										<p></p>
 										<p class="img"><i class="fa fa-times"></i></p>
@@ -200,7 +195,7 @@
 						           		<ul>
 							                <li>
 							                	<p class="word"><span>*</span>拒绝理由:</p>
-							                    <p class="word"><textarea id="refuseInfo" rows="7" cols="32" class="int-text"></textarea></p>
+							                    <p class="word"><textarea id="refuseInfo" name="refuseInfo" rows="7" cols="32" class="int-text"></textarea></p>
 							                </li>
 							                
 						            	</ul>
@@ -213,7 +208,8 @@
 								                </p>
 								        </div>
 								</div>
-								<div class="mask" id="eject-mask"></div>		
+								<div class="mask" id="eject-mask"></div>
+								</form>		
                             <!--  拒绝退货理由end-->
                    </div>
                 </div>
