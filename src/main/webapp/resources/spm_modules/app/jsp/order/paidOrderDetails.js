@@ -138,6 +138,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		 },
 		 
 		 _backOrder:function(orderObject) {
+			 var _obj=$("#backNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 ajaxController.ajax({
@@ -145,7 +146,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					url :_base+"/aftersaleorder/back",
 					data: {
 						orderId:  _orderId,
-						prodDetalId:_prodDetalId
+						prodDetalId:_prodDetalId,
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
@@ -255,8 +257,12 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 	    	        	}
 					}
 				});
-		 }
+		 },
 		 
+		 _afterorderdetail:function(orderId,skuId){
+				window.location.href = _base+"/judge?orderId="
+	            + orderId+"&skuId="+skuId;
+			}
     	
     });
     
