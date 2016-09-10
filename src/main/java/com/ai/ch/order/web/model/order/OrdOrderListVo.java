@@ -10,7 +10,7 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	
 	private String totalAdjustFee;
 	
-	private String totalJF;
+	private Long totalJF;
 	
 	public String getTotalAdjustFee() {
 		return totalAdjustFee;
@@ -18,10 +18,10 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	public void setTotalAdjustFee(String totalAdjustFee) {
 		this.totalAdjustFee = totalAdjustFee;
 	}
-	public String getTotalJF() {
+	public Long getTotalJF() {
 		return totalJF;
 	}
-	public void setTotalJF(String totalJF) {
+	public void setTotalJF(Long totalJF) {
 		this.totalJF = totalJF;
 	}
 	public String getOrderTotalCouponFee() {
