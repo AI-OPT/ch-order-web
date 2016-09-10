@@ -93,8 +93,16 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 					}
 				}
 			});
-		 }
-    	
+		 },
+		 
+		 _afterorderdetail:function(orderId,skuId){
+			window.location.href = _base+"/judge?orderId="
+            + orderId+"&skuId="+skuId;
+		},
+		_sendGoods:function(obj){
+			var orderId=obj;
+			window.location.href = _base+"/invoice/deliverGoods?orderId="+orderId;
+		},
     });
     
     module.exports = demopagePager
