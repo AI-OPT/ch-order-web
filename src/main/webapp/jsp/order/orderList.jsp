@@ -44,7 +44,7 @@
                                                 <th>父订单号</th>
                                                 <th>用户账号</th>
                                                 <th>绑定手机号</th>
-                                                <th>积分抵扣</th>
+                                                <th>积分</th>
                                                 <th>优惠</th>
                                                 <th>实付款</th>
                                                 <th>收货人手机号</th>
@@ -53,11 +53,11 @@
                                                 	<table class="table table-hover table-border table-bordered">
 	                                            		 <thead>
 	                                            			<tr>
-	                                            				<th>子订单号</th>
-	                                            				<th>商品信息</th>
-	                                            				<th>数量</th>
-                                                				<th>订单状态</th>
-                                               					<th>详情</th>
+	                                            				<th style="width:20%">子订单号</th>
+	                                            				<th style="width:20%">商品信息</th>
+	                                            				<th style="width:20%">数量</th>
+                                                				<th style="width:20%">订单状态</th>
+                                               					<th style="width:20%">详情</th>
 	                                            			</tr>
 	                                            		</thead>
 	                                            	</table>
@@ -92,7 +92,7 @@
         <td>{{:userId}}</td>
         <td>绑定手机号</td>
  		<td>{{:totalJF}}</td>
-		<td>{{:totalCouponFee}}</td>
+		<td>{{:orderTotalCouponFee}}</td>
  		<td>{{:totalAdjustFee}}</td>
 		<td>{{:contactTel}}</td>
         <td>{{:deliveryFlagName}}</td>
@@ -103,13 +103,13 @@
         	 		<table class="table table-hover table-border" width="100%">
         				<tbody>
         					<tr>
-									<td rowspan="{{:prodSize}}">{{:orderId}}</td>
+									<td style="width:20%" title="{{:orderId}}">{{:~subStr(2,orderId)}}</td>
 									<td>
 										<table class="table table-hover table-border" width="100%">
         								<tbody>
 											{{if productList!=null}}
 												{{for productList}}	  
-													<tr>
+													<tr style="width:40%">
         												<td title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
 														<td>
 															<table class="table table-hover table-border" width="100%">
@@ -126,8 +126,8 @@
 										</tbody>
         								</table>	
 									</td>
-									<td>{{:stateName}}</td>
-									<td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}','{{:parentOrderId}}')">订单详情</a></td>
+									<td style="width:20%">{{:stateName}}</td>
+									<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}','{{:parentOrderId}}')">订单详情</a></td>
         					</tr>
         				</tbody>	
         			</table>
