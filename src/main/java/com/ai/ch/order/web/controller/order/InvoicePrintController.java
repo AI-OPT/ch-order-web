@@ -1,6 +1,8 @@
 package com.ai.ch.order.web.controller.order;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.opt.base.vo.BaseResponse;
@@ -78,4 +81,13 @@ public class InvoicePrintController {
 		}
 		return responseData;
 	}
+	
+	
+	@RequestMapping("/deliverGoods")
+	public ModelAndView deliverGoods(HttpServletRequest request,String orderId) {
+		Map<String, String> model = new HashMap<String, String>();
+		model.put("orderId", orderId);
+		return new ModelAndView("jsp/order/sendGoods",model);
+	}
+	
 }
