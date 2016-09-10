@@ -66,7 +66,12 @@ public class OrdProdVo implements Serializable{
 	 * 商品售后是否标识
 	 */
 	private String cusServiceFlag;
-
+	
+	/**
+	 * 商品skuid
+	 */
+	private String skuId;
+	
 	public String getProdSalePrice() {
 		return prodSalePrice;
 	}
@@ -162,5 +167,14 @@ public class OrdProdVo implements Serializable{
 	public void setProdTotalFee(String prodTotalFee) {
 		this.prodTotalFee = prodTotalFee;
 	}
+	public String getSkuId() {
+		return skuId;
+	}
+
+	public void setSkuId(String skuId) {
+		this.skuId = skuId;
+	}
+	
+	
 	
 }
