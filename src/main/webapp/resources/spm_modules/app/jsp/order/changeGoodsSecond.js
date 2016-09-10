@@ -42,9 +42,6 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     		var orderid = $("#orderId").text();
     		window.location.href = _base+"/changeDetail?orderId="
             + orderid;
-    	},
-    	_sendGoods:function(){
-    		window.location.href = _base+"/toSendGoods";
     	}
     	
 		

@@ -162,15 +162,6 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div>
-                            <ul>
-                            	<li class="col-md-5">
-                            		<p>
-                             			<input type="button" id="sendGoods" class="biu-btn btn-primary btn-blue btn-small " value="换货发货">
-                             		</p>
-                            	</li>
-                            </ul>
-                            </div>
                        </div>	
                    </div>
                 </div>
