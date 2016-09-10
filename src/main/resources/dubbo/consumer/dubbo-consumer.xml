@@ -133,6 +133,10 @@
 	interface="com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleSV"
 	registry="baasRegistry" />
 	
+	<dubbo:reference id="iOrderAfterSaleJudgeSV"
+	interface="com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleJudgeSV"
+	registry="baasRegistry" />
+	
 	<dubbo:reference id="iOrderCheckSV"
 		interface="com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV"
 		registry="baasRegistry" />
@@ -155,9 +159,10 @@
 		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV"
 		registry="baasRegistry" />
 		
-		
 	<dubbo:reference id="iSysUserQuerySV"
 	interface="com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV"
 	registry="baasRegistry" />		
+	
+	
 			
 </beans>
