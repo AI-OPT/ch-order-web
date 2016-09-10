@@ -166,7 +166,7 @@
                             <ul>
                             	<li class="col-md-5">
                             		<p>
-                             			<input type="button" class="biu-btn btn-primary btn-blue btn-small " value="换货发货">
+                             			<input type="button" id="sendGoods" class="biu-btn btn-primary btn-blue btn-small " value="换货发货">
                              		</p>
                             	</li>
                             </ul>
