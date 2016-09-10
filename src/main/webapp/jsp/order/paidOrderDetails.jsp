@@ -106,8 +106,8 @@
 							                <td>${prod.prodAdjustFee }</td>
 							                <td>${prod.prodCouponFee }&nbsp;<br/>
 											<c:choose>
-										       <c:when test="${orderDetail.state!=13}">
-										  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
+										       <c:when test="${prod.cusServiceFlag eq 'Y'}">
+										  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderId }','${prod.skuId}')">售后详情</button>
 										       </c:when>
 										       <c:otherwise>
 												 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
@@ -159,12 +159,12 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
-						<h4 class="modal-title" id="backModalLabel${status.index}">
-							提示
-						</h4>
 					</div>
 					<div class="modal-body">
-						<h5 class="word">确认进行退货处理吗?</h5> 
+						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
