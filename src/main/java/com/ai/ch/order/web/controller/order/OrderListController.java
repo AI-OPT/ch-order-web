@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
-import com.ai.ch.order.web.model.ProductVo;
 import com.ai.ch.order.web.model.order.OrdOrderListVo;
 import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
@@ -100,8 +99,8 @@ public class OrderListController {
 						OrdOrderListVo orderListVo=new OrdOrderListVo();
 						BeanUtils.copyProperties(orderListVo, behindParentOrdOrderVo);
 						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustFee()));
-						//orderListVo.setTotalCouponFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.get));
-						orderListVo.setTotalJF(AmountUtil.LiToYuan(behindParentOrdOrderVo.getPoints()));
+						orderListVo.setOrderTotalCouponFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getTotalCouponFee()));
+						orderListVo.setTotalJF(behindParentOrdOrderVo.getPoints());
 						orderList.add(orderListVo);
 					}
 				}
@@ -164,14 +163,15 @@ public class OrderListController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+							//product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
-							//product.setCusServiceFlag(ordProductVo.getC);
+							product.setCusServiceFlag(ordProductVo.getCusServiceFlag());
 							product.setProdDetalId(ordProductVo.getProdDetalId());
+							product.setSkuId(ordProductVo.getSkuId());
 							prodList.add(product);
 						}
 					}
