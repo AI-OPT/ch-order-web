@@ -13,6 +13,7 @@ import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
 import com.ai.platform.common.api.cache.param.SysParamMultiCond;
+import com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV;
 
 @RestController
 public class SysParamController {
@@ -40,7 +41,9 @@ public class SysParamController {
         return responseData;
     }
     
-    
+    /**
+     * 获取订单来源
+     */
     @RequestMapping("/getChlIdSelect")
     @ResponseBody
     public ResponseData<List<SysParam>> getChlIdSelect(SysParamMultiCond param,HttpServletRequest request) {
@@ -50,6 +53,23 @@ public class SysParamController {
             param.setTenantId("changhong");
             List<SysParam> info=iCacheSV.getSysParamList(param);
             responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_SUCCESS,"获取数据成功",info);
+        }catch(Exception e){
+            responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_FAILURE,"获取数据失败",null);
+        }
+        return responseData;
+    }
+    
+    /**
+     * 获取仓库信息
+     */
+    @RequestMapping("/getRouteIdSelect")
+    @ResponseBody
+    public ResponseData<List<SysParam>> getRouteIdSelect(SysParamMultiCond param,HttpServletRequest request) {
+        ResponseData<List<SysParam>> responseData=null;
+        try{
+        	IRouteManageSV iRouteManageSV = DubboConsumerFactory.getService(IRouteManageSV.class);
+            //TODO 获取全部仓库id和名称信息
+        	responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_SUCCESS,"获取数据成功",null);
         }catch(Exception e){
             responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_FAILURE,"获取数据失败",null);
         }
