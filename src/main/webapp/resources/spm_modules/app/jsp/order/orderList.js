@@ -90,9 +90,9 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 		},
 		_getSearchParams:function(){
     		return {
-    			"timeStart":jQuery.trim($("#orderTimeBegin").val()),
-    			"timeEnd":jQuery.trim($("#orderTimeEnd").val()),
-    			"reqOrderId":jQuery.trim($("#orderId").val()),
+    			"orderTimeBegin":jQuery.trim($("#orderTimeBegin").val()),
+    			"orderTimeEnd":jQuery.trim($("#orderTimeEnd").val()),
+    			"orderId":jQuery.trim($("#orderId").val()),
     			"username":jQuery.trim($("#username").val()),
     			"chlId":jQuery.trim($("#orderSource option:selected").val()),
     			"routeId":jQuery.trim($("#routeSource option:selected").val()),
