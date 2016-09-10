@@ -90,6 +90,31 @@ define('app/jsp/order/commonDetail', function (require, exports, module) {
 			});
 		},
 		
+		
+		// 下拉 仓库信息
+		_bindRouteIdSelect : function() {
+			var this_=this;
+			$.ajax({
+				type : "post",
+				processing : false,
+				url : _base+ "/getRouteIdSelect",
+				dataType : "json",
+				data : {
+					paramCode:"CHL_ID",
+					typeCode:"ORD_ORDER"
+				},
+				message : "正在加载数据..",
+				success : function(data) {
+					var d=data.data;
+					$.each(d,function(index,item){
+						var paramName = d[index].columnDesc;
+						var paramCode = d[index].columnValue;
+						$("#orderSource").append('<option value="'+paramCode+'">'+paramName+'</option>');
+					})
+				}
+			});
+		},
+		
     });
     
     module.exports = commonPager
