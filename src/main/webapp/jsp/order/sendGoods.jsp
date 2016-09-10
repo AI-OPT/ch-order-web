@@ -32,9 +32,9 @@
                                         </thead>                                                                                                
                                     <tbody>
                                       <tr>
-							                <td>顺丰</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
+							                <td id="sf" value="1100010">顺丰</td>
+							                <td><input id="expressId" type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)" onclick="pager._confirmSendGoods('${orderId}')">确认发货</a></td>
 						              </tr>
 							          <tr>
 							                <td>申通</td>
