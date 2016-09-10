@@ -198,10 +198,10 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 			});
 		},
 		_detail:function(orderid,busiCode,state){
-			if(busiCode==2){
+			if(busiCode==2 &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')){
 				window.location.href = _base+"/changeDetail?orderId="
 	            + orderid;
-			}else if(busiCode==3){
+			}else if(busiCode==3 &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')){
 				window.location.href = _base+"/backDetail?orderId="
 	            + orderid;
 			}else{
