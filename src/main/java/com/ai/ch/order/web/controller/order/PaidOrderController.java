@@ -108,7 +108,7 @@ public class PaidOrderController {
 	    	req.setOrderTimeBegin(startT);
 	    }
 	    if(!StringUtil.isBlank(endT)){
-	    	endT = endT+" 00:00:00" ;
+	    	endT = endT+" 23:59:59";
 	    	req.setOrderTimeEnd(endT);
 	    }
         req.setChlId(reqVo.getChlId());
@@ -393,8 +393,7 @@ public class PaidOrderController {
 				OrderJuageRequest req=new OrderJuageRequest(); 
 				req.setOrderId(Long.parseLong(orderId));
 				req.setSkuId(skuId);
-				//req.setTenantId(user.getTenantId());
-				req.setTenantId("changhong");
+				req.setTenantId(user.getTenantId());
 				IOrderAfterSaleJudgeSV iOrderAfterSaleJudgeSV = DubboConsumerFactory.getService(IOrderAfterSaleJudgeSV.class);
 				OrderJuageResponse response = iOrderAfterSaleJudgeSV.judge(req);
 				if(response!=null&&response.getResponseHeader().isSuccess()) {

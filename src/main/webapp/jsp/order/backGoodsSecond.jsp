@@ -98,15 +98,15 @@
                             <!--/table表格结束-->
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
                             			<p class="word">售后订单号：</p>
                             			<p >${order.orderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">原始订单号：</p>
 	                            		<p >${order.origOrderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">售后操作人：</p>
 	                            		<p>${order.username}</p>
                             		</li>
@@ -170,7 +170,7 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">图片：</p>
-                            			<p>dsd</p>
+                            			<p></p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -187,7 +187,7 @@
                             		</li>
                             		<li class="col-md-3">
                             			<p class="word">图片：</p>
-                            			<p>dsd</p>
+                            			<p></p>
                             		</li>
                             	</ul>
                             </div>

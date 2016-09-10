@@ -127,10 +127,19 @@
                                                 <th>绑定手机号</th>
                                                 <th>收货人手机号</th>
                                                 <th>是否需要物流</th>
-                                                 <th>子订单号</th>
-                                                <th>商品信息</th>
-                                                <th>订单状态</th>
-                                                <th>详情</th>
+                                                <th>
+                                                	<table class="table table-hover table-border table-bordered">
+	                                            		 <thead>
+	                                            			<tr>
+	                                            				<th style="width:20%">子订单号</th>
+	                                            				<th style="width:20%">商品信息</th>
+	                                            				<th style="width:20%">数量</th>
+                                                				<th style="width:20%">订单状态</th>
+                                               					<th style="width:20%">详情</th>
+	                                            			</tr>
+	                                            		</thead>
+	                                            	</table>
+                                                </th>
                                             </tr>
                                         </thead>
 	                                     <tbody id="paidData"></tbody>
@@ -162,76 +171,50 @@
 						<td>{{:userTel}}</td>
 		   				<td>{{:contactTel}}</td>
 						<td>{{:deliveryFlagName}}</td>
-						<td>
-        	 				<table class="table close-border" width="100%">
+ 				<td>
+					{{if orderList!=null}}
+						{{for orderList}}  
+        	 				<table class="table table-hover table-border" width="100%">
         						<tbody>
-									{{if orderList!=null}}
-										{{for orderList}}
-        									<tr>
-												<td class="new-td">{{:orderId}}</td>
-        									</tr>
-										{{/for}}
-									{{/if}}
-        						</tbody>	
-        					</table>
-        				</td>
-						<td>
-        	 				<table class="table close-border" width="100%">
-        						<tbody>
-									{{if orderList!=null}}
-										{{for orderList}}
+        						<tr>
+									<td style="width:20%" title="{{:orderId}}">{{:~subStr(2,orderId)}}</td>
+									<td>
+										<table class="table table-hover table-border" width="100%">
+        								<tbody>
 											{{if productList!=null}}
-											{{for productList}}
-												<tr>
-													<td class="hind1 new-td">
-														<div class="center-hind" >{{:prodName}}</div>
-        												<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:prodName}}</div>
-													</td>
-        										</tr>
-											{{/for}}
+												{{for productList}}	  
+													<tr style="width:40%">
+        												<td title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
+														<td>
+															<table class="table table-hover table-border" width="100%">
+        														<tbody>
+																	<tr>
+																		<td>{{:buySum}}</td>
+        															</tr>
+																</tbody>
+        													</table>
+														</td>
+        											</tr>
+												{{/for}}
 											{{/if}}
-										{{/for}}
+										</tbody>
+        								</table>	
+									</td>
+									<td style="width:20%">{{:stateName}}</td>
+									{{if busiCode=='2'}}
+										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(换货)</a></td>
+									{{else  busiCode=='3'}}
+										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(退货)</a></td>
+									{{else}}
+										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情</a></td>
 									{{/if}}
-        						</tbody>	
-        					</table>
-        				</td>
-						<td>
-        	 				<table class="table close-border" width="100%">
-        						<tbody>
-									{{if orderList!=null}}
-										{{for orderList}}
-        									<tr>
-												<td class="new-td">{{:stateName}}</td>
-        									</tr>
-										{{/for}}
-									{{/if}}
-        						</tbody>	
-        					</table>
-        				</td>
-						<td>
-        	 				<table class="table close-border" width="100%">
-        						<tbody>
-									{{if orderList!=null}}
-										{{for orderList}}
-											{{if busiCode=='2'}}
-												<tr>
-													<td class="new-td" ><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(换货)</a></td>
-        										</tr>			
-											{{else  busiCode=='3'}}
-												<tr>
-													<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(退货)</a></td>
-        										</tr>
-											{{else}}
-												<tr>
-													<td class="new-td"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情</a></td>
-        										</tr>
-											{{/if}}
-										{{/for}}
-									{{/if}}
-        						</tbody>	
-        					</table>
-        				</td>
-				</tr>
+        					</tr>
+        				</tbody>	
+        			</table>
+				{{/for}}
+			{{/if}}	
+        </td>						
+	</tr>
   </script> 
    <script type="text/javascript">
 			var pager;

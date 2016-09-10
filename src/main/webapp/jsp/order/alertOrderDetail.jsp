@@ -109,7 +109,7 @@
                             		</li>
                             		<li class="col-md-5">
                             			<p class="word">手机号：</p>
-                            			<p>${order.userTel}</p>
+                            			<p>${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>

@@ -123,32 +123,51 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 		//获取高级查询参数
 		_getHignQueryParams:function(){
 			var _this = this;
-			return{
-			    "startTime":function () {
-			    	_this.startTime = jQuery.trim($("#orderTimeBegin").val());
-			        return _this.startTime;
-			    },
-			    "endTime":function () {
-			    	_this.endTime = jQuery.trim($("#orderTimeEnd").val());
-			        return _this.endTime;
-			    },
-			    "inputOrderId":function () {
-			    	_this.inputOrderId = jQuery.trim($("#orderId").val());
-			        return _this.inputOrderId;
-			    },
-			      "chlId":function () {
-			    	_this.chlId = jQuery.trim($("#orderSource").val());
-			        return _this.chlId;
-			    },
-			    "deliveryFlag":function () {
-			    	_this.deliveryFlag = jQuery.trim($("#deliveryFlag").val());
-			        return _this.deliveryFlag;
-			    },
-			    "contactTel":function () {
-			    	_this.contactTel = jQuery.trim($("#contactTelQ").val());
-			        return _this.contactTel;
-			    }
+			var isShow = $("#selectDiv").is(":visible");
+			if(!isShow){
+				return{
+				    "startTime":function () {
+				    	_this.startTime = jQuery.trim($("#orderTimeBegin").val());
+				        return _this.startTime;
+				    },
+				    "endTime":function () {
+				    	_this.endTime = jQuery.trim($("#orderTimeEnd").val());
+				        return _this.endTime;
+				    },
+				    "inputOrderId":function () {
+				    	_this.inputOrderId = jQuery.trim($("#orderId").val());
+				        return _this.inputOrderId;
+				    }
+				}
+			}else{
+				return{
+				    "startTime":function () {
+				    	_this.startTime = jQuery.trim($("#orderTimeBegin").val());
+				        return _this.startTime;
+				    },
+				    "endTime":function () {
+				    	_this.endTime = jQuery.trim($("#orderTimeEnd").val());
+				        return _this.endTime;
+				    },
+				    "inputOrderId":function () {
+				    	_this.inputOrderId = jQuery.trim($("#orderId").val());
+				        return _this.inputOrderId;
+				    },
+				      "chlId":function () {
+				    	_this.chlId = jQuery.trim($("#orderSource").val());
+				        return _this.chlId;
+				    },
+				    "deliveryFlag":function () {
+				    	_this.deliveryFlag = jQuery.trim($("#deliveryFlag").val());
+				        return _this.deliveryFlag;
+				    },
+				    "contactTel":function () {
+				    	_this.contactTel = jQuery.trim($("#contactTelQ").val());
+				        return _this.contactTel;
+				    }
+				}
 			}
+			
 		},
 		//高级搜索
 		_highSearch:function(){
