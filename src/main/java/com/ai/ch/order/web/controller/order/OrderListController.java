@@ -193,10 +193,10 @@ public class OrderListController {
 				return new ModelAndView("", model);
 			}
 			if(Constants.OrdOrder.State.COMPLETED.equals(state)) { //已完成
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/doneOrder", model);
 			}
 			if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/closeOrder", model);
 			}
 			if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)) { //换货单
 				return new ModelAndView("", model);

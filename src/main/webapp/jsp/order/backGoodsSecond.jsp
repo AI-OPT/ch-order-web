@@ -179,7 +179,7 @@
                             	<ul>
                             		<li class="col-md-3">
                             			<p class="word">快递公司：</p>
-                            			<p>${order.expressId}</p>
+                            			<p>${order.expressName}</p>
                             		</li>
                             		<li class="col-md-3">
                             			<p class="word">快递单号：</p>
