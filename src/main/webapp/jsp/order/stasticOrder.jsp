@@ -5,7 +5,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>查询售后列表</title>
+<title>查询订单列表</title>
 <%@include file="/inc/inc.jsp" %>
 </head>
 <body>
@@ -35,8 +35,8 @@
 						            </ul> 
 									<ul>
 									 	<li class="col-md-6">
-						                   	<p class="word" >关键字</p>
-						                    <p><input  class="int-text int-medium" id="orderId" name="orderId" placeholder="请输入父订单号查询" type="text"/>
+						                   	<p class="word" >按商品查询</p>
+						                    <p><input  class="int-text int-medium" id="productName" name="productName" placeholder="请输入商品名查询" type="text"/>
 						                    </p>
 						                	<p>高级搜索<a href="javascript:void(0);"><i class="fa fa-caret-down" id="showQuery"></i></a></p>
 						                </li>
@@ -44,43 +44,24 @@
 						            <div  id="selectDiv" style="display:none" >
 							            <ul>
 								            <li class="col-md-6">
-									            <p class="word">用户名</p>
-									            <p><input class="int-text int-medium" id="username" type="text" placeholder="请输入用户名" ></p>
+									            <p class="word">按商家查询</p>
+									            <p><input class="int-text int-medium" id="supplierName" type="text" placeholder="请输入商家名" ></p>
 								            </li>
 							            	<li class="col-md-6">
-								            	<p class="word">订单来源</p>
+								            	<p class="word">按订单查询</p>
 							            		<p>
-								            		<select class="select select-medium" id="orderSource">
-								            			<option value="">请选择</option>
-								            		</select>
-							            		</p>
-							            	</li>
-							            </ul>
-							            <ul>
-							            	<li class="col-md-6">
-								            	<p class="word">仓库</p>
-								            	<p>
-									            	<select class="select select-medium" id="routeSource">
-									            			<option value="">请选择</option>
-									            			<option>仓库1</option>
-									            			<option>仓库2</option>
-									            			<option>仓库3</option>
-									            	</select>
-								            	</p>
-							            	</li>
-							            	<li class="col-md-6">
-								            	<p class="word">收货人手机号</p>
-								            	<p>
-								            		<input class="int-text int-medium" id="contactTelQ" type="text" placeholder="请输入收货人手机号" >
-								            	</p>
+							            		<input class="int-text int-medium" id="parentOrderId" type="text" placeholder="请输入父订单号" ></p>
 							            	</li>
 							            </ul>
 							             <ul>
-							            	
 							            	<li class="col-md-6">
-								            	<p class="word">是否需要物流</p>
+								            	<p class="word">按用户查询</p>
+							            		<p><input class="int-text int-medium" id="userName" type="text"></p>
+							            	</li>
+							            	<li class="col-md-6">
+								            	<p class="word">按订单状态</p>
 							            		<p>
-								            		<select class="select select-small" id="deliveryFlag">
+								            		<select class="select select-small" id="state">
 								            			<option value="">请选择</option>
 								            		</select>
 							            		</p>
@@ -142,7 +123,7 @@
                                                 </th>
                                             </tr>
                                         </thead>
-	                                     <tbody id="paidData"></tbody>
+	                                     <tbody id="stasticData"></tbody>
                                     </table>
                                     <div id="showMessageDiv"></div>
                                 </div>
@@ -163,17 +144,17 @@
             </div>
     	</div>
    </div>
-   	<script id="paidTemple" type="text/template">
+   	<script id="stasticTemple" type="text/template">
 				<tr>
 		   				<td>{{:chlId}}</td>
-		   				<td>{{:pOrderId}}</td>
+		   				<td>{{:orderId}}</td>
 						<td>{{:userId}}</td>
 						<td>{{:userTel}}</td>
 		   				<td>{{:contactTel}}</td>
-						<td>{{:deliveryFlagName}}</td>
+						<td>{{:deliveryFlag}}</td>
  				<td>
-					{{if orderList!=null}}
-						{{for orderList}}  
+					{{if childOrderList!=null}}
+						{{for childOrderList}}  
         	 				<table class="table table-hover table-border" width="100%">
         						<tbody>
         						<tr>
@@ -181,8 +162,8 @@
 									<td>
 										<table class="table table-hover table-border" width="100%">
         								<tbody>
-											{{if productList!=null}}
-												{{for productList}}	  
+											{{if proList!=null}}
+												{{for proList}}	  
 													<tr style="width:40%">
         												<td title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
 														<td>
@@ -200,14 +181,7 @@
 										</tbody>
         								</table>	
 									</td>
-									<td style="width:20%">{{:stateName}}</td>
-									{{if busiCode=='2' &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')}}
-										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(换货)</a></td>
-									{{else  busiCode=='3' &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')}}
-										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(退货)</a></td>
-									{{else}}
-										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情</a></td>
-									{{/if}}
+									<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}')">查看详情</a></td>
         					</tr>
         				</tbody>	
         			</table>
@@ -224,13 +198,14 @@
 			console.log("click calendar "+timeId);
 			WdatePicker({el:timeId,readOnly:true});
 		});
-			var pager;
-			(function () {
-				seajs.use('app/jsp/order/paidOrderList', function (paidOrderPager) {
-					pager = new paidOrderPager({element: document.body});
-					pager.render();
-				});
-			})();
+		
+		var pager;
+		(function () {
+			seajs.use('app/jsp/order/stasticOrder', function (stasticOrderPager) {
+				pager = new stasticOrderPager({element: document.body});
+				pager.render();
+			});
+		})();
  </script>       
 </body>
 </html>

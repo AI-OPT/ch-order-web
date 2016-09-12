@@ -104,15 +104,15 @@
                             <!--/table表格结束-->
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
                             			<p class="word">售后订单号：</p>
                             			<p>${order.origOrderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">原始订单号：</p>
 	                            		<p >${order.origOrderId}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-4">
 	                            		<p class="word">售后操作人：</p>
 	                            		<p >${order.username}</p>
                             		</li>

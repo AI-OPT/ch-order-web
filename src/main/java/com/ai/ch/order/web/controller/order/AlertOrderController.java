@@ -86,7 +86,6 @@ public class AlertOrderController {
             SysParamSingleCond param = new SysParamSingleCond();
             if(!CollectionUtil.isEmpty(list)){
             	for(OrderWarmVo order:list){
-            		order.setUserTel(user.getMobile());
             		//翻译预警类型
             		param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);

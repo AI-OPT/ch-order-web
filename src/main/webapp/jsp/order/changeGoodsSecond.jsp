@@ -154,22 +154,13 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">快递公司：</p>
-                            			<p>${order.expressId}</p>
+                            			<p>${order.expressName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">快递单号：</p>
                             			<p>${order.expressOddNumber}</p>
                             		</li>
                             	</ul>
-                            </div>
-                            <div>
-                            <ul>
-                            	<li class="col-md-5">
-                            		<p>
-                             			<input type="button" class="biu-btn btn-primary btn-blue btn-small " value="换货发货">
-                             		</p>
-                            	</li>
-                            </ul>
                             </div>
                        </div>	
                    </div>

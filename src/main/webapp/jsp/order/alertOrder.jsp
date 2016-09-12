@@ -105,7 +105,7 @@
 			<div class="center-hind" >{{:userId}}</div>
         	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userId}}</div>
 		</td>
-        <td>{{:userTel}}</td>
+        <td></td>
         <td>{{:ifWarning}}</td>
 		<td>{{:warningType}}</td>
         <td>{{:contactTel}}</td>

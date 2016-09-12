@@ -71,8 +71,7 @@
 								                <td>${orderDetail.orderTime}</td>
 								                <td>${orderDetail.stateName}</td>
 							              </tr>
-							            </c:forEach> 
-						           
+							            </c:forEach> 							           						       						           
                                     </tbody>
                                     </table>
                                 </div>

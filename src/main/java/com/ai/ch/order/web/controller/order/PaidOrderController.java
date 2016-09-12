@@ -108,7 +108,7 @@ public class PaidOrderController {
 	    	req.setOrderTimeBegin(startT);
 	    }
 	    if(!StringUtil.isBlank(endT)){
-	    	endT = endT+" 00:00:00" ;
+	    	endT = endT+" 23:59:59";
 	    	req.setOrderTimeEnd(endT);
 	    }
         req.setChlId(reqVo.getChlId());
@@ -182,6 +182,16 @@ public class PaidOrderController {
 						if(response!=null){
 							orderDetail.setUsername(response.getName());
 						}
+						//翻译物流公司
+						SysParamSingleCond	expressParam = new SysParamSingleCond();
+						expressParam.setTenantId(Constants.TENANT_ID);
+						expressParam.setColumnValue(orderDetail.getExpressId());
+						expressParam.setTypeCode(Constants.TYPE_CODE);
+						expressParam.setParamCode(Constants.ORD_EXPRESS);
+	            		SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
+	            		if(sysParam!=null){
+	            			orderDetail.setExpressName(sysParam.getColumnDesc());
+	            		}
 						//翻译订单来源
 						SysParamSingleCond	param = new SysParamSingleCond();
 	            		param.setTenantId(Constants.TENANT_ID);
@@ -298,6 +308,16 @@ public class PaidOrderController {
 						if(response!=null){
 							orderDetail.setUsername(response.getName());
 						}
+						//翻译物流公司
+						SysParamSingleCond	expressParam = new SysParamSingleCond();
+						expressParam.setTenantId(Constants.TENANT_ID);
+						expressParam.setColumnValue(orderDetail.getExpressId());
+						expressParam.setTypeCode(Constants.TYPE_CODE);
+						expressParam.setParamCode(Constants.ORD_EXPRESS);
+	            		SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
+	            		if(sysParam!=null){
+	            			orderDetail.setExpressName(sysParam.getColumnDesc());
+	            		}
 						//翻译订单来源
 						SysParamSingleCond	param = new SysParamSingleCond();
 	            		param.setTenantId(Constants.TENANT_ID);

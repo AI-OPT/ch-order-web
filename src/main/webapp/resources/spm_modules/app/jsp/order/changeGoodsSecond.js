@@ -31,7 +31,8 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     	//事件代理
     	events: {
     		//查询
-            "click #backPage":"_back"
+            "click #backPage":"_back",
+            "click #sendGoods":"_sendGoods"
         },
     	//重写父类
     	setup: function () {
@@ -48,4 +49,5 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     
     module.exports = changeSecondPager
 });
+
 
