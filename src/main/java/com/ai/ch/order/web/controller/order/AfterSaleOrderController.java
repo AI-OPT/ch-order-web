@@ -13,6 +13,9 @@ import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
+import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
 import com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleSV;
 import com.ai.slp.order.api.aftersaleorder.param.OrderReturnRequest;
 
@@ -33,9 +36,17 @@ public class AfterSaleOrderController {
 			req.setOrderId(Long.parseLong(orderId));
 			req.setProdDetalId(Long.parseLong(prodDetalId));
 			req.setProdSum(Long.parseLong(prodSum));
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
-			req.setOperId("123");
+			req.setTenantId(user.getTenantId());
+			//获取售后操作人
+			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+			SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+			userReq.setTenantId(user.getTenantId());
+			userReq.setId(user.getUserId());
+			SysUserQueryResponse  responseSys = iSysUserQuerySV.queryUserInfo(userReq);
+			if(responseSys!=null){
+				String no = responseSys.getNo();
+				req.setOperId(no);
+			}
 			IOrderAfterSaleSV orderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
 			BaseResponse response = orderAfterSaleSV.back(req);
 			if(response.getResponseHeader().isSuccess()) {
@@ -59,9 +70,17 @@ public class AfterSaleOrderController {
 			OrderReturnRequest req=new OrderReturnRequest();
 			req.setOrderId(Long.parseLong(orderId));
 			req.setProdDetalId(Long.parseLong(prodDetalId));
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
-			req.setOperId("123");
+			req.setTenantId(user.getTenantId());
+			//获取售后操作人
+			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+			SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+			userReq.setTenantId(user.getTenantId());
+			userReq.setId(user.getUserId());
+			SysUserQueryResponse  responseSys = iSysUserQuerySV.queryUserInfo(userReq);
+			if(responseSys!=null){
+				String no = responseSys.getNo();
+				req.setOperId(no);
+			}
 			IOrderAfterSaleSV orderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
 			BaseResponse response = orderAfterSaleSV.exchange(req);
 			if(response.getResponseHeader().isSuccess()) {
@@ -85,9 +104,17 @@ public class AfterSaleOrderController {
 			OrderReturnRequest req=new OrderReturnRequest();
 			req.setOrderId(Long.parseLong(orderId));
 			req.setProdDetalId(Long.parseLong(prodDetalId));
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
-			req.setOperId("123");
+			req.setTenantId(user.getTenantId());
+			//获取售后操作人
+			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+			SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+			userReq.setTenantId(user.getTenantId());
+			userReq.setId(user.getUserId());
+			SysUserQueryResponse  responseSys = iSysUserQuerySV.queryUserInfo(userReq);
+			if(responseSys!=null){
+				String no = responseSys.getNo();
+				req.setOperId(no);
+			}
 			IOrderAfterSaleSV orderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
 			BaseResponse response = orderAfterSaleSV.refund(req);
 			if(response.getResponseHeader().isSuccess()) {
