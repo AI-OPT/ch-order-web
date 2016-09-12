@@ -32,87 +32,87 @@
                                         </thead>                                                                                                
                                     <tbody>
                                       <tr>
-							                <td id="sf" value="1100010">顺丰</td>
-							                <td><input id="expressId" type="text" class="int-text int-medium"></td>
-							                <td><a href="javaScript:void(0)" onclick="pager._confirmSendGoods('${orderId}')">确认发货</a></td>
+							                <td value="1100010">顺丰</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 							          <tr>
-							                <td>申通</td>
+							                <td value="1100011">申通</td>
 							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
-							                <td>圆通</td>
+							                <td value="1100012">圆通</td>
 							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 							          <tr>
-							                <td>中通</td>
+							                <td value="1100013">中通</td>
 							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
-							                <td>韵达</td>
+							                <td value="1100014">韵达</td>
 							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 							          <tr>
-							                <td>宅急送</td>
+							                <td value="1100015">宅急送</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100016">全峰</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100017">天天</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100018">EMS</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100019">中国邮政</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100020">百世汇通</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100021">德邦</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100022">国通</td>
+							                <td><input type="text" class="int-text int-medium"></td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
+						              </tr>
+						               <tr>
+							                <td value="1100023">DHL</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 						               <tr>
-							                <td>全峰</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>天天</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>EMS</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>中国邮政</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>百世汇通</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>德邦</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>圆通</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>DHL</td>
-							                <td><input type="text" class="int-text int-medium"></td>
-							                <td>确认发货</td>
-						              </tr>
-						               <tr>
-							                <td>优速</td>
+							                <td value="1100024">优速</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 						              <tr>
-							                <td>UPS</td>
+							                <td value="1100025">UPS</td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
 						                <tr>
-							                <td><input type="text" class="int-text int-medium" value="请填写快递公司名"></td>
+							                <td value="1100026"><input type="text" class="int-text int-medium"  placeholder="请填写快递公司名"></td>
 							                <td><input type="text" class="int-text int-medium"></td>
 							                <td>确认发货</td>
 						              </tr>
@@ -126,5 +126,14 @@
               </div> 
          </div>
     </div>
+ <script type="text/javascript">
+var pager;
+(function () {
+	seajs.use('app/jsp/order/sendGoods', function (sendPager) {
+		pager = new sendPager({element: document.body});
+		pager.render();
+	});
+})();
+</script>
 </body>
 </html>
