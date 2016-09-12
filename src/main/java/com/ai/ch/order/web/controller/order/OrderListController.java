@@ -131,8 +131,7 @@ public class OrderListController {
 				}else{
 					queryRequest.setOrderId(Long.parseLong(orderId));
 				}
-			//queryRequest.setTenantId(user.getTenantId());
-			queryRequest.setTenantId(Constants.TENANT_ID);
+			queryRequest.setTenantId(user.getTenantId());
 			OrderDetail orderDetail = new OrderDetail();
 			List<OrdProdVo> prodList = new ArrayList<OrdProdVo>();
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
@@ -190,13 +189,13 @@ public class OrderListController {
 				return new ModelAndView("jsp/order/waitInvoiceDetails", model);
 			}
 			if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/completedOrder", model);
 			}
 			if(Constants.OrdOrder.State.COMPLETED.equals(state)) { //已完成
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/doneOrder", model);
 			}
 			if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
-				return new ModelAndView("", model);
+				return new ModelAndView("jsp/order/closeOrder", model);
 			}
 			if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)) { //换货单
 				return new ModelAndView("", model);
