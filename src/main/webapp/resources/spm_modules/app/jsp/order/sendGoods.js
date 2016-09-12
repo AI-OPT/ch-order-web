@@ -37,10 +37,11 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     	setup: function () {
     		sendPager.superclass.setup.call(this);
     	},
-    	_confirmSendGoods:function(obj){
-    		  var expressCompany=$("#sf").val();
-    		  var expressIdValue=$("#expressId").val();
-    		  var url=
+    	_confirmSendGoods:function(obj,thisObj){
+    		  var _this=thisObj;
+    		  var expressCompany=$(_this).parent().prev().prev().attr("value");
+    		  var expressIdValue=$(_this).parent().prev().find("input").val();
+    		  var url=_base+"/deliver";
 			  ajaxController.ajax({
 	  	    	type: "post",
 				dataType: "json",
@@ -50,11 +51,9 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 				data:{"orderId":obj,"expressId":expressCompany,"expressOddNumber":expressIdValue},
 	  	        success: function (data) {
 	  	        	if(data.statusCode == "1"){
-	  	        		window.location.href=_base+"/toPaidOrder";
-	  	        	}else{
-	  	        		var d = Dialog({
+						var d = Dialog({
 							title: '消息',
-							content:"退货审核失败:"+data.statusInfo,
+							content:"发货成功",
 							icon:'prompt',
 							okValue: '确 定',
 							ok:function(){
@@ -62,9 +61,21 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 							}
 						});
 						d.show();
-	  	        	}
+    	        	}else{
+    	        		var d = Dialog({
+							title: '消息',
+							content:"发货失败:"+data.statusInfo,
+							icon:'prompt',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
       	        },
-    	}
+			  });
+		}
     });
     
     module.exports = sendPager
