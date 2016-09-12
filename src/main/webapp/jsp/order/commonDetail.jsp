@@ -26,7 +26,6 @@
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'16')" style="border-right-style: none;" >已发货订单</a></li>
           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'90')" style="border-right-style: none;" >已完成订单</a></li>
            									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'91')" style="border-right-style: none;" >已关闭</a></li>
-           									<li><a href="javaScript:void(0)" onclick="pager._changeOrderState(this,'21,22,23,31,92,93,94')" style="border-right-style: none;" >售后列表</a></li>
 							           </ul>                                        
 							     	</div> 	
 					   		</div> 
