@@ -306,7 +306,7 @@
 					  		 <div class="mb-10 text-l">
 					  		 <input type="hidden" id="orderId" value="${orderDetail.orderId }">
 					  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-					  		 onclick="pager._sendGoods('${orderDetail.parentOrderId }');" value="发货">
+					  		 onclick="pager._sendGoods('${orderDetail.orderId }');" value="发货">
 					  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
 					  		 onclick="" value="打印发票">
 					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
