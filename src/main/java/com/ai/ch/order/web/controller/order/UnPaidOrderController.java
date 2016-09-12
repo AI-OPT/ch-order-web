@@ -69,9 +69,9 @@ public class UnPaidOrderController {
 		List<OrdProdInfo> productList = new ArrayList<OrdProdInfo>();
 		SysParamSingleCond param = new SysParamSingleCond();
 		try {
-			//Long Id = Long.parseLong(orderId);
-			query.setOrderId(35913355l);
-			query.setTenantId("changhong");
+			Long Id = Long.parseLong(orderId);
+			query.setOrderId(Id);
+			query.setTenantId(user.getTenantId());
 			QueryOrderResponse response = orderListSV.queryOrder(query);
 			if(response!=null && response.getResponseHeader().isSuccess()){
 				OrdOrderVo  ordOrderVo =  response.getOrdOrderVo();
@@ -100,7 +100,6 @@ public class UnPaidOrderController {
 							product.setImageUrl(ImageUtil.getImage(vo.getProductImage().getVfsId(), vo.getProductImage().getPicType()));
 							product.setProdName(vo.getProdName());
 							product.setBuySum(vo.getBuySum());
-							//product.setJf(vo.getJf());
 							productList.add(product);
 						}
 					}
