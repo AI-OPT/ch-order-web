@@ -104,6 +104,7 @@ dependencies {
     compile 'com.ai.slp.order:warmorder:1.0.0-SNAPSHOT'
     compile 'com.ai.slp.order:ordercancel:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:ordermodify:1.0.1-SNAPSHOT'
+    compile 'com.ai.slp.order:delivergoods:1.01-SNAPSHOT'
 	compile 'junit:junit:4.12'
 	//用户
 	compile 'com.ai.platform.common:sysuser:1.0-SNAPSHOT'
