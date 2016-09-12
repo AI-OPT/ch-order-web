@@ -40,8 +40,7 @@ public class DeliveryOrderPrintController {
 			req.setOrderId(Long.parseLong(orderId));
 			//req.setUserId(user.getUserId());
 			req.setUserId("000000000000000945");
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
+			req.setTenantId(user.getTenantId());
 			IDeliveryOrderPrintSV iDeliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
 			DeliveryOrderQueryResponse response = iDeliveryOrderPrintSV.query(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
@@ -69,8 +68,7 @@ public class DeliveryOrderPrintController {
 			req.setOrderId(Long.parseLong(orderId));
 			//req.setUserId(user.getUserId());
 			req.setUserId("000000000000000945");
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
+			req.setTenantId(user.getTenantId());
 			DeliveryOrderPrintResponse response = iDeliveryOrderPrintSV.noMergePrint(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
 				responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_SUCCESS, "提货单不合并查询成功",response);
@@ -96,9 +94,9 @@ public class DeliveryOrderPrintController {
 			DeliveryOrderPrintRequest req=new DeliveryOrderPrintRequest();
 			req.setOrderId(Long.parseLong(orderId));
 			//req.setUserId(user.getUserId());
+			//TODO
 			req.setUserId("000000000000000945");
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
+			req.setTenantId(user.getTenantId());
 			IDeliveryOrderPrintSV iDeliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
 			DeliveryOrderPrintResponse response = iDeliveryOrderPrintSV.display(req);
 			if(response.getResponseHeader().isSuccess()) {
@@ -127,8 +125,7 @@ public class DeliveryOrderPrintController {
 			req.setOrderId(Long.valueOf(orderId));
 			req.setContactName(contactName);
 			req.setDeliveryProdPrintVos(vos);
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
+			req.setTenantId(user.getTenantId());
 			IDeliveryOrderPrintSV iDeliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
 			BaseResponse response = iDeliveryOrderPrintSV.print(req);
 			if(response.getResponseHeader().isSuccess()) {
