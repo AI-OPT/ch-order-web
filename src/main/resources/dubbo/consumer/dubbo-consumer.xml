@@ -148,6 +148,10 @@
 	<dubbo:reference id="iOrderCancelSV"
 	interface="com.ai.slp.order.api.ordercancel.interfaces.IOrderCancelSV"
 	registry="baasRegistry" />
+	<!-- 订单发货 -->
+	<dubbo:reference id="iDeliverGoodsSV"
+	interface="com.ai.slp.order.api.delivergoods.interfaces.IDeliverGoodsSV"
+	registry="baasRegistry" />
 	
 	<!-- 金额修改 -->
 	<dubbo:reference id="iNotPaidOrderModifySV"
