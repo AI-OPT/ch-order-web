@@ -131,8 +131,6 @@
 							</div>  
 							 <div class="modal-body text-center">
 							 <br/><br/>
-								<!--   <input type="button"  class="btn btn-primary"
-						  		 onclick="pager._backOrder('');"  value="退货"> -->
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
