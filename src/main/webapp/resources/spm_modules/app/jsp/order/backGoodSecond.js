@@ -48,7 +48,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     		var orderid = $("#orderId").text();
     		window.location.href=_base+"/backDetail?orderId="
             + orderid;
-    	}
+    	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMoney").text();
     		var formValidator=$("#dataForm").validate({
