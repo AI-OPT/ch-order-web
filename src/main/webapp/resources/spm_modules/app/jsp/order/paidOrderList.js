@@ -178,7 +178,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				},
 			});
 		},
-		_detail:function(orderid,busiCode,state){
+		_detail:function(orderid,busiCode,state){ 
 			if(busiCode==2){
 				window.location.href = _base+"/changeDetail?orderId="
 	            + orderid;
