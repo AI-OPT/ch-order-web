@@ -39,8 +39,7 @@ public class InvoicePrintController {
 		try {
 			InvoicePrintRequest req=new InvoicePrintRequest();
 			req.setOrderId(Long.valueOf(orderId));
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
+			req.setTenantId(user.getTenantId());
 			IInvoicePrintSV iInvoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
 			InvoicePrintResponse response = iInvoicePrintSV.query(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
@@ -67,8 +66,7 @@ public class InvoicePrintController {
 			List<InvoicePrintVo> invoicePrintVos = JSON.parseArray(orderInfos, InvoicePrintVo.class); 
 			req.setOrderId(Long.valueOf(orderId));
 			req.setInvoicePrintVos(invoicePrintVos);
-			//req.setTenantId(user.getTenantId());
-			req.setTenantId("changhong");
+			req.setTenantId(user.getTenantId());
 			IInvoicePrintSV invoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
 			BaseResponse response = invoicePrintSV.print(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
