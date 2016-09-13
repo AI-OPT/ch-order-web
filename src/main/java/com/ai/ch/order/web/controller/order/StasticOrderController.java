@@ -63,7 +63,7 @@ public class StasticOrderController {
 	    }
         if(!StringUtil.isBlank(reqVo.getOrdParenOrderId())){
         	 Long Id = Long.parseLong(reqVo.getOrdParenOrderId());
-        	 req.setParentOrderId(Id);
+        	 req.setOrderId(Id);
         }
         req.setTenantId(user.getTenantId());
         String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
