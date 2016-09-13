@@ -132,10 +132,10 @@
 	                                            		 <thead>
 	                                            			<tr>
 	                                            				<th style="width:20%">子订单号</th>
-	                                            				<th style="width:20%">商品信息</th>
+	                                            				<th style="width:40%">商品信息</th>
 	                                            				<th style="width:20%">数量</th>
-                                                				<th style="width:20%">订单状态</th>
-                                               					<th style="width:20%">详情</th>
+                                                				<th style="width:10%">订单状态</th>
+                                               					<th style="width:10%">详情</th>
 	                                            			</tr>
 	                                            		</thead>
 	                                            	</table>
@@ -183,9 +183,9 @@
         								<tbody>
 											{{if productList!=null}}
 												{{for productList}}	  
-													<tr style="width:40%">
-        												<td title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
-														<td>
+													<tr>
+        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
+														<td style="width:20%">
 															<table class="table table-hover table-border" width="100%">
         														<tbody>
 																	<tr>

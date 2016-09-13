@@ -66,6 +66,9 @@ public class StasticOrderController {
         	 req.setOrderId(Id);
         }
         req.setTenantId(user.getTenantId());
+        req.setState(reqVo.getState());
+        req.setProdName(reqVo.getProdName());
+        
         String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
         String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
         try {
