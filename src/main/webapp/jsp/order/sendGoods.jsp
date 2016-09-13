@@ -18,7 +18,8 @@
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
 					  	 	<!--table表格-->
-                                <div class="table-responsive clearfix">
+					  	 	<form id="dataForm">
+                                <div class="table-responsive clearfix" >
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -116,22 +117,23 @@
                                     </tbody>
                                     </table>
                                 </div>
-                                		<div class="eject-big"  id="choice">
-										<div class="prompt-samll" id="p-operation">
-										<div class="eject-medium-title">
-												<p>提示操作</p>
-												<p class="img"><i class="fa fa-times"></i></p>
-											</div>
-										<!--确认删除-->
-										<div class="prompt-samll-confirm">
-											<ul>
-											
-											<li class="word">请填写一个物流信息进行操作！</li>
-											<li>
-												<input id="p-op-close" type="button"  class="biu-btn btn-primary btn-small ml-15 mt-20 radius" value="确认">
-											</ul>
-										</div>
-										</div>	
+                                </form>
+                              	<div class="eject-big"  id="choice">
+								<div class="prompt-samll" id="p-operation">
+								<div class="eject-medium-title">
+										<p>提示操作</p>
+										<p class="img"><i class="fa fa-times"></i></p>
+									</div>
+								<!--确认删除-->
+								<div class="prompt-samll-confirm">
+									<ul>
+									
+									<li class="word">请填写一个物流信息进行操作！</li>
+									<li>
+										<input id="p-op-close" type="button"  class="biu-btn btn-primary btn-small ml-15 mt-20 radius" value="确认">
+									</ul>
+								</div>
+								</div>	
 									<div class="mask" id="eject-mask"></div>
 									</div>
                             <!--/table表格结束-->
