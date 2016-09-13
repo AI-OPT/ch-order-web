@@ -75,9 +75,6 @@
 								            	<p>
 									            	<select class="select select-medium" id="routeSource">
 									            			<option value="">请选择</option>
-									            			<option>仓库1</option>
-									            			<option>仓库2</option>
-									            			<option>仓库3</option>
 									            	</select>
 								            	</p>
 							            	</li>

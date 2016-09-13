@@ -29,6 +29,7 @@ define('app/jsp/order/commonDetail', function (require, exports, module) {
     		commonPager.superclass.setup.call(this);
     		this._bindSelect();
     		this._bindChlIdSelect();
+    		this._bindRoutSelect();
     	},
 		
 		_showQueryInfo: function(){
@@ -90,30 +91,26 @@ define('app/jsp/order/commonDetail', function (require, exports, module) {
 			});
 		},
 		
-		
 		// 下拉 仓库信息
-		_bindRouteIdSelect : function() {
+		_bindRoutSelect : function() {
 			var this_=this;
 			$.ajax({
 				type : "post",
 				processing : false,
 				url : _base+ "/getRouteIdSelect",
 				dataType : "json",
-				data : {
-					paramCode:"CHL_ID",
-					typeCode:"ORD_ORDER"
-				},
+				data :"",
 				message : "正在加载数据..",
 				success : function(data) {
 					var d=data.data;
 					$.each(d,function(index,item){
-						var paramName = d[index].columnDesc;
-						var paramCode = d[index].columnValue;
-						$("#orderSource").append('<option value="'+paramCode+'">'+paramName+'</option>');
+						var paramName = d[index].routeName;
+						var paramCode = d[index].routeId;
+						$("#routeSource").append('<option value="'+paramCode+'">'+paramName+'</option>');
 					})
 				}
 			});
-		},
+		}
 		
     });
     
