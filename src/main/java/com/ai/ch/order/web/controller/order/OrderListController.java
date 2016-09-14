@@ -189,7 +189,7 @@ public class OrderListController {
 				return new ModelAndView("jsp/order/waitInvoiceDetails", model);
 			}
 			if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
-				return new ModelAndView("jsp/order/completedOrder", model);
+				return new ModelAndView("jsp/order/alreadySendGoods", model);
 			}
 			if(Constants.OrdOrder.State.COMPLETED.equals(state)) { //已完成
 				return new ModelAndView("jsp/order/doneOrder", model);
