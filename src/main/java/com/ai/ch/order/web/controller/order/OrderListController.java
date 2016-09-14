@@ -32,6 +32,9 @@ import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
 import com.ai.platform.common.api.cache.param.SysParamSingleCond;
+import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.BehindParentOrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
@@ -141,6 +144,15 @@ public class OrderListController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
+					//获取售后操作人
+					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+					SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+					userReq.setTenantId(user.getTenantId());
+					userReq.setNo(orderDetail.getOperId());
+					SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+					if(response!=null){
+						orderDetail.setUsername(response.getName());
+					}
 					//翻译订单来源
 					SysParamSingleCond	param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);
@@ -150,6 +162,16 @@ public class OrderListController {
             		SysParam chldParam = iCacheSV.getSysParamSingle(param);
             		if(chldParam!=null){
             			orderDetail.setChlId(chldParam.getColumnDesc());
+            		}
+            		//翻译物流公司
+					SysParamSingleCond	expressParam = new SysParamSingleCond();
+					expressParam.setTenantId(Constants.TENANT_ID);
+					expressParam.setColumnValue(orderDetail.getExpressId());
+					expressParam.setTypeCode(Constants.TYPE_CODE);
+					expressParam.setParamCode(Constants.ORD_EXPRESS);
+            		SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
+            		if(sysParam!=null){
+            			orderDetail.setExpressName(sysParam.getColumnDesc());
             		}
             		//翻译订单应收/优惠金额、运费
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
@@ -197,14 +219,10 @@ public class OrderListController {
 			if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
 				return new ModelAndView("jsp/order/closeOrder", model);
 			}
-			if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)) { //换货单
-				return new ModelAndView("", model);
-			}
-			if(Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)) { //退货单
-				return new ModelAndView("", model);
-			}
-			if(Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)) { //退费单
-				return new ModelAndView("", model);
+			if(Constants.OrdOrder.State.RETURN_COMPLETE.equals(state)||         //退货完成
+					Constants.OrdOrder.State.EXCHANGE_COMPLETE.equals(state)||  //换货完成 
+					Constants.OrdOrder.State.REFUND_COMPLETE.equals(state)) {   //退款完成
+				return new ModelAndView("jsp/order/afterComplete", model);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
