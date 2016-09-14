@@ -30,17 +30,16 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
     	},
     	//事件代理
     	events: {
-    		//查询
-            //"click #BTN_SEARCH":"_search",
-            //"click #moreId":"_more"
+    		"click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {
     		demopagePager.superclass.setup.call(this);
-    	//	this._demopage();
     	},
-    	_demopage:function(){
-    		alert('deliveryTemplate');
+    	
+    	_back:function() {
+    		//调到订单列表页面
+    		window.location.href = _base+"/order/toOrderList"
     	},
 		
 		_displayInvoiceOrder: function(){
