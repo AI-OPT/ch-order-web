@@ -64,6 +64,22 @@ public final class Constants {
              * 91取消
              */
             public static final String CANCEL = "91";
+            
+            /**
+             * 92 退货完成
+             */
+            public static final String RETURN_COMPLETE="92";
+            
+            /**
+             * 93 换货完成
+             */
+            public static final String EXCHANGE_COMPLETE="93";
+            
+            /**
+             * 94 退款完成
+             */
+            public static final String REFUND_COMPLETE="94";
+
         }
 		
 		public static class PayStyle {
