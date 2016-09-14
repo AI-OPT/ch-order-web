@@ -31,16 +31,16 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
     	//事件代理
     	events: {
     		//查询
-            //"click #BTN_SEARCH":"_search",
-            //"click #moreId":"_more"
-        },
+    		"click #backPage":"_back"
+    	},
     	//重写父类
     	setup: function () {
     		demopagePager.superclass.setup.call(this);
-    	//	this._demopage();
     	},
-    	_demopage:function(){
-    		alert('deliveryTemplate');
+    	
+    	_back:function() {
+    		//调到订单列表页面
+    		window.location.href = _base+"/order/toOrderList"
     	},
     	
       	_queryDeliveryOrder: function(){
@@ -55,10 +55,21 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 				processing: true,
 				message : "正在处理中，请稍候...",
 				success : function(data) {
-					if(!data.data.flag){
-						_this._noMergeDisplayDeliveryOrder();
-					}else{
+					if(data.data.mark=="1"){
 						$("#mergeQueryModal").modal('show');
+					}else if(data.data.mark=="2"){
+						_this._noMergeDisplayDeliveryOrder();
+					}else {
+						var d = Dialog({
+							title: '消息',
+							content:"订单存在售后商品,不可打印",
+							icon:'prompt',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
 					}
 				}
 			});
