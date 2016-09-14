@@ -14,6 +14,9 @@ import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
 import com.ai.platform.common.api.cache.param.SysParamMultiCond;
 import com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV;
+import com.ai.slp.route.api.routemanage.param.RouteListRequest;
+import com.ai.slp.route.api.routemanage.param.RouteListResponse;
+import com.ai.slp.route.api.routemanage.param.RouteVo;
 
 @RestController
 public class SysParamController {
@@ -64,14 +67,18 @@ public class SysParamController {
      */
     @RequestMapping("/getRouteIdSelect")
     @ResponseBody
-    public ResponseData<List<SysParam>> getRouteIdSelect(SysParamMultiCond param,HttpServletRequest request) {
-        ResponseData<List<SysParam>> responseData=null;
+    public ResponseData<List<RouteVo>> getRouteIdSelect(SysParamMultiCond param,HttpServletRequest request) {
+        ResponseData<List<RouteVo>> responseData=null;
         try{
         	IRouteManageSV iRouteManageSV = DubboConsumerFactory.getService(IRouteManageSV.class);
-            //TODO 获取全部仓库id和名称信息
-        	responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_SUCCESS,"获取数据成功",null);
+        	//TODO 获取全部仓库id和名称信息
+        	RouteListRequest req = new RouteListRequest();
+        	req.setTenantId("changhong");
+        	RouteListResponse response = iRouteManageSV.queryRouteList(req);
+        	List<RouteVo> list = response.getVoList();
+        	responseData=new ResponseData<List<RouteVo>>(ResponseData.AJAX_STATUS_SUCCESS,"获取数据成功",list);
         }catch(Exception e){
-            responseData=new ResponseData<List<SysParam>>(ResponseData.AJAX_STATUS_FAILURE,"获取数据失败",null);
+            responseData=new ResponseData<List<RouteVo>>(ResponseData.AJAX_STATUS_FAILURE,"获取数据失败",null);
         }
         return responseData;
     }

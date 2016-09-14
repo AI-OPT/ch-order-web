@@ -27,7 +27,7 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
     	attrs: {
     	},
     	Statics: {
-    		DEFAULT_PAGE_SIZE: 10
+    		DEFAULT_PAGE_SIZE: 5
     	},
     	//事件代理
     	events: {
@@ -65,9 +65,9 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 				    	_this.endTime = jQuery.trim($("#orderTimeEnd").val());
 				        return _this.endTime;
 				    },
-				    "productName":function () {
-				    	_this.productName = jQuery.trim($("#productName").val());
-				        return _this.productName;
+				    "prodName":function () {
+				    	_this.prodName = jQuery.trim($("#productName").val());
+				        return _this.prodName;
 				    }
 				}
 			}else{
@@ -84,11 +84,14 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 				    	_this.ordParenOrderId = jQuery.trim($("#parentOrderId").val());
 				        return _this.ordParenOrderId;
 				    },
-				      "productName":function () {
-				    	_this.productName = jQuery.trim($("#productName").val());
-				        return _this.productName;
+				      "prodName":function () {
+				    	_this.prodName = jQuery.trim($("#productName").val());
+				        return _this.prodName;
 				    },
-				    "state":jQuery.trim($("#state option:selected").val())
+				    "state":function(){
+				    	_this.state =jQuery.trim($("#state option:selected").val());
+				    	 return _this.state;
+				    }
 				}
 			}
 			
@@ -104,7 +107,6 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 				data : queryParams,
 				pageSize: stasticOrderPager.DEFAULT_PAGE_SIZE,
 				visiblePages:5,
-				message: "正在为您查询数据..",
 				messageId:"showMessageDiv",
 				renderId:"stasticData",
 				render: function (data) {

@@ -36,8 +36,51 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     	//重写父类
     	setup: function () {
     		sendPager.superclass.setup.call(this);
+    		var formValidator=this._initValidate();
+			$(":input").bind("focusout",function(){
+				formValidator.element(this);
+			});
+    	},
+    	_initValidate:function(){
+    		var formValidator=$("#dataForm").validate({
+    			rules: {
+    				flowName: {
+    					regexp: /^[0-9a-zA-Z]*$/g
+    				}
+    			},
+    			messages: {
+    				flowName: {
+    					regexp: "只能输入字母或数字"
+    				}
+    			}
+    		});
+    		return formValidator;
     	},
     	_confirmSendGoods:function(obj,thisObj){
+    		var count = 0;
+    		$("input[name='flowName']").each(function(){
+    	        if ($(this).val() != ""){
+    	            count++;
+    	        }
+    	    });
+    		if(count>1 || count == 0){
+    			$('#eject-mask').fadeIn(100);
+    			$('#p-operation').slideDown(200);
+    			return false;
+	        }
+    		 var id = $("#other").val();
+    		 var name = $("#otherName").val();
+    		 if((id=="" && name!="") || (id!="" && name=="")){
+    			 $('#eject-mask').fadeIn(100);
+     			$('#p-operation').slideDown(200);
+     			return false; 
+    		 }
+    		 var _this = this;
+ 			var formValidator=_this._initValidate();
+ 			formValidator.form();
+ 			if(!$("#dataForm").valid()){
+ 				return false;
+ 			}
     		  var _this=thisObj;
     		  var expressCompany=$(_this).parent().prev().prev().attr("value");
     		  var expressIdValue=$(_this).parent().prev().find("input").val();

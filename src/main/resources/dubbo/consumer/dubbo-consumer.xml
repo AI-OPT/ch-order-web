@@ -169,6 +169,10 @@
 	
 	<dubbo:reference id="iStasticsOrderSV"
 	interface="com.ai.slp.order.api.stasticsorder.interfaces.IStasticsOrderSV"
+	registry="baasRegistry" />
+	
+	<dubbo:reference id="iRouteManageSV"
+	interface="com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV"
 	registry="baasRegistry" />			
 	
 	

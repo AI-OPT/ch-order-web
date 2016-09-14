@@ -63,6 +63,10 @@
 							            		<p>
 								            		<select class="select select-small" id="state">
 								            			<option value="">请选择</option>
+								            			<option value="11">待付款</option>
+								            			<option value="111">已付款</option>
+								            			<option value="90">已完成</option>
+								            			<option value="91">已关闭</option>
 								            		</select>
 							            		</p>
 							            	</li>
@@ -113,10 +117,10 @@
 	                                            		 <thead>
 	                                            			<tr>
 	                                            				<th style="width:20%">子订单号</th>
-	                                            				<th style="width:20%">商品信息</th>
+	                                            				<th style="width:40%">商品信息</th>
 	                                            				<th style="width:20%">数量</th>
-                                                				<th style="width:20%">订单状态</th>
-                                               					<th style="width:20%">详情</th>
+                                                				<th style="width:10%">订单状态</th>
+                                               					<th style="width:10%">详情</th>
 	                                            			</tr>
 	                                            		</thead>
 	                                            	</table>
@@ -164,9 +168,9 @@
         								<tbody>
 											{{if proList!=null}}
 												{{for proList}}	  
-													<tr style="width:40%">
-        												<td title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
-														<td>
+													<tr>
+        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
+														<td style="width:20%">
 															<table class="table table-hover table-border" width="100%">
         														<tbody>
 																	<tr>
@@ -181,7 +185,8 @@
 										</tbody>
         								</table>	
 									</td>
-									<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}')">查看详情</a></td>
+									<td style="width:10%">{{:state}}</td>
+									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}')">查看详情</a></td>
         					</tr>
         				</tbody>	
         			</table>

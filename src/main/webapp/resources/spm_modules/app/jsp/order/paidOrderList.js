@@ -45,6 +45,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
     		// 初始化执行搜索
 			this._bindSelect();
     		this._bindChlIdSelect();
+    		this._bindRoutSelect();
 			this._highSearch();
     	},
     	_showQueryInfo: function(){
@@ -104,7 +105,26 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				}
 			});
 		},
-		
+		// 下拉 仓库
+		_bindRoutSelect : function() {
+			var this_=this;
+			$.ajax({
+				type : "post",
+				processing : false,
+				url : _base+ "/getRouteIdSelect",
+				dataType : "json",
+				data :"",
+				message : "正在加载数据..",
+				success : function(data) {
+					var d=data.data;
+					$.each(d,function(index,item){
+						var paramName = d[index].routeName;
+						var paramCode = d[index].routeId;
+						$("#routeSource").append('<option value="'+paramCode+'">'+paramName+'</option>');
+					})
+				}
+			});
+		},
     	_initValidate:function(){
     		var formValidator=$("#dataForm").validate({
     			rules: {
@@ -164,6 +184,10 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				    "contactTel":function () {
 				    	_this.contactTel = jQuery.trim($("#contactTelQ").val());
 				        return _this.contactTel;
+				    },
+				    "routeId":function () {
+				    	_this.routeId =jQuery.trim($("#routeSource option:selected").val());
+				    	 return _this.routeId;
 				    }
 				}
 			}
