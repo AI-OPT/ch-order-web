@@ -100,7 +100,7 @@ dependencies {
     compile 'com.ai.slp.order:orderlist:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:aftersaleorder:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:orderrule:1.0.1-SNAPSHOT'
-    compile 'com.ai.slp.order:ordercheck:1.01-SNAPSHOT'
+    compile 'com.ai.slp.order:ordercheck:1.0.2-SNAPSHOT'
     compile 'com.ai.slp.order:warmorder:1.0.0-SNAPSHOT'
     compile 'com.ai.slp.order:ordercancel:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:ordermodify:1.0.1-SNAPSHOT'
