@@ -261,10 +261,10 @@ public class PaidOrderController {
 			//判断是拒绝还是同意换货
 			if(isRefuse==false){
 				//改变状态
-				 req.setCheckResult("1");
+				 req.setState("211");
 				 base =  iOrderCheckSV.check(req);
 			}else{
-				 req.setCheckResult("2");
+				 req.setState("212");
 				 req.setRemark(refuseInfo);
 				 base = iOrderCheckSV.check(req);
 			}
@@ -386,10 +386,10 @@ public class PaidOrderController {
 				//判断是拒绝还是同意换货
 				if(isRefuse==false){
 					//改变状态
-					 req.setCheckResult("1");
+					 req.setState("211");
 					 base =  iOrderCheckSV.check(req);
 				}else{
-					 req.setCheckResult("2");
+					 req.setState("212");
 					 req.setRemark(refuseInfo);
 					 base = iOrderCheckSV.check(req);
 				}
