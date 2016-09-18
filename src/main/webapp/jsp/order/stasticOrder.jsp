@@ -56,7 +56,7 @@
 							             <ul>
 							            	<li class="col-md-6">
 								            	<p class="word">按用户查询</p>
-							            		<p><input class="int-text int-medium" id="userName" type="text"></p>
+							            		<p><input class="int-text int-medium" id="userName" type="text" placeholder="请输入用户名"></p>
 							            	</li>
 							            	<li class="col-md-6">
 								            	<p class="word">按订单状态</p>
@@ -185,7 +185,7 @@
 										</tbody>
         								</table>	
 									</td>
-									<td style="width:10%">{{:state}}</td>
+									<td style="width:10%">{{:stateName}}</td>
 									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}')">查看详情</a></td>
         					</tr>
         				</tbody>	

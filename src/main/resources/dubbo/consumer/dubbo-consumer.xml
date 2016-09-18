@@ -173,8 +173,10 @@
 	
 	<dubbo:reference id="iRouteManageSV"
 	interface="com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV"
+	registry="baasRegistry" />
+	
+	<dubbo:reference id="iShopInfoSV"
+	interface="com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV"
 	registry="baasRegistry" />			
-	
-	
-			
+				
 </beans>

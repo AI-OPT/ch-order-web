@@ -14,6 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.StasticOrderReqVo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
+import com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV;
+import com.ai.ch.user.api.shopinfo.params.QueryShopInfoRequest;
+import com.ai.ch.user.api.shopinfo.params.QueryShopInfoResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.CollectionUtil;
@@ -49,6 +52,19 @@ public class StasticOrderController {
         ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
         StasticsOrderRequest req = new StasticsOrderRequest();
         ResponseData<PageInfo<StasticParentOrderVo>> responseData = null;
+        if(!StringUtil.isBlank(reqVo.getSupplierName())){
+        	//根据店铺名称获取销售商ID
+            IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
+            QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
+            shopReq.setTenantId(user.getTenantId());
+            shopReq.setShopName(reqVo.getSupplierName());
+            QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
+            if(base.getResponseHeader().getIsSuccess()==true){
+            	req.setSupplierId(base.getUserId());
+            }else{
+            	req.setSupplierId("-1");
+            }
+        }
         String startT =  reqVo.getStartTime();
         String endT = reqVo.getEndTime();
         if(!StringUtil.isBlank(startT)){

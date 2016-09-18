@@ -91,6 +91,14 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 				    "state":function(){
 				    	_this.state =jQuery.trim($("#state option:selected").val());
 				    	 return _this.state;
+				    },
+				    "supplierName":function(){
+				    	_this.supplierName =jQuery.trim($("#supplierName").val());
+				    	 return _this.supplierName;
+				    },
+				    "userName":function(){
+				    	_this.userName =jQuery.trim($("#userName").val());
+				    	 return _this.userName;
 				    }
 				}
 			}
