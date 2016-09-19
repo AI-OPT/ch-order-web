@@ -66,7 +66,7 @@
 																	class="int-text int-medium ">
 																	<option value="D">天</option>
 																	<option value="H">小时</option>
-																	<option value="M">分钟</option>
+																	<option value="MIN">分钟</option>
 																</select> 内，订单量正常量为 <input id="timeMonitorOrderSum" name="command.timeMonitorOrderSum"
 																	class="int-text int-medium " type="text" />
 																/天，超过正常量的进行监控预警
@@ -92,7 +92,7 @@
 																	class="int-text int-medium ">
 																	<option value="D">天</option>
 																	<option value="H">小时</option>
-																	<option value="M">分钟</option>
+																	<option value="MIN">分钟</option>
 																</select> 内， 购买订单超过 <input id="buyEmployeeMonitorOrderSum"
 																	name="command.buyEmployeeMonitorOrderSum"
 																	class="int-text int-medium " type="text" /> 单，进行监控预警
@@ -117,7 +117,7 @@
 																	class="int-text int-medium ">
 																	<option value="D">天</option>
 																	<option value="H">小时</option>
-																	<option value="M">分钟</option>
+																	<option value="MIN">分钟</option>
 																</select> 内， 购买订单超过 <input id="buyIpMonitorOrderSum" name="command.buyIpMonitorOrderSum"
 																	class="int-text int-medium " type="text" /> 单，进行监控预警
 															</p>
