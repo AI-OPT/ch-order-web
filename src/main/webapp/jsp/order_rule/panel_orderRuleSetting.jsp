@@ -137,7 +137,7 @@
 															<p>
 																同一商品，在<input id="mergeOrderSettingTime" name="command.mergeOrderSettingTime"
 																	class="int-text int-medium " type="text" />
-																分钟内，默认合并为同一订单 <input id="mergeOrderSettingTimeType" type="text"
+																分钟内，默认合并为同一订单 <input id="mergeOrderSettingTimeType" type="hidden"
 																	name="command.mergeOrderSettingTimeType" value="MIN"/> <input id="mergeOrderSettingOrderSum"
 																	type="text" name="command.mergeOrderSettingOrderSum" />
 															</p>
