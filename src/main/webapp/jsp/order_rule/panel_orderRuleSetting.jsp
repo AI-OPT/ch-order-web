@@ -69,7 +69,7 @@
 																	<option value="MIN">分钟</option>
 																</select> 内，订单量正常量为 <input id="timeMonitorOrderSum" name="command.timeMonitorOrderSum"
 																	class="int-text int-medium " type="text" />
-																/天，超过正常量的进行监控预警
+																单，超过正常量的进行监控预警
 															</p>
 														</li>
 													</ul>

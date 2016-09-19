@@ -61,7 +61,7 @@
 															<p>
 																<span id="timeMonitorTime"></span>
 																<span id="timeMonitorTimeType" ></span> 内，订单量正常量为 <span id="timeMonitorOrderSum"></span>
-																/天，超过正常量的进行监控预警
+																单，超过正常量的进行监控预警
 															</p>
 														</li>
 													</ul>
