@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ai.ch.order.web.controller.common.ChUserController;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.StasticOrderReqVo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
@@ -64,6 +65,15 @@ public class StasticOrderController {
             }else{
             	req.setSupplierId("-1");
             }
+        }
+        if(!StringUtil.isBlank(reqVo.getUserName())){
+        	//获取用户id
+        	String id = ChUserController.getUserId(reqVo.getUserName());
+        	if(!StringUtil.isBlank(id)){
+        		req.setUserId(id);
+        	}else{
+        		req.setUserId("-1");
+        	}
         }
         String startT =  reqVo.getStartTime();
         String endT = reqVo.getEndTime();

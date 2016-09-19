@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.ai.ch.order.web.controller.common.ChUserController;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
 import com.ai.ch.order.web.model.order.OrdProdVo;
@@ -120,6 +121,15 @@ public class PaidOrderController {
         	 req.setOrderId(Id);
         }
         req.setTenantId(user.getTenantId());
+        //获取用户ID
+        if(!StringUtil.isBlank(reqVo.getUserName())){
+        	String id = ChUserController.getUserId(reqVo.getUserName());
+        	if(!StringUtil.isBlank(id)){
+        		req.setUserId(id);
+        	}else{
+        		req.setUserId("-1");
+        	}
+        }
         String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
         String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
         try {

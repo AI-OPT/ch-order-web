@@ -188,6 +188,10 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				    "routeId":function () {
 				    	_this.routeId =jQuery.trim($("#routeSource option:selected").val());
 				    	 return _this.routeId;
+				    },
+				    "userName":function () {
+				    	_this.userName =jQuery.trim($("#userName").val());
+				    	 return _this.userName;
 				    }
 				}
 			}

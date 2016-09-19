@@ -45,7 +45,7 @@
 							            <ul>
 								            <li class="col-md-6">
 									            <p class="word">用户名</p>
-									            <p><input class="int-text int-medium" id="username" type="text" placeholder="请输入用户名" ></p>
+									            <p><input class="int-text int-medium" id="userName" type="text" placeholder="请输入用户名" ></p>
 								            </li>
 							            	<li class="col-md-6">
 								            	<p class="word">订单来源</p>

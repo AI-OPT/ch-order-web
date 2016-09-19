@@ -16,6 +16,11 @@ public class BehindQueryOrderLisReqVo extends BehindQueryOrderListRequest{
 	 * 结束时间
 	 */
 	private String endTime;
+	/**
+	 * 用户名
+	 */
+	private String userName;
+	
 
 	public String getInputOrderId() {
 		return inputOrderId;
@@ -39,6 +44,14 @@ public class BehindQueryOrderLisReqVo extends BehindQueryOrderListRequest{
 
 	public void setEndTime(String endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 	
 
