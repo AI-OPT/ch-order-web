@@ -60,7 +60,7 @@
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
-							                			<span>${order.parentOrderId}</span>
+							                			<span id="parentId">${order.parentOrderId}</span>
 							                		</p>
 							                	</div>
 							                	<div>
@@ -70,7 +70,7 @@
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
-							                			<span>${order.balacneIfId}</span>
+							                			<span id="balanceId">${order.balacneIfId}</span>
 							                		</p>	
 							                	</div>
 							                </td>

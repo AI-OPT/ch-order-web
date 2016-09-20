@@ -114,8 +114,39 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
  			if(!$("#dataForm").valid()){
  				return false;
  			}
-	   		var isRefuse = true;
-	   	    var url=_base+"/firstBack";
+ 			//获取数据
+ 			var parentId = $("#parentId").text();
+ 			var orderId = $("#orderId").text();
+ 			var banlanceIfId = $("#balanceId").text();
+ 			var money = $("#updateMoneyData").val();
+	   		//退款
+ 		    ajaxController.ajax({
+    	    	type: "post",
+				dataType: "json",
+				processing: false,
+				message: "查询中，请等待...",
+				url: url,
+				data:{"orderId":orderId,"money":money,"banlanceIfId":banlanceIfId,"parentOrderId":parentId},
+    	        success: function (data) {
+    	        	if(data.statusCode == "1"){
+    	        		//用于判断跳转到哪个审核页面
+    	        		var flag="1";
+    	        		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
+    	        	}else{
+    	        		var d = Dialog({
+							title: '消息',
+							content:"退货审核失败:"+data.statusInfo,
+							icon:'prompt',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
+    	        },
+                
+    	    });
     	}
     		
     });

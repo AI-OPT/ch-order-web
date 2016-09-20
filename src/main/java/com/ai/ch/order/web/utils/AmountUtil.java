@@ -31,12 +31,28 @@ public class AmountUtil {
         return balance.longValue();
     }
     
+    /** 
+     * 将元为单位的转换为里 （乘1000）  
+     * 
+     */
     public static Long YToLi(String amount){
         if(StringUtil.isBlank(amount)){
             return 0L;
         }
         BigDecimal money=new BigDecimal(amount);
         BigDecimal balance = money.multiply(new BigDecimal(1000L));
+        return balance.longValue();
+    }
+    /** 
+     * 将元为单位的转换为分 （乘1000）  
+     * 
+     */
+    public static Long YToFen(String amount){
+        if(StringUtil.isBlank(amount)){
+            return 0L;
+        }
+        BigDecimal money=new BigDecimal(amount);
+        BigDecimal balance = money.multiply(new BigDecimal(100L));
         return balance.longValue();
     }
     
