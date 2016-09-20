@@ -1,5 +1,7 @@
 package com.ai.ch.order.web.controller.constant;
 
+import com.ai.ch.order.web.utils.PropertiesLoader;
+
 public final class Constants {
 	private Constants() {
 
@@ -25,6 +27,10 @@ public final class Constants {
 	/** 物流信息*/
 	public static final String ORD_EXPRESS = "ORD_EXPRESS";
 	
+	/**
+	 * 属性文件加载对象
+	 */
+	private static PropertiesLoader loader = new PropertiesLoader("ch-order-web.properties");
 	
 	public static final class OrdOrder {
 
@@ -104,5 +110,15 @@ public final class Constants {
 	            public static final String CANCEL_ORDER = "4";
 		}
 	}
+	
+	
+	
+	 /**物流APPKEY**/
+    private static final String LOGISTICS_APPKEY_KEY = "logistics.appkey";  
+    public static final String LOGISTICS_APPKEY = loader.getProperty(LOGISTICS_APPKEY_KEY);  
+    /**物流URL**/
+    private static final String LOGISTICS_URL_KEY = "logistics.url";  
+    public static final String LOGISTICS_URL = loader.getProperty(LOGISTICS_URL_KEY);  
+    
 
 }

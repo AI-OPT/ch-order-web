@@ -34,6 +34,16 @@ public class OrderDetail extends OrdOrderVo {
 	 */
 	private String expressName;
 	
+	private List<LogisticsDetail> logisticsDetail;
+	
+
+	public List<LogisticsDetail> getLogisticsDetail() {
+		return logisticsDetail;
+	}
+
+	public void setLogisticsDetail(List<LogisticsDetail> logisticsDetail) {
+		this.logisticsDetail = logisticsDetail;
+	}
 
 	public String getOrdDiscountFee() {
 		return ordDiscountFee;

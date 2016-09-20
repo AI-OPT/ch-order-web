@@ -113,6 +113,8 @@ dependencies {
 	compile 'com.ai.platform.common:sysuser:1.0-SNAPSHOT'
 	//店铺信息
     compile "com.ai.ch.user:shopinfo:1.1-SNAPSHOT"
+ 	//支付
+    compile 'com.ai.opt.chpay:ch-payclient:1.0-SNAPSHOT'
 
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
