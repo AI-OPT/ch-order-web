@@ -1,21 +1,39 @@
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
+import java.util.TreeMap;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.utils.InvoiceUtils;
+import com.upp.docking.covn.MsgString;
 import com.upp.docking.enums.TranType;
-import com.ylink.upp.oxm.entity.upp_100_001_01.GrpHdr;
+import com.ylink.upp.base.oxm.util.MsgUtils;
+import com.ylink.upp.base.oxm.util.OxmHandler;
 import com.ylink.upp.oxm.entity.upp_600_001_01.GrpBody;
+import com.ylink.upp.oxm.entity.upp_600_001_01.GrpHdr;
+import com.ylink.upp.oxm.entity.upp_600_001_01.RespInfo;
 
+import scala.collection.immutable.Stream.Cons;
+
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations="classpath:**/core-context.xml")
 public class InvoiceTest {
-
+	@Autowired
+	private OxmHandler oxmHandler;
 	@Test
 	public void test() {
+		String merNo = "";
 		String date_now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 		GrpHdr hdr = new GrpHdr();
-		hdr.setMerNo("");
+		hdr.setMerNo(merNo);
 		hdr.setCreDtTm(date_now);
 		hdr.setTranType(TranType.INVOICE_PRINT.getValue());
 
@@ -58,18 +76,46 @@ public class InvoiceTest {
 		body.setVoucherNumber("00001"); // 系统凭证号
 		body.setVoucherData(date_now); // 系统凭证号日期
 		body.setProducteGroup("电视机"); // 物料名称
-		
-		
-		
 
+		RespInfo respInfo = new RespInfo();
+		respInfo.setGrpHdr(hdr);
+		respInfo.setGrpBody(body);
+		// 发送消息
+		String xmlMsg = null;
 		try {
-			String result = InvoiceUtils.sendHttpPost(
-					"http://10.8.101.6:2012/BILL.Services/Rcsit.BILL.Service.Implement.BusinessDocumentService.svc",
-					null, "UTF-8");
-			System.out.println(result);
+			xmlMsg = oxmHandler.marshal(respInfo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		Map<String, String> param = new TreeMap<String, String>();
+		// 加签
+		String sign = null;
+		try {
+			sign = InvoiceUtils.sign(xmlMsg);
+			param.put("signMsg", sign);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		// 拼装报文头
+		String msgHeader = InvoiceUtils.initMsgHeader(merNo, TranType.INVOICE_PRINT.getValue());
+		param.put("msgHeader", msgHeader);
+		param.put("xmlBody", xmlMsg);
+		String result = null;
+		try {
+			result = InvoiceUtils.sendHttpPost(Constants.INVOICE_PRINT_URL,param, "UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MsgString msgString = MsgUtils.patch(result);
+		String rh = msgString.getHeaderMsg();
+		String rb = msgString.getXmlBody();
+		String rs = msgString.getDigitalSign();
+
+		com.ylink.upp.oxm.entity.upp_600_001_01.RespInfo receive = (com.ylink.upp.oxm.entity.upp_600_001_01.RespInfo) InvoiceUtils
+				.receiveMsg(rh, rb, rs);
+
 	}
 
 }

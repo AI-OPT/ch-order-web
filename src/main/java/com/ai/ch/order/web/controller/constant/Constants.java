@@ -119,6 +119,9 @@ public final class Constants {
     /**物流URL**/
     private static final String LOGISTICS_URL_KEY = "logistics.url";  
     public static final String LOGISTICS_URL = loader.getProperty(LOGISTICS_URL_KEY);  
+    /**发票打印URL**/
+    private static final String INVOICE_PRINT_URL_KEY = "invoice.print.url";  
+    public static final String INVOICE_PRINT_URL = loader.getProperty(INVOICE_PRINT_URL_KEY);  
     
-
+   
 }

@@ -25,15 +25,22 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.util.CollectionUtils;
 
 import com.ylink.itfin.certificate.SecurityUtil;
+import com.ylink.upp.base.oxm.XmlBodyEntity;
+import com.ylink.upp.base.oxm.util.Dom4jHelper;
+import com.ylink.upp.base.oxm.util.HandlerMsgUtil;
+import com.ylink.upp.base.oxm.util.HeaderBean;
+import com.ylink.upp.base.oxm.util.OxmHandler;
 
 public  class InvoiceUtils {
-
+	@Autowired
+	private static OxmHandler oxmHandler;
 	
 	public static String sendHttpPost(String url, Map<String, String> param, String charset) throws Exception {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -130,7 +137,7 @@ public  class InvoiceUtils {
 	 * 
 	 * @return
 	 */
-	private String initMsgHeader(String merNo, String tranType) {
+	public static String initMsgHeader(String merNo, String tranType) {
 		StringBuffer buffer = new StringBuffer("{H:01");
 		buffer.append(merNo);
 		buffer.append("1000000000000000");
@@ -148,7 +155,7 @@ public  class InvoiceUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	private String sign(String xmlMsg) throws Exception {
+	public static String sign(String xmlMsg) throws Exception {
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
 		Resource pfxResource = resourceLoader.getResource("classpath:CO20160800000017.pfx"); // 商户公钥加签
 		InputStream in = new FileInputStream(pfxResource.getFile());
@@ -165,13 +172,30 @@ public  class InvoiceUtils {
 	 * @return
 	 * @throws Exception
 	 */
-	private boolean verify(String xmlMsg, String sign) throws Exception {
+	public static boolean verify(String xmlMsg, String sign) throws Exception {
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
 		Resource pfxResource = resourceLoader.getResource("classpath:mobile.cer"); // 商户私钥解签
 		InputStream in = new FileInputStream(pfxResource.getFile());
 		byte[] cerByte = IOUtils.toByteArray(in);
 		;
 		return SecurityUtil.verify(cerByte, xmlMsg, sign);
+	}
+	
+	public static XmlBodyEntity receiveMsg(String msgHeader, String xmlMsg, String sign) {
+		try {
+			boolean verify = verify(xmlMsg, sign);
+			if (!verify) {
+				System.out.println("验签失败");
+			}
+			HeaderBean headerBean = new HeaderBean();
+			HandlerMsgUtil.conversion(msgHeader, headerBean);
+			xmlMsg = Dom4jHelper.addNamespace(xmlMsg, headerBean.getMesgType(), "UTF-8");
+			return (XmlBodyEntity) oxmHandler.unmarshaller(xmlMsg);
+		} catch (Exception e) {
+			System.out.println("接收数据时发生异常，错误信息为:" + e.getMessage());
+			throw new RuntimeException(e);
+		}
+
 	}
 
 }
