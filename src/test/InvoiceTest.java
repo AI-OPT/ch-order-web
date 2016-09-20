@@ -1,20 +1,23 @@
-import static org.junit.Assert.*;
 
-import java.text.DecimalFormat;
-import java.util.Calendar;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.junit.Test;
 
 import com.ai.ch.order.web.utils.InvoiceUtils;
+import com.upp.docking.enums.TranType;
+import com.ylink.upp.oxm.entity.upp_100_001_01.GrpHdr;
 import com.ylink.upp.oxm.entity.upp_600_001_01.GrpBody;
 
 public class InvoiceTest {
 
 	@Test
 	public void test() {
-
-		Calendar cal = Calendar.getInstance();
+		String date_now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+		GrpHdr hdr = new GrpHdr();
+		hdr.setMerNo("");
+		hdr.setCreDtTm(date_now);
+		hdr.setTranType(TranType.INVOICE_PRINT.getValue());
 
 		GrpBody body = new GrpBody();
 		body.setCorporationCode("000003"); // 公司代码
@@ -35,7 +38,7 @@ public class InvoiceTest {
 
 		body.setSalesOrderNo("0000012"); // 销售订单号
 		body.setOrderItem("123456789"); // 项目号
-		body.setOrderCreateTime(cal.getTime().toString()); // （销售）订单创建日期
+		body.setOrderCreateTime(date_now); // （销售）订单创建日期
 		body.setDeliveryOrderNo("122323"); // 交货单号
 
 		body.setMaterialName("43U1"); // 物料代码
@@ -53,8 +56,11 @@ public class InvoiceTest {
 		body.setUnSettledQuantity("0"); // 未结算数量
 		body.setUnSettledAmount("0"); // 未结算金额
 		body.setVoucherNumber("00001"); // 系统凭证号
-		body.setVoucherData(cal.getTime().toString()); // 系统凭证号日期
+		body.setVoucherData(date_now); // 系统凭证号日期
 		body.setProducteGroup("电视机"); // 物料名称
+		
+		
+		
 
 		try {
 			String result = InvoiceUtils.sendHttpPost(
