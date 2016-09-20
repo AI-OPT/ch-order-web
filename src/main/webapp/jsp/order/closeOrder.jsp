@@ -9,6 +9,15 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>已关闭详情</title>
 <%@include file="/inc/inc.jsp" %>
+<script type="text/javascript">
+	var pager;
+	(function () {
+		seajs.use('app/jsp/order/closeOrder', function (demopagePager) {
+			pager = new demopagePager({element: document.body});
+			pager.render();
+		});
+	})();
+</script>
 </head>
 <body>
       <div class="row"><!--外围框架-->
@@ -17,7 +26,9 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     
+									<div class="form-label">
+	                     				<p class="word" ><a id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：订单详细</p>
+	                     			</div>
 							<div class="form-label">
 					           	<ul>
 					               
