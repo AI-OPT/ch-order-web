@@ -129,7 +129,8 @@ public class OrderListController {
     	Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();
     	try {
 				QueryOrderRequest queryRequest=new QueryOrderRequest();
-				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)){
+				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)||
+                		Constants.OrdOrder.State.CANCEL.equals(state)){
 					queryRequest.setOrderId(Long.parseLong(pOrderId));
 				}else{
 					queryRequest.setOrderId(Long.parseLong(orderId));
