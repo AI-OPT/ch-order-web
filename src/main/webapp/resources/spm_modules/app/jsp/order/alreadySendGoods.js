@@ -39,7 +39,8 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
     	},
     	
     	_back:function() {
-    		window.location.href=_base+"/getOrderListData";
+    		//调到订单列表页面
+    		window.location.href = _base+"/order/toOrderList"
     	},
     	
     	_backOrder:function(orderObject) {
