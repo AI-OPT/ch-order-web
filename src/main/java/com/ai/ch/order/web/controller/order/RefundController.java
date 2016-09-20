@@ -31,10 +31,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
+import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.upp.docking.covn.MsgString;
 import com.upp.docking.enums.TranType;
 import com.ylink.itfin.certificate.SecurityUtil;
@@ -48,33 +52,36 @@ import com.ylink.upp.oxm.entity.upp_801_001_01.GrpBody;
 import com.ylink.upp.oxm.entity.upp_801_001_01.GrpHdr;
 import com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo;
 
+@Controller
 public class RefundController {
-	@Autowired
-	private OxmHandler oxmHandler;
+	
+
 	@RequestMapping("/refund")
-	public String reFund(String banlanceIfId,String money,String parentOrderId,String orderId){
+	@ResponseBody
+	public String reFund(String banlanceIfId, String money, String parentOrderId, String orderId) {
+		OxmHandler oxmHandler = DubboConsumerFactory.getService(OxmHandler.class);
 		GrpHdr hdr = new GrpHdr();
-		String merNo="CO20160900000009";
+		String merNo = "CO20160900000009";
 		hdr.setMerNo(merNo);
 		hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 		hdr.setTranType(TranType.REFUND.getValue());
 		// 消息体
 		GrpBody body = new GrpBody();
-		//退款金额
+		// 退款金额
 		body.setRefundAmt(AmountUtil.YToFen(money));
-		//子商户号
+		// 子商户号
 		body.setSonMerNo("CO20160900000010");
-		//明细订单号
+		// 明细订单号
 		body.setMerSeqId(parentOrderId);
-		//交易流水号
+		// 交易流水号
 		body.setPayTranSn(banlanceIfId);
-		//退款日期
+		// 退款日期
 		body.setRefundDate(new Date().getTime());
-		//保留与
+		// 保留与
 		body.setResv(parentOrderId);
-		//商户退款单号
+		// 商户退款单号
 		body.setMerRefundSn(orderId);
-		//后台通知地址
+		// 后台通知地址
 		body.setNotifyUrl("http://song.ngrok.tech:7777/upp-demo/pay/result");
 		// 前台通知地址
 		body.setReturnUrl("http://www.baidu.com");
@@ -111,14 +118,13 @@ public class RefundController {
 
 		MsgString msgString = MsgUtils.patch(result);
 		String rh = msgString.getHeaderMsg();
-        String rb = msgString.getXmlBody();
-        String rs = msgString.getDigitalSign();
+		String rb = msgString.getXmlBody();
+		String rs = msgString.getDigitalSign();
 
-        com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo receive = (com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo) 
-        		receiveMsg(rh, rb, rs);
-        
-		
-		return null;
+		com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo receive = (com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo) receiveMsg(
+				rh, rb, rs);
+
+		return receive.toString();
 	}
 
 	@RequestMapping("/result")
@@ -126,9 +132,10 @@ public class RefundController {
 		try {
 			boolean flag = verify(xmlBody, signMsg);
 			if (!flag) {
-				
+
 			}
-			com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo receive = (com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo) receiveMsg(msgHeader, xmlBody, signMsg);
+			com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo receive = (com.ylink.upp.oxm.entity.upp_801_001_01.RespInfo) receiveMsg(
+					msgHeader, xmlBody, signMsg);
 			System.out.println(receive.getGrpBody().getMerSeqId());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,6 +144,7 @@ public class RefundController {
 	}
 
 	private XmlBodyEntity receiveMsg(String msgHeader, String xmlMsg, String sign) {
+		OxmHandler oxmHandler = DubboConsumerFactory.getService(OxmHandler.class);
 		try {
 			boolean verify = this.verify(xmlMsg, sign);
 			if (!verify) {
@@ -293,4 +301,3 @@ public class RefundController {
 	}
 
 }
-

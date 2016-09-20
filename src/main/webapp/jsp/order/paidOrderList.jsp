@@ -197,13 +197,13 @@
 										</tbody>
         								</table>	
 									</td>
-									<td style="width:20%">{{:stateName}}</td>
+									<td style="width:10%">{{:stateName}}</td>
 									{{if busiCode=='2' &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')}}
-										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(换货)</a></td>
+										<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(换货)</a></td>
 									{{else  busiCode=='3' &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')}}
-										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(退货)</a></td>
+										<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(退货)</a></td>
 									{{else}}
-										<td style="width:20%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情</a></td>
+										<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情</a></td>
 									{{/if}}
         					</tr>
         				</tbody>	
