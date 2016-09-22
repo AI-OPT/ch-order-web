@@ -57,6 +57,27 @@ define('app/jsp/order/alertOrder', function (require, exports, module) {
 		            + orderid;
 		},
 		_closeOrder:function(orderId){
+			var _this = this;
+			Dialog({
+				title : '提示',
+				content : "确定要关闭订单吗？",
+				icon:'prompt',
+				button: [
+					        {
+					            value: '确认',
+					            callback: function () {
+					            	_this._confirmCloseOrder(orderId);
+					            },
+					            autofocus: true
+					        },
+					        {
+					            value: '取消',
+					        }
+					    ]
+			}).showModal();
+		},
+		
+		_confirmCloseOrder:function(orderId){
     	    var url=_base+"/closeOrder";
     	    ajaxController.ajax({
     	    	type: "post",
