@@ -32,6 +32,11 @@ public class OrdProdVo implements Serializable{
 	 * 积分扣减费用
 	 */
 	private long jfFee;
+	
+	/**
+	 * 赠送积分
+	 */
+	private long giveJF;
 	/**
 	 * 状态
 	 */
@@ -174,7 +179,12 @@ public class OrdProdVo implements Serializable{
 	public void setSkuId(String skuId) {
 		this.skuId = skuId;
 	}
-	
-	
-	
+
+	public long getGiveJF() {
+		return giveJF;
+	}
+
+	public void setGiveJF(long giveJF) {
+		this.giveJF = giveJF;
+	}
 }
