@@ -22,13 +22,13 @@
 						           <ul>
 						                <li class="col-md-6">
 						                    <p class="word">开始时间</p>
-						                    <p><input class="int-text int-medium " name="control_date" id="orderTimeBegin" />
+						                    <p><input class="int-text int-medium " onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="control_date" id="orderTimeBegin" />
 						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>
 						                <li class="col-md-6">
 						                    <p class="word">结束时间</p>
-						                    <p><input class="int-text int-medium " id="orderTimeEnd" name="control_date"/>
+						                    <p><input class="int-text int-medium " onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="control_date"/>
 						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>  
@@ -38,10 +38,8 @@
 						                   	<p class="word" >按商品查询</p>
 						                    <p><input  class="int-text int-medium" id="productName" name="productName" placeholder="请输入商品名查询" type="text"/>
 						                    </p>
-						                	<p>高级搜索<a href="javascript:void(0);"><i class="fa fa-caret-down" id="showQuery"></i></a></p>
 						                </li>
 						            </ul>
-						            <div  id="selectDiv" style="display:none" >
 							            <ul>
 								            <li class="col-md-6">
 									            <p class="word">按商家查询</p>
@@ -71,7 +69,6 @@
 							            		</p>
 							            	</li>
 							            </ul>
-						            </div>
 						            <ul>
 										<li class="width-xlag">
 											<p class="word">&nbsp;</p>
