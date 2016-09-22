@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -20,8 +19,6 @@ import com.ylink.upp.base.oxm.util.OxmHandler;
 import com.ylink.upp.oxm.entity.upp_600_001_01.GrpBody;
 import com.ylink.upp.oxm.entity.upp_600_001_01.GrpHdr;
 import com.ylink.upp.oxm.entity.upp_600_001_01.RespInfo;
-
-import scala.collection.immutable.Stream.Cons;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath:**/core-context.xml")

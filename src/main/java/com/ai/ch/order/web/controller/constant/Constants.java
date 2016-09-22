@@ -113,7 +113,7 @@ public final class Constants {
 	
 	
 	
-	 /**物流APPKEY**/
+	/**物流APPKEY**/
     private static final String LOGISTICS_APPKEY_KEY = "logistics.appkey";  
     public static final String LOGISTICS_APPKEY = loader.getProperty(LOGISTICS_APPKEY_KEY);  
     /**物流URL**/
@@ -122,6 +122,18 @@ public final class Constants {
     /**发票打印URL**/
     private static final String INVOICE_PRINT_URL_KEY = "invoice.print.url";  
     public static final String INVOICE_PRINT_URL = loader.getProperty(INVOICE_PRINT_URL_KEY);  
+    /**用户结分查询APPKEY**/
+    private static final String INTEGRAL_SEARCH_APPKEY_KEY = "integral.search.appkey";  
+    public static final String INTEGRAL_SEARCH_APPKEY = loader.getProperty(INTEGRAL_SEARCH_APPKEY_KEY);  
+    /**用户积分查询URL**/
+    private static final String INTEGRAL_SEARCH_URL_KEY = "integral.search.url";  
+    public static final String INTEGRAL_SEARCH_URL = loader.getProperty(INTEGRAL_SEARCH_URL_KEY); 
+    /**用户消费积分撤销APPKEY**/
+    private static final String INTEGRAL_SHOPBACK_APPKEY_KEY = "integral.shopback.appkey";  
+    public static final String INTEGRAL_SHOPBACK_APPKEY = loader.getProperty(INTEGRAL_SHOPBACK_APPKEY_KEY); 
+    /**用户消费积分撤销**/
+    private static final String INTEGRAL_SHOPBACK_URL_KEY = "integral.shopback.url";  
+    public static final String INTEGRAL_SHOPBACK_URL = loader.getProperty(INTEGRAL_SHOPBACK_URL_KEY); 
     
    
 }
