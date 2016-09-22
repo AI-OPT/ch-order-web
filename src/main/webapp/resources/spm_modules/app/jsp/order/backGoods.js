@@ -39,7 +39,7 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
     	//重写父类
     	setup: function () {
     		backPager.superclass.setup.call(this);
-    		var formValidator=this._initValidate();
+    		var formValidator=this._refuseInitValidate();
 			$(":input").bind("focusout",function(){
 				formValidator.element(this);
 			});

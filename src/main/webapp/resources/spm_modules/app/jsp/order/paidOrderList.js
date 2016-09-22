@@ -227,10 +227,18 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 		},
 
 		_detail:function(orderid,busiCode,state){
-			if(busiCode==2 &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')){
+			if(busiCode==3 &&( state=='212' ||state=='22' ||state=='23' || state=='31')){
+				//调到第二个审核页面页面
+        		var flag="1";
+        		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
+			}else if(busiCode==2 &&(state=='212' ||state=='22' ||state=='23' || state=='31')){
+				//判断跳转的页面是第2次审核
+        		var flag = "1";
+        		window.location.href=_base+"/changeDetail?orderId="+orderid+"&flag="+flag;
+			}else if(busiCode==2 && state=='21'){
 				window.location.href = _base+"/changeDetail?orderId="
 	            + orderid;
-			}else if(busiCode==3 &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')){
+			}else if(busiCode==3 && state=='21'){
 				window.location.href = _base+"/backDetail?orderId="
 	            + orderid;
 			}else{

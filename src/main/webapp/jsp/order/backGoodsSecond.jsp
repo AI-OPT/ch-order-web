@@ -17,9 +17,9 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     		<div class="form-label">
+	                     		<!--  <div class="form-label">
 	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
-	                     		</div>
+	                     		</div>-->
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -60,7 +60,7 @@
 							                	<div>
 							                		<p>
 							                			<span>父订单号:</span>
-							                			<span>${order.parentOrderId}</span>
+							                			<span id="parentId">${order.parentOrderId}</span>
 							                		</p>
 							                	</div>
 							                	<div>
@@ -70,7 +70,7 @@
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
-							                			<span>${order.balacneIfId}</span>
+							                			<span id="balanceId">${order.balacneIfId}</span>
 							                		</p>	
 							                	</div>
 							                </td>

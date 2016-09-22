@@ -309,6 +309,10 @@ public class PaidOrderController {
 					ordOrderVo = orderResponse.getOrdOrderVo();
 					if(ordOrderVo!=null) {
 						BeanUtils.copyProperties(orderDetail, ordOrderVo);
+						if(ordOrderVo.getTotalFee()!=null){
+							//总退款金额
+							orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
+						}
 						//获取售后操作人
 						ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 						SysUserQueryRequest  userReq = new SysUserQueryRequest ();
@@ -345,7 +349,7 @@ public class PaidOrderController {
 								//翻译金额
 								product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 								product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							//	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+								product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 								product.setProdState(ordProductVo.getState());
 								product.setProdName(ordProductVo.getProdName());
 								product.setBuySum(ordProductVo.getBuySum());
