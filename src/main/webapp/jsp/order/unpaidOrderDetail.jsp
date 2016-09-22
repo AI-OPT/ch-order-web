@@ -41,9 +41,9 @@
                                                 <th>单价/数量</th>
                                                 <th>下单时间</th>
                                                 <th>订单状态</th>
-                                                <th>应付金额</th>
-                                                <th>优惠扣减金额</th>
-                                                <th>积分</th>
+                                                <th>优惠券</th>
+                                                <th>消费积分</th>
+                                                <th>赠送积分</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
@@ -74,9 +74,9 @@
 								                <td>${sp.prodSalePrice}元/${sp.buySum }件</td>
 								                <td>${orderDetail.orderTime}</td>
 								                <td>${orderDetail.stateName}</td>
-								                <td>${sp.prodAdjustFee}</td>
 								                <td>${sp.prodCouponFee}</td>
 								                <td>${sp.jfFee}</td>
+								                <td>${sp.giveJF}</td>
 							              </tr>
 							            </c:forEach> 
 						           
