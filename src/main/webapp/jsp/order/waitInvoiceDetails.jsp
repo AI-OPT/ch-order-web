@@ -62,9 +62,9 @@
                                                 <th>售后</th>
                                                 <th>下单时间</th>
                                                 <th>订单状态</th>
-                                                <th>实付金额</th>
-                                                <th>优惠扣减金额</th>
-                                                <th>积分</th>
+                                                <th>优惠券</th>
+                                                <th>消费积分</th>
+                                                <th>赠送积分</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
@@ -106,7 +106,6 @@
 							                <td>${prod.prodState}</td>
 							                <td>${orderDetail.orderTime}</td>
 							                <td>${orderDetail.stateName }</td>
-							                <td>${prod.prodAdjustFee }</td>
 							                <td>${prod.prodCouponFee }&nbsp;<br/>
 											<c:choose>
 										       <c:when test="${prod.cusServiceFlag eq 'Y'}">
@@ -118,6 +117,7 @@
 											</c:choose>
 							                </td>
 							                <td>${prod.jfFee }</td>
+											<td>${prod.giveJF}</td>
 						              </tr> 
 						              
 						              
@@ -244,7 +244,20 @@
                                     </table>
                                
                                 </div>
-                            <!--/table表格结束-->
+                            	<!--/table表格结束-->
+                               <div class="text-r">
+                            	<ul>
+                            		<li>
+                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            		</li>
+                            	</ul>
+                            </div>
                             	<header class="main-box-header clearfix">
                             <h5 class="pull-left">买家信息</h5>
                         		</header>
