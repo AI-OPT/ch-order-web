@@ -6,12 +6,21 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 订单总优惠券
+	 */
 	private String orderTotalCouponFee;
 	
+	/**
+	 * 总实付
+	 */
 	private String totalAdjustFee;
 	
+	/**
+	 * 总消费积分
+	 */
 	private Long totalJF;
-	
+		
 	public String getTotalAdjustFee() {
 		return totalAdjustFee;
 	}
