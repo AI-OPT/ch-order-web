@@ -36,7 +36,14 @@ public class WcfUtils {
 		}
 		return id;
 	}
-	
+	/**
+	 * post请求wcf服务
+	 * @param httpPost
+	 * @param client
+	 * @param entity
+	 * @return
+	 * @author zhouxh
+	 */
 	public static String postWcf(HttpPost httpPost,CloseableHttpClient client,String entity){
 		String retVal="";
 		try {

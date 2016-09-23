@@ -51,6 +51,7 @@ import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
 import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
+import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -476,10 +477,8 @@ public class PaidOrderController {
 	 */
 	@RequestMapping("/refund")
 	@ResponseBody
-	public ResponseData<String> refund(HttpServletRequest request,String orderId,String accountId, String openId, String appId,String oid,String bisId,String backCash) {
+	public ResponseData<String> refund(HttpServletRequest request,String info,Long updateMoney, String orderId,String accountId, String openId, String appId,String oid,String bisId,String backCash) {
 		//TODO
-		//更改订单状态
-		
 		// 查询用户积分 判断是否允许退货
 		int giveCash=0;//
 		int cash = integralCashQry(accountId, openId, appId);
@@ -487,6 +486,8 @@ public class PaidOrderController {
 			//用户消费积分撤销
 			shopback(accountId, openId, appId, oid, bisId, backCash);
 			//退款
+			//更改订单状态
+			updateOrderState(request, orderId, info, updateMoney);
 		}
 		
 		return null;
@@ -605,5 +606,47 @@ public class PaidOrderController {
 				LOG.error("拒绝退款报错：", e);
 			}
 			return responseData;
+		}		
+		
+		/**
+		 * 退款状态修改
+		 * @param request
+		 * @param orderId
+		 * @param info
+		 * @param updateMoney
+		 * @return
+		 * @author zhouxh
+		 */
+		private boolean updateOrderState(HttpServletRequest request, String orderId,String info,Long updateMoney) {
+			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+			ResponseData<String> responseData = null;
+			OrderRefundRequest query = new OrderRefundRequest();
+			try {
+				IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
+				Long Id = Long.parseLong(orderId);
+				query.setOrderId(Id);
+				query.setTenantId(user.getTenantId());
+				query.setUpdateReason(info);
+				query.setUpdateMoney(updateMoney);
+				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+				userReq.setTenantId(user.getTenantId());
+				userReq.setId(user.getUserId());
+				SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+				if(response!=null){
+					String no = response.getNo();
+					query.setOperId(no);
+				}
+				BaseResponse base = iOrderRefundSV.partRefund(query);
+				if(base.getResponseHeader().getIsSuccess()==true){
+					return true;
+				}else{
+					return false;
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				LOG.error("退款报错：", e);
+			}
+			return true;
 		}		
 }

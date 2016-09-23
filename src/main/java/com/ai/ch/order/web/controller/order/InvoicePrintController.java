@@ -180,6 +180,7 @@ public class InvoicePrintController {
 		invoiceInfo.put("invoiceCode", "051201600121");//发票代码
 		invoiceInfo.put("invoiceNumber", "11450001");//发票号码
 		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
+		//返回结果为 pdf文件流
 		String retVal = WcfUtils.postWcf(httpPost, client, invoicePrintJson.toJSONString());
 		return "下载电子发票下载成功";
 	}

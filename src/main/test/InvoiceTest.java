@@ -13,7 +13,9 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.InvoicePrintInfo;
+import com.ai.ch.order.web.utils.WcfUtils;
 import com.alibaba.fastjson.JSONObject;
 
 
@@ -22,8 +24,8 @@ import com.alibaba.fastjson.JSONObject;
 public class InvoiceTest {
 	@Test
 	public void test() {
-		String date_now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 		InvoicePrintInfo body = new InvoicePrintInfo();
+		String date_now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
 		body.setCorporationCode("000003"); // 公司代码
 		body.setInvoiceClass("0");// 发票类型 0 电子发票 1纸质发票
 		body.setInvoiceKind("003"); // 发票种类 001增值税发票 002增值税普通电子发票 003普通发票
@@ -60,41 +62,13 @@ public class InvoiceTest {
 		body.setRemark("打印发票请求");//备注
 		
 
-		String retVal = "";
 		// 服务地址
-		String method = "http://10.8.101.6:2012/BILL.Services/Rcsit.BILL.Service.Implement.BusinessDocumentService.svc";
-		HttpPost request = new HttpPost(method);
+		HttpPost httpPost = new HttpPost(Constants.INVOICE_PRINT_URL);
 		CloseableHttpClient client = HttpClients.createDefault();
-		// ****************获取授权ID**************************
-		JSONObject authorizationJson = new JSONObject();
-		authorizationJson.put("Name", "123456");
-		authorizationJson.put("Password", "123456");
-		authorizationJson.put("InterFaceCode", "BatchAdd");
-		String id="";
-		try {
-			request.setEntity(new StringEntity(authorizationJson.toString()));
-			request.setHeader(HTTP.CONTENT_TYPE, "text/json");
-			CloseableHttpResponse response = client.execute(request);
-			EntityUtils.toString(response.getEntity());
-			String authorizationResult="{'AuthId':'df126b3c-0ecb-4278-9b0d-5859174cba8d','ActiveTime':0}";
-			JSONObject authorizationResultJson = JSONObject.parseObject(authorizationResult);
-			id = authorizationResultJson.getString("AuthId");
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
-		// *******************************************************************
-		body.setId(id);//设置授权ID
+		//获取授权ID
+		body.setId(WcfUtils.getID(httpPost, client));//设置授权ID
 		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
-		
-		try {
-			request.setEntity(new StringEntity(invoicePrintJson.toString())); 
-			request.setHeader(HTTP.CONTENT_TYPE, "text/json"); 
-			CloseableHttpResponse response = client.execute(request); 
-			retVal = EntityUtils.toString(response.getEntity()); 
-			System.out.println(retVal);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+		String retVal = WcfUtils.postWcf(httpPost, client, invoicePrintJson.toJSONString());
 	}
 
 }
