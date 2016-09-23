@@ -22,8 +22,8 @@
   </Appenders>
   <Loggers>
     <Root level="debug">
-      <AppenderRef ref="RollingFile" level="info"/>
-      <AppenderRef ref="STDOUT" level="info"/>
+      <AppenderRef ref="RollingFile" level="error"/>
+      <AppenderRef ref="STDOUT" level="error"/>
     </Root>
   </Loggers>
 </Configuration>

@@ -115,7 +115,7 @@ dependencies {
 	//店铺信息
     compile "com.ai.ch.user:shopinfo:1.1-SNAPSHOT"
  	//支付
-    compile 'com.ai.opt.chpay:ch-payclient:1.0-SNAPSHOT'
+    //compile 'com.ai.opt.chpay:ch-payclient:1.0-SNAPSHOT'
     
 
     testCompile(
