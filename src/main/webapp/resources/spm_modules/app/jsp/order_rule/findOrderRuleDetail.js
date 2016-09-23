@@ -36,6 +36,8 @@ define('app/jsp/order_rule/findOrderRuleDetail', function (require, exports, mod
     		this._findOrderRuleDetail();
     	},
     	_findOrderRuleDetail:function(){
+    		var _this = this;
+    		//
     		ajaxController.ajax({
 					type: "POST",
 					dataType: "json",
@@ -47,12 +49,15 @@ define('app/jsp/order_rule/findOrderRuleDetail', function (require, exports, mod
 					success: function(data){
 						//alert();
 						$('#timeMonitorTime').html(data.orderRuleDetailVo.timeMonitorTime);
-						$('#timeMonitorTimeType').html(data.orderRuleDetailVo.timeMonitorTimeType);
+						var timeMonitorTimeType = _this._monitorTimeType(data.orderRuleDetailVo.timeMonitorTimeType);
+						$('#timeMonitorTimeType').html(timeMonitorTimeType);
 						$('#timeMonitorOrderSum').html(data.orderRuleDetailVo.timeMonitorOrderSum);
 						$('#buyEmployeeMonitorTime').html(data.orderRuleDetailVo.buyEmployeeMonitorTime);
-						$('#buyEmployeeMonitorTimeType').html(data.orderRuleDetailVo.buyEmployeeMonitorTimeType);
+						var buyEmployeeMonitorTimeType = _this._monitorTimeType(data.orderRuleDetailVo.buyEmployeeMonitorTimeType);
+						$('#buyEmployeeMonitorTimeType').html(buyEmployeeMonitorTimeType);
 						$('#buyEmployeeMonitorOrderSum').html(data.orderRuleDetailVo.buyEmployeeMonitorOrderSum);
 						$('#buyIpMonitorTime').html(data.orderRuleDetailVo.buyIpMonitorTime);
+						var buyIpMonitorTimeType = _this._monitorTimeType(buyIpMonitorTimeType);
 						$('#buyIpMonitorTimeType').html(data.orderRuleDetailVo.buyIpMonitorTimeType);
 						$('#buyIpMonitorOrderSum').html(data.orderRuleDetailVo.buyIpMonitorOrderSum);
 						$('#mergeOrderSettingTime').html(data.orderRuleDetailVo.mergeOrderSettingTime);
@@ -60,6 +65,20 @@ define('app/jsp/order_rule/findOrderRuleDetail', function (require, exports, mod
 					}
 				}
 			);
+    	},
+    	_monitorTimeType:function(key){
+    		var monitorTimetype = "";
+    		if(key == 'MIN'){
+    			monitorTimetype = "分钟";
+    		}
+    		if(key == 'H'){
+    			monitorTimetype = "小时";
+    		}
+    		if(key == 'D'){
+    			monitorTimetype = "天";
+    		}
+    		//
+    		return monitorTimetype;
     	}
       	
     	
