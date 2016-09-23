@@ -68,4 +68,4 @@
 <script src="${uedroot}/scripts/ztree/jquery-1.4.4.min.js"></script>  
 <script src="${uedroot}/scripts/ztree/jquery.ztree.core-3.2.min.js"></script>  
 <script src="${uedroot}/scripts/ztree/jquery.ztree.excheck-3.2.min.js"></script>  
-
+<script src="${uedroot}/scripts/modular/theme.js"></script> 

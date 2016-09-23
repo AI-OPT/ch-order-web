@@ -50,6 +50,8 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
+import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -570,4 +572,38 @@ public class PaidOrderController {
 		}
 		return new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退货失败", null);
 	}
+		//拒绝退款
+		@RequestMapping("/refuseRefund")
+		@ResponseBody
+		public ResponseData<String> Back(HttpServletRequest request, String orderId,String info) {
+			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+			ResponseData<String> responseData = null;
+			OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
+			try {
+				IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
+				Long Id = Long.parseLong(orderId);
+				query.setOrderId(Id);
+				query.setTenantId(user.getTenantId());
+				query.setRefuseReason(info);
+				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+				userReq.setTenantId(user.getTenantId());
+				userReq.setId(user.getUserId());
+				SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+				if(response!=null){
+					String no = response.getNo();
+					query.setOperId(no);
+				}
+				BaseResponse base = iOrderRefundSV.refuseRefund(query);
+				if(base.getResponseHeader().getIsSuccess()==true){
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "拒绝退款成功", null);
+				}else{
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "拒绝退款失败", null);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				LOG.error("拒绝退款报错：", e);
+			}
+			return responseData;
+		}		
 }

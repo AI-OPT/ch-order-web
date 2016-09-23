@@ -32,7 +32,6 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
     	//事件代理
     	events: {
     		//查询
-    		"click #showQuery":"_showQueryInfo",
             "click #search":"_highSearch"
         },
     	//重写父类
@@ -41,36 +40,9 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
     		// 初始化执行搜索
 			this._highSearch();
     	},
-    	_showQueryInfo: function(){
-			//展示查询条件
-			var info= $("#selectDiv").is(":hidden"); //是否隐藏
-		    if(info==true){
-		    	$("#selectDiv").show();
-		    }else{
-		    	$("#selectDiv").hide();
-		    }
-		},
-		
 		//获取高级查询参数
 		_getHignQueryParams:function(){
 			var _this = this;
-			var isShow = $("#selectDiv").is(":visible");
-			if(!isShow){
-				return{
-				    "startTime":function () {
-				    	_this.startTime = jQuery.trim($("#orderTimeBegin").val());
-				        return _this.startTime;
-				    },
-				    "endTime":function () {
-				    	_this.endTime = jQuery.trim($("#orderTimeEnd").val());
-				        return _this.endTime;
-				    },
-				    "prodName":function () {
-				    	_this.prodName = jQuery.trim($("#productName").val());
-				        return _this.prodName;
-				    }
-				}
-			}else{
 				return{
 				    "startTime":function () {
 				    	_this.startTime = jQuery.trim($("#orderTimeBegin").val());
@@ -101,8 +73,6 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 				    	 return _this.userName;
 				    }
 				}
-			}
-			
 		},
 		//高级搜索
 		_highSearch:function(){

@@ -178,6 +178,10 @@
 	<dubbo:reference id="iShopInfoSV"
 	interface="com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV"
 	registry="baasRegistry" />
+	
+	<dubbo:reference id="iOrderRefundSV"
+	interface="com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV"
+	registry="baasRegistry" />
 			
 				
 </beans>

@@ -33,15 +33,19 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     	events: {
     		//查询
             "click #refuseBackMoney":"_refuseBackMoney",
-            "click #updateMoney":"_updateMoney",
-            "click #backPage":"_back"
+            "click #updateMoney":"_updateMoney"
+            //"click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {
     		backSecondPager.superclass.setup.call(this);
     		var formValidator=this._initValidate();
+    		var refuseformValidator=this._refuseInitValidate();
 			$(":input").bind("focusout",function(){
 				formValidator.element(this);
+			});
+			$(":input").bind("focusout",function(){
+				refuseformValidator.element(this);
 			});
     	},
     	_back:function(){
@@ -60,7 +64,6 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     					min:0.1
     					},
 	                 updateMoneyInfo:{
-	                	 
 	                	 required: true
 	                 }
     			},
@@ -79,7 +82,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     		return formValidator;
     	},
     	_refuseInitValidate:function(){
-    		var formValidator=$("#refuseDataForm").validate({
+    		var refuseformValidator=$("#refuseDataForm").validate({
     			rules: {
     				refuseMoneyInfo:{
 	                	 required: true,
@@ -94,19 +97,45 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     			}
     		});
     		
-    		return formValidator;
+    		return refuseformValidator;
     	},
     	_refuseBackMoney:function(){
     		var _this= this;
-    		var formValidator=_this._refuseInitValidate();
- 			formValidator.form();
+    		var refuseformValidator=_this._refuseInitValidate();
+    		refuseformValidator.form();
  			if(!$("#refuseDataForm").valid()){
  				return false;
  			}
-    		var isRefuse = true;
-    	    var url=_base+"/firstBack";
-    	    var refuseInfo = $("#refuseMoneyInfo").val();
-    	},
+    		var orderId = $("#orderId").text();
+ 			var info = $("#refuseMoneyInfo").val();
+ 			var url  = _base+"/refuseRefund";
+ 			 ajaxController.ajax({
+     	    	type: "post",
+ 				dataType: "json",
+ 				processing: false,
+ 				message: "查询中，请等待...",
+ 				url: url,
+ 				data:{"orderId":orderId,"info":info},
+     	        success: function (data) {
+     	        	if(data){
+     	        		window.location.href=_base+"/toPaidOrder";
+     	        	}else{
+     	        		var d = Dialog({
+							title: '消息',
+							content:"拒绝退款失败",
+							icon:'prompt',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+     	        	}
+     	        },
+                 
+     	    });
+     	},
+    	//修改金额
     	_updateMoney:function(){
     		var _this= this;
     		var formValidator=_this._initValidate();
