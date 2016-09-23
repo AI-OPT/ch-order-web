@@ -154,8 +154,6 @@ artDialog.create = function (options) {
 
     // 关闭按钮
     this._$('close')
-    .css('display', this.cancel === false ? 'none' : '')
-    .attr('title', this.cancelValue)
     .on('click', function (event) {
         that._trigger('cancel');
         event.preventDefault();
@@ -326,6 +324,19 @@ $.extend(prototype, {
      */
 	
 	/**
+	 * 关闭图标是否显示
+	 * @param {boolean} 
+	 */
+	closeIconShow:function(value){
+		var $close = this._$('close');
+		if(value){
+			$close.css("display","block");
+		}else{
+			$close.css("display","none");
+		}
+	},
+	
+	/**
 	 * 图标
 	 * @param {String} 图标类型
 	 */
@@ -370,6 +381,29 @@ $.extend(prototype, {
         return this.reset();
     },
     
+    /**
+     * 设置自定义HTML
+     * @param    {String, HTMLElement}   内容
+     */
+    innerHtml: function (html) {
+    
+        var $innerHtml = this._$('innerHtml');
+
+        // HTMLElement
+        if (typeof html === 'object') {
+            html = $(html);
+            $innerHtml.empty('').append(html.show());
+            this.addEventListener('beforeremove', function () {
+                $('innerHtml').append(html.hide());
+            });
+        // String
+        } else {
+        	$innerHtml.html(html);
+        }
+                
+        return this.reset();
+    },
+    
     
     /**
      * 设置标题
@@ -384,14 +418,14 @@ $.extend(prototype, {
 
     /** 设置宽度 */
     width: function (value) {
-        this._$('content').css('width', value);
+        this._$('showView').css('width', value);
         return this.reset();
     },
 
 
     /** 设置高度 */
     height: function (value) {
-        this._$('content').css('height', value);
+        this._$('showView').css('height', value);
         return this.reset();
     },
 

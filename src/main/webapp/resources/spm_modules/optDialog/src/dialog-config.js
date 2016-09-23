@@ -19,7 +19,7 @@ define({
     backdropOpacity: 0.7,
 
     // 消息内容
-    content: '<span class="ui-dialog-loading">Loading..</span>',
+    content: '',
     
     // 标题
     title: '',
@@ -29,6 +29,9 @@ define({
     
     // 图标
     icon: '',
+    
+    //右上角关闭图标是否显示标识
+    closeIconShow: true,
     
     // 自定义按钮
     button: null,
@@ -93,13 +96,17 @@ define({
         +	'<div i="showView" class="prompt-samll">'
         +		'<div i="header" class="eject-medium-title">'
 		+			'<p i="title"></p>'
-		+			'<p i="close" class="img"><i class="fa fa-times"></p>'
+		+			'<p i="close" class="img"><i class="fa fa-times"></i></p>'
 		+		'</div>'
 		+		'<div class="prompt-samll-confirm">'
 		+			'<ul i="body">'
 		+				'<li><div i="icon" src=""></div></li>'
 		+				'<li i="content" class="word"></li>'
 		+			'</ul>'
+		+		'</div>'
+		+		'<div i="innerHtml">'
+		+		'</div>'
+		+		'<div class="prompt-samll-confirm" style="margin-top:0px">'
 		+			'<ul i="footer">'
 		+				'<li i="button"></li>'		
 		+			'</ul>'
