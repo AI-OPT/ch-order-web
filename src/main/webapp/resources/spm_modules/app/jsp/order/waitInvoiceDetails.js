@@ -41,6 +41,128 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
     		//调到订单列表页面
     		window.location.href = _base+"/order/toOrderList"
     	},
+    	
+    	_backOrder:function(orderObject) {
+			 var _obj=$("#backNum"+orderObject).val();
+			 var _orderId = $('#orderId').val();
+			 var _prodDetalId=orderObject;
+			 ajaxController.ajax({
+					type : "POST",
+					url :_base+"/aftersaleorder/back",
+					data: {
+						orderId:  _orderId,
+						prodDetalId:_prodDetalId,
+						prodSum:_obj
+					},
+					processing: true,
+					message : "正在处理中，请稍候...",
+					success : function(data) {
+						if(data.statusCode == "1"){
+							var d = Dialog({
+								title: '消息',
+								content:"退货申请成功",
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}else{
+	    	        		var d = Dialog({
+								title: '消息',
+								content:"退货申请失败:"+data.statusInfo,
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}
+					}
+				});
+		 },
+		 
+		 _exchangeOrder:function(orderObject) {
+			 var _orderId = $('#orderId').val();
+			 var _prodDetalId=orderObject;
+			 ajaxController.ajax({
+					type : "POST",
+					url :_base+"/aftersaleorder/exchange",
+					data: {
+						orderId:  _orderId,
+						prodDetalId:_prodDetalId
+					},
+					processing: true,
+					message : "正在处理中，请稍候...",
+					success : function(data) {
+						if(data.statusCode == "1"){
+							var d = Dialog({
+								title: '消息',
+								content:"换货申请成功",
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}else{
+	    	        		var d = Dialog({
+								title: '消息',
+								content:"换货申请失败:"+data.statusInfo,
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}
+					}
+				});
+		 },
+		 
+		 _refundOrder:function(orderObject) {
+			 var _orderId = $('#orderId').val();
+			 var _prodDetalId=orderObject;
+			 ajaxController.ajax({
+					type : "POST",
+					url :_base+"/aftersaleorder/refund",
+					data: {
+						orderId:  _orderId,
+						prodDetalId:_prodDetalId
+					},
+					processing: true,
+					message : "正在处理中，请稍候...",
+					success : function(data) {
+						if(data.statusCode == "1"){
+							var d = Dialog({
+								title: '消息',
+								content:"退款申请成功",
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}else{
+	    	        		var d = Dialog({
+								title: '消息',
+								content:"退款申请失败:"+data.statusInfo,
+								icon:'prompt',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}
+					}
+				});
+		 },
 		
 		_displayInvoiceOrder: function(){
 			var _orderId = $('#orderId').val();
