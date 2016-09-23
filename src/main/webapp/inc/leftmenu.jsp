@@ -126,6 +126,18 @@
                     <span>发票打印</span><i class="fa fa-chevron-circle-right drop-icon"></i>
                     </a>
                 </li>
+                <li>
+                    <a href="${_base}/jsp/order_rule/panel_orderRuleSetting.jsp" target="mainFrame" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>订单监控规则设置</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="${_base}/jsp/order_rule/findOrderRuleDetail.jsp" target="mainFrame" class="dropdown-toggle">
+                    <i class="fa fa-usd"></i>
+                    <span>订单监控规则详情</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    </a>
+                </li>
                 <!-- 订单测试 end -->
                 </ul>
             </div>
