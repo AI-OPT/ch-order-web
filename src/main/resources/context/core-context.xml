@@ -28,6 +28,44 @@
         <context:exclude-filter expression="org.springframework.stereotype.Controller"
                                 type="annotation" />
     </context:component-scan>
-	<import resource="classpath:application-context.xml" />
-
+<bean id="dateTimeFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg type="java.lang.String" value="yyyyMMddHHmmss"/>
+	</bean>
+	<bean id="dateFormat" class="java.text.SimpleDateFormat">
+		<constructor-arg type="java.lang.String" value="yyyyMMdd"/>
+	</bean>
+	
+	<bean id="key" class="com.ai.ch.order.web.vo.Key">
+		<constructor-arg index="0">
+			<value>classpath:CO20160900000009.pfx</value>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>111111</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<value>classpath:ch-mobile.cer</value>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="payBusinessHandler" class="com.changhong.upp.business.handler.PayBusinessHandler"/>
+	<bean id="payQueryBusinessHandler" class="com.changhong.upp.business.handler.PayQueryBusinessHandler"/>
+	<bean id="openAccountBusinessHandler" class="com.changhong.upp.business.handler.OpenAccountBusinessHandler"/>
+	<bean id="refundBusinessHandler" class="com.changhong.upp.business.handler.RefundBusinessHandler"/>
+	<bean id="refundQueryBusinessHandler" class="com.changhong.upp.business.handler.RefundQueryBusinessHandler"/>
+	<bean id="SSOBusinessHandler" class="com.changhong.upp.business.handler.SSOBusinessHandler"/>
+	
+	<bean id="businessHandlerFactory" class="com.changhong.upp.business.handler.factory.BusinessHandlerFactory">
+		<property name="handlerMap">
+			<map key-type="com.changhong.upp.business.type.TranType">
+				<entry key="PAY_APPLY" value-ref="payBusinessHandler"/>
+				<entry key="PAY_QUERY" value-ref="payQueryBusinessHandler"/>
+				<entry key="ENTERPRISE_OPEN" value-ref="openAccountBusinessHandler"/>
+				<entry key="REFUND_APPLY" value-ref="refundBusinessHandler"/>
+				<entry key="REFUND_APPLY_QUERY" value-ref="refundQueryBusinessHandler"/>
+				<entry key="LOGAIN" value-ref="SSOBusinessHandler"/>
+			</map>
+		</property>
+	</bean>
+	
+	
 </beans>

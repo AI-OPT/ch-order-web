@@ -34,6 +34,7 @@ buildscript {
     }
 }
 dependencies {
+	compile fileTree(dir: "lib", include: '*.jar')
     compile 'org.sitemesh:sitemesh:3.0.1'
     compile "jstl:jstl:1.2"
     compile "org.springframework:spring-web:4.1.7.RELEASE"
