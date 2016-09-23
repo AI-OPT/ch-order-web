@@ -52,9 +52,9 @@
                                                 <th>下单时间</th>
                                                 <th>售后</th>
                                                 <th>订单状态</th>
-                                                <th>实付金额</th>
-                                                <th>优惠扣减金额</th>
-                                                 <th>积分</th>
+                                                <th>优惠券</th>
+                                                <th>消费积分</th>
+                                                <th>赠送积分</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
@@ -92,15 +92,28 @@
 							                <td>${order.orderTime}</td>
 							                <td>${order.busiCodeName}</td>
 							                <td>${order.stateName}</td>
-							                <td>${sp.prodAdjustFee}</td>
 							                <td>${sp.prodCouponFee}</td>
 							                <td>${sp.jfFee}</td>
+							                <td>${sp.giveJF}</td>
 						              </tr>
 						             </c:forEach>
                                     </tbody>
                                    </table>
                                 </div>
                             <!--/table表格结束-->
+							 <div class="text-r">
+                            	<ul>
+                            		<li>
+                            			 <p class="word">总优惠金额：${order.ordDiscountFee}</p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">运费：${order.ordFreight}</p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">订单应付金额：${order.ordAdjustFee}</p>
+                            		</li>
+                            	</ul>
+                            </div>
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-4">

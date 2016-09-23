@@ -51,7 +51,9 @@
                                                 <th>单价/数量</th>
                                                 <th>下单时间</th>
                                                 <th>订单状态</th>
-                                                <th>退款金额</th>
+                                                 <th>优惠券</th>
+                                                <th>消费积分</th>
+                                                <th>赠送积分</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
@@ -88,7 +90,9 @@
 								                <td>${sp.prodSalePrice}/件</td>
 								                <td>${order.orderTime}</td>
 								                <td>${order.stateName}</td>
-								                <td>${sp.prodTotalFee}</td>
+												<td>${sp.prodCouponFee}</td>
+							                	<td>${sp.jfFee}</td>
+							                	<td>${sp.giveJF}</td>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
