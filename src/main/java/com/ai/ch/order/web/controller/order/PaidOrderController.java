@@ -2,7 +2,6 @@ package com.ai.ch.order.web.controller.order;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -18,12 +17,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ai.ch.order.web.controller.common.ChUserController;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
-import com.ai.ch.order.web.model.order.LogisticsDetail;
 import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
@@ -54,7 +51,6 @@ import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
@@ -231,8 +227,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+//									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -363,8 +359,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+//									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -463,15 +459,36 @@ public class PaidOrderController {
 		return null;
 	}
 
-	// 第一次换货点击同意调用换货服务
-	@RequestMapping("/agreeSalesRetrun")
+	/**
+	 * 同意退货
+	 * @param request
+	 * @param orderId
+	 * @param accountId
+	 * @param openId
+	 * @param appId
+	 * @param oid
+	 * @param bisId
+	 * @param backCash
+	 * @return
+	 * @author zhouxh
+	 */
+	@RequestMapping("/refund")
 	@ResponseBody
-	public ResponseData<String> agreeSalesRetrun(HttpServletRequest request, String orderId) {
+	public ResponseData<String> refund(HttpServletRequest request,String orderId,String accountId, String openId, String appId,String oid,String bisId,String backCash) {
+		//TODO
+		//更改订单状态
+		
 		// 查询用户积分 判断是否允许退货
-		int cash = integralCashQry("", "", "");
-		// 用户消费积分撤销
-//		return shopback(accountId, openId, appId, oid, bisId, backCash);
+		int giveCash=0;//
+		int cash = integralCashQry(accountId, openId, appId);
+		if(cash>=giveCash){//当前用户积分余额大于商品赠送积分
+			//用户消费积分撤销
+			shopback(accountId, openId, appId, oid, bisId, backCash);
+			//退款
+		}
+		
 		return null;
+		
 	}
 	/**
 	 * 查询用户积分
@@ -508,6 +525,8 @@ public class PaidOrderController {
 		}
 		return 0;
 	}
+	
+	
 	/**
 	 * 用户消费积分撤销
 	 * @param accountId
@@ -524,9 +543,10 @@ public class PaidOrderController {
 		params.put("accountId", "jfat1.201609256101549914_0001");
 		params.put("openId", "2ecee85451c3460a");
 		params.put("appId", "30a10e21");
-		params.put("oid", "jfat1.201609256101549914_0001");
-		params.put("bisId", "2ecee85451c3460a");
-		params.put("backCash", "30a10e21");
+		params.put("oid", "Gersho201607203111006283_0006");
+		params.put("bisId", "bisId");
+		params.put("backCash", "200");
+
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
 		String param = JSON.toJSONString(params);

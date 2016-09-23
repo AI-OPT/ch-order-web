@@ -57,7 +57,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     					required: true,
     					moneyNumber: true,
     					max:currentMoney,
-    					min:1
+    					min:0.1
     					},
 	                 updateMoneyInfo:{
 	                	 

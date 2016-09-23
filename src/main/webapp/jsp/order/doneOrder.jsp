@@ -346,16 +346,16 @@
                     <thead>
                         <tr>
                             <th>时间</th>
-                            <th>地点和跟踪进度</th>
-                            <th>操作人以及网点电话</th>
+                            <th>物流跟踪</th>
                         </tr>
                     </thead>
                 <tbody>
+                 <c:forEach var="logisticsDetail" items="${orderDetail.logisticsDetail}">
                     <tr>
-                        <td>biu</td>
-                        <td>全国</td>
-                        <td>总部</td>
+                        <td>${logisticsDetail.time }</td>
+                         <td>${logisticsDetail.context }</td>
                     </tr>
+                 </c:forEach>
                 </tbody>
                 </table>
          </div>
