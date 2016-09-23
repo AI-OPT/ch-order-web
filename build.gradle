@@ -106,6 +106,7 @@ dependencies {
     compile 'com.ai.slp.order:ordermodify:1.0.1-SNAPSHOT'
     compile 'com.ai.slp.order:delivergoods:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:stasticsorder:1.0.1-SNAPSHOT'
+    compile 'com.ai.slp.order:orderrefund:1.0.1-SNAPSHOT'
 	//仓库
 	compile 'com.ai.slp.route:routemanage:1.0.2-SNAPSHOT'
 	compile 'junit:junit:4.12'
@@ -115,6 +116,7 @@ dependencies {
     compile "com.ai.ch.user:shopinfo:1.1-SNAPSHOT"
  	//支付
     compile 'com.ai.opt.chpay:ch-payclient:1.0-SNAPSHOT'
+    
 
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
