@@ -58,7 +58,7 @@ define('app/jsp/order_rule/findOrderRuleDetail', function (require, exports, mod
 						$('#buyEmployeeMonitorOrderSum').html(data.orderRuleDetailVo.buyEmployeeMonitorOrderSum);
 						$('#buyIpMonitorTime').html(data.orderRuleDetailVo.buyIpMonitorTime);
 						var buyIpMonitorTimeType = _this._monitorTimeType(buyIpMonitorTimeType);
-						$('#buyIpMonitorTimeType').html(data.orderRuleDetailVo.buyIpMonitorTimeType);
+						$('#buyIpMonitorTimeType').html(buyIpMonitorTimeType);
 						$('#buyIpMonitorOrderSum').html(data.orderRuleDetailVo.buyIpMonitorOrderSum);
 						$('#mergeOrderSettingTime').html(data.orderRuleDetailVo.mergeOrderSettingTime);
 						$('#mergeOrderSettingOrderSum').html(data.orderRuleDetailVo.mergeOrderSettingOrderSum);
