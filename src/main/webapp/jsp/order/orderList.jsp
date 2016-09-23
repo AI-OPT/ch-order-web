@@ -29,7 +29,7 @@
                         <div class="main-box clearfix"><!--白色背景-->
                         <!--标题-->
                             <header class="main-box-header clearfix">
-                            <h2 class="pull-left">查询结果</h2>
+                            <h4 class="pull-left">查询结果</h4>
                             </header>
                         <!--标题结束-->   
                             <div class="main-box-body clearfix">
@@ -42,7 +42,7 @@
                                             <tr>
                                             	<th>订单来源</th>
                                                 <th>父订单号</th>
-                                                <th>用户账号</th>
+                                                <th>用户名</th>
                                                 <th>绑定手机号</th>
                                                 <th>积分</th>
                                                 <th>优惠</th>
@@ -89,8 +89,8 @@
 <tr>
     	<td>{{:chlIdName}}</td>
         <td>{{:pOrderId}}</td>
-        <td>{{:userId}}</td>
-        <td>绑定手机号</td>
+        <td>{{:userName}}</td>
+        <td>{{:userTel}}</td>
  		<td>{{:totalJF}}</td>
 		<td>{{:orderTotalCouponFee}}</td>
  		<td>{{:totalAdjustFee}}</td>
