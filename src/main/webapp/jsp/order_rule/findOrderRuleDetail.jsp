@@ -42,7 +42,7 @@
 						-->
 							<!--标题结束-->
 							<!--查询条件-->
-							<div class="form-label">
+							<div class="form-label" style="padding-left:0px;">
 								<form id="orderRuleSettingForm">
 									<div class="panel panel-primary">
 										<div class="panel-heading">
