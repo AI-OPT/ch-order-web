@@ -46,7 +46,7 @@
 								<form id="orderRuleSettingForm">
 									<div class="panel panel-primary">
 										<div class="panel-heading">
-											<h3 class="panel-title">未支付订单监控设置</h3>
+											<h3 class="panel-title">订单监控规则详情</h3>
 										</div>
 										<div class="panel-body">
 											<div class="panel panel-info">
