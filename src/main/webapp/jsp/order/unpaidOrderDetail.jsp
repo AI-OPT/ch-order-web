@@ -98,6 +98,7 @@
 				                  <ul>
 				                    <li>买家信息</li>
 				                  </ul>
+				            </div>
                             <div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -131,6 +132,7 @@
 				                  <ul>
 				                    <li>发票信息</li>
 				                  </ul>
+				            </div>
 					  		<div class="form-label">
 					           	<ul>
 					           		<li class="col-md-6">

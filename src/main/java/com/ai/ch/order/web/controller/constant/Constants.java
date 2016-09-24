@@ -40,6 +40,11 @@ public final class Constants {
              * 11 待付款
              */
             public static final String WAIT_PAY = "11";
+            /**
+             * 111已付款
+             */
+            public static final String PAID = "111";
+            
 
             /**
              * 13 待配货

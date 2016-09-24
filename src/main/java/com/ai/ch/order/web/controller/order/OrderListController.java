@@ -214,7 +214,7 @@ public class OrderListController {
 			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)) { //待付款
 				return new ModelAndView("jsp/order/unpaidOrderDetail", model);
 			}
-			if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state)) { //已付款(待配货)
+			if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state) ||Constants.OrdOrder.State.PAID.equals(state)) { //已付款(待配货)
 				return new ModelAndView("jsp/order/paidOrderDetails", model);
 			}
 			if(Constants.OrdOrder.State.WAIT_DELIVERY.equals(state)||
