@@ -28,7 +28,7 @@
         <context:exclude-filter expression="org.springframework.stereotype.Controller"
                                 type="annotation" />
     </context:component-scan>
-<bean id="dateTimeFormat" class="java.text.SimpleDateFormat">
+	<bean id="dateTimeFormat" class="java.text.SimpleDateFormat">
 		<constructor-arg type="java.lang.String" value="yyyyMMddHHmmss"/>
 	</bean>
 	<bean id="dateFormat" class="java.text.SimpleDateFormat">
