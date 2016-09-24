@@ -1,14 +1,18 @@
 package com.ai.ch.order.web.controller.order;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +25,8 @@ import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.vo.Key;
+import com.ai.ch.order.web.vo.KeyType;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
@@ -55,11 +61,23 @@ import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.changhong.upp.business.entity.upp_599_001_01.RespInfo;
+import com.changhong.upp.business.entity.upp_801_001_01.GrpBody;
+import com.changhong.upp.business.entity.upp_801_001_01.GrpHdr;
+import com.changhong.upp.business.entity.upp_801_001_01.ReqsInfo;
+import com.changhong.upp.business.handler.BusinessHandler;
+import com.changhong.upp.business.handler.factory.BusinessHandlerFactory;
+import com.changhong.upp.business.type.TranType;
 
 @Controller
 public class PaidOrderController {
 	private static final Logger LOG = Logger.getLogger(PaidOrderController.class);
-
+	@Autowired
+	private BusinessHandlerFactory businessHandlerFactory;
+	@Resource(name="key")
+	private Key key;
+	private String requestUrl = "http://111.9.116.138:7001/upp-route/entry.html";
+	
 	@RequestMapping("/toPaidOrder")
 	public ModelAndView toPaidOrder(HttpServletRequest request) {
 
@@ -486,6 +504,7 @@ public class PaidOrderController {
 			//用户消费积分撤销
 			shopback(accountId, openId, appId, oid, bisId, backCash);
 			//退款
+			agrreedRefund( request, orderId, info, "",oid);
 			//更改订单状态
 			updateOrderState(request, orderId, info, updateMoney);
 		}
@@ -648,5 +667,42 @@ public class PaidOrderController {
 				LOG.error("退款报错：", e);
 			}
 			return true;
-		}		
+		}	
+		//同意退款
+		public ResponseData<String> agrreedRefund(HttpServletRequest request, String orderId,String info,String parentOrderId,String money) {
+			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+			ResponseData<String> responseData = null;
+			OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
+			try {
+				GrpHdr hdr = new GrpHdr();
+				hdr.setMerNo("CO20160900000009");
+				hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+				hdr.setTranType(TranType.REFUND_APPLY.getValue());
+				
+				GrpBody body = new GrpBody();
+				body.setPayTranSn("T20160922100005328");
+				body.setMerSeqId("M004");
+				body.setRefundAmt("10");
+				body.setMerRefundSn("M003");
+				body.setSonMerNo("CO20160900000010");
+				body.setRefundDate("20120908");
+				body.setNotifyUrl("http://www.baidu.com");
+				body.setResv("test");
+				
+				ReqsInfo reqInfo = new ReqsInfo();
+				reqInfo.setGrpHdr(hdr);
+				reqInfo.setGrpBody(body);
+				
+				BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
+					RespInfo rp = (RespInfo) handler.process(requestUrl, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
+					if(!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())){
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+		            }else{
+		            	responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款成功", null);
+		            }
+				} catch (Exception e) {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+				}
+			return responseData;
+		}	
 }

@@ -17,9 +17,6 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     		<!--  <div class="form-label">
-	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
-	                     		</div>-->
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -43,7 +40,7 @@
 					            </ul>
 					  	</div>
 					  	 	<!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -101,16 +98,16 @@
                                    </table>
                                 </div>
                             <!--/table表格结束-->
-							 <div class="text-r">
-                            	<ul>
+							 <div class="text-r right" >
+                            	<ul class="mt-20">
                             		<li>
-                            			 <p class="word">总优惠金额：${order.ordDiscountFee}</p>
+                            			 <p class="word">总优惠金额：<span class="red">${order.ordDiscountFee}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">运费：${order.ordFreight}</p>
+                            			 <p class="word">运费：<span class="red">${order.ordFreight}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">订单应付金额：${order.ordAdjustFee}</p>
+                            			 <p class="word">订单应付金额：<span class="red">${order.ordAdjustFee}</span></p>
                             		</li>
                             	</ul>
                             </div>
@@ -129,13 +126,13 @@
 	                            		<p>${order.username}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-2">
-	                            		<p class="word">
-	                            			<h2>客户信息</h2>
-	                            		</p>
-                            		</li>
+                            		<li>客户信息</li>
                             	</ul>
+                            </div>
+                            <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
@@ -162,19 +159,23 @@
                             			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-2"><p class="word"><h2>售后详细</h2></p></li>
+                            		<li>售后详细</li>
                             	</ul>
-	                            	<ul>
-	                            		<li class="col-md-6">
-	                            			<p class="word">子订单号：</p>
-	                            			<p>${order.orderId}</p>
-	                            		</li>
-	                            		<li class="col-md-6">
-	                            			<p class="word">类型：</p>
-	                            			<p>${order.busiCodeName}</p>
-	                            		</li>
-	                            	</ul>
+                            </div>
+                            <div class="form-label">
+                            	<ul>
+                            		<li class="col-md-6">
+                            			<p class="word">子订单号：</p>
+                            			<p>${order.orderId}</p>
+                            		</li>
+                            		<li class="col-md-6">
+                            			<p class="word">类型：</p>
+                            			<p>${order.busiCodeName}</p>
+                            		</li>
+                            	</ul>
                             	<ul>
                             		<li class="col-md-6">
 	                            		<p class="word">换货理由:</p>
@@ -187,11 +188,10 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div class="text-c">
-                            		<p>
-                             			<input type="button" id="agrren" class="biu-btn btn-primary btn-blue btn-small " value="同意换货">
-                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                             			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝换货">
+                            <div class="row">
+                            		<p class="center mt-20">
+                             			<input type="button" id="agrren" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意换货">
+                             			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝换货">
                              		</p>
                             </div>
                             <!-- 换货理由start -->

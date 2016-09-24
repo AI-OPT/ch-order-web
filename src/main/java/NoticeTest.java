@@ -27,7 +27,7 @@ import com.changhong.upp.exception.UppException;
 public class NoticeTest {
 	
 	
-	@Autowired
+	/*@Autowired
 	private BusinessHandlerFactory businessHandlerFactory;
 	@Resource(name="key")
 	private Key key;
@@ -68,6 +68,6 @@ public class NoticeTest {
 			//ddAttribute("erro", e.getMessage());
 			System.out.println("error");
 		}
-	}
+	}*/
 	
 }

@@ -41,7 +41,7 @@
 						            </ul>
 					  			</div>
 					  	 	<!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -94,26 +94,24 @@
                                
                                 </div>
                             <!--/table表格结束-->
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+                            	<ul>
+                            		<li>买家信息</li>
+                            	</ul>
+                            </div>
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-2">
-	                            		<p class="word">
-	                            			<h2>买家信息</h2>
-	                            		</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">买家：</p>
                             			<p>${order.userId}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">手机号：</p>
                             			<p>${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">配送方式：</p>
                             			<p>${order.logisticsType}</p>
                             		</li>
@@ -121,17 +119,18 @@
                             			<p class="word">收货信息:</p>
                             			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
+                            	</ul>
+                            	<ul>
                             		<li class="col-md-6">
                             			<p class="word">买家留言:</p>
                             			<p>${order.remark}</p>
                             		</li>
                             	</ul>
                             </div>
-                            <div class="text-c">
-                           		<p>
-                           			<input type="button" id="operation" class="biu-btn btn-primary btn-blue btn-small " value="关闭订单">
-                           			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           			<input type="button" id="back" class="biu-btn btn-primary btn-blue btn-small " value="返回">
+                            <div class="row">
+                           		<p class="center mt-20">
+                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="关闭订单">
+                           			<input type="button" id="back" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
                             	</p>
                             </div>
                             <!--提示弹出框 操作-->	

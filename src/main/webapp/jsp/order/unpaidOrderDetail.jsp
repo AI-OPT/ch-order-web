@@ -17,9 +17,6 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     		<!-- <div class="form-label">
-	                     			<p class="word"><a id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：待付款订单</p>
-	                     		</div>  -->
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -33,7 +30,7 @@
 					            </ul>  
 					  	</div>
 					  	 <!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -84,66 +81,79 @@
                                     </table>
                                 </div>
                             <!--/table表格结束-->
-                            <div class="text-r">
-                            	<ul>
+                            <div class="text-r right">
+                            	<ul class="mt-20">
                             		<li>
-                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            			 <p class="word">总优惠金额：<span class="red">${orderDetail.ordDiscountFee}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            			 <p class="word">运费：<span class="red">${orderDetail.ordFreight}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            			 <p class="word">订单应付金额：<span class="red">${orderDetail.ordAdjustFee}</span></p>
                             		</li>
                             	</ul>
                             </div>
-                            <div class="text-l">
-                            	<p class="f-16">买家信息</p>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+				                  <ul>
+				                    <li>买家信息</li>
+				                  </ul>
+                            <div class="form-label">
 					           	<ul>
-					                <li >
-					                    <p class="word" id="userId">买家：${orderDetail.userId}</p>
+					                <li  class="col-md-6">
+					                    <p class="word">买家账号：</p>
+					                    <p>${orderDetail.userId}</p>
 					                </li>
-					                <li>
-					                    <p class="word">手机号：${orderDetail.contactTel}</p>
+					                <li  class="col-md-6">
+					                    <p class="word">手机号：</p>
+					                    <p>${orderDetail.contactTel}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
-					                <li>
-					                    <p class="word">配送方式：${orderDetail.logisticsType}</p>
+					            
+					            	<li  class="col-md-6">
+					                    <p class="word">配送方式：</p>
+					                    <p>${orderDetail.logisticsType}</p>
 					                </li>
-					                <li>
-					                    <p class="word">收货信息：${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                <li  class="col-md-6">
+					                    <p class="word">收货信息：</p>
+					                    <p>${orderDetail.logisticsType}${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
-					                <li >
-					                    <p class="word">买家留言：${orderDetail.remark}</p>
+					            </ul>
+					            <ul>
+					            	<li class="col-md-6">
+					                    <p class="word">买家留言：</p>
+					                    <p>${orderDetail.remark}</p>
 					                </li>
 					            </ul>
 					  		</div>
-					  		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					  		<div class="text-l mc-50">
-                            	<p class="f-16">发票信息</p>
+					  		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+				                  <ul>
+				                    <li>发票信息</li>
+				                  </ul>
+					  		<div class="form-label">
 					           	<ul>
-					                <li >
-					                    <p class="word">发票类型：${orderDetail.invoiceTypeName}</p>
+					           		<li class="col-md-6">
+					                    <p class="word">发票类型：</p>
+					                    <p>${orderDetail.invoiceTypeName}</p>
 					                </li>
-					                <li>
-					                    <p class="word">发票类目：${orderDetail.invoiceContent}</p>
-					                </li>  
-					                <li>
-					                    <p class="word">发票抬头：${orderDetail.invoiceTitle}</p>
+					                <li class="col-md-6">
+					                    <p class="word">发票类目：</p>
+					                    <p>${orderDetail.invoiceContent}</p>
+					                </li>
+					            </ul>
+					            <ul>
+					            	<li class="col-md-6">
+					                    <p class="word">发票抬头：</p>
+					                    <p>${orderDetail.invoiceTitle}</p>
 					                </li>
 					            </ul>
 					  		</div>
-					  		<div  class="text-c">
-	                            <ul>
-	                            	<li>
-	                            		<p>
-	                             			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="价格修改">
-	                             			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	                             			<input type="button" id="operation" class="biu-btn btn-primary btn-blue btn-small " value="关闭订单">
-	                             		</p>
-	                            	</li>
-	                            </ul>
+					  		<div  class="row">
+                           		<p class="center mt-20">
+                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="价格修改">
+                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="关闭订单">
+                            	</p>
                             </div>
                              <!--提示弹出框 操作-->	
 							<div class="eject-big">

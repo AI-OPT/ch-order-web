@@ -143,13 +143,15 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
  			if(!$("#dataForm").valid()){
  				return false;
  			}
- 			 var url=_base+"/doRefund";
+ 			 var url=_base+"/refund";
  			//获取数据
  			var parentId = $("#parentId").text();
  			var orderId = $("#orderId").text();
  			var banlanceIfId = $("#balanceId").text();
  			var money = $("#updateMoneyData").val();
  			var info = $("#updateMoneyInfo").val();
+ 			var xf = $("#saleJF").val();
+ 			var zs = $("#giveJF").val();
 	   		//退款
  		    ajaxController.ajax({
     	    	type: "post",
@@ -157,7 +159,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":orderId,"moneny":money,"parentOrderId":parentId,"updateInfo":info},
+				data:{"orderId":orderId,"moneny":money,"parentOrderId":parentId,"updateInfo":info,"giveJF":zs,"saleJF":xf},
     	        success: function (data) {
     	        	if(data){
     	        		alert(data);

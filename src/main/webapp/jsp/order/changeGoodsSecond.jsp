@@ -17,9 +17,6 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     		<!--  <div class="form-label">
-	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
-	                     		</div>-->
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -43,7 +40,7 @@
 					            </ul>
 					  	</div>
 					  	 	<!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -115,13 +112,14 @@
 	                            		<p>${order.username}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-6">
-	                            		<p class="word">
-	                            			<h2>退款人信息</h2>
-	                            		</p>
-                            		</li>
+                            		<li>退款人信息</li>
                             	</ul>
+                            </div>
+                            <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
@@ -152,9 +150,13 @@
                             			<p>${order.ordTotalFee}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-6"><p class="word"><h2>买家退货物流信息</h2></p></li>
+                            		<li>买家退货物流信息</li>
                             	</ul>
+                            </div>
+                            <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">快递公司：</p>

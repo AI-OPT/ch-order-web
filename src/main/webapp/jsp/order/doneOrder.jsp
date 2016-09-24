@@ -26,9 +26,6 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-									<div class="form-label">
-	                     				<p class="word" ><a id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：订单详细</p>
-	                     			</div>
 								<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -53,12 +50,12 @@
 					  	</div>
 	                <!--步骤结束-->
 					  	 	<!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                  <input type="hidden" id="orderId" value="${orderDetail.orderId }">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
-                                            		<th>商品</th>
+                                            	<th>商品</th>
                                                 <th>单价/数量</th>
                                                 <th>售后</th>
                                                 <th>下单时间</th>
@@ -242,23 +239,24 @@
                                     </table>
                                 </div>
                             <!--/table表格结束-->
-                            <div class="text-r">
-                            	<ul>
+                            <div class="text-r right">
+                            	<ul class="mt-20">
                             		<li>
-                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            			 <p class="word">总优惠金额：<span class="red">${orderDetail.ordDiscountFee}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            			 <p class="word">运费：<span class="red">${orderDetail.ordFreight}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            			 <p class="word">订单应付金额：<span class="red">${orderDetail.ordAdjustFee}</span></p>
                             		</li>
                             	</ul>
                             </div>
-                            
-                            	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">买家信息</h5>
-                        		</header>
+                          	<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+			                  <ul>
+			                    <li>买家信息</li>
+			                  </ul>
+				       		</div>
                             <div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -282,7 +280,7 @@
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
 					                    <p>${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address },${orderDetail.contactName},${orderDetail.contactTel}</p>
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
@@ -292,18 +290,17 @@
 					                </li>
 					            </ul>
 					  	</div>
-					  	<br/><br/><br/>
-					  	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">发票信息</h5>
-                        		</header>
-					  	  <div class="form-label text">
+				  		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                  <ul>
+		                    <li>发票信息</li>
+		                  </ul>
+			       		</div>
+					  	 <div class="form-label">
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类型：</p>
 					                    <p>${orderDetail.invoiceTypeName }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
 					                    <p>${orderDetail.invoiceContent }</p>
@@ -316,18 +313,17 @@
 					                </li>
 					            </ul>
 					  	</div>
-					  	
-					  	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">物流信息</h5>
-                        		</header>
-                        		 <div class="form-label text">
+					  	<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                  <ul>
+		                    <li>物流信息</li>
+		                  </ul>
+				       </div>
+                        <div class="form-label">
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">快递公司：</p>
 					                    <p>${orderDetail.expressId }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">快递单号：</p>
 					                    <p>${orderDetail.expressOddNumber }</p>
@@ -335,7 +331,7 @@
 					            </ul>  
 					  	</div>
      <br/>
-     <div class="table-responsive clearfix">
+     <div class="table-responsive">
                 <table class="table table-hover table-border table-bordered" >
                     <thead>
                         <tr>

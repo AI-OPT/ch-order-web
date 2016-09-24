@@ -26,9 +26,6 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-									<div class="form-label">
-	                     				<p class="word" ><a id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：订单详细</p>
-	                     			</div>
 							<div class="form-label">
 					           	<ul>
 					               
@@ -43,7 +40,7 @@
 					            </ul>  
 					  	</div>
 					  	 <!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -87,25 +84,36 @@
                                     </table>
                                 </div>
                             <!--/table表格结束-->
-                            <div class="text-l">
-                            	<p class="f-16">买家信息</p>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+			                  <ul>
+			                    <li>买家信息</li>
+			                  </ul>
+				            </div>
+                            <div class="form-label">
 					           	<ul>
-					                <li >
-					                    <p class="word" id="userId">买家：${orderDetail.userId}</p>
+					                <li  class="col-md-6">
+					                    <p class="word">买家：</p>
+					                    <p id="userId">${orderDetail.userId}</p>
 					                </li>
-					                <li>
-					                    <p class="word">手机号：${orderDetail.contactTel}</p>
-					                </li>  
+					                <li  class="col-md-6">
+					                    <p class="word">手机号：</p>
+					                    <p>${orderDetail.contactTel}</p>
+					                </li>
 					            </ul>  
 					            <ul>
-					                <li>
-					                    <p class="word">配送方式：${orderDetail.logisticsType}</p>
+					             	<li  class="col-md-6">
+					                    <p class="word">配送方式：</p>
+					                    <p>${orderDetail.logisticsType}</p>
 					                </li>
-					                <li>
-					                    <p class="word">收货信息：${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                <li  class="col-md-6">
+					                    <p class="word">收货信息：</p>
+					                    <p>${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
-					                <li >
-					                    <p class="word">买家留言：${orderDetail.remark}</p>
+					            </ul>
+					            <ul>
+					            	 <li  class="col-md-6">
+					                    <p class="word">买家留言：</p>
+					                    <p>${orderDetail.remark}</p>
 					                </li>
 					            </ul>
 					  		</div>

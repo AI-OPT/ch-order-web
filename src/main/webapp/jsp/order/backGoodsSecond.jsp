@@ -17,9 +17,6 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     		<!--  <div class="form-label">
-	                     			<p class="word" ><a  id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：售后订单</p>
-	                     		</div>-->
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
@@ -43,7 +40,7 @@
 					            </ul>
 					  	</div>
 					  	 	<!--table表格-->
-                                <div class="table-responsive clearfix">
+                                <div class="table-responsive">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
@@ -91,8 +88,8 @@
 								                <td>${order.orderTime}</td>
 								                <td>${order.stateName}</td>
 								                <td>${sp.prodCouponFee}</td>
-							                	<td>${sp.jfFee}</td>
-							                	<td>${sp.giveJF}</td>
+							                	<td id="saleJF">${sp.jfFee}</td>
+							                	<td id="giveJF">${sp.giveJF}</td>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
@@ -115,29 +112,30 @@
 	                            		<p>${order.username}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-2">
-	                            		<p class="word">
-	                            			<h2>客户信息</h2>
-	                            		</p>
-                            		</li>
+                            		<li>客户信息</li>
                             	</ul>
+                            </div>
+                            <div class="form-label">
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
                             			<p>${order.userId}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">手机号：</p>
                             			<p>${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">支付方式：</p>
                             			<p>${order.payStyleName}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">支付账号：</p>
                             			<p>${order.acctId}</p>
                             		</li>
@@ -148,58 +146,68 @@
                             			<p>${order.address}</p>
                             		</li>
                             	</ul>
+                            </div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-2">
-	                            		<p class="word">
-	                            			<h2>退款详细</h2>
-	                            		</p>
-                            		</li>
+                            		<li>退款详细</li>
                             	</ul>
                             	<ul>
-                            		<li class="col-md-5">
+                            </div>
+                            <div class="form-label">
+                            		<li class="col-md-6">
                             			<p class="word">子订单号：</p>
                             			<p>${order.orderId}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">业务类型：</p>
                             			<p>${order.busiCodeName}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		
+                            	</ul>
+                            	<ul>
+                            		<li class="col-md-6">
                             			<p class="word">退款金额：</p>
                             			<p id="currentMoney">${order.ordTotalFee}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            		<li class="col-md-6">
                             			<p class="word">退款理由：</p>
                             			<p>${order.remark}</p>
                             		</li>
-                            		<li class="col-md-5">
+                            	</ul>
+                            	<ul>
+                            		<li class="col-md-6">
                             			<p class="word">图片：</p>
                             			<p></p>
                             		</li>
                             	</ul>
+                            	</div>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
-                            		<li class="col-md-2"><p class="word"><h2>退款物流</h2></p></li>
+                            		<li>退款物流</li>
                             	</ul>
+                            </div>
+                            <div class="form-label">
                             	<ul>
-                            		<li class="col-md-3">
+                            		<li class="col-md-6">
                             			<p class="word">快递公司：</p>
                             			<p>${order.expressName}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            		<li class="col-md-6">
                             			<p class="word">快递单号：</p>
                             			<p>${order.expressOddNumber}</p>
                             		</li>
-                            		<li class="col-md-3">
+                            	</ul>
+                            	<ul>
+                            		<li class="col-md-6">
                             			<p class="word">图片：</p>
                             			<p></p>
                             		</li>
                             	</ul>
                             </div>
-                            <div class="text-c">
-                           		<p>
-                           			<input type="button" class="biu-btn btn-primary btn-blue  btn-medium " id="edit" value="同意退款">
-                           			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                           			<input type="button" id="add-k" class="biu-btn btn-primary btn-blue btn-small " value="拒绝退款">
+                            <div class="row">
+                           		<p class="center mt-20">
+                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
+                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退款">
                             	</p>
                             </div>
                             <!-- 拒绝退款理由 start-->
