@@ -23,6 +23,7 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.net.xss.util.CollectionUtil;
 import com.ai.net.xss.util.StringUtil;
 import com.ai.opt.base.vo.PageInfo;
@@ -93,7 +94,8 @@ public class OrderListController {
 				queryRequest.setOrderTimeEnd(null);
 			}
 			queryRequest.setTenantId(Constants.TENANT_ID);
-			//用户信息  根据username获取用户id??
+			String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
+			queryRequest.setUserId(userId);
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
 			PageInfo<OrdOrderListVo> pageInfoVo = new PageInfo<OrdOrderListVo>();
@@ -119,8 +121,7 @@ public class OrderListController {
 			}
 		} catch (Exception e) {
 			logger.error("查询订单列表失败：", e);
-			e.printStackTrace();
-			responseData = new ResponseData<PageInfo<OrdOrderListVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败", null);
+			responseData = new ResponseData<PageInfo<OrdOrderListVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询信息异常", null);
 		}
 	    return responseData;
     }
