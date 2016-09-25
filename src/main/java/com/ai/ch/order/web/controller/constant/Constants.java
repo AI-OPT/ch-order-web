@@ -138,5 +138,12 @@ public final class Constants {
     private static final String INTEGRAL_SHOPBACK_URL_KEY = "integral.shopback.url";  
     public static final String INTEGRAL_SHOPBACK_URL = loader.getProperty(INTEGRAL_SHOPBACK_URL_KEY); 
     
+    /**用户名称查看长虹用户信息APPKEY*/
+    private static final String CH_USERNAME_APPKEY_KEY  = "ch.username.appkey";  
+    public static final String CH_USERNAME_APPKEY = loader.getProperty(CH_USERNAME_APPKEY_KEY); 
+    /**用户名称查看长虹用户信息**/
+    private static final String CH_USERNAME_URL_KEY = "ch.username.url";  
+    public static final String CH_USERNAME_URL = loader.getProperty(CH_USERNAME_URL_KEY); 
+    
    
 }
