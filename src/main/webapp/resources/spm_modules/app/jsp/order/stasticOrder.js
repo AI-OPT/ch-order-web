@@ -96,10 +96,10 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 				},
 			});
 		},
-		_detail:function(orderid,state){
-				window.location.href = _base+"/order/orderListDetail?orderId="
-	            + orderid+"&state="+state;
-		},
+		_detail:function(orderid,state,pOrderId){
+			 window.location.href = _base+"/order/orderListDetail?orderId="
+	            + orderid+"&state="+state+"&pOrderId="+pOrderId
+		}
 		
     });
     

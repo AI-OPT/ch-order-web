@@ -51,11 +51,11 @@ public class StasticOrderController {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	IStasticsOrderSV iStasticsOrderSV = DubboConsumerFactory.getService(IStasticsOrderSV.class);
         ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
+        IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
         StasticsOrderRequest req = new StasticsOrderRequest();
         ResponseData<PageInfo<StasticParentOrderVo>> responseData = null;
         if(!StringUtil.isBlank(reqVo.getSupplierName())){
         	//根据店铺名称获取销售商ID
-            IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
             QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
             shopReq.setTenantId(user.getTenantId());
             shopReq.setShopName(reqVo.getSupplierName());
@@ -105,6 +105,14 @@ public class StasticOrderController {
             List<StasticParentOrderVo> list = result.getResult();
             if(!CollectionUtil.isEmpty(list)){
             	for(StasticParentOrderVo vo:list){
+            		//获取销售商名称
+                    QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
+                    shopReq.setTenantId(user.getTenantId());
+                    shopReq.setUserId(vo.getSupplierId());
+                    QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
+                    if(base.getResponseHeader().getIsSuccess()==true){
+                    	vo.setStateName(base.getShopName());
+                    }
             		//翻译订单来源
 					SysParamSingleCond	param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);

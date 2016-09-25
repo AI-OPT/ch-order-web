@@ -103,6 +103,8 @@
                                     <table class="table table-hover table-border table-bordered ">
                                         <thead>
                                             <tr>
+                                            	<th>商户ID</th>
+                                            	<th>商户名称</th>
                                             	<th>订单来源</th>
                                                 <th>父订单号</th>
                                                 <th>用户账号</th>
@@ -147,6 +149,8 @@
    </div>
    	<script id="stasticTemple" type="text/template">
 				<tr>
+						<td>{{:supplierId}}</td>
+						<td>{{:supplierName}}</td>
 		   				<td>{{:chlId}}</td>
 		   				<td>{{:orderId}}</td>
 						<td>{{:userId}}</td>
@@ -183,7 +187,7 @@
         								</table>	
 									</td>
 									<td style="width:10%">{{:stateName}}</td>
-									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}')">查看详情</a></td>
+									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}','{{:parentOrderId}}')">查看详情</a></td>
         					</tr>
         				</tbody>	
         			</table>
