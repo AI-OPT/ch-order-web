@@ -278,10 +278,11 @@ public class OrderListController {
 				return logisticsDetails;
 			} else {
 				// 请求过程失败
-				System.out.println("请求失败,请求错误码:" + reqResultCode);
+				logger.error("物流信息请求失败,请求错误码："+ reqResultCode);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			logger.error("物流信息请求失败,请求错误码：", e);
 		}
 		return null;
 	}

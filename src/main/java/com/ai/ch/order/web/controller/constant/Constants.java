@@ -127,9 +127,6 @@ public final class Constants {
     /**发票打印URL**/
     private static final String INVOICE_PRINT_URL_KEY = "invoice.print.url";  
     public static final String INVOICE_PRINT_URL = loader.getProperty(INVOICE_PRINT_URL_KEY);  
-    /**电子发票下载URL**/
-    private static final String INVOICE_DOWNLOAD_URL_KEY = "invoice.download.url";  
-    public static final String INVOICE_DOWNLOAD_URL = loader.getProperty(INVOICE_DOWNLOAD_URL_KEY);  
     /**用户结分查询APPKEY**/
     private static final String INTEGRAL_SEARCH_APPKEY_KEY = "integral.search.appkey";  
     public static final String INTEGRAL_SEARCH_APPKEY = loader.getProperty(INTEGRAL_SEARCH_APPKEY_KEY);  
