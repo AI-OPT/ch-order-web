@@ -64,7 +64,7 @@ public class InvoiceTest {
 
 		
 		//获取授权ID
-		body.setId(InvoiceUtils.getID());//设置授权ID
+		body.setId(InvoiceUtils.getID(InvoiceUtils.TYPE_BATCH_ADD));//设置授权ID
 		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
 		String retVal = InvoiceUtils.postBatchAdd(invoicePrintJson.toJSONString());
 		System.out.println(retVal);

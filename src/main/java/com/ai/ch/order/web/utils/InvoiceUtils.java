@@ -103,7 +103,6 @@ public class InvoiceUtils {
 				httpPost.setConfig(getProxy());
 			CloseableHttpResponse response = client.execute(httpPost);
 			retVal = EntityUtils.toString(response.getEntity());
-			System.out.println(retVal);
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("请求失败："+e);
