@@ -21,7 +21,7 @@
 					           <ul>
 					                <li class="col-md-4">
 					                    <p class="word">开始时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  id="orderTimeBegin" name="orderTimeBegin"/>
+					                    <p><input name="control_date" readonly class="int-text int-medium " type="text"  id="orderTimeBegin" name="orderTimeBegin"/>
 					                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 					                    </p>
 					                </li>
@@ -102,13 +102,13 @@
     	<td>{{:chlId}}</td>
         <td>{{:orderId}}</td>
 		<td class="hind1">
-			<div class="center-hind" >{{:userId}}</div>
-        	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userId}}</div>
+			<div class="center-hind" >{{:userName}}</div>
+        	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userName}}</div>
 		</td>
         <td></td>
         <td>{{:ifWarning}}</td>
 		<td>{{:warningType}}</td>
-        <td>{{:contactTel}}</td>
+        <td>{{:userTel}}</td>
         <td>{{:deliveryFlag}}</td>
 		<td>{{:~timestampToDate('yyyy-MM-dd hh:mm:ss', orderTime)}}</td>
         <td>

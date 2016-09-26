@@ -22,13 +22,13 @@
 						           <ul>
 						                <li class="col-md-6">
 						                    <p class="word">开始时间</p>
-						                    <p><input class="int-text int-medium " name="control_date" id="orderTimeBegin" />
+						                    <p><input class="int-text int-medium " readonly name="control_date" id="orderTimeBegin" />
 						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>
 						                <li class="col-md-6">
 						                    <p class="word">结束时间</p>
-						                    <p><input class="int-text int-medium " id="orderTimeEnd" name="control_date"/>
+						                    <p><input class="int-text int-medium " readonly id="orderTimeEnd" name="control_date"/>
 						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>  

@@ -35,13 +35,13 @@
 						           <ul>
 						                <li class="col-md-6">
 						                    <p class="word">开始时间</p>
-						                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="orderTimeBegin"/>
+						                    <p><input name="control_date" class="int-text int-medium " readonly type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="orderTimeBegin"/>
 						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>
 						                <li class="col-md-6">
 						                    <p class="word">结束时间</p>
-						                    <p><input name="control_date" class="int-text int-medium " type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="orderTimeEnd"/>
+						                    <p><input name="control_date" class="int-text int-medium " readonly type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="orderTimeEnd"/>
 						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>  

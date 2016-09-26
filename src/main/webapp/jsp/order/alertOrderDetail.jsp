@@ -103,7 +103,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">买家：</p>
-                            			<p>${order.userId}</p>
+                            			<p>${order.userName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>

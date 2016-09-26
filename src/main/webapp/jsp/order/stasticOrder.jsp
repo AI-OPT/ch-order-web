@@ -22,13 +22,13 @@
 						           <ul>
 						                <li class="col-md-6">
 						                    <p class="word">开始时间</p>
-						                    <p><input class="int-text int-medium " onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="control_date" id="orderTimeBegin" />
+						                    <p><input class="int-text int-medium " readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="control_date" id="orderTimeBegin" />
 						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>
 						                <li class="col-md-6">
 						                    <p class="word">结束时间</p>
-						                    <p><input class="int-text int-medium " onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="control_date"/>
+						                    <p><input class="int-text int-medium " readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="control_date"/>
 						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>  
@@ -153,7 +153,7 @@
 						<td>{{:supplierName}}</td>
 		   				<td>{{:chlId}}</td>
 		   				<td>{{:orderId}}</td>
-						<td>{{:userId}}</td>
+						<td>{{:userName}}</td>
 						<td>{{:userTel}}</td>
 		   				<td>{{:contactTel}}</td>
 						<td>{{:deliveryFlag}}</td>
