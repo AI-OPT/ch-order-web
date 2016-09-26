@@ -121,7 +121,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="${_base}/toInvoice" target="mainFrame" class="dropdown-toggle">
+                    <a href="${_base}/jsp/order/invoice.jsp" target="mainFrame" class="dropdown-toggle">
                     <i class="fa fa-usd"></i>
                     <span>发票打印</span><i class="fa fa-chevron-circle-right drop-icon"></i>
                     </a>
