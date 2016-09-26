@@ -151,10 +151,9 @@
 													<li class="width-xlag">
 														<p class="word">&nbsp;</p>
 														<p>
-															<input type="button" id="orderRuleSettingButton"
+															<input type="button" onclick="pager._saveModalSure();"
 																class="biu-btn  btn-primary btn-blue btn-medium ml-10"
-																value="保  存" data-toggle="modal"
-																data-target="#saveModal">
+																value="保  存">
 														</p>
 													</li>
 												</ul>
@@ -179,7 +178,7 @@
 					<!-- 模态框（Modal） 开始 -->
 					<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
 						aria-labelledby="saveModalLabel" aria-hidden="true">
-						<div class="modal-dialog" style="width: 400px;">
+						<div class="modal-dialog" style="width: 400px; padding-top:200px;">
 							<div class="modal-content">
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
@@ -188,13 +187,14 @@
 								</div>
 								<div class="modal-body">你是否确认保存信息？</div>
 								<div class="modal-footer">
-									<button type="button"
-										class="biu-btn  btn-primary btn-blue btn-medium ml-10"
-										data-dismiss="modal">关闭</button>
-									<button onclick="javascript:alert('保存成功');alertTest();"
+									<button id="orderRuleSettingButton"
 										type="button"
 										class="biu-btn  btn-primary btn-blue btn-medium ml-10">
 										确认</button>
+									<button type="button"
+										class="biu-btn  btn-primary btn-blue btn-medium ml-10"
+										data-dismiss="modal">关闭</button>
+									
 								</div>
 							</div>
 							<!-- /.modal-content -->

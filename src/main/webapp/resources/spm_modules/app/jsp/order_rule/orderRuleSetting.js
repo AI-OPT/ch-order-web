@@ -2,7 +2,7 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -12,6 +12,7 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
     
     require("opt-paging/aiopt.pagination");
     require("twbs-pagination/jquery.twbsPagination.min");
+    require("bootstrap/js/modal");
     var SendMessageUtil = require("app/util/sendMessage");
     
     //实例化AJAX控制处理对象
@@ -50,7 +51,17 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
 					data:"",
 					success: function(data){
 						if(data == 'true'){
-							alert('操作成功');
+							//alert('操作成功');
+							$('#saveModal').modal('hide');
+							var d = Dialog({
+								content:"保存成功",
+								icon:'success',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
 						}
 						
 					}
@@ -83,6 +94,9 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
 					}
 				}
 			);
+    	},
+    	_saveModalSure:function(){
+    		$('#saveModal').modal('show');
     	}
       	
     	
