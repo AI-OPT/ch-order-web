@@ -15,7 +15,12 @@ public class OrderListQueryParams extends BehindQueryOrderListRequest{
 	 * 用户名
 	 */
 	private String username;
-
+	
+	/**
+	 * 父订单id
+	 */
+	private String parentOrderId;
+ 
 	public String getStates() {
 		return states;
 	}
@@ -32,4 +37,11 @@ public class OrderListQueryParams extends BehindQueryOrderListRequest{
 		this.username = username;
 	}
 
+	public String getParentOrderId() {
+		return parentOrderId;
+	}
+
+	public void setParentOrderId(String parentOrderId) {
+		this.parentOrderId = parentOrderId;
+	}
 }
