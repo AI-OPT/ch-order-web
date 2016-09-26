@@ -8,13 +8,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
-import org.apache.http.protocol.HTTP;
-import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -30,11 +26,11 @@ import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
-import com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV;
-import com.ai.slp.order.api.invoiceprint.param.InvoicePrintInfosRequest;
-import com.ai.slp.order.api.invoiceprint.param.InvoicePrintRequest;
-import com.ai.slp.order.api.invoiceprint.param.InvoicePrintResponse;
-import com.ai.slp.order.api.invoiceprint.param.InvoicePrintVo;
+import com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV;
+import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintInfosRequest;
+import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintRequest;
+import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderQueryResponse;
+import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -46,22 +42,22 @@ public class InvoicePrintController {
 	
 	@RequestMapping("/query")
 	@ResponseBody
-	public ResponseData<InvoicePrintResponse> query(HttpServletRequest request,String orderId) {
+	public ResponseData<DeliveryOrderQueryResponse> query(HttpServletRequest request,String orderId) {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-		ResponseData<InvoicePrintResponse> responseData =null;
+		ResponseData<DeliveryOrderQueryResponse> responseData =null;
 		try {
-			InvoicePrintRequest req=new InvoicePrintRequest();
+			DeliveryOrderPrintRequest req=new DeliveryOrderPrintRequest();
 			req.setOrderId(Long.valueOf(orderId));
 			req.setTenantId(user.getTenantId());
-			IInvoicePrintSV iInvoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
-			InvoicePrintResponse response = iInvoicePrintSV.query(req);
+			IDeliveryOrderPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
+			DeliveryOrderQueryResponse response = deliveryOrderPrintSV.query(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
-				responseData = new ResponseData<InvoicePrintResponse>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",response);
+				responseData = new ResponseData<DeliveryOrderQueryResponse>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",response);
 			}else {
-				responseData = new ResponseData<InvoicePrintResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
+				responseData = new ResponseData<DeliveryOrderQueryResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
 			}
 		} catch (Exception e) {			
-			responseData = new ResponseData<InvoicePrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询出错,出现未知异常");
+			responseData = new ResponseData<DeliveryOrderQueryResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询出错,出现未知异常");
 			LOG.error("查询信息出错",e);
 		}
 		return responseData;
@@ -75,13 +71,13 @@ public class InvoicePrintController {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<BaseResponse> responseData =null;
 		try {
-			InvoicePrintInfosRequest req=new InvoicePrintInfosRequest();
-			List<InvoicePrintVo> invoicePrintVos = JSON.parseArray(orderInfos, InvoicePrintVo.class); 
+			DeliveryOrderPrintInfosRequest req=new DeliveryOrderPrintInfosRequest();
+			List<DeliveryProdPrintVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliveryProdPrintVo.class); 
 			req.setOrderId(Long.valueOf(orderId));
-			req.setInvoicePrintVos(invoicePrintVos);
+			req.setDeliveryProdPrintVos(deliveryProdPrintVos);
 			req.setTenantId(user.getTenantId());
-			IInvoicePrintSV invoicePrintSV = DubboConsumerFactory.getService(IInvoicePrintSV.class);
-			BaseResponse response = invoicePrintSV.print(req);
+			IDeliveryOrderPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
+			BaseResponse response = deliveryOrderPrintSV.print(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
 				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_SUCCESS, "发货单打印成功",response);
 			}else {
