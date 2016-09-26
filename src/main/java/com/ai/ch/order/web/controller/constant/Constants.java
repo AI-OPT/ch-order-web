@@ -147,5 +147,14 @@ public final class Constants {
     private static final String CH_USERNAME_URL_KEY = "ch.username.url";  
     public static final String CH_USERNAME_URL = loader.getProperty(CH_USERNAME_URL_KEY); 
     
+    /**http代理URL**/
+    private static final String HTTP_PROXY_URL_KEY = "http.proxy.url";  
+    public static final String HTTP_PROXY_URL = loader.getProperty(HTTP_PROXY_URL_KEY); 
+    /**http代理端口**/
+    private static final String HTTP_PROXY_PORT_KEY = "http.proxy.port";  
+    public static final String HTTP_PROXY_PORT = loader.getProperty(HTTP_PROXY_PORT_KEY); 
+    
+    
+    
    
 }
