@@ -84,7 +84,7 @@
                                 </div>
                                 <!--分页-->
 								 <div>
-					 				 <nav style="text-align: right">
+					 				 <nav style="text-align: center">
 										<ul id="pagination">
 										</ul>
 									</nav>
