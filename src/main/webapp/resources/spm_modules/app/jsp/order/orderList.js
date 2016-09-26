@@ -92,7 +92,7 @@ define('app/jsp/order/orderList', function (require, exports, module) {
     		return {
     			"orderTimeBegin":jQuery.trim($("#orderTimeBegin").val()),
     			"orderTimeEnd":jQuery.trim($("#orderTimeEnd").val()),
-    			"orderId":jQuery.trim($("#orderId").val()),
+    			"parentOrderId":jQuery.trim($("#orderId").val()),
     			"username":jQuery.trim($("#username").val()),
     			"chlId":jQuery.trim($("#orderSource option:selected").val()),
     			"routeId":jQuery.trim($("#routeSource option:selected").val()),
