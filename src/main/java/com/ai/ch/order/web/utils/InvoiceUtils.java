@@ -24,9 +24,15 @@ import com.alibaba.fastjson.JSONObject;
  * @author zhouxh
  */
 public class InvoiceUtils {
-	public static String QUERY_AUTH = "PubicInterFace/QueryAuth";// 三、获取授权Id接口
-	public static String BATCH_ADD = "PubicInterFace/BatchAdd";// 四、开具发票接口
-	public static String GET_FILE = "PubData/GetFileByAuthInfo";// 下载电子发票接口
+	public static String QUERY_AUTH = "PubicInterFace/QueryAuth";//获取授权Id接口
+	public static String BATCH_ADD = "PubicInterFace/BatchAdd";//开具发票接口
+	public static String GET_FILE = "PubData/GetFileByAuthInfo";//下载电子发票接口
+	
+	public static String TYPE_BATCH_ADD ="BatchAdd";//开具发票
+	public static String TYPE_Query ="Query";//查询
+	public static String TYPE_GetFile ="GetFileByAuthInfo";//下载电子发票
+
+	
 
 	/**
 	 * 设置http代理
@@ -50,14 +56,14 @@ public class InvoiceUtils {
 	 * @return
 	 * @author zhouxh
 	 */
-	public static String getID() {
+	public static String getID(String operateType) {
 		// 服务地址
 		HttpPost httpPost = new HttpPost(Constants.INVOICE_PRINT_URL + InvoiceUtils.QUERY_AUTH);
 		CloseableHttpClient client = HttpClients.createDefault();
 		JSONObject authorizationJson = new JSONObject();
-		authorizationJson.put("loginName", "123456");
-		authorizationJson.put("password", "123456");
-		authorizationJson.put("interFaceCode", "BatchAdd");
+		authorizationJson.put("loginName",Constants.INVOICE_PRINT_USERNAME);
+		authorizationJson.put("password", Constants.INVOICE_PRINT_PASSWORD);
+		authorizationJson.put("interFaceCode", operateType);
 		try {
 			httpPost.setEntity(new StringEntity(authorizationJson.toString(), "UTF-8"));
 			httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
@@ -89,7 +95,7 @@ public class InvoiceUtils {
 		String retVal = "";
 		try {
 			httpPost.setEntity(new StringEntity(entity, "UTF-8"));
-			httpPost.setHeader(HTTP.CONTENT_TYPE, "text/json");
+			httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
 			if(getProxy() !=null)
 				httpPost.setConfig(getProxy());
 			CloseableHttpResponse response = client.execute(httpPost);

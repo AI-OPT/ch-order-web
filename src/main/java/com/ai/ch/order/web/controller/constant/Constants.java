@@ -127,6 +127,14 @@ public final class Constants {
     /**发票打印URL**/
     private static final String INVOICE_PRINT_URL_KEY = "invoice.print.url";  
     public static final String INVOICE_PRINT_URL = loader.getProperty(INVOICE_PRINT_URL_KEY);  
+    /**发票打印授权用户名**/
+    private static final String INVOICE_PRINT_USERNAME_KEY = "invoice.print.loginName";  
+    public static final String INVOICE_PRINT_USERNAME = loader.getProperty(INVOICE_PRINT_USERNAME_KEY);  
+    /**发票打印授权密码**/
+    private static final String INVOICE_PRINT_PASSWORD_KEY = "invoice.print.password";  
+    public static final String INVOICE_PRINT_PASSWORD = loader.getProperty(INVOICE_PRINT_PASSWORD_KEY);  
+  
+    
     /**用户结分查询APPKEY**/
     private static final String INTEGRAL_SEARCH_APPKEY_KEY = "integral.search.appkey";  
     public static final String INTEGRAL_SEARCH_APPKEY = loader.getProperty(INTEGRAL_SEARCH_APPKEY_KEY);  

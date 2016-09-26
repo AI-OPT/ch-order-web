@@ -144,7 +144,7 @@ public class InvoicePrintController {
 
 		
 		//获取授权ID
-		body.setId(InvoiceUtils.getID());//设置授权ID
+		body.setId(InvoiceUtils.getID(InvoiceUtils.TYPE_BATCH_ADD));//设置授权ID
 		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
 		String retVal = InvoiceUtils.postBatchAdd(invoicePrintJson.toJSONString());
 		return "发票打印通知成功";
@@ -161,7 +161,7 @@ public class InvoicePrintController {
 	public String downloadInvoice(HttpServletRequest request,String invoiceCode,String invoiceNumber) {
 		StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_PRINT_URL+InvoiceUtils.GET_FILE);
 		//获取授权ID
-		String id=InvoiceUtils.getID();
+		String id=InvoiceUtils.getID(InvoiceUtils.TYPE_GetFile);
 		getfileURL.append("?id="+id);
 	    invoiceCode ="051201600121";
 	    getfileURL.append("&invoiceCode="+invoiceCode);
