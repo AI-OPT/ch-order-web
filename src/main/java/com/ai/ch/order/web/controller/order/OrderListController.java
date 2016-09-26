@@ -72,6 +72,17 @@ public class OrderListController {
 	    try{
 	    	BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
 			BeanUtils.copyProperties(queryRequest, queryParams);
+			String parentOrderId = queryParams.getParentOrderId();
+			if(!StringUtil.isBlank(parentOrderId)) {
+				boolean isNum = parentOrderId.matches("[0-9]+");
+				if(isNum) {
+					queryRequest.setOrderId(Long.parseLong(parentOrderId));
+				}else {
+					queryRequest.setOrderId(0l);
+				}
+			}else {
+				queryRequest.setOrderId(null);
+			}
 			String states = queryParams.getStates();
 			if(!StringUtil.isBlank(states)){
 				String[] stateArray = states.split(",");
