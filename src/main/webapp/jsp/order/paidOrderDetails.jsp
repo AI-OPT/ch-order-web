@@ -56,7 +56,7 @@
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
-                                            		<th>商品</th>
+                                            	<th>商品</th>
                                                 <th>单价/数量</th>
                                                 <th>售后</th>
                                                 <th>下单时间</th>
@@ -262,7 +262,7 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p>${orderDetail.userId}</p>
+					                    <p>${orderDetail.userName}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>

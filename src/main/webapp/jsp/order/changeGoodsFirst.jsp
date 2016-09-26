@@ -136,7 +136,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
-                            			<p>${order.userId}</p>
+                            			<p>${order.userName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
