@@ -1,12 +1,22 @@
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>查询打印列表</title>
 <%@include file="/inc/inc.jsp" %>
+<script type="text/javascript">
+	var pager;
+	(function () {
+		seajs.use('app/jsp/order/invoiceList', function (ListPager) {
+			pager = new ListPager({element: document.body});
+			pager.render();
+		});
+	})();
+ </script> 
 </head>
 <body>
    <div class="content-wrapper-iframe" ><!--右侧灰色背景-->
@@ -18,32 +28,35 @@
 	                    <div class="main-box clearfix"><!--白色背景-->
 	                    	<!--查询条件-->
 	                    	<div class="form-label" id="selectDiv">
+	                    	<form id="queryForm">
+	                    	<input type="hidden" id="tenantId" name="command.tenantId" value="changhong">
 					           <ul>
 				                 	<li class="col-md-6">
 							            <p class="word">订单号</p>
-							            <p><input class="int-text int-medium"  type="text" placeholder="请输入订单号" ></p>
+							            <p><input name="command.orderId" class="int-text int-medium"  type="text" placeholder="请输入订单号" ></p>
 							        </li>
 					               <li class="col-md-6">
 							            <p class="word">发票抬头</p>
-							            <p><input class="int-text int-medium"  type="text" placeholder="请输入发票抬头" ></p>
+							            <p><input name="command.invoiceTitle" class="int-text int-medium"  type="text" placeholder="请输入发票抬头" ></p>
 							        </li> 
 					            </ul> 
 					            <ul>
 				            		<li class="col-md-6">
 						            	<p class="word">发票状态</p>
 					            		<p>
-						            		<select class="select select-medium">
+						            		<select name="command.invoiceStatus" class="select select-medium">
 						            			<option value="">请选择</option>
-						            			<option value="">未打印</option>
-						            			<option value="">已打印</option>
-						            			<option value="">已报送</option>
+						            			<option value="1">未打印</option>
+						            			<option value="3">已打印</option>
+						            			<option value="2">已报送</option>
 						            		</select>
 					            		</p>
 						            </li>
 						            <li class="col-md-6">
-					            		<p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="查询" id="search"></p>
+					            		<p><input id="queryButtonId" type="button" class="biu-btn btn-primary btn-blue btn-mini" value="查询" id="search"></p>
 					            	</li> 
 					            </ul>
+					            </form>
 					         </div>
 					   	<!--查询结束-->      
 	         			</div>
@@ -80,56 +93,18 @@
                                                 <th>操作</th>
                                             </tr>
                                         </thead>
-                                         <tbody>
-                                           <tr>
-	                                            <td>3123231</td>
-	                                            <td>办公用品</td>
-	                                            <td>北京八方达公司</td>
-	                                            <td>431</td>
-	                                            <td>12%</td>
-	                                            <td>125</td>
-	                                            <td>增值税发票</td>
-	                                            <td>未打印</td>
-	                                            <td>打印</td>
-	                                       </tr>
-                                          <tr>
-	                                            <td>3123231</td>
-	                                            <td>办公用品</td>
-	                                            <td>北京八方达公司</td>
-	                                            <td>431</td>
-	                                            <td>12%</td>
-	                                            <td>125</td>
-	                                            <td>增值税发票</td>
-	                                            <td>已打印</td>
-	                                            <td>查看</td>
-	                                       </tr>
-	                                       <tr>
-	                                            <td>3123231</td>
-	                                            <td>办公用品</td>
-	                                            <td>北京八方达公司</td>
-	                                            <td>431</td>
-	                                            <td>12%</td>
-	                                            <td>125</td>
-	                                            <td>增值税发票</td>
-	                                            <td>已报送</td>
-	                                            <td>重新报送</td>
-	                                       </tr>
+                                         <tbody id="table_info_id_pay_id">
+                                           
                                          </tbody>
                                     </table>
+                                    <div id="showMessageDiv"></div>
                                 </div>
                            		<!--/table表格结束-->
                                 </div>
                                 <!--分页-->
                                 <div class="paging">
-                            		<ul class="pagination">
-									<li class="disabled"><a href="#"><i class="fa fa-chevron-left"></i></a></li>
-									<li class="active"><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-									<li><a href="#">5</a></li>
-									<li><a href="#"><i class="fa fa-chevron-right"></i></a></li>
-								</ul>
+									<ul id="pagination">
+									</ul>
 								</div>
 								<!--分页-->
                             </div>
@@ -140,5 +115,28 @@
     	</div>
    </div> 
 </body>
+<script id="pageSearchTmpl" type="text/x-jsrender">
+					  	
+						<tr>
+	                                            <td>{{:orderId}}</td>
+	                                            <td>{{:invoiceContent}}</td>
+	                                            <td>{{:invoiceTitle}}</td>
+	                                            <td>￥{{:invoiceAmount / 1000}}</td>
+	                                            <td>{{:taxRate}}%</td>
+	                                            <td>{{:taxAmount / 1000}}</td>
+	                                            <td>
+													{{if invoiceType == '0'}}不需要发票{{/if}}
+													{{if invoiceType == '1'}}普通发票{{/if}}
+													{{if invoiceType == '2'}}增值税发票{{/if}}
+													{{if invoiceType == '3'}}电子发票{{/if}}
 
+												</td>
+	                                            <td>{{if invoiceStatus == '1'}}未打印{{/if}}
+													{{if invoiceStatus == '2'}}已报送{{/if}}
+													{{if invoiceStatus == '3'}}已打印{{/if}}
+												</td>
+	                                            <td>重新报送</td>
+	                                       </tr>
+						
+					  </script>
 </html>
