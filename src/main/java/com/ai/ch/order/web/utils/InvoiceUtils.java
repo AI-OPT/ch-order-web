@@ -1,7 +1,5 @@
 package com.ai.ch.order.web.utils;
 
-import javax.mail.internet.InternetAddress;
-
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -11,6 +9,8 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.alibaba.fastjson.JSONObject;
@@ -24,6 +24,8 @@ import com.alibaba.fastjson.JSONObject;
  * @author zhouxh
  */
 public class InvoiceUtils {
+	private static final Logger log = LoggerFactory.getLogger(InvoiceUtils.class);
+	
 	public static String QUERY_AUTH = "PubicInterFace/QueryAuth";//获取授权Id接口
 	public static String BATCH_ADD = "PubicInterFace/BatchAdd";//开具发票接口
 	public static String GET_FILE = "PubData/GetFileByAuthInfo";//下载电子发票接口
@@ -75,6 +77,7 @@ public class InvoiceUtils {
 			return authorizationResultJson.getString("Id");
 		} catch (Exception e) {
 			e.printStackTrace();
+			log.info("请求失败："+e);
 		}
 		return null;
 	}
@@ -101,8 +104,9 @@ public class InvoiceUtils {
 			CloseableHttpResponse response = client.execute(httpPost);
 			retVal = EntityUtils.toString(response.getEntity());
 			System.out.println(retVal);
-		} catch (Exception e1) {
-			e1.printStackTrace();
+		} catch (Exception e) {
+			e.printStackTrace();
+			log.info("请求失败："+e);
 		}
 		return retVal;
 	}
