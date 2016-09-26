@@ -164,7 +164,7 @@
 				<tr>
 		   				<td>{{:chlId}}</td>
 		   				<td>{{:pOrderId}}</td>
-						<td>{{:userId}}</td>
+						<td>{{:userName}}</td>
 						<td>{{:userTel}}</td>
 		   				<td>{{:contactTel}}</td>
 						<td>{{:deliveryFlagName}}</td>

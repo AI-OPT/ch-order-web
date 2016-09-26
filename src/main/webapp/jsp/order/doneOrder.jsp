@@ -261,7 +261,7 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p>${orderDetail.userId}</p>
+					                    <p>${orderDetail.userName}</p>
 					                </li>
 					            </ul>  
 					            <ul>

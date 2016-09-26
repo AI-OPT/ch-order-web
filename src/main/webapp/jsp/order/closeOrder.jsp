@@ -93,7 +93,9 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家：</p>
-					                    <p id="userId">${orderDetail.userId}</p>
+					                    <p id="userId">${orderDetail.userName}
+					                    	<input type="hidden" id="userId" value="${orderDetail.userId}"/>
+					                    </p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>

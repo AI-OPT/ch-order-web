@@ -127,9 +127,14 @@ public final class Constants {
     /**发票打印URL**/
     private static final String INVOICE_PRINT_URL_KEY = "invoice.print.url";  
     public static final String INVOICE_PRINT_URL = loader.getProperty(INVOICE_PRINT_URL_KEY);  
-    /**电子发票下载URL**/
-    private static final String INVOICE_DOWNLOAD_URL_KEY = "invoice.download.url";  
-    public static final String INVOICE_DOWNLOAD_URL = loader.getProperty(INVOICE_DOWNLOAD_URL_KEY);  
+    /**发票打印授权用户名**/
+    private static final String INVOICE_PRINT_USERNAME_KEY = "invoice.print.loginName";  
+    public static final String INVOICE_PRINT_USERNAME = loader.getProperty(INVOICE_PRINT_USERNAME_KEY);  
+    /**发票打印授权密码**/
+    private static final String INVOICE_PRINT_PASSWORD_KEY = "invoice.print.password";  
+    public static final String INVOICE_PRINT_PASSWORD = loader.getProperty(INVOICE_PRINT_PASSWORD_KEY);  
+  
+    
     /**用户结分查询APPKEY**/
     private static final String INTEGRAL_SEARCH_APPKEY_KEY = "integral.search.appkey";  
     public static final String INTEGRAL_SEARCH_APPKEY = loader.getProperty(INTEGRAL_SEARCH_APPKEY_KEY);  
@@ -149,6 +154,15 @@ public final class Constants {
     /**用户名称查看长虹用户信息**/
     private static final String CH_USERNAME_URL_KEY = "ch.username.url";  
     public static final String CH_USERNAME_URL = loader.getProperty(CH_USERNAME_URL_KEY); 
+    
+    /**http代理URL**/
+    private static final String HTTP_PROXY_URL_KEY = "http.proxy.url";  
+    public static final String HTTP_PROXY_URL = loader.getProperty(HTTP_PROXY_URL_KEY); 
+    /**http代理端口**/
+    private static final String HTTP_PROXY_PORT_KEY = "http.proxy.port";  
+    public static final String HTTP_PROXY_PORT = loader.getProperty(HTTP_PROXY_PORT_KEY); 
+    
+    
     
    
 }

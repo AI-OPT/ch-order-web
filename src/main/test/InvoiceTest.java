@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.InvoicePrintInfo;
-import com.ai.ch.order.web.utils.WcfUtils;
+import com.ai.ch.order.web.utils.InvoiceUtils;
 import com.alibaba.fastjson.JSONObject;
 
 
@@ -62,13 +62,12 @@ public class InvoiceTest {
 		body.setRemark("打印发票请求");//备注
 		
 
-		// 服务地址
-		HttpPost httpPost = new HttpPost(Constants.INVOICE_PRINT_URL);
-		CloseableHttpClient client = HttpClients.createDefault();
+		
 		//获取授权ID
-		body.setId(WcfUtils.getID(httpPost, client));//设置授权ID
+		body.setId(InvoiceUtils.getID());//设置授权ID
 		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
-		String retVal = WcfUtils.postWcf(httpPost, client, invoicePrintJson.toJSONString());
+		String retVal = InvoiceUtils.postBatchAdd(invoicePrintJson.toJSONString());
+		System.out.println(retVal);
 	}
 
 }

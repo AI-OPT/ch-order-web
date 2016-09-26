@@ -8,9 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -21,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.InvoicePrintInfo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
-import com.ai.ch.order.web.utils.WcfUtils;
+import com.ai.ch.order.web.utils.InvoiceUtils;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
@@ -99,16 +96,12 @@ public class InvoicePrintController {
 	}
 	
 	
-	
 	/**
 	 * 发票打印通知
 	 * @param request
 	 * @param body
 	 * @return
 	 * @author zhouxh
-	 * @ApiDocMethod
-	 * @ApiCode
-	 * @RestRelativeURL
 	 */
 	@RequestMapping("/invoicePrint")
 	@ResponseBody
@@ -150,13 +143,11 @@ public class InvoicePrintController {
 		body.setRemark("打印发票请求");//备注
 		
 
-		// 服务地址
-		HttpPost httpPost = new HttpPost(Constants.INVOICE_PRINT_URL);
-		CloseableHttpClient client = HttpClients.createDefault();
+		
 		//获取授权ID
-		body.setId(WcfUtils.getID(httpPost, client));//设置授权ID
+		body.setId(InvoiceUtils.getID(InvoiceUtils.TYPE_BATCH_ADD));//设置授权ID
 		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
-		String retVal = WcfUtils.postWcf(httpPost, client, invoicePrintJson.toJSONString());
+		String retVal = InvoiceUtils.postBatchAdd(invoicePrintJson.toJSONString());
 		return "发票打印通知成功";
 	}
 	/**
@@ -168,18 +159,18 @@ public class InvoicePrintController {
 	 */
 	@RequestMapping("/downloadInvoice")
 	@ResponseBody
-	public String downloadInvoice(HttpServletRequest request,InvoicePrintInfo body) {
-		HttpPost httpPost = new HttpPost(Constants.INVOICE_DOWNLOAD_URL);
-		CloseableHttpClient client = HttpClients.createDefault();
+	public String downloadInvoice(HttpServletRequest request,String invoiceCode,String invoiceNumber) {
+		StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_PRINT_URL+InvoiceUtils.GET_FILE);
 		//获取授权ID
-		JSONObject invoiceInfo = new JSONObject();
-		invoiceInfo.put("id", WcfUtils.getID(httpPost, client));//设置授权ID
-		invoiceInfo.put("invoiceCode", "051201600121");//发票代码
-		invoiceInfo.put("invoiceNumber", "11450001");//发票号码
-		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
-		//返回结果为 pdf文件流
-		String retVal = WcfUtils.postWcf(httpPost, client, invoicePrintJson.toJSONString());
-		return "下载电子发票下载成功";
+		String id=InvoiceUtils.getID(InvoiceUtils.TYPE_GetFile);
+		getfileURL.append("?id="+id);
+	    invoiceCode ="051201600121";
+	    getfileURL.append("&invoiceCode="+invoiceCode);
+	    invoiceNumber="11450001";
+	    getfileURL.append("&invoiceNumber="+invoiceNumber);
+		//返回下载电子发票的URL地址
+//	    return getfileURL;
+		return "http://bill.dchfcloud.com/BILL/PubicInterFace/GetFileByAuthInfo/?id=26B21B24-1A99-4E2D-8ABE-3486D5EC1ECC&invoiceNumber=11450001&invoiceCode=051201600121";
 	}
 
 	
