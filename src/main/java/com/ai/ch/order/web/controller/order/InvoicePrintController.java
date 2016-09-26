@@ -83,7 +83,8 @@ public class InvoicePrintController {
 			}else {
 				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
 			}
-		} catch (Exception e) {			responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "打印出错,出现未知异常");
+		} catch (Exception e) {			
+			responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "打印出错,出现未知异常");
 			LOG.error("打印信息出错",e);
 		}
 		return responseData;
