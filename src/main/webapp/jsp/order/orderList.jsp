@@ -72,7 +72,7 @@
                                 </div>
                                 <!--分页-->
 								 <div>
-					 				 <nav style="text-align: right">
+					 				 <nav style="text-align: center">
 										<ul id="pagination">
 										</ul>
 									</nav>
@@ -103,14 +103,14 @@
         	 		<table class="table table-hover table-border" width="100%">
         				<tbody>
         					<tr>
-									<td style="width:20%" title="{{:orderId}}">{{:~subStr(3,orderId)}}</td>
+									<td style="width:20%" title="{{:orderId}}">{{:~subStr(5,orderId)}}</td>
 									<td>
 										<table class="table table-hover table-border" width="100%">
         								<tbody>
 											{{if productList!=null}}
 												{{for productList}}	  
 													<tr >
-        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(6,prodName)}}</td>	
+        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
 														<td style="width:20%">
 															<table class="table table-hover table-border" width="100%">
         														<tbody>
