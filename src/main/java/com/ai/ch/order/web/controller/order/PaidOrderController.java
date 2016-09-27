@@ -25,6 +25,7 @@ import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
 import com.ai.opt.base.vo.BaseResponse;
@@ -248,8 +249,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-//									ordProductVo.getProductImage().getPicType()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -380,8 +381,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-//									ordProductVo.getProductImage().getPicType()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -495,21 +496,28 @@ public class PaidOrderController {
 	 */
 	@RequestMapping("/refund")
 	@ResponseBody
-	public ResponseData<String> refund(HttpServletRequest request,String info,Long updateMoney, String orderId,String accountId, String openId, String appId,String oid,String bisId,String backCash) {
-		//TODO
+	public ResponseData<String> refund(HttpServletRequest request,String updateInfo,String updateMoney, String orderId,String accountId, String openId, String appId,String downOrdId,String bisId,String backCash,
+			String zs,String xf,String banlanceIfId,String parentOrderId
+			) {
+		ResponseData<String> responseData = null;
 		// 查询用户积分 判断是否允许退货
 		int giveCash=0;//
 		int cash = integralCashQry(accountId, openId, appId);
 		if(cash>=giveCash){//当前用户积分余额大于商品赠送积分
 			//用户消费积分撤销
-			shopback(accountId, openId, appId, oid, bisId, backCash);
+			shopback(accountId, openId, appId, downOrdId, bisId, backCash);
 			//退款
-			agrreedRefund( request, orderId, info, "",oid);
+			ResponseData<String> resposne =	agrreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
+			if(resposne.getStatusCode().equals("1")){
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退款成功", null);
+			}else{
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+			}
 			//更改订单状态
-			updateOrderState(request, orderId, info, updateMoney);
+			//updateOrderState(request, orderId, info, updateMoney);
 		}
 		
-		return null;
+		return responseData;
 		
 	}
 	/**
@@ -669,30 +677,29 @@ public class PaidOrderController {
 			return true;
 		}	
 		//同意退款
-		public ResponseData<String> agrreedRefund(HttpServletRequest request, String orderId,String info,String parentOrderId,String money) {
+		public ResponseData<String> agrreedRefund(HttpServletRequest request, String orderId,String updateInfo,String parentOrderId,String money,String banlanceIfId) {
 			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			ResponseData<String> responseData = null;
 			OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
 			try {
+				//将元转换为分
+				String updateMoney = AmountUtil.YToSFen(money);
 				GrpHdr hdr = new GrpHdr();
 				hdr.setMerNo("CO20160900000009");
 				hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 				hdr.setTranType(TranType.REFUND_APPLY.getValue());
-				
 				GrpBody body = new GrpBody();
-				body.setPayTranSn("T20160922100005328");
-				body.setMerSeqId("M004");
-				body.setRefundAmt("10");
-				body.setMerRefundSn("M003");
+				body.setPayTranSn(banlanceIfId);
+				body.setMerSeqId(parentOrderId);
+				body.setRefundAmt(updateMoney);
+				body.setMerRefundSn(orderId);
 				body.setSonMerNo("CO20160900000010");
-				body.setRefundDate("20120908");
-				body.setNotifyUrl("http://www.baidu.com");
-				body.setResv("test");
-				
+				body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+				body.setNotifyUrl("http://124.207.3.100:8083/slp-order/refundnotice/notice");
+				body.setResv(updateInfo);
 				ReqsInfo reqInfo = new ReqsInfo();
 				reqInfo.setGrpHdr(hdr);
 				reqInfo.setGrpBody(body);
-				
 				BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 					RespInfo rp = (RespInfo) handler.process(requestUrl, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
 					if(!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())){

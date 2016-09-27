@@ -8,6 +8,9 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>查询列表</title>
 <%@include file="/inc/inc.jsp" %>
+<input type="hidden" value="${order.downstreamOrderId}" value="downOrdId">
+<input type="hidden" value="${order.accountId}" value="accountId">
+
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->
@@ -38,6 +41,22 @@
 					                    <p>${order.routeName}</p>
 					                </li>  
 					            </ul>
+					            <ul>
+					                <li  class="col-md-6">
+					                    <p class="word">父订单号：</p>
+					                    <p id="parentId">${order.parentOrderId}</p>
+					                </li>
+					                <li  class="col-md-6">
+					                    <p class="word">子订单号：</p>
+					                    <p id="orderId">${order.orderId}</p>
+					                </li>  
+					            </ul>
+					            <ul>
+					            	<li  class="col-md-6">
+					                    <p class="word">支付流水号：</p>
+					                    <p id="balanceId">${order.balacneIfId}</p>
+					                </li>  
+					            </ul>
 					  	</div>
 					  	 	<!--table表格-->
                                 <div class="table-responsive">
@@ -54,26 +73,6 @@
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
-                                    	 <tr class="bj-f3">
-							                <td class="tl" colspan="7">
-							                	<div>
-							                		<p>
-							                			<span>父订单号:</span>
-							                			<span id="parentId">${order.parentOrderId}</span>
-							                		</p>
-							                	</div>
-							                	<div>
-							                		<p>
-							                			<span>子（商家平台）订单号:</span>
-							                			<span id="orderId">${order.orderId}</span>
-							                		</p>
-							                		<p>
-							                			<span>支付流水号:</span>
-							                			<span id="balanceId">${order.balacneIfId}</span>
-							                		</p>	
-							                	</div>
-							                </td>
-						              </tr>
 						                <c:forEach items="${order.prodList}" var="sp">
 								          <tr>
 								                 <td class="sp"  width="45%">
