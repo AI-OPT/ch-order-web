@@ -10,7 +10,7 @@
 <%@include file="/inc/inc.jsp" %>
 <input type="hidden" value="${order.downstreamOrderId}" value="downOrdId">
 <input type="hidden" value="${order.accountId}" value="accountId">
-
+<input type="hidden" value="${order.userId}" value="userId">
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->
