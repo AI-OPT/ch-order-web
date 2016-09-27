@@ -88,9 +88,15 @@ public class StasticOrderController {
 			req.setOrderTimeEnd(ts);
 	    }
         if(!StringUtil.isBlank(reqVo.getOrdParenOrderId())){
-        	 Long Id = Long.parseLong(reqVo.getOrdParenOrderId());
-        	 req.setOrderId(Id);
-        }
+        	 boolean isNum = reqVo.getOrdParenOrderId().matches("[0-9]+");
+        	 if(isNum) {
+        		 req.setOrderId(Long.parseLong(reqVo.getOrdParenOrderId()));
+ 			}else {
+ 				req.setOrderId(0l);
+ 			}
+		}else {
+			req.setOrderId(null);
+		}
         req.setTenantId(user.getTenantId());
         req.setState(reqVo.getState());
         req.setProdName(reqVo.getProdName());
