@@ -6,11 +6,11 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>查询列表</title>
+<title>审核详情</title>
 <%@include file="/inc/inc.jsp" %>
 <input type="hidden" value="${order.downstreamOrderId}" id="downOrdId">
 <input type="hidden" value="${order.accountId}" id="accountId">
-<input type="hidden" value="${order.userId}" id="userId">
+<input type="hidden" value="${order.operId}" id="operId">
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->
