@@ -169,7 +169,7 @@
 											{{if proList!=null}}
 												{{for proList}}	  
 													<tr>
-        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
+        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(6,prodName)}}</td>	
 														<td style="width:20%">
 															<table class="table table-hover table-border" width="100%">
         														<tbody>
