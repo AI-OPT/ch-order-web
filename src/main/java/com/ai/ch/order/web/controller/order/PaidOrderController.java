@@ -695,7 +695,7 @@ public class PaidOrderController {
 				body.setMerRefundSn(orderId);
 				body.setSonMerNo("CO20160900000010");
 				body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-				body.setNotifyUrl("http://www.baidu.com");
+				body.setNotifyUrl("http://124.207.3.100:8083/slp-order/refundnotice/notice");
 				body.setResv(updateInfo);
 				ReqsInfo reqInfo = new ReqsInfo();
 				reqInfo.setGrpHdr(hdr);
