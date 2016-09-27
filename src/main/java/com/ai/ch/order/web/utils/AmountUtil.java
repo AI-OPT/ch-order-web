@@ -56,4 +56,17 @@ public class AmountUtil {
         return balance.longValue();
     }
     
+    /** 
+     * 将元为单位的转换为分 （乘1000）  
+     * 
+     */
+    public static String YToSFen(String amount){
+    	if(StringUtil.isBlank(amount)){
+    		return "0.00";
+    	}
+    	 BigDecimal money=new BigDecimal(amount);
+    	 BigDecimal balance = money.multiply(new BigDecimal(100L));
+         return new DecimalFormat(",###,##0.00").format(balance);
+    }
+    
 }

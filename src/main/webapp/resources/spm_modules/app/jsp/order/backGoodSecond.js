@@ -148,10 +148,13 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
  			var parentId = $("#parentId").text();
  			var orderId = $("#orderId").text();
  			var banlanceIfId = $("#balanceId").text();
+ 			alert(banlanceIfId);
  			var money = $("#updateMoneyData").val();
  			var info = $("#updateMoneyInfo").val();
  			var xf = $("#saleJF").val();
  			var zs = $("#giveJF").val();
+ 			var downOrdId = $("#downOrdId").val();
+ 			var accountId = $("#accountId").val();
 	   		//退款
  		    ajaxController.ajax({
     	    	type: "post",
@@ -159,15 +162,25 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":orderId,"moneny":money,"parentOrderId":parentId,"updateInfo":info,"giveJF":zs,"saleJF":xf},
+				data:{"orderId":orderId,"updateMoney":money,"parentOrderId":parentId,"updateInfo":info,"giveJF":zs,"saleJF":xf,
+					"accountId":accountId,"downOrdId":downOrdId,"banlanceIfId":banlanceIfId
+				},
     	        success: function (data) {
     	        	if(data){
-    	        		alert(data);
-    	        	}else{
-    	        		alert("faild");
-    	        	}
+     	        		window.location.href=_base+"/toPaidOrder";
+     	        	}else{
+     	        		var d = Dialog({
+							title: '消息',
+							content:"退款失败",
+							icon:'prompt',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+     	        	}
     	        },
-                
     	    });
     	}
     		
