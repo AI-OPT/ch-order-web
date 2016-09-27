@@ -150,8 +150,8 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
  			var banlanceIfId = $("#balanceId").text();
  			var money = $("#updateMoneyData").val();
  			var info = $("#updateMoneyInfo").val();
- 			var xf = $("#saleJF").val();
- 			var zs = $("#giveJF").val();
+ 			var xf = $("#saleJF").text();
+ 			var zs = $("#giveJF").text();
  			var downOrdId = $("#downOrdId").val();
  			var accountId = $("#accountId").val();
  			var userId = $("#userId").val();
