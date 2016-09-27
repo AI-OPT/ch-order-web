@@ -90,6 +90,26 @@ public final class Constants {
              * 94 退款完成
              */
             public static final String REFUND_COMPLETE="94";
+            /**
+             * 待审核
+             */
+            public static final String WAIT_CHECK="21";
+            /**
+             * 待买家退货
+             */
+            public static final String WAIT_BACK="22";
+            /**
+             * 待卖家收货确认
+             */
+            public static final String WAIT_GET_GOODS="23";
+            /**
+             * 待退费
+             */
+            public static final String WAIT_BACK_FEE="31";
+            /**
+             * 审核失败
+             */
+            public static final String NO_CHECK="212";
 
         }
 		

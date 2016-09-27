@@ -60,7 +60,6 @@
 								            	<p class="word">按订单状态</p>
 							            		<p>
 								            		<select class="select select-small" id="state">
-								            			<option value="">请选择</option>
 								            			<option value="11">待付款</option>
 								            			<option value="111">已付款</option>
 								            			<option value="90">已完成</option>
@@ -187,7 +186,7 @@
         								</table>	
 									</td>
 									<td style="width:10%">{{:stateName}}</td>
-									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}','{{:parentOrderId}}')">查看详情</a></td>
+									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}','{{:parentOrderId}}','{{:busiCode}}')">查看详情</a></td>
         					</tr>
         				</tbody>	
         			</table>
@@ -201,7 +200,6 @@
 		$('#dateDiv').delegate('.fa-calendar','click',function(){
 			var calInput = $(this).parent().prev();
 			var timeId = calInput.attr('id');
-			console.log("click calendar "+timeId);
 			WdatePicker({el:timeId,readOnly:true});
 		});
 		
