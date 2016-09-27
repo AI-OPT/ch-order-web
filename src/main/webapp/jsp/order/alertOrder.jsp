@@ -105,10 +105,10 @@
 			<div class="center-hind" >{{:userName}}</div>
         	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userName}}</div>
 		</td>
-        <td></td>
+        <td>{{:userTel}}</td>
         <td>{{:ifWarning}}</td>
 		<td>{{:warningType}}</td>
-        <td>{{:userTel}}</td>
+        <td>{{:contactTel}}</td>
         <td>{{:deliveryFlag}}</td>
 		<td>{{:~timestampToDate('yyyy-MM-dd hh:mm:ss', orderTime)}}</td>
         <td>
