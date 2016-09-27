@@ -104,6 +104,10 @@ public class OrderListController {
 			}else{
 				queryRequest.setOrderTimeEnd(null);
 			}
+			String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
+		    String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
+		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
+		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
 			String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
 			queryRequest.setUserId(userId);
