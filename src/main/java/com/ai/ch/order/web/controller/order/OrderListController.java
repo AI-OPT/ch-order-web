@@ -279,18 +279,22 @@ public class OrderListController {
 	        String reqResultCode=json.getString("resultCode");
 	        if("000000".equals(reqResultCode)){
 	        	JSONObject data=JSON.parseObject(json.getString("data"));
-				String dataStr =data.getString("messages");
-				JSONArray messages = JSONArray.parseArray(dataStr);
-				Iterator<Object> it = messages.iterator();
-				List<LogisticsDetail> logisticsDetails = new ArrayList<LogisticsDetail>();
-				while (it.hasNext()) {
-					LogisticsDetail detail = new LogisticsDetail();
-					JSONObject ob = (JSONObject) it.next();
-					detail.setTime(ob.getString("time"));
-					detail.setContext(ob.getString("context"));
-					logisticsDetails.add(detail);
-				}
-				return logisticsDetails;
+	        	JSONObject responseHeader=JSON.parseObject(data.getString("responseHeader"));
+	        	String success = responseHeader.getString("success");
+	        	if("true".equals(success)){
+					String dataStr =data.getString("messages");
+					JSONArray messages = JSONArray.parseArray(dataStr);
+					Iterator<Object> it = messages.iterator();
+					List<LogisticsDetail> logisticsDetails = new ArrayList<LogisticsDetail>();
+					while (it.hasNext()) {
+						LogisticsDetail detail = new LogisticsDetail();
+						JSONObject ob = (JSONObject) it.next();
+						detail.setTime(ob.getString("time"));
+						detail.setContext(ob.getString("context"));
+						logisticsDetails.add(detail);
+					}
+					return logisticsDetails;
+	        	}
 			} else {
 				// 请求过程失败
 				logger.error("物流信息请求失败,请求错误码："+ reqResultCode);
