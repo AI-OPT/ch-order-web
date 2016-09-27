@@ -249,8 +249,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+//									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -381,8 +381,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+//									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -496,18 +496,28 @@ public class PaidOrderController {
 	 */
 	@RequestMapping("/refund")
 	@ResponseBody
-	public ResponseData<String> refund(HttpServletRequest request,String updateInfo,String updateMoney, String orderId,String accountId, String openId, String appId,String downOrdId,String bisId,String backCash,
-			String zs,String xf,String banlanceIfId,String parentOrderId
-			) {
+	public ResponseData<String> refund(HttpServletRequest request,String updateInfo,String updateMoney, String orderId,String accountId,
+		    String openId,String downOrdId,String giveJF,String saleJF,String banlanceIfId,String parentOrderId) {
 		ResponseData<String> responseData = null;
 		// 查询用户积分 判断是否允许退货
-		int giveCash=0;//
-		int cash = integralCashQry(accountId, openId, appId);
-		if(cash>=giveCash){//当前用户积分余额大于商品赠送积分
+		//TODO
+		String appId="30a10e21";
+		String bisId="bisId";
+		int surplusCash = integralCashQry(accountId, openId, appId);
+		int giveCash =0;
+		if(giveJF.isEmpty()){
+			try {
+				giveCash = Integer.parseInt(giveJF);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+			
+//		if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
 			//用户消费积分撤销
-			shopback(accountId, openId, appId, downOrdId, bisId, backCash);
+			shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
 			//退款
-			ResponseData<String> resposne =	agrreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
+			ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
 			if(resposne.getStatusCode().equals("1")){
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退款成功", null);
 			}else{
@@ -515,11 +525,12 @@ public class PaidOrderController {
 			}
 			//更改订单状态
 			//updateOrderState(request, orderId, info, updateMoney);
-		}
+//		}
 		
 		return responseData;
 		
 	}
+
 	/**
 	 * 查询用户积分
 	 * @param accountId
@@ -530,8 +541,8 @@ public class PaidOrderController {
 	private int integralCashQry(String accountId, String openId, String appId) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId", "jfat1.201609256101549914_0001");
-		params.put("openId", "2ecee85451c3460a");
-		params.put("appId", "30a10e21");
+		params.put("openId", openId);
+		params.put("appId", appId);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SEARCH_APPKEY);
 		String param = JSON.toJSONString(params);
@@ -677,7 +688,7 @@ public class PaidOrderController {
 			return true;
 		}	
 		//同意退款
-		public ResponseData<String> agrreedRefund(HttpServletRequest request, String orderId,String updateInfo,String parentOrderId,String money,String banlanceIfId) {
+		public ResponseData<String> agreedRefund(HttpServletRequest request, String orderId,String updateInfo,String parentOrderId,String money,String banlanceIfId) {
 			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			ResponseData<String> responseData = null;
 			OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
