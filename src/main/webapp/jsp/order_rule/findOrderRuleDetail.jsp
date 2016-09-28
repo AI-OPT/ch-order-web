@@ -57,8 +57,8 @@
 													<ul>
 														<li class="col-md-12">
 
-															<p class="word">监控时间为</p>
-															<p>
+															<p class="word" style="text-align: left;"></p>
+															<p>监控时间为
 																<span id="timeMonitorTime"></span>
 																<span id="timeMonitorTimeType" ></span> 内，订单量正常量为 <span id="timeMonitorOrderSum"></span>
 																单，超过正常量的进行监控预警
@@ -76,8 +76,8 @@
 													<ul>
 
 														<li class="col-md-12">
-															<p class="word">同一用户，在</p>
-															<p>
+															<p class="word" style="text-align: left;"></p>
+															<p>同一用户，在
 																<span id="buyEmployeeMonitorTime"></span> 
 																<span id="buyEmployeeMonitorTimeType"></span> 内， 购买订单超过 
 																<span id="buyEmployeeMonitorOrderSum"></span> 单，进行监控预警
@@ -94,8 +94,8 @@
 												<div class="panel-body">
 													<ul>
 														<li class="col-md-12">
-															<p class="word">同一IP ， 在</p>
-															<p>
+															<p class="word" style="text-align: left;"></p>
+															<p>同一IP ， 在
 																<span id="buyIpMonitorTime"></span> 
 																<span id="buyIpMonitorTimeType"></span> 内， 购买订单超过 
 																<span id="buyIpMonitorOrderSum"></span> 单，进行监控预警
@@ -112,8 +112,8 @@
 												<div class="panel-body">
 													<ul>
 														<li class="col-md-12">
-															<p class="word">同一用户购买的</p>
-															<p>
+															<p class="word" style="text-align: left;"></p>
+															<p>同一用户购买的
 																同一商品，在<span id="mergeOrderSettingTime"></span>
 																分钟内，默认合并为同一订单 
 															</p>

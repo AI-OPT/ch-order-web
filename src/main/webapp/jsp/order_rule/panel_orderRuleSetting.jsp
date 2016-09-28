@@ -57,9 +57,9 @@
 													<ul>
 														<li class="col-md-12">
 
-															<p class="word">监控时间为</p>
-															<p>
-																<input id="timeMonitorTime"
+															<p class="word" style="text-align: left;"></p>
+															<p>监控时间为
+																<input id="timeMonitorTime" style="width:100px;"
 																	name="command.timeMonitorTime"
 																	class="int-text int-medium " value="100" type="text" />
 																<select id="timeMonitorTimeType" name="command.timeMonitorTimeType"
@@ -84,9 +84,9 @@
 													<ul>
 
 														<li class="col-md-12">
-															<p class="word">同一用户，在</p>
-															<p>
-																<input id="buyEmployeeMonitorTime" name="command.buyEmployeeMonitorTime"
+															<p class="word" style="text-align: left;"></p>
+															<p>同一用户，在
+																<input id="buyEmployeeMonitorTime" style="width:100px;" name="command.buyEmployeeMonitorTime"
 																	class="int-text int-medium " type="text" /> <select
 																	id="buyEmployeeMonitorTimeType" name="command.buyEmployeeMonitorTimeType"
 																	class="int-text int-medium ">
@@ -109,9 +109,9 @@
 												<div class="panel-body">
 													<ul>
 														<li class="col-md-12">
-															<p class="word">同一IP ， 在</p>
-															<p>
-																<input id="buyIpMonitorTime" name="command.buyIpMonitorTime"
+															<p class="word" style="text-align: left;"></p>
+															<p>同一IP ， 在
+																<input id="buyIpMonitorTime" style="width:100px;" name="command.buyIpMonitorTime"
 																	class="int-text int-medium " type="text" /> <select
 																	id="buyIpMonitorTimeType" name="command.buyIpMonitorTimeType"
 																	class="int-text int-medium ">
@@ -133,8 +133,8 @@
 												<div class="panel-body">
 													<ul>
 														<li class="col-md-12">
-															<p class="word">同一用户购买的</p>
-															<p>
+															<p class="word" style="text-align: left;"></p>
+															<p>同一用户购买的
 																同一商品，在<input id="mergeOrderSettingTime" name="command.mergeOrderSettingTime"
 																	class="int-text int-medium " type="text" />
 																分钟内，默认合并为同一订单 <input id="mergeOrderSettingTimeType" type="hidden"
