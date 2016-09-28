@@ -50,6 +50,26 @@
 					                    <p>${orderDetail.routeName}</p>
 					                </li>  
 					            </ul>
+					             <ul>
+					                <li  class="col-md-6">
+					                    <p class="word">父订单号：</p>
+					                    <p>${orderDetail.parentOrderId}</p>
+					                </li>
+					                <li  class="col-md-6">
+					                    <p class="word">子订单号：</p>
+					                    <p>${orderDetail.orderId }</p>
+					                </li>  
+					            </ul>
+					            <ul>
+					                <li  class="col-md-6">
+					                    <p class="word">支付方式：</p>
+					                    <p>${orderDetail.payStyleName}</p>
+					                </li>
+					                <li  class="col-md-6">
+					                    <p class="word">支付流水号：</p>
+					                    <p>${orderDetail.balacneIfId }</p>
+					                </li>  
+					            </ul>
 					  	</div>
 	                <!--步骤结束-->
 					  	 	<!--table表格-->
@@ -57,7 +77,7 @@
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>
-                                            		<th>商品</th>
+                                            	<th>商品</th>
                                                 <th>单价/数量</th>
                                                 <th>售后</th>
                                                 <th>下单时间</th>
@@ -68,30 +88,6 @@
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
-                                    	 <tr class="bj-f3">
-							                <td class="tl" colspan="8">
-							                	<div>
-							                		<p>
-							                			<span>父订单号:</span>
-							                			<span>${orderDetail.parentOrderId}</span>
-							                		</p>
-							                		<p>
-							                			<span>——&nbsp;</span>
-							                			<span>${orderDetail.payStyleName}</span>
-							                		</p>
-							                	</div>
-							                	<div>
-							                		<p>
-							                			<span>子（商家平台）订单号:</span>
-							                			<span>${orderDetail.orderId }</span>
-							                		</p>
-							                		<p>
-							                			<span>支付流水号:</span>
-							                			<span>${orderDetail.balacneIfId }</span>
-							                		</p>	
-							                	</div>
-							                </td>
-						              </tr>
 						               <c:forEach var="prod" items="${orderDetail.prodList}">
 							          <tr>
 							                 <td class="sp"  width="45%">

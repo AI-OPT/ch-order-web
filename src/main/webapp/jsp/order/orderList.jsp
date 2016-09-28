@@ -111,7 +111,7 @@
 								{{if productList!=null}}
 									{{for productList}}	 
                                 <tr>
-									<td  class="new-td" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
+									<td  class="new-td " title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
                                  </tr>
 									{{/for}}
 								{{/if}}

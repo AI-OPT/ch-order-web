@@ -38,6 +38,12 @@
 					                    <p>${orderDetail.chlId}</p>
 					                </li>
 					            </ul>  
+					               <ul>
+					                <li  class="col-md-6">
+					                    <p class="word">父订单号：</p>
+					                    <p>${orderDetail.orderId}</p>
+					                </li>
+					            </ul> 
 					  	</div>
 					  	 <!--table表格-->
                                 <div class="table-responsive">
@@ -51,20 +57,6 @@
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
-                                    	 <tr class="bj-f3">
-							                <td class="tl" colspan="7">
-							                	<div>
-							                		<p>
-							                			<span>父订单号:</span>
-							                			<span>${orderDetail.parentOrderId}</span>
-							                		</p>
-							                		<p>
-							                			<span>子订单号:</span>
-							                			<span>${orderDetail.orderId}</span>
-							                		</p>
-							                	</div>
-							                </td>
-						              </tr>
 						               <c:forEach items="${orderDetail.prodList}" var="sp">
 								          <tr>
 								                 <td class="sp"  width="45%">

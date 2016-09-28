@@ -44,7 +44,7 @@
 					                    <p>${orderDetail.parentOrderId}</p>
 					                </li>
 					                <li  class="col-md-6">
-					                    <p class="word">子（商家平台）订单号：</p>
+					                    <p class="word">子订单号：</p>
 					                    <p>${orderDetail.orderId }</p>
 					                </li>  
 					            </ul>
@@ -99,7 +99,7 @@
                                
                                 </div>
                             <!--/table表格结束-->
-                            <div class="text-r right">>
+                            <div class="text-r right">
                             	<ul class="mt-20">
                             		<li>
                             			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
