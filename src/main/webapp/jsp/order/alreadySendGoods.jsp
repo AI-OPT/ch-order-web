@@ -251,22 +251,22 @@
                             		</li>
                             	</ul>
                             </div>
-                            	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">买家信息</h5>
-                        		</header>
+                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+				                  <ul>
+				                    <li>买家信息</li>
+				                  </ul>
+				       		</div>
                             <div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
 					                    <p>${orderDetail.userId}</p>
 					                </li>
-					            </ul>  
-					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>
 					                    <p>${orderDetail.contactName}</p>
 					                </li>
-					            </ul>
+					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
@@ -277,7 +277,7 @@
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
 					                    <p>${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address },${orderDetail.contactName},${orderDetail.contactTel}</p>
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
@@ -287,18 +287,17 @@
 					                </li>
 					            </ul>
 					  	</div>
-					  	<br/><br/><br/>
-					  	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">发票信息</h5>
-                        		</header>
+					  	<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                  <ul>
+		                    <li>发票信息</li>
+		                  </ul>
+				       	</div>
 					  	  <div class="form-label text">
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类型：</p>
 					                    <p>${orderDetail.invoiceTypeName }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
 					                    <p>${orderDetail.invoiceContent }</p>
@@ -311,29 +310,22 @@
 					                </li>
 					            </ul>
 					  	</div>
-					  	
-					  	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">物流信息</h5>
-                        		</header>
+					  	<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                  <ul>
+		                    <li>物流信息</li>
+		                  </ul>
+				       	</div>
                         		 <div class="form-label text">
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">快递公司：</p>
 					                    <p>${orderDetail.expressId }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">快递单号：</p>
 					                    <p>${orderDetail.expressOddNumber }</p>
 					                </li>
 					            </ul>  
-					            <ul>
-					                <li  class="col-md-6">
-					                    <p class="word">发票抬头：</p>
-					                    <p>${orderDetail.invoiceTitle }</p>
-					                </li>
-					            </ul>
 					  	</div>
      <br/>
      <div class="table-responsive clearfix">

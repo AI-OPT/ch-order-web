@@ -161,12 +161,13 @@
 							&times;
 						</button>
 					</div>
+					<form id="validateForm" method="post">
 					<div class="modal-body">
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
 							${prod.prodName}
 						</h4><br/>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></p>
-					</div>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></form></p>
+					</div><p id="errorMessage"></p>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
 						onclick="pager._backOrder('${prod.prodDetalId}')">
@@ -254,22 +255,22 @@
                             		</li>
                             	</ul>
                             </div>
-                            	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">买家信息</h5>
-                        		</header>
+                             <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+				                  <ul>
+				                    <li>买家信息</li>
+				                  </ul>
+				       		</div>
                             <div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
 					                    <p>${orderDetail.userId}</p>
 					                </li>
-					            </ul>  
-					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>
 					                    <p>${orderDetail.contactName}</p>
 					                </li>
-					            </ul>
+					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
@@ -280,7 +281,7 @@
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
 					                    <p>${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address },${orderDetail.contactName},${orderDetail.contactTel}</p>
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
@@ -290,18 +291,17 @@
 					                </li>
 					            </ul>
 					  	</div>
-					  	<br/><br/><br/>
-					  	<header class="main-box-header clearfix">
-                            <h5 class="pull-left">发票信息</h5>
-                        		</header>
-					  	  <div class="form-label text">
+					  	<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                  <ul>
+		                    <li>发票信息</li>
+		                  </ul>
+				       	</div>
+					  	  <div class="form-label">
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类型：</p>
 					                    <p>${orderDetail.invoiceType }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
 					                    <p>${orderDetail.invoiceType }</p>
