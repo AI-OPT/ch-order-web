@@ -1,6 +1,5 @@
 package com.ai.ch.order.web.controller.order;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -101,13 +100,11 @@ public class StasticOrderController {
         String endT = reqVo.getEndTime();
         if(!StringUtil.isBlank(startT)){
         	startT = startT + " 00:00:00";
-			Timestamp ts  = Timestamp.valueOf(startT);
-			req.setOrderTimeStart(ts);
+			req.setOrderTimeStart(startT);
 	    }
 	    if(!StringUtil.isBlank(endT)){
 	    	endT = endT + " 23:59:59";
-			Timestamp ts  = Timestamp.valueOf(endT);
-			req.setOrderTimeEnd(ts);
+			req.setOrderTimeEnd(endT);
 	    }
         if(!StringUtil.isBlank(reqVo.getOrdParenOrderId())){
         	 boolean isNum = reqVo.getOrdParenOrderId().matches("[0-9]+");
