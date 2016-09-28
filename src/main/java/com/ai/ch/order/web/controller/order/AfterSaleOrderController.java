@@ -52,7 +52,7 @@ public class AfterSaleOrderController {
 			if(response.getResponseHeader().isSuccess()) {
 				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退货成功", null);
 			}else {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退货出错", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退货失败", null);
 			}
 		} catch (Exception e) {
 			LOG.info(e.getMessage());
