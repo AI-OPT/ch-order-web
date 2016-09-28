@@ -513,7 +513,7 @@ public class PaidOrderController {
 			}
 		}
 			
-//		if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
+		if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
 			//用户消费积分撤销
 			shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
 			//退款
@@ -525,7 +525,7 @@ public class PaidOrderController {
 			}
 			//更改订单状态
 			//updateOrderState(request, orderId, info, updateMoney);
-//		}
+		}
 		
 		return responseData;
 		
@@ -540,7 +540,7 @@ public class PaidOrderController {
 	 */
 	private int integralCashQry(String accountId, String openId, String appId) {
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountId", "jfat1.201609256101549914_0001");
+		params.put("accountId",accountId);
 		params.put("openId", openId);
 		params.put("appId", appId);
 		Map<String, String> headers = new HashMap<String, String>();
@@ -581,12 +581,12 @@ public class PaidOrderController {
 	 */
 	private ResponseData<String> shopback(String accountId, String openId, String appId,String oid,String bisId,String backCash){
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountId", "jfat1.201609256101549914_0001");
-		params.put("openId", "2ecee85451c3460a");
-		params.put("appId", "30a10e21");
-		params.put("oid", "Gersho201607203111006283_0006");
-		params.put("bisId", "bisId");
-		params.put("backCash", "200");
+		params.put("accountId", accountId);
+		params.put("openId", openId);
+		params.put("appId", appId);
+		params.put("oid", oid);
+		params.put("bisId", bisId);
+		params.put("backCash", backCash);
 
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
