@@ -101,10 +101,7 @@
 <tr>
     	<td>{{:chlId}}</td>
         <td>{{:orderId}}</td>
-		<td class="hind1">
-			<div class="center-hind" >{{:userName}}</div>
-        	<div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:userName}}</div>
-		</td>
+		<td>{{:userName}}</td>
         <td>{{:userTel}}</td>
         <td>{{:ifWarning}}</td>
 		<td>{{:warningType}}</td>
@@ -117,10 +114,7 @@
 					{{if prodInfo!=null}}
 						{{for prodInfo}}
         					<tr>
-								<td class="hind1 new-td">
-									<div class="center-hind" >{{:prodName}}</div>
-                                    <div class="showbj"><i class="fa fa-posi fa-caret-up"></i>{{:prodName}}</div>
-								</td>
+								<td  class="new-td" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>
         					</tr>
 						{{/for}}
 					{{/if}}

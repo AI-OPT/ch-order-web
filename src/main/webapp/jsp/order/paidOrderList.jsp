@@ -181,7 +181,7 @@
 											{{if productList!=null}}
 												{{for productList}}	  
 													<tr>
-        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(2,prodName)}}</td>	
+        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
 														<td style="width:20%">
 															<table class="table table-hover table-border" width="100%">
         														<tbody>

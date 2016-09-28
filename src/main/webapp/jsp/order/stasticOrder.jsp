@@ -60,6 +60,7 @@
 								            	<p class="word">按订单状态</p>
 							            		<p>
 								            		<select class="select select-small" id="state">
+								            			<option value="">请选择</option>
 								            			<option value="11">待付款</option>
 								            			<option value="111">已付款</option>
 								            			<option value="90">已完成</option>
@@ -162,14 +163,14 @@
         	 				<table class="table table-hover table-border" width="100%">
         						<tbody>
         						<tr>
-									<td style="width:20%" title="{{:orderId}}">{{:~subStr(2,orderId)}}</td>
+									<td style="width:20%" title="{{:orderId}}">{{:~subStr(5,orderId)}}</td>
 									<td>
 										<table class="table table-hover table-border" width="100%">
         								<tbody>
 											{{if proList!=null}}
 												{{for proList}}	  
 													<tr>
-        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(6,prodName)}}</td>	
+        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
 														<td style="width:20%">
 															<table class="table table-hover table-border" width="100%">
         														<tbody>
