@@ -124,19 +124,11 @@
                                                 <th>绑定手机号</th>
                                                 <th>收货人手机号</th>
                                                 <th>是否需要物流</th>
-                                                <th>
-                                                	<table class="table table-hover table-border table-bordered">
-	                                            		 <thead>
-	                                            			<tr>
-	                                            				<th style="width:20%">子订单号</th>
-	                                            				<th style="width:40%">商品信息</th>
-	                                            				<th style="width:20%">数量</th>
-                                                				<th style="width:10%">订单状态</th>
-                                               					<th style="width:10%">详情</th>
-	                                            			</tr>
-	                                            		</thead>
-	                                            	</table>
-                                                </th>
+                                                <th>子订单号</th>
+	                                            <th>商品信息</th>
+			                                    <th>数量</th>
+	                                            <th>订单状态</th>
+		                                        <th>详情</th>
                                             </tr>
                                         </thead>
 	                                     <tbody id="paidData"></tbody>
@@ -161,57 +153,42 @@
     	</div>
    </div>
    	<script id="paidTemple" type="text/template">
-				<tr>
-		   				<td>{{:chlId}}</td>
-		   				<td>{{:pOrderId}}</td>
-						<td>{{:userName}}</td>
-						<td>{{:userTel}}</td>
-		   				<td>{{:contactTel}}</td>
-						<td>{{:deliveryFlagName}}</td>
- 				<td>
 					{{if orderList!=null}}
-						{{for orderList}}  
-        	 				<table class="table table-hover table-border" width="100%">
-        						<tbody>
+						{{for orderList ~orderData = #data}}  
+							<!-- 商品 -->
+								{{for productList ~parentProdSize=prodSize ~cOrderId=orderId 
+									~busiCode=busiCode ~state=state ~stateName=stateName
+									~parentInd = #index ~parentOrder =~orderData }}	
         						<tr>
-									<td style="width:20%" title="{{:orderId}}">{{:~subStr(2,orderId)}}</td>
-									<td>
-										<table class="table table-hover table-border" width="100%">
-        								<tbody>
-											{{if productList!=null}}
-												{{for productList}}	  
-													<tr>
-        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
-														<td style="width:20%">
-															<table class="table table-hover table-border" width="100%">
-        														<tbody>
-																	<tr>
-																		<td>{{:buySum}}</td>
-        															</tr>
-																</tbody>
-        													</table>
-														</td>
-        											</tr>
-												{{/for}}
-											{{/if}}
-										</tbody>
-        								</table>	
-									</td>
-									<td style="width:10%">{{:stateName}}</td>
-									{{if busiCode=='2' &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')}}
-										<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(换货)</a></td>
-									{{else  busiCode=='3' &&(state=='21' || state=='212' ||state=='22' ||state=='23' || state=='31')}}
-										<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情(退货)</a></td>
+								{{if ~parentInd == 0}}
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.chlId}}</td>
+		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.pOrderId}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userName}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userTel}}</td>
+		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.contactTel}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.deliveryFlagName}}</td>
+								{{/if}}
+								{{if #index ==0 }}
+									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
+								{{/if}}
+									<td title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
+									<td >{{:buySum}}</td>
+								{{if #index ==0 }}
+									<td  rowspan="{{:~parentProdSize}}">{{:~stateName}}</td>
+									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">
+									{{if ~busiCode=='2' &&(~state=='21' || ~state=='212' ||~state=='22' ||~state=='23' || ~state=='31')}}
+										查看详情(换货)
+									{{else  ~busiCode=='3' &&(~state=='21' || ~state=='212' ||~state=='22' ||~state=='23' || ~state=='31')}}
+										查看详情(退货)
 									{{else}}
-										<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">查看详情</a></td>
+										查看详情
 									{{/if}}
+									</a></td>
+								{{/if}}
         					</tr>
-        				</tbody>	
-        			</table>
+        			{{/for}}
 				{{/for}}
 			{{/if}}	
-        </td>						
-	</tr>
   </script> 
    <script type="text/javascript">
    <%-- 展示日历 --%>
