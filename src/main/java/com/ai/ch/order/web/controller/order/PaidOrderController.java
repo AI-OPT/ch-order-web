@@ -381,8 +381,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-//									ordProductVo.getProductImage().getPicType()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -519,14 +519,17 @@ public class PaidOrderController {
 			//退款
 			ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
 			if(resposne.getStatusCode().equals("1")){
+				//修改退款金额
+				boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
+				if(!flag){
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+					return responseData;
+				}
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退款成功", null);
 			}else{
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
 			}
-			//更改订单状态
-			//updateOrderState(request, orderId, info, updateMoney);
 		}
-		
 		return responseData;
 		
 	}
@@ -647,7 +650,7 @@ public class PaidOrderController {
 		}		
 		
 		/**
-		 * 退款状态修改
+		 * 退款金额修改
 		 * @param request
 		 * @param orderId
 		 * @param info
@@ -655,9 +658,8 @@ public class PaidOrderController {
 		 * @return
 		 * @author zhouxh
 		 */
-		private boolean updateOrderState(HttpServletRequest request, String orderId,String info,Long updateMoney) {
+		private boolean updateOrderMoney(HttpServletRequest request, String orderId,String info,String updateMoney) {
 			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-			ResponseData<String> responseData = null;
 			OrderRefundRequest query = new OrderRefundRequest();
 			try {
 				IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
@@ -665,7 +667,9 @@ public class PaidOrderController {
 				query.setOrderId(Id);
 				query.setTenantId(user.getTenantId());
 				query.setUpdateReason(info);
-				query.setUpdateMoney(updateMoney);
+				//转换金额单位
+				Long money = AmountUtil.YToLi(updateMoney);
+				query.setUpdateMoney(money);
 				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
 				userReq.setTenantId(user.getTenantId());
@@ -689,9 +693,7 @@ public class PaidOrderController {
 		}	
 		//同意退款
 		public ResponseData<String> agreedRefund(HttpServletRequest request, String orderId,String updateInfo,String parentOrderId,String money,String banlanceIfId) {
-			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			ResponseData<String> responseData = null;
-			OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
 			try {
 				//将元转换为分
 				String updateMoney = AmountUtil.YToSFen(money);
