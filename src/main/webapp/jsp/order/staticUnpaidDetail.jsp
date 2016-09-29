@@ -21,17 +21,17 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p>${orderDetail.chlId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p>${orderDetail.orderTypeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
 					                </li>  
 					            </ul> 
 					            <ul>
 					            	<li  class="col-md-6">
 					                    <p class="word">父订单号：</p>
-					                    <p>${orderDetail.orderId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId}</p>
 					                </li>
 					            
 					            </ul> 
@@ -96,28 +96,28 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p>${orderDetail.userName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
-					                    <p>${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
 					            
 					            	<li  class="col-md-6">
 					                    <p class="word">配送方式：</p>
-					                    <p>${orderDetail.logisticsType}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.logisticsType}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货信息：</p>
-					                    <p>${orderDetail.logisticsType}${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.logisticsType}${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					            	<li class="col-md-6">
 					                    <p class="word">买家留言：</p>
-					                    <p>${orderDetail.remark}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.remark}</p>
 					                </li>
 					            </ul>
 					  		</div>
@@ -130,17 +130,17 @@
 					           	<ul>
 					           		<li class="col-md-6">
 					                    <p class="word">发票类型：</p>
-					                    <p>${orderDetail.invoiceTypeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTypeName}</p>
 					                </li>
 					                <li class="col-md-6">
 					                    <p class="word">发票类目：</p>
-					                    <p>${orderDetail.invoiceContent}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceContent}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					            	<li class="col-md-6">
 					                    <p class="word">发票抬头：</p>
-					                    <p>${orderDetail.invoiceTitle}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTitle}</p>
 					                </li>
 					            </ul>
 					  		</div>
