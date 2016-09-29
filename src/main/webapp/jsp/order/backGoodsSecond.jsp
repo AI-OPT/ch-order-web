@@ -207,6 +207,7 @@
                            		<p class="center mt-20">
                            			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
                            			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退款">
+                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
                             	</p>
                             </div>
                             <!-- 拒绝退款理由 start-->

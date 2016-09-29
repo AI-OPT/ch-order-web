@@ -188,6 +188,7 @@
                             		<p class="center mt-20">
                              			<input type="button" id="agrren" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意换货">
                              			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝换货">
+                             			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
                              		</p>
                             </div>
                             <!-- 换货理由start -->
