@@ -79,94 +79,38 @@
     	</div>
    </div> 
 <script id="orderListTemple" type="text/template">
-<tr>
-    	<td>{{:chlIdName}}</td>
-        <td>{{:pOrderId}}</td>
-        <td>{{:userName}}</td>
-        <td>{{:userTel}}</td>
- 		<td>{{:totalJF}}</td>
-		<td>{{:orderTotalCouponFee}}</td>
- 		<td>{{:totalAdjustFee}}</td>
-		<td>{{:contactTel}}</td>
-        <td>{{:deliveryFlagName}}</td>
 
-        <td>
-               <table class="table close-border" width="100%">
-                   <tbody>
-						{{if orderList!=null}}
-							{{for orderList}}  
-                                <tr>
-                                   <td class="new-td" title="{{:orderId}}" style="">{{:~subStr(5,orderId)}}</td>	
-                                 </tr>
-                             {{/for}}
-						{{/if}}	
-                   </tbody>	
-                </table>
-        </td>
-		 <td>
-               <table class="table close-border" width="100%">
-                   <tbody>
-						{{if orderList!=null}}
-							{{for orderList}}  
-								{{if productList!=null}}
-									{{for productList}}	 
-                                <tr>
-									<td  class="new-td " title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
-                                 </tr>
-									{{/for}}
+					{{if orderList!=null}}
+						{{for orderList ~orderData = #data}}  
+							<!-- 商品 -->
+								{{for productList ~parentProdSize=prodSize ~cOrderId=orderId 
+									~busiCode=busiCode ~state=state ~stateName=stateName
+									~parentInd = #index ~parentOrder =~orderData }}	
+        						<tr>
+								{{if ~parentInd == 0 && #index ==0}}
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.chlId}}</td>
+		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.pOrderId}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userName}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userTel}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.totalJF}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.orderTotalCouponFee}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.totalAdjustFee}}</td>
+		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.contactTel}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.deliveryFlagName}}</td>
 								{{/if}}
-                             {{/for}}
-						{{/if}}	
-                   </tbody>	
-                </table>
-        </td>
-		<td>
-               <table class="table close-border" width="100%">
-                   <tbody>
-						{{if orderList!=null}}
-							{{for orderList}}  
-								{{if productList!=null}}
-									{{for productList}}	 
-                                <tr>
-									<td>{{:buySum}}</td>
-                                 </tr>
-									{{/for}}
+								{{if #index ==0 }}
+									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
 								{{/if}}
-                             {{/for}}
-						{{/if}}	
-                   </tbody>	
-                </table>
-        </td>
-   		<td>
-               <table class="table close-border" width="100%">
-                   <tbody>
-						{{if orderList!=null}}
-							{{for orderList}}  
-                                <tr>
-									<td class="new-td">{{:stateName}}</td>
-                             {{/for}}
-						{{/if}}	
-                   </tbody>	
-                </table>
-        </td>
-  		 <td>
-               <table class="table close-border" width="100%">
-                   <tbody>
-						{{if orderList!=null}}
-							{{for orderList}}  
-                                <tr>
-                                   <td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}','{{:state}}','{{:parentOrderId}}')">订单详情</a></td>
-                                 </tr>
-                                 </tr>
-                             {{/for}}
-						{{/if}}	
-                   </tbody>	
-                </table>
-        </td>
-
-
-
- </tr>
+									<td title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
+									<td >{{:buySum}}</td>
+								{{if #index ==0 }}
+									<td  rowspan="{{:~parentProdSize}}">{{:~stateName}}</td>
+									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:~cOrderId}}','{{:~state}}','{{:~parentOrder.pOrderId}}')">查看详情</a></td>
+								{{/if}}
+        					</tr>
+        			{{/for}}
+				{{/for}}
+			{{/if}}	
  </script> 
 <script type="text/javascript">
 var pager;
