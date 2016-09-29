@@ -31,17 +31,17 @@
 					   		</div> 
 	                    	<!--查询条件-->
 	                    	<form id="dataForm" method="post" >
-		                    	<div class="form-label">
+		                    	<div class="form-label"  id="dateDiv">
 						           <ul>
 						                <li class="col-md-6">
 						                    <p class="word">开始时间</p>
-						                    <p><input name="control_date" class="int-text int-medium " readonly type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="orderTimeBegin"/>
+						                    <p><input class="int-text int-medium " readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="control_date" id="orderTimeBegin" />
 						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>
 						                <li class="col-md-6">
 						                    <p class="word">结束时间</p>
-						                    <p><input name="control_date" class="int-text int-medium " readonly type="text"  onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="orderTimeEnd"/>
+						                    <p><input class="int-text int-medium " readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="control_date"/>
 						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 						                    </p>
 						                </li>  
@@ -114,13 +114,20 @@
      </div>	
      <!--框架标签结束-->
   <script type="text/javascript">
-			var pager;
-			(function () {
-				seajs.use('app/jsp/order/commonDetail', function (commonPager) {
-					pager = new commonPager({element: document.body});
-					pager.render();
-				});
-			})();
+	  <%-- 展示日历 --%>
+		$('#dateDiv').delegate('.fa-calendar','click',function(){
+			var calInput = $(this).parent().prev();
+			var timeId = calInput.attr('id');
+			WdatePicker({el:timeId,readOnly:true});
+		});
+		
+		var pager;
+		(function () {
+			seajs.use('app/jsp/order/commonDetail', function (commonPager) {
+				pager = new commonPager({element: document.body});
+				pager.render();
+			});
+		})();
  </script>   
 </body>
 </html>
