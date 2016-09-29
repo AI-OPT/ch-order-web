@@ -160,7 +160,7 @@
 									~busiCode=busiCode ~state=state ~stateName=stateName
 									~parentInd = #index ~parentOrder =~orderData }}	
         						<tr>
-								{{if ~parentInd == 0}}
+								{{if ~parentInd == 0 && #index ==0}}
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.chlId}}</td>
 		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.pOrderId}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userName}}</td>

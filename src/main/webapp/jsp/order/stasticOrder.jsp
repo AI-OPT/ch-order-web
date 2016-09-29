@@ -111,19 +111,11 @@
                                                 <th>绑定手机号</th>
                                                 <th>收货人手机号</th>
                                                 <th>是否需要物流</th>
-                                                <th>
-                                                	<table class="table table-hover table-border table-bordered">
-	                                            		 <thead>
-	                                            			<tr>
-	                                            				<th style="width:20%">子订单号</th>
-	                                            				<th style="width:40%">商品信息</th>
-	                                            				<th style="width:20%">数量</th>
-                                                				<th style="width:10%">订单状态</th>
-                                               					<th style="width:10%">详情</th>
-	                                            			</tr>
-	                                            		</thead>
-	                                            	</table>
-                                                </th>
+                                       			<th>子订单号</th>
+                                       			<th>商品信息</th>
+                                       			<th>数量</th>
+                                          		<th>订单状态</th>
+                                         		<th>详情</th>
                                             </tr>
                                         </thead>
 	                                     <tbody id="stasticData"></tbody>
@@ -148,53 +140,37 @@
     	</div>
    </div>
    	<script id="stasticTemple" type="text/template">
-				<tr>
-						<td>{{:supplierId}}</td>
-						<td>{{:supplierName}}</td>
-		   				<td>{{:chlId}}</td>
-		   				<td>{{:orderId}}</td>
-						<td>{{:userName}}</td>
-						<td>{{:userTel}}</td>
-		   				<td>{{:contactTel}}</td>
-						<td>{{:deliveryFlag}}</td>
- 				<td>
-					{{if childOrderList!=null}}
-						{{for childOrderList}}  
-        	 				<table class="table table-hover table-border" width="100%">
-        						<tbody>
-        						<tr>
-									<td style="width:20%" title="{{:orderId}}">{{:~subStr(5,orderId)}}</td>
-									<td>
-										<table class="table table-hover table-border" width="100%">
-        								<tbody>
-											{{if proList!=null}}
-												{{for proList}}	  
-													<tr>
-        												<td style="width:40%" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
-														<td style="width:20%">
-															<table class="table table-hover table-border" width="100%">
-        														<tbody>
-																	<tr>
-																		<td>{{:buySum}}</td>
-        															</tr>
-																</tbody>
-        													</table>
-														</td>
-        											</tr>
-												{{/for}}
-											{{/if}}
-										</tbody>
-        								</table>	
-									</td>
-									<td style="width:10%">{{:stateName}}</td>
-									<td style="width:10%"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:state}}','{{:parentOrderId}}','{{:busiCode}}')">查看详情</a></td>
+				{{if childOrderList!=null}}
+						{{for childOrderList ~orderData = #data}}  
+							<!-- 子订单 -->
+								{{for proList ~parentProdSize=prodSize ~cOrderId=orderId 
+									~busiCode=busiCode ~state=state ~stateName=stateName
+									~parentInd = #index ~parentOrder =~orderData }}	
+								<!-- 商品 {{:~parentInd}}-->        						
+								<tr>
+								{{if ~parentInd == 0  && #index ==0}}
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.supplierId}}</td>
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.supplierName}}</td>
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.chlId}}</td>
+		   							<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.orderId}}</td>
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.userName}}</td>
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.userTel}}</td>
+		   							<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.contactTel}}</td>
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.deliveryFlagName}}</td>
+								{{/if}}
+								{{if #index ==0 }}
+									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
+								{{/if}}
+									<td title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
+									<td >{{:buySum}}</td>
+								{{if #index ==0 }}
+									<td  rowspan="{{:~parentProdSize}}">{{:~stateName}}</td>
+									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detail('{{:~cOrderId}}','{{:~state}}','{{:~parentOrder.orderId}}','{{:~busiCode}}')">查看详情</a></td>
+								{{/if}}
         					</tr>
-        				</tbody>	
-        			</table>
+        			{{/for}}
 				{{/for}}
-			{{/if}}	
-        </td>						
-	</tr>
+			{{/if}}				
   </script> 
    <script type="text/javascript">
    <%-- 展示日历 --%>
