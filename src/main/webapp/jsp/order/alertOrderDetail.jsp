@@ -22,31 +22,31 @@
 						           	<ul>
 						                <li  class="col-md-6">
 						                    <p class="word">预警类型：</p>
-						                    <p class="color-red">${order.warningType}</p>
+						                    <p class="color-red" class="wide-field" style="word-break:break-all;">${order.warningType}</p>
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">预警信息：</p>
-						                    <p class="color-red">IP:${order.ipAddress}</p>
+						                    <p class="color-red" class="wide-field" style="word-break:break-all;">IP:${order.ipAddress}</p>
 						                </li>  
 						            </ul>  
 						            <ul>
 						                <li  class="col-md-6">
 						                    <p class="word">订单来源：</p>
-						                    <p>${order.chlId}</p>
+						                    <p class="wide-field" style="word-break:break-all;">${order.chlId}</p>
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">订单类型：</p>
-						                    <p>${order.orderType}</p>
+						                    <p class="wide-field" style="word-break:break-all;">${order.orderType}</p>
 						                </li>  
 						            </ul>
 						             <ul>
 						                <li  class="col-md-6">
 						                    <p class="word">父订单号：</p>
-						                    <p>${order.parentOrderId}</p>
+						                    <p class="wide-field" style="word-break:break-all;">${order.parentOrderId}</p>
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">子订单号：</p>
-						                    <p id="orderId">${order.orderId}</p>
+						                    <p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
 						                </li>  
 						            </ul>
 					  			</div>
@@ -97,27 +97,27 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">买家：</p>
-                            			<p>${order.userName}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.userName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
-                            			<p>${order.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">配送方式：</p>
-                            			<p>${order.logisticsType}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.logisticsType}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
-                            			<p>${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">买家留言:</p>
-                            			<p>${order.remark}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
                             		</li>
                             	</ul>
                             </div>

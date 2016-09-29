@@ -24,37 +24,37 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p>${order.chlId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.chlId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p>${order.orderType}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.orderType}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库ID：</p>
-					                    <p>${order.routeId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.routeId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p>${order.routeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.routeName}</p>
 					                </li>  
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">父订单号：</p>
-					                    <p id="parentId">${order.parentOrderId}</p>
+					                    <p id="parentId" class="wide-field" style="word-break:break-all;">${order.parentOrderId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">子订单号：</p>
-					                    <p id="orderId">${order.orderId}</p>
+					                    <p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
 					                </li>  
 					            </ul>
 					            <ul>
 					            	<li  class="col-md-6">
 					                    <p class="word">支付流水号：</p>
-					                    <p id="balanceId">${order.balacneIfId}</p>
+					                    <p id="balanceId" class="wide-field" style="word-break:break-all;">${order.balacneIfId}</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -100,15 +100,15 @@
                             	<ul>
                             		<li class="col-md-4">
                             			<p class="word">售后订单号：</p>
-                            			<p >${order.orderId}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
                             		</li>
                             		<li class="col-md-4">
 	                            		<p class="word">原始订单号：</p>
-	                            		<p >${order.origOrderId}</p>
+	                            		<p class="wide-field" style="word-break:break-all;">${order.origOrderId}</p>
                             		</li>
                             		<li class="col-md-4">
 	                            		<p class="word">售后操作人：</p>
-	                            		<p>${order.username}</p>
+	                            		<p class="wide-field" style="word-break:break-all;">${order.username}</p>
                             		</li>
                             	</ul>
                             </div>
@@ -121,28 +121,28 @@
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">账号信息：</p>
-                            			<p>${order.userName}</p>
+                            			<p class="word" >账号信息：</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.userName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
-                            			<p>${order.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.contactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">支付方式：</p>
-                            			<p>${order.payStyleName}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">支付账号：</p>
-                            			<p>${order.acctId}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.acctId}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
-                            			<p>${order.address}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.address}</p>
                             		</li>
                             	</ul>
                             </div>
@@ -155,22 +155,22 @@
                             <div class="form-label">
                             		<li class="col-md-6">
                             			<p class="word">子订单号：</p>
-                            			<p>${order.orderId}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">业务类型：</p>
-                            			<p>${order.busiCodeName}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
                             		
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款金额：</p>
-                            			<p id="currentMoney">${order.ordTotalFee}</p>
+                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.ordTotalFee}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">退款理由：</p>
-                            			<p>${order.remark}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -189,11 +189,11 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">快递公司：</p>
-                            			<p>${order.expressName}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.expressName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">快递单号：</p>
-                            			<p>${order.expressOddNumber}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -248,7 +248,7 @@
 							           		<ul>
 								                <li>
 								                    <p class="word"><span>*</span>退款金额:</p>
-								                    <p><input type="text" class="int-text int-medium" placeholder="不能多余用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
+								                    <p ><input type="text" class="int-text int-medium" placeholder="不能多余用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
 								                    </li>
 								                <li>
 								                	<p class="word"><span>*</span>修改理由:</p>
