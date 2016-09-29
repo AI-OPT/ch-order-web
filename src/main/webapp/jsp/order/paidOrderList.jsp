@@ -175,7 +175,7 @@
 									<td >{{:buySum}}</td>
 								{{if #index ==0 }}
 									<td  rowspan="{{:~parentProdSize}}">{{:~stateName}}</td>
-									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detail('{{:orderId}}','{{:busiCode}}','{{:state}}')">
+									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detail('{{:~cOrderId}}','{{:~busiCode}}','{{:~state}}')">
 									{{if ~busiCode=='2' &&(~state=='21' || ~state=='212' ||~state=='22' ||~state=='23' || ~state=='31')}}
 										查看详情(换货)
 									{{else  ~busiCode=='3' &&(~state=='21' || ~state=='212' ||~state=='22' ||~state=='23' || ~state=='31')}}
