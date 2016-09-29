@@ -33,8 +33,8 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     	events: {
     		//查询
             "click #refuseBackMoney":"_refuseBackMoney",
-            "click #updateMoney":"_updateMoney"
-            //"click #backPage":"_back"
+            "click #updateMoney":"_updateMoney",
+            "click #backPage":"_back"
         },
     	//重写父类
     	setup: function () {

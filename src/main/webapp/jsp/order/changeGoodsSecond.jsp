@@ -166,6 +166,11 @@
                             		</li>
                             	</ul>
                             </div>
+                            <div class="row">
+								<p class="center mt-30">
+									<input id="backPage" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="返回">
+							   	</p>
+							</div>
                        </div>	
                    </div>
                 </div>
