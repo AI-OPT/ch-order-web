@@ -100,7 +100,7 @@
 							                <td>${prod.prodSalePrice}元/${prod.buySum }件</td>
 							                <td>${prod.prodState }</td>
 							                <td>${orderDetail.orderTime}</td>
-							                <td>${orderDetail.state }</td>
+							                <td>${orderDetail.stateName }</td>
 							                <td>${prod.prodCouponFee }&nbsp;<br/>
 											<c:choose>
 										       <c:when test="${prod.cusServiceFlag eq 'Y'}">

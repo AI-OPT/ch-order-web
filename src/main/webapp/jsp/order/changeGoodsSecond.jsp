@@ -95,17 +95,19 @@
                             <!--/table表格结束-->
                             <div class="form-label">
                             	<ul>
-                            		<li class="col-md-4">
+                            		<li class="col-md-6">
                             			<p class="word">售后订单号：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
                             		</li>
-                            		<li class="col-md-4">
+                            		<li class="col-md-6">
 	                            		<p class="word">原始订单号：</p>
 	                            		<p class="wide-field" style="word-break:break-all;">${order.origOrderId}</p>
                             		</li>
-                            		<li class="col-md-4">
+                            	</ul>
+                            	<ul>
+                            		<li class="col-md-6">
 	                            		<p class="word">售后操作人：</p>
-	                            		<p class="wide-field" style="word-break:break-all;">${order.username}</p>
+	                            		<p class="wide-field" style="word-break:break-all;">${orderDetail.username}</p>
                             		</li>
                             	</ul>
                             </div>

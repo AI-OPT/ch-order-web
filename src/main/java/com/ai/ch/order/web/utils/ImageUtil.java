@@ -16,7 +16,7 @@ public class ImageUtil {
             if(StringUtil.isBlank(vsid) && StringUtil.isBlank(pictype)){
             	return null;
             }else{
-            	  return im.getImageUrl(vsid,pictype,"12x13");
+            	  return im.getImageUrl(vsid,pictype,"80x80");
             }
 		} catch (Exception e) {
 			e.printStackTrace();

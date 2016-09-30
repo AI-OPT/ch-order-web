@@ -53,6 +53,7 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMony").text();
+    		var currentM = parseFloat(currentMoney);
     		var formValidator=$("#dataForm").validate({
     			 errorPlacement: function(error, element) {
                     $("#errorMessage").append( error );
@@ -61,7 +62,7 @@ define('app/jsp/order/unpaidOrderDetail', function (require, exports, module) {
     				updateFee: {
     					required: true,
     					moneyNumber: true,
-    					max:currentMoney
+    					max:currentM
     					}
     			},
     			messages: {
