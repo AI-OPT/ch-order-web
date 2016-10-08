@@ -186,6 +186,14 @@
 	<dubbo:reference id="iOrderRefundSV"
 	interface="com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV"
 	registry="baasRegistry" />
+	
+	<dubbo:reference id="iOrderPaySV"
+	interface="com.ai.slp.order.api.orderpay.interfaces.IOrderPaySV"
+	registry="baasRegistry" />
+	
+	<dubbo:reference id="iOrderModifySV"
+	interface="com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV"
+	registry="baasRegistry" />
 			
 				
 </beans>

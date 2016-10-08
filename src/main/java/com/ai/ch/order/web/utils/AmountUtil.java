@@ -44,7 +44,7 @@ public class AmountUtil {
         return balance.longValue();
     }
     /** 
-     * 将元为单位的转换为分 （乘1000）  
+     * 将元为单位的转换为分 （乘100）  
      * 
      */
     public static Long YToFen(String amount){
@@ -57,7 +57,7 @@ public class AmountUtil {
     }
     
     /** 
-     * 将元为单位的转换为分 （乘1000）  
+     * 将元为单位的转换为分 （乘100）  
      * 
      */
     public static String YToSFen(String amount){
@@ -67,6 +67,18 @@ public class AmountUtil {
     	 BigDecimal money=new BigDecimal(amount);
     	 BigDecimal balance = money.multiply(new BigDecimal(100L));
          return new DecimalFormat(",###,##0.00").format(balance);
+    }
+    /** 
+     * 将分为单位的转换为里 （乘10）  
+     * 
+     */
+    public static Long FToL(String amount){
+    	if(StringUtil.isBlank(amount)){
+    		return 0L;
+    	}
+    	 BigDecimal money=new BigDecimal(amount);
+    	 BigDecimal balance = money.multiply(new BigDecimal(10L));
+    	 return balance.longValue();
     }
     
 }
