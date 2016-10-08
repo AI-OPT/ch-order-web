@@ -1,6 +1,8 @@
 package com.ai.ch.order.web.controller.order;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -17,10 +19,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.InvoicePrintInfo;
+import com.ai.ch.order.web.model.order.ListInvoicePrintInfo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.InvoiceUtils;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
+import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV;
@@ -29,6 +33,7 @@ import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintRequest;
 import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderQueryResponse;
 import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
@@ -103,11 +108,11 @@ public class InvoicePrintController {
 	 * @return
 	 * @author zhouxh
 	 */
-	@RequestMapping("/invoicePrint")
+	@RequestMapping(value="/invoicePrint",produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public String invoicePrint(HttpServletRequest request,InvoicePrintInfo body) {
 		String date_now = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
-		body.setCorporationCode("000003"); // 公司代码
+		body.setCorporationCode("2000"); // 公司代码
 		body.setInvoiceClass("0");// 发票类型 0 电子发票 1纸质发票
 		body.setInvoiceKind("003"); // 发票种类 001增值税发票 002增值税普通电子发票 003普通发票
 									// 004增值税普通发票 005增值税纸质发票 增值税电子发票
@@ -127,11 +132,11 @@ public class InvoicePrintController {
 
 		body.setSalesOrderNo("0000012"); // 销售订单号
 		body.setOrderItem("123456789"); // 项目号
-		body.setOrderCreateTime(date_now); // （销售）订单创建日期
+		body.setOrderCreateTime(""+DateUtil.getSysDate()); // （销售）订单创建日期
 
 		body.setMaterialName("43U1"); // 物料代码
 		body.setSpecification("55q2n");
-		body.setMaterialCode("液晶电视"); // 物料名称
+		body.setMaterialCode("1233333"); // 物料名称
 		body.setPrice("2213.67666666667");
 		body.setQuantity("3"); // 数量
 		body.setUnit("台");// 物料单位
@@ -146,9 +151,23 @@ public class InvoicePrintController {
 		
 		//获取授权ID
 		body.setId(InvoiceUtils.getID(InvoiceUtils.TYPE_BATCH_ADD));//设置授权ID
-		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(body)); 
+		List<InvoicePrintInfo> bodyList = new ArrayList<InvoicePrintInfo>();
+		bodyList.add(body);
+		
+		//
+		ListInvoicePrintInfo listInvoicePrintInfo = new ListInvoicePrintInfo();
+		//
+		listInvoicePrintInfo.setList(bodyList);
+		listInvoicePrintInfo.setId(InvoiceUtils.getID(InvoiceUtils.TYPE_BATCH_ADD));
+		JSONObject invoicePrintJson =JSONObject.parseObject(JSONObject.toJSONString(listInvoicePrintInfo)); 
+		
+		//JSONArray invoicePrintJson = JSONArray.parseArray(JSONArray.toJSONString(bodyList));
+		LOG.info("bodyList:"+invoicePrintJson.toJSONString());
 		String retVal = InvoiceUtils.postBatchAdd(invoicePrintJson.toJSONString());
-		return "发票打印通知成功";
+		LOG.info("retVal:"+retVal);
+		Timestamp dateTimeStamp = DateUtil.getSysDate();
+		LOG.info("timestamp:"+dateTimeStamp);
+		return retVal;
 	}
 	/**
 	 * 下载电子发票

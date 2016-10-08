@@ -57,6 +57,21 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 					$("#table_info_id_pay_id").html(htmlOut);
 				}
 			});
+		},
+		_invoicePrint:function(){
+			var url = _base+"/invoice/invoicePrint";
+			ajaxController.ajax({
+    	    	type: "post",
+				dataType: "json",
+				processing: false,
+				message: "打印中，请等待...",
+				url: url,
+				data:{},
+    	        success: function (data) {
+    	        	alert(data.Sucessed);
+    	        }
+                
+    	    });
 		}
 		
     });

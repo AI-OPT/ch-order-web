@@ -135,7 +135,7 @@
 													{{if invoiceStatus == '2'}}已报送{{/if}}
 													{{if invoiceStatus == '3'}}已打印{{/if}}
 												</td>
-	                                            <td>重新报送</td>
+	                                            <td><a href="javascript:void(0);" onclick="pager._invoicePrint();">重新报送</a></td>
 	                                       </tr>
 						
 					  </script>
