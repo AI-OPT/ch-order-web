@@ -31,8 +31,10 @@ public class NoticeController {
 			//验签
 			try{
 			IOrderPaySV iOrderPaySV = DubboConsumerFactory.getService(IOrderPaySV.class);	
+			System.out.println(">>>>>>验签开始");
 			boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
 			if (!flag) {
+				System.out.println(">>>>>>验签失败");
 				throw new UppException("验签失败");
 			}
 			com.changhong.upp.business.entity.upp_103_001_01.RespInfo receive = (com.changhong.upp.business.entity.upp_103_001_01.RespInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_103_001_01.RespInfo.class);
@@ -55,14 +57,16 @@ public class NoticeController {
             		 request.setOrderIds(orderIds);
             		 request.setExternalId(receive.getGrpBody().getPayTranSn());
             		 iOrderPaySV.pay(request);
+            		 System.out.println(">>>>>>成功");
             		 return "SUCCESS";
             	 }else{
+            		 System.out.println(">>>>>>失败");
             		 return "FAILED";
             	 }
              }else{
+            	 System.out.println(">>>>>>失败");
             	 return "FAILED";
              }
-	       
 			}catch(Exception e){
 				e.printStackTrace();
 			}
