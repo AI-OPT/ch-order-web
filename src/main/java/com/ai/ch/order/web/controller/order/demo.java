@@ -41,8 +41,6 @@ import com.changhong.upp.business.type.TranType;
 import com.changhong.upp.crypto.rsa.RSACoder;
 import com.changhong.upp.util.XBConvertor;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration({ "/context/core-context.xml" })
 public class demo {
 	@Resource(name="key")
 	private Key key;
