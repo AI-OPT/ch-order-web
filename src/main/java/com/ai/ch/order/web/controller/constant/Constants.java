@@ -182,7 +182,9 @@ public final class Constants {
     private static final String HTTP_PROXY_PORT_KEY = "http.proxy.port";  
     public static final String HTTP_PROXY_PORT = loader.getProperty(HTTP_PROXY_PORT_KEY); 
     
-    
+    /**支付中心地址**/
+    private static final String CH_PAY_KEY = "ch.pay.url";  
+    public static final String CH_PAY_URL = loader.getProperty(CH_PAY_KEY);  
     
    
 }

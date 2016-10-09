@@ -1,7 +1,5 @@
 package com.ai.ch.order.web.controller.order;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,9 +31,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
+import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
-import com.ai.opt.sdk.dubbo.util.HttpClientUtil;
 import com.changhong.upp.business.entity.upp_103_001_01.GrpBody;
 import com.changhong.upp.business.entity.upp_103_001_01.GrpHdr;
 import com.changhong.upp.business.entity.upp_103_001_01.RespInfo;
@@ -62,7 +60,7 @@ public class demo {
 		body.setPayStatus("00");
 		body.setRemark("11");
 		body.setResv("11");
-		body.setOrderDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
+		body.setOrderDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 		body.setPaymentChannel("09");
 		body.setPayTranSn("23");
 		RespInfo respInfo = new RespInfo();
@@ -72,20 +70,34 @@ public class demo {
 		// 加签
 		String sign = null;
 		try {
-			 data = XBConvertor.toXml(respInfo, "UTF-8");
-			 sign = RSACoder.sign(key.getKey(KeyType.PRIVATE_KEY),data);
-			 Map<String, String> param = new TreeMap<String, String>();
-			param.put("msgHeader", "");
+			data = XBConvertor.toXml(respInfo, "UTF-8");
+			sign = RSACoder.sign(key.getKey(KeyType.PRIVATE_KEY),data);
+			Map<String, String> param = new TreeMap<String, String>();
+			String msgHeader = initMsgHeader(merNo, TranType.PAY_NOTICE.getValue());
+			param.put("msgHeader", msgHeader);
 			param.put("xmlBody", data);
 			param.put("signMsg", sign);
-			 String result = sendHttpPost("http://127.0.0.1:8080/ch-order-web/notice/payNotice", param,"UTF-8");
+			 String result = sendHttpPost("http://124.207.3.100:8083/ch-order-web/notice/payNotice", param,"UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		
-		String result = null;
 	}
-	
+	/**
+	 * 拼装报文头
+	 * 
+	 * @return
+	 */
+	public  String initMsgHeader(String merNo, String tranType) {
+		StringBuffer buffer = new StringBuffer("{H:01");
+		buffer.append(merNo);
+		buffer.append("1000000000000000");
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+		buffer.append(dateFormat.format(new Date(System.currentTimeMillis())));
+		buffer.append(tranType);
+		buffer.append("}");
+		return buffer.toString();
+	}
 	private String sendHttpPost(String url, Map<String, String> param, String charset) throws Exception {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(100000).setConnectTimeout(100000).build();
