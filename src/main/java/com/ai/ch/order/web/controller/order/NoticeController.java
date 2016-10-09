@@ -30,43 +30,45 @@ public class NoticeController {
 	public String payNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
 			//验签
 			try{
-			IOrderPaySV iOrderPaySV = DubboConsumerFactory.getService(IOrderPaySV.class);	
-			System.out.println(">>>>>>验签开始");
-			boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
-			if (!flag) {
-				System.out.println(">>>>>>验签失败");
-				throw new UppException("验签失败");
-			}
-			com.changhong.upp.business.entity.upp_103_001_01.RespInfo receive = (com.changhong.upp.business.entity.upp_103_001_01.RespInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_103_001_01.RespInfo.class);
-			//获取支付状态
-             String state =  receive.getGrpBody().getPayStatus();
-             //00表示支付成功，01表示支付失败
-             if(!StringUtil.isBlank(state)){
-            	 if("00".equals(receive.getGrpBody().getPayStatus())){
-            		 //更新订单状态
-            		 OrderPayRequest request = new OrderPayRequest();
-            		 List<Long> orderIds = new ArrayList<Long>();
-            		 //获取支付金额
-            		 String money = receive.getGrpBody().getOrderAmt();
-            		 Long ordAmt = AmountUtil.FToL(money);
-            		 request.setPayFee(ordAmt);
-            		 request.setPayType(receive.getGrpBody().getPaymentChannel());
-            		 String ordId = receive.getGrpBody().getMerOrderId();
-            		 orderIds.add(Long.valueOf(ordId));
-            		 request.setTenantId("changhong");
-            		 request.setOrderIds(orderIds);
-            		 request.setExternalId(receive.getGrpBody().getPayTranSn());
-            		 iOrderPaySV.pay(request);
-            		 System.out.println(">>>>>>成功");
-            		 return "SUCCESS";
-            	 }else{
-            		 System.out.println(">>>>>>失败");
-            		 return "FAILED";
-            	 }
-             }else{
-            	 System.out.println(">>>>>>失败");
-            	 return "FAILED";
-             }
+				IOrderPaySV iOrderPaySV = DubboConsumerFactory.getService(IOrderPaySV.class);	
+				System.out.println(">>>>>>验签开始");
+				boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
+				if (!flag) {
+					System.out.println(">>>>>>验签失败");
+					throw new UppException("验签失败");
+				}
+				com.changhong.upp.business.entity.upp_103_001_01.RespInfo receive = (com.changhong.upp.business.entity.upp_103_001_01.RespInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_103_001_01.RespInfo.class);
+				//获取支付状态
+	             String state =  receive.getGrpBody().getPayStatus();
+	             //02表示支付成功，03表示支付失败
+	             if(!StringUtil.isBlank(state)){
+	            	 if("02".equals(receive.getGrpBody().getPayStatus())){
+	            		 System.out.println(">>>>>>支付成功");
+	            		 //更新订单状态
+	            		 OrderPayRequest request = new OrderPayRequest();
+	            		 List<Long> orderIds = new ArrayList<Long>();
+	            		 //获取支付金额
+	            		 String money = receive.getGrpBody().getOrderAmt();
+	            		 Long ordAmt = AmountUtil.FToL(money);
+	            		 request.setPayFee(ordAmt);
+	            		 request.setPayType(receive.getGrpBody().getPaymentChannel());
+	            		 String ordId = receive.getGrpBody().getMerOrderId();
+	            		 orderIds.add(Long.valueOf(ordId));
+	            		 request.setTenantId("changhong");
+	            		 request.setOrderIds(orderIds);
+	            		 request.setExternalId(receive.getGrpBody().getPayTranSn());
+	            		 iOrderPaySV.pay(request);
+	            		 return "SUCCESS";
+	            	 }else if("03".equals(receive.getGrpBody().getPayStatus())){
+	            		 System.out.println(">>>>>>支付失败"); 
+	            	 }else{
+	            		 System.out.println(">>>>>>状态返回失败");
+	            		 return "FAILED";
+	            	 }
+	             }else{
+	            	 System.out.println(">>>>>>失败");
+	            	 return "FAILED";
+	             }
 			}catch(Exception e){
 				e.printStackTrace();
 			}
