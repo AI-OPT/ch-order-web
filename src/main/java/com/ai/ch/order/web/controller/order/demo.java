@@ -26,6 +26,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
 import com.ai.ch.order.web.vo.Key;
@@ -36,7 +39,8 @@ import com.changhong.upp.business.entity.upp_103_001_01.RespInfo;
 import com.changhong.upp.business.type.TranType;
 import com.changhong.upp.crypto.rsa.RSACoder;
 import com.changhong.upp.util.XBConvertor;
-
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration({ "/context/core-context.xml" })
 public class demo {
 	@Resource(name="key")
 	private Key key;
@@ -71,7 +75,8 @@ public class demo {
 			param.put("msgHeader", msgHeader);
 			param.put("xmlBody", data);
 			param.put("signMsg", sign);
-			 String result = sendHttpPost("http://124.207.3.100:8083/ch-order-web/notice/payNotice", param,"UTF-8");
+			String result = sendHttpPost("http://127.0.0.1:8080/ch-order-web/notice/payNotice", param,"UTF-8");
+			System.out.println("===="+result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
