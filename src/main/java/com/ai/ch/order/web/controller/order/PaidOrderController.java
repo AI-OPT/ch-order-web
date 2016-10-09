@@ -701,10 +701,10 @@ public class PaidOrderController {
 				hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 				hdr.setTranType(TranType.REFUND_APPLY.getValue());
 				GrpBody body = new GrpBody();
-				body.setPayTranSn("T20161009100006257");
-				body.setMerSeqId("FF002");
-				body.setRefundAmt("300");
-				body.setMerRefundSn("FF001");
+				body.setPayTranSn(banlanceIfId);
+				body.setMerSeqId(parentOrderId);
+				body.setRefundAmt(updateMoney);
+				body.setMerRefundSn(orderId);
 				body.setSonMerNo("CO20160900000010");
 				body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 				body.setNotifyUrl("http://124.207.3.100:8083/ch-order-web/notice/refundNotice");

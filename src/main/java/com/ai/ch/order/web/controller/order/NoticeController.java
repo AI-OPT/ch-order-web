@@ -93,6 +93,8 @@ public class NoticeController {
 				request.setState("94");
 				iOrderModifySV.modify(request);
 				return "SUCCESS";
+			}else{
+				System.out.println(">>>>>>退款失败");
 			}
 			}catch(Exception e){
 				e.printStackTrace();
