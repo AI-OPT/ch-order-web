@@ -77,7 +77,6 @@ public class PaidOrderController {
 	private BusinessHandlerFactory businessHandlerFactory;
 	@Resource(name="key")
 	private Key key;
-	private String requestUrl = "http://111.9.116.138:7001/upp-route/entry.html";
 	
 	@RequestMapping("/toPaidOrder")
 	public ModelAndView toPaidOrder(HttpServletRequest request) {
@@ -714,7 +713,7 @@ public class PaidOrderController {
 				reqInfo.setGrpHdr(hdr);
 				reqInfo.setGrpBody(body);
 				BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
-					RespInfo rp = (RespInfo) handler.process(requestUrl, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
+					RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
 					if(!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())){
 						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
 		            }else{
