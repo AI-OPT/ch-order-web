@@ -31,7 +31,6 @@ public class NoticeController {
 			//验签
 			try{
 				IOrderPaySV iOrderPaySV = DubboConsumerFactory.getService(IOrderPaySV.class);	
-				System.out.println(">>>>>>验签开始");
 				boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
 				if (!flag) {
 					System.out.println(">>>>>>验签失败");
@@ -81,6 +80,7 @@ public class NoticeController {
 			try{
 			boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
 			if (!flag) {
+				System.out.println(">>>>>>验签失败");
 				throw new UppException("验签失败");
 			}
 			com.changhong.upp.business.entity.upp_803_001_01.RepsInfo receive = (com.changhong.upp.business.entity.upp_803_001_01.RepsInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_803_001_01.RepsInfo.class);
@@ -88,6 +88,7 @@ public class NoticeController {
 			String orderid = receive.getGrpBody().getMerRefundSn();
 			IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
 			if("01".equals(receive.getGrpBody().getRefundStatus())){
+				System.out.println(">>>>>>退款成功");
 				request.setOrderId(Long.parseLong(orderid));
 				request.setState("94");
 				iOrderModifySV.modify(request);
