@@ -26,12 +26,8 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.util.CollectionUtils;
 
-import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
 import com.changhong.upp.business.entity.upp_103_001_01.GrpBody;
