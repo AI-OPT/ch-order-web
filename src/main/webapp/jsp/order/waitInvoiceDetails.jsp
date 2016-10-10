@@ -135,7 +135,7 @@
 								<!--   <input type="button"  class="btn btn-primary"
 						  		 onclick="pager._backOrder('');"  value="退货"> -->
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
+						  		 data-toggle="modal" data-target="#backModal${status.index}" onclick="pager._backModal('${status.index}','${prod.prodName}')">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
@@ -164,7 +164,7 @@
 					<form id="validateForm" method="post">
 					<div class="modal-body">
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
-							${prod.prodName}
+							
 						</h4><br/>
 						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></form></p>
 					</div><p id="errorMessage"></p>
@@ -302,7 +302,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceType }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceContent }</p>
 					                </li>
 					            </ul>  
 					            <ul>
@@ -331,7 +331,7 @@
     </div>
       
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" 
+<div class="modal fade" id="myDeliverModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -344,13 +344,13 @@
              	  发货清单
             </h2>
          </div>
-         <div class="modal-body" id="invoiceModal"> </div>
+         <div class="modal-body" id="deliverPrintModal"> </div>
       </div>
 </div><!-- /.modal -->
 </div>
 
 </body>
-<script id="invoiceTempalte" type="text/x-jsrender">
+<script id="deliverPrintTempalte" type="text/x-jsrender">
 						<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">

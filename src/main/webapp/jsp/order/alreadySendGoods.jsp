@@ -89,17 +89,17 @@
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
-						               <c:forEach var="prod" items="${orderDetail.prodList}">
+						               <c:forEach var="prod" items="${orderDetail.prodList}" varStatus="status">
 							          <tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">
 							                         <tr>
 							                             <td><img src="${prod.imageUrl}"></td>
-							                             <td class="word"><a href="#">${prod.prodName}</a></td>	
+							                             <td class="word" id="prodName${status.index}"><a href="#">${prod.prodName}</a></td>	
 							                         </tr>
 							                      </table>
 							                 </td>
-							                <td>${prod.prodSalePrice}元/${prod.buySum}件</td>
+							                <td>${prod.prodSalePrice}元/<p id="buySum${status.index}">${prod.buySum}件</p></td>
 							                <td>${prod.prodState}</td>
 							                <td>${orderDetail.orderTime}</td>
 							                <td>${orderDetail.stateName }</td>
@@ -131,10 +131,8 @@
 							</div>  
 							 <div class="modal-body text-center">
 							 <br/><br/>
-								<!--   <input type="button"  class="btn btn-primary"
-						  		 onclick="pager._backOrder('');"  value="退货"> -->
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
+						  		 data-toggle="modal" data-target="#backModal${status.index}" onclick="pager._backModal('${status.index}','${prod.prodName}')">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
@@ -160,20 +158,22 @@
 							&times;
 						</button>
 					</div>
+		<form method="post" id="validateForm${status.index}">
 					<div class="modal-body">
-						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
-							${prod.prodName}
-						</h4><br/>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></p>
+						<h4 class="modal-title text-c" id="backModalLabel${status.index}"></h4><br/>
+						<p><input type="hidden" id="buySum"></p>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text" name="returnSum"/></p>
+						<p id="errorMessage${status.index}"></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}')">
+						onclick="pager._backOrder('${prod.prodDetalId}','${prod.buySum}','${status.index}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
 						</button>
 					</div>
+		</form>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal -->
 		</div>
