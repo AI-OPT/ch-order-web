@@ -156,6 +156,10 @@
 	<dubbo:reference id="iDeliverGoodsSV"
 	interface="com.ai.slp.order.api.delivergoods.interfaces.IDeliverGoodsSV"
 	registry="baasRegistry" />
+	<!-- 发货单打印 -->
+	<dubbo:reference id="iDeliverGoodsPrintSV"
+	interface="com.ai.slp.order.api.delivergoods.interfaces.IDeliverGoodsPrintSV"
+	registry="baasRegistry" />
 	
 	<!-- 金额修改 -->
 	<dubbo:reference id="iNotPaidOrderModifySV"
