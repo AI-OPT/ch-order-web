@@ -79,6 +79,7 @@ public class NoticeController {
 				System.out.println(">>>>>>验签失败");
 				throw new UppException("验签失败");
 			}
+			System.out.println(">>>>>>xmlBody="+xmlBody);
 			com.changhong.upp.business.entity.upp_803_001_01.RepsInfo receive = (com.changhong.upp.business.entity.upp_803_001_01.RepsInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_803_001_01.RepsInfo.class);
 			//获取订单状态
 			String orderid = receive.getGrpBody().getMerRefundSn();
