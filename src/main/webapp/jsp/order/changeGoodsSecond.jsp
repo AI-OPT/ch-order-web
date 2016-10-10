@@ -75,7 +75,7 @@
 								                 <td class="sp"  width="45%">
 								                      <table width="100%" border="0">
 								                         <tr>
-								                             <td><img src="../images/tp-01.png"></td>
+								                             <td><img src="${sp.imageUrl}"></td>
 								                             <td class="word"><a href="#">${sp.prodName}</a></td>	
 								                         </tr>
 								                      </table>
