@@ -10,7 +10,10 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
     require("bootstrap-paginator/bootstrap-paginator.min");
     require("app/util/jsviews-ext");
     
-    require("opt-paging/aiopt.pagination");
+    require("jquery-validation/1.15.1/jquery.validate");
+	require("app/util/aiopt-validate-ext");
+
+	require("opt-paging/aiopt.pagination");
     require("twbs-pagination/jquery.twbsPagination.min");
     require('bootstrap/js/modal');
     var SendMessageUtil = require("app/util/sendMessage");
@@ -43,7 +46,43 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
     		window.location.href = _base+"/order/toOrderList"
     	},
     	
-    	_backOrder:function(orderObject) {
+    	_initValidate:function(obj,indexObj){
+    		var currentProdSum = obj;
+    		var formValidator=$("#validateForm"+indexObj).validate({
+    			errorPlacement: function(error, element) {
+    				$("#errorMessage"+indexObj).append( error );
+    			},
+    			rules: {
+    				returnSum: {
+    					required: true,
+    					max:currentProdSum
+    					}
+    			},
+    			messages: {
+    				returnSum: {
+    					required:"请输入退货数量!",
+    					max:"退货数量不能大于购买的商品数量!",
+    				}
+    			}
+    		});
+    		
+    		return formValidator;
+    	},
+    	
+    	
+    	_backModal:function(Obj,prodObj) {
+    		var labelValue=$("#backModalLabel"+Obj);
+    		labelValue.text(prodObj);
+    	},
+    	
+    	_backOrder:function(orderObject,backSum,index) {
+    		 var _this= this;
+    		 var formValidator=_this._initValidate(backSum,index);
+ 			 formValidator.form();
+ 			 alert($("#validateForm"+index).valid());
+ 			 if(!$("#validateForm"+index).valid()){
+ 				return false;
+ 			 }
 			 var _obj=$("#backNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;

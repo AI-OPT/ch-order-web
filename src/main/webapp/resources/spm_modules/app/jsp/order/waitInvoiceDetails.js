@@ -10,6 +10,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
     require("bootstrap-paginator/bootstrap-paginator.min");
     require("app/util/jsviews-ext");
     
+    require("jquery-validation/1.15.1/jquery.validate");
+	require("app/util/aiopt-validate-ext");
+	
     require("opt-paging/aiopt.pagination");
     require("twbs-pagination/jquery.twbsPagination.min");
     require('bootstrap/js/modal');
@@ -41,6 +44,10 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
     		//调到订单列表页面
     		window.location.href = _base+"/order/toOrderList"
     	},
+    	
+    	/*_backModal:function(Obj,prodObj) {
+    		$("backModalLabel"+Obj).text()=prodObj;
+    	},*/
     	
     	_backOrder:function(orderObject) {
 			 var _obj=$("#backNum"+orderObject).val();
@@ -168,17 +175,17 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 			var _orderId = $('#orderId').val();
 			ajaxController.ajax({
 				type : "POST",
-				url :_base+"/invoice/query",
+				url :_base+"/deliveryPrint/query",
 				data: {
 					orderId:  _orderId
 				},
 				processing: true,
 				message : "正在处理中，请稍候...",
 				success : function(data) {
-					var template = $.templates("#invoiceTempalte");
+					var template = $.templates("#deliverPrintTempalte");
 					var htmlOutput = template.render(data.data);
-					$("#invoiceModal").html(htmlOutput);
-					$("#myModal").modal('show');
+					$("#deliverPrintModal").html(htmlOutput);
+					$("#myDeliverModal").modal('show');
 				}
 			});
 		},
@@ -201,7 +208,7 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 			var _orderId = $('#invoiceId').html();
 			ajaxController.ajax({
 				type : "POST",
-				url :_base+"/invoice/print",
+				url :_base+"/deliveryPrint/print",
 				data: {
 					orderId:  _orderId,
 					orderInfos:_orderInfos
@@ -222,7 +229,7 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 		},
 		_sendGoods:function(obj){
 			var orderId=obj;
-			window.location.href = _base+"/invoice/deliverGoods?orderId="+orderId;
+			window.location.href = _base+"/deliveryPrint/deliverGoods?orderId="+orderId;
 		},
     });
     
