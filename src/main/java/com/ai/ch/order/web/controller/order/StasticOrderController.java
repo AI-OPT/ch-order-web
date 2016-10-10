@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ai.ch.order.web.controller.common.ChUserController;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.LogisticsDetail;
 import com.ai.ch.order.web.model.order.OrdProdVo;
@@ -22,6 +21,7 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.StasticOrderReqVo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV;
 import com.ai.ch.user.api.shopinfo.params.QueryShopInfoRequest;
@@ -89,7 +89,7 @@ public class StasticOrderController {
         }
         if(!StringUtil.isBlank(reqVo.getUserName())){
         	//获取用户id
-        	String id = ChUserController.getUserId(reqVo.getUserName());
+        	String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
         	if(!StringUtil.isBlank(id)){
         		req.setUserId(id);
         	}else{

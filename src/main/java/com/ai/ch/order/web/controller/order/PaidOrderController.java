@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ai.ch.order.web.controller.common.ChUserController;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
 import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
@@ -152,7 +152,7 @@ public class PaidOrderController {
 		req.setTenantId(user.getTenantId());
 		// 获取用户ID
 		if (!StringUtil.isBlank(reqVo.getUserName())) {
-			String id = ChUserController.getUserId(reqVo.getUserName());
+			String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
 			if (!StringUtil.isBlank(id)) {
 				req.setUserId(id);
 			} else {

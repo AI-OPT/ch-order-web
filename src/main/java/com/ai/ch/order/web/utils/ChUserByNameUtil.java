@@ -12,7 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 
 public  class ChUserByNameUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(ChUserByNameUtil.class);
-	//获取绑定手机号
+	//获取用户id
 	public static String getUserInfo(String userName){
 		 Map<String,String> params=new HashMap<String,String>();
 		   params.put("userName", userName);
