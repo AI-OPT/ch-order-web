@@ -56,7 +56,7 @@ public class NoticeController {
 	            		 request.setTenantId("changhong");
 	            		 request.setOrderIds(orderIds);
 	            		 request.setExternalId(receive.getGrpBody().getPayTranSn());
-	            		 iOrderPaySV.pay(request);
+	            		// iOrderPaySV.pay(request);
 	            		 return "SUCCESS";
 	            	 }else if("03".equals(receive.getGrpBody().getPayStatus())){
 	            	 }else{
