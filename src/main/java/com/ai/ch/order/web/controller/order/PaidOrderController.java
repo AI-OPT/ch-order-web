@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.ai.ch.order.web.controller.common.ChUserController;
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
 import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
@@ -152,7 +152,7 @@ public class PaidOrderController {
 		req.setTenantId(user.getTenantId());
 		// 获取用户ID
 		if (!StringUtil.isBlank(reqVo.getUserName())) {
-			String id = ChUserController.getUserId(reqVo.getUserName());
+			String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
 			if (!StringUtil.isBlank(id)) {
 				req.setUserId(id);
 			} else {
@@ -707,7 +707,7 @@ public class PaidOrderController {
 				body.setMerRefundSn(orderId);
 				body.setSonMerNo("CO20160900000010");
 				body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-				body.setNotifyUrl("http://124.207.3.100:8083/slp-order/refundnotice/notice");
+				body.setNotifyUrl("http://124.207.3.100:8083/ch-order-web/notice/refundNotice");
 				body.setResv(updateInfo);
 				ReqsInfo reqInfo = new ReqsInfo();
 				reqInfo.setGrpHdr(hdr);
@@ -715,12 +715,12 @@ public class PaidOrderController {
 				BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 					RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
 					if(!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())){
-						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 		            }else{
-		            	responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款成功", null);
+		            	responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
 		            }
 				} catch (Exception e) {
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 				}
 			return responseData;
 		}	

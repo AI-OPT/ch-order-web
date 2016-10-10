@@ -71,7 +71,8 @@ public class demo {
 			param.put("msgHeader", msgHeader);
 			param.put("xmlBody", data);
 			param.put("signMsg", sign);
-			 String result = sendHttpPost("http://124.207.3.100:8083/ch-order-web/notice/payNotice", param,"UTF-8");
+			String result = sendHttpPost("http://127.0.0.1:8080/ch-order-web/notice/payNotice", param,"UTF-8");
+			System.out.println("===="+result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

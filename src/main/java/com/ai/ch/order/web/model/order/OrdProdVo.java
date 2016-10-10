@@ -42,6 +42,10 @@ public class OrdProdVo implements Serializable{
 	 */
 	private String prodState;
 	/**
+	 * 商品状态展示名称
+	 */
+	private String prodStateName;
+	/**
 	 * 总费用
 	 */
 	private String prodTotalFee;
@@ -186,5 +190,13 @@ public class OrdProdVo implements Serializable{
 
 	public void setGiveJF(long giveJF) {
 		this.giveJF = giveJF;
+	}
+
+	public String getProdStateName() {
+		return prodStateName;
+	}
+
+	public void setProdStateName(String prodStateName) {
+		this.prodStateName = prodStateName;
 	}
 }
