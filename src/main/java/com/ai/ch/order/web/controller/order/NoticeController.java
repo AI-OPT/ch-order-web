@@ -70,6 +70,7 @@ public class NoticeController {
 	}
 	@RequestMapping("/refundNotice")
 	public String refundNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
+		System.out.println(">>>>>>退款通知开始");
 		OrdRequest request = new OrdRequest();
 		//验签
 			try{

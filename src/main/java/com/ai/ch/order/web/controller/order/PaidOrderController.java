@@ -715,12 +715,12 @@ public class PaidOrderController {
 				BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 					RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
 					if(!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())){
-						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 		            }else{
-		            	responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款成功", null);
+		            	responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
 		            }
 				} catch (Exception e) {
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 				}
 			return responseData;
 		}	
