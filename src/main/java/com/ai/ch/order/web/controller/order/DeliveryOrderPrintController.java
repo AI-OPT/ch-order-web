@@ -38,8 +38,7 @@ public class DeliveryOrderPrintController {
 		try {
 			DeliveryOrderPrintRequest req=new DeliveryOrderPrintRequest();
 			req.setOrderId(Long.parseLong(orderId));
-			//req.setUserId(user.getUserId());
-			req.setUserId("000000000000000945");
+			req.setUserId(user.getUserId());
 			req.setTenantId(user.getTenantId());
 			IDeliveryOrderPrintSV iDeliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
 			DeliveryOrderQueryResponse response = iDeliveryOrderPrintSV.query(req);
@@ -66,8 +65,7 @@ public class DeliveryOrderPrintController {
 			IDeliveryOrderPrintSV iDeliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
 			DeliveryOrderPrintRequest req=new DeliveryOrderPrintRequest();
 			req.setOrderId(Long.parseLong(orderId));
-			//req.setUserId(user.getUserId());
-			req.setUserId("000000000000000945");
+			req.setUserId(user.getUserId());
 			req.setTenantId(user.getTenantId());
 			DeliveryOrderPrintResponse response = iDeliveryOrderPrintSV.noMergePrint(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
@@ -93,9 +91,7 @@ public class DeliveryOrderPrintController {
 	    try {
 			DeliveryOrderPrintRequest req=new DeliveryOrderPrintRequest();
 			req.setOrderId(Long.parseLong(orderId));
-			//req.setUserId(user.getUserId());
-			//TODO
-			req.setUserId("000000000000000945");
+			req.setUserId(user.getUserId());
 			req.setTenantId(user.getTenantId());
 			IDeliveryOrderPrintSV iDeliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
 			DeliveryOrderPrintResponse response = iDeliveryOrderPrintSV.display(req);
