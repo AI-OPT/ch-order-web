@@ -6,20 +6,21 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.opt.sdk.dubbo.util.HttpClientUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 public  class ChUserByNameUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(ChUserByNameUtil.class);
-	//获取绑定手机号
+	//获取用户id
 	public static String getUserInfo(String userName){
 		 Map<String,String> params=new HashMap<String,String>();
 		   params.put("userName", userName);
-	       String url="http://10.19.13.16:28151/opaas/http/srv_up_user_getuserdetialbyname_qry";
+	       String url=Constants.CH_USERNAME_URL;
 	       String param=JSON.toJSONString(params);
 	       Map<String,String> mapHeader = new HashMap<String,String>();
-	       mapHeader.put("appkey", "3a83ed361ebce978731b736328a97ea8");
+	       mapHeader.put("appkey", Constants.CH_USERNAME_APPKEY);
 	       String result ="";
 			try {
 				result = HttpClientUtil.sendPost(url, param, mapHeader);
