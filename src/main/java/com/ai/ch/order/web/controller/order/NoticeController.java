@@ -28,7 +28,8 @@ public class NoticeController {
 	private Key key;
 	@RequestMapping("/payNotice")
 	public String payNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
-			//验签
+		System.out.println(">>>>>>支付通知开始");	
+		//验签
 			try{
 				IOrderPaySV iOrderPaySV = DubboConsumerFactory.getService(IOrderPaySV.class);	
 				boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
@@ -41,6 +42,7 @@ public class NoticeController {
 	             //02表示支付成功，03表示支付失败
 	             if(!StringUtil.isBlank(state)){
 	            	 if("02".equals(receive.getGrpBody().getPayStatus())){
+	            		 System.out.println(">>>>>>支付通知成功");
 	            		 //更新订单状态
 	            		 OrderPayRequest request = new OrderPayRequest();
 	            		 List<Long> orderIds = new ArrayList<Long>();
