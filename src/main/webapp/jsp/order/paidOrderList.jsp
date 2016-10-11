@@ -180,6 +180,8 @@
 										查看详情(换货)
 									{{else  ~busiCode=='3' &&(~state=='21' || ~state=='212' ||~state=='22' ||~state=='23' || ~state=='31')}}
 										查看详情(退货)
+									{{else  ~busiCode=='4' &&(~state=='21' || ~state=='212' ||~state=='22' ||~state=='23' || ~state=='31')}}
+										查看详情(退款)
 									{{else}}
 										查看详情
 									{{/if}}

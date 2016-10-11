@@ -708,7 +708,7 @@ public class PaidOrderController {
 				body.setSonMerNo("CO20160900000010");
 				body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 				body.setNotifyUrl("http://124.207.3.100:8083/ch-order-web/notice/refundNotice");
-				body.setResv(updateInfo);
+				body.setResv("ceshi");
 				ReqsInfo reqInfo = new ReqsInfo();
 				reqInfo.setGrpHdr(hdr);
 				reqInfo.setGrpBody(body);

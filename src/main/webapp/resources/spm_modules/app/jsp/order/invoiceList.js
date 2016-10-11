@@ -58,7 +58,7 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 				}
 			});
 		},
-		_invoicePrint:function(){
+		_invoicePrint:function(tenantId,orderId){
 			var url = _base+"/invoice/invoicePrint";
 			ajaxController.ajax({
     	    	type: "post",
@@ -66,9 +66,31 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 				processing: false,
 				message: "打印中，请等待...",
 				url: url,
-				data:{},
+				data:{"tenantId":tenantId,"orderId":orderId},
     	        success: function (data) {
-    	        	alert(data.Sucessed);
+    	        	
+    	        	if(data.IsSuccessful == false){
+    	        		//alert(data.MessageKey);
+    	        		var d = Dialog({
+							content:data.MessageKey,
+							icon:'fail',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}else{
+    	        		var d = Dialog({
+							content:"发票打印成功",
+							icon:'success',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
     	        }
                 
     	    });
