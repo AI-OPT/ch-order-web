@@ -248,8 +248,8 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-//							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-//									ordProductVo.getProductImage().getPicType()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
