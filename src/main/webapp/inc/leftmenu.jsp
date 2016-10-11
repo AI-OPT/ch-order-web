@@ -117,7 +117,7 @@
                 <li>
                     <a href="${_base}/toStasticOrder" target="mainFrame" class="dropdown-toggle">
                     <i class="fa fa-usd"></i>
-                    <span>订单查询</span><i class="fa fa-chevron-circle-right drop-icon"></i>
+                    <span>订单统计</span><i class="fa fa-chevron-circle-right drop-icon"></i>
                     </a>
                 </li>
                 <li>
