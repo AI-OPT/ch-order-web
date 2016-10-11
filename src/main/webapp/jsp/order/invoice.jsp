@@ -135,7 +135,14 @@
 													{{if invoiceStatus == '2'}}已报送{{/if}}
 													{{if invoiceStatus == '3'}}已打印{{/if}}
 												</td>
-	                                            <td><a href="javascript:void(0);" onclick="pager._invoicePrint();">重新报送</a></td>
+	                                            <td>
+												{{if invoiceStatus == '1'}}
+													<a href="javascript:void(0);" onclick="pager._invoicePrint('changhong','{{:orderId}}');">发票报送</a>
+												{{/if}}
+												{{if invoiceStatus == '3'}}
+													<a href="javascript:void(0);" onclick="JavaScript:void(0);">发票下载</a>
+												{{/if}}
+												</td>
 	                                       </tr>
 						
 					  </script>
