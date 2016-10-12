@@ -33,6 +33,19 @@ public final class Constants {
 	private static PropertiesLoader loader = new PropertiesLoader("ch-order-web.properties");
 	
 	public static final class OrdOrder {
+		
+		  public static final class Flag {
+              /**
+               * 0:OFC
+               */
+              public static final String OFC = "0";
+
+              /**
+               * 1：up平台
+               */
+              public static final String UPPLATFORM ="1";
+
+          }
 
 		public static class State {
  
