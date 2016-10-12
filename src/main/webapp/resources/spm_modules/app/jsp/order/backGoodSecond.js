@@ -41,10 +41,10 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     		backSecondPager.superclass.setup.call(this);
     		var formValidator=this._initValidate();
     		var refuseformValidator=this._refuseInitValidate();
-			$(":input").bind("focusout",function(){
+			$("#dataForm :input").bind("focusout",function(){
 				formValidator.element(this);
 			});
-			$(":input").bind("focusout",function(){
+			$("#refuseDataForm :input").bind("focusout",function(){
 				refuseformValidator.element(this);
 			});
     	},
@@ -135,7 +135,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
                  
      	    });
      	},
-    	//修改金额
+    	//同意退款，修改金额
     	_updateMoney:function(){
     		var _this= this;
     		var formValidator=_this._initValidate();
@@ -167,7 +167,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				},
     	        success: function (data) {
     	        	if(data){
-     	        		window.location.href=_base+"/toPaidOrder";
+     	        		window.location.href=_base+"/refund";
      	        	}else{
      	        		var d = Dialog({
 							title: '消息',
