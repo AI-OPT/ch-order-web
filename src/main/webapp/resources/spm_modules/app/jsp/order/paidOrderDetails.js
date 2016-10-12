@@ -109,7 +109,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					var template = $.templates("#deliveryOrderTempalte");
 					var htmlOutput = template.render(data.data);
 					$("#deliveryModal").html(htmlOutput);
-					$("#myModal").modal('show');
+					$("#myModaltakeGoods").modal('show');
 				}
 			});
 		},
