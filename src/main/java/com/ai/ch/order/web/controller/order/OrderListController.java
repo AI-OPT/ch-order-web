@@ -145,7 +145,7 @@ public class OrderListController {
 
     @RequestMapping("/orderListDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, String busiCode,
-			String orderId,String state,String pOrderId) {
+			String orderId,String state,String pOrderId,String Flag) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();
@@ -238,26 +238,38 @@ public class OrderListController {
 			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)) { //待付款
 				return new ModelAndView("jsp/order/unpaidOrderDetail", model);
 			}
-			if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state) ||Constants.OrdOrder.State.PAID.equals(state)) { //已付款(待配货)
-				return new ModelAndView("jsp/order/paidOrderDetails", model);
-			}
-			if(Constants.OrdOrder.State.WAIT_DELIVERY.equals(state)||
-					Constants.OrdOrder.State.WAIT_SEND.equals(state)) { //待发货
-				return new ModelAndView("jsp/order/waitInvoiceDetails", model);
-			}
-			if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
-				return new ModelAndView("jsp/order/alreadySendGoods", model);
-			}
-			if(Constants.OrdOrder.State.COMPLETED.equals(state)) { //已完成
-				return new ModelAndView("jsp/order/doneOrder", model);
-			}
-			if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
-				return new ModelAndView("jsp/order/closeOrder", model);
-			}
-			if(Constants.OrdOrder.State.RETURN_COMPLETE.equals(state)||         //退货完成
-					Constants.OrdOrder.State.EXCHANGE_COMPLETE.equals(state)||  //换货完成 
-					Constants.OrdOrder.State.REFUND_COMPLETE.equals(state)) {   //退款完成
-				return new ModelAndView("jsp/order/afterComplete", model);
+			/* OFC待配货跳转页面*/
+			if(Constants.OrdOrder.Flag.OFC.equals(Flag)) {
+				if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state)) {
+					return new ModelAndView("jsp/order/OFCPaidOrderDetails", model);
+				}
+				if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
+					return new ModelAndView("jsp/order/alreadySendGoods", model);
+				}
+				//TODO 退货其它状态
+			}else {
+				/* up平台跳转页面*/
+				if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state) ||Constants.OrdOrder.State.PAID.equals(state)) { //已付款(待配货)
+					return new ModelAndView("jsp/order/paidOrderDetails", model);
+				}
+				if(Constants.OrdOrder.State.WAIT_DELIVERY.equals(state)||
+						Constants.OrdOrder.State.WAIT_SEND.equals(state)) { //待发货
+					return new ModelAndView("jsp/order/waitInvoiceDetails", model);
+				}
+				if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
+					return new ModelAndView("jsp/order/alreadySendGoods", model);
+				}
+				if(Constants.OrdOrder.State.COMPLETED.equals(state)) { //已完成
+					return new ModelAndView("jsp/order/doneOrder", model);
+				}
+				if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
+					return new ModelAndView("jsp/order/closeOrder", model);
+				}
+				if(Constants.OrdOrder.State.RETURN_COMPLETE.equals(state)||         //退货完成
+						Constants.OrdOrder.State.EXCHANGE_COMPLETE.equals(state)||  //换货完成 
+						Constants.OrdOrder.State.REFUND_COMPLETE.equals(state)) {   //退款完成
+					return new ModelAndView("jsp/order/afterComplete", model);
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
