@@ -41,10 +41,10 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     		backSecondPager.superclass.setup.call(this);
     		var formValidator=this._initValidate();
     		var refuseformValidator=this._refuseInitValidate();
-			$(":input").bind("focusout",function(){
+			$("#dataForm :input").bind("focusout",function(){
 				formValidator.element(this);
 			});
-			$(":input").bind("focusout",function(){
+			$("#refuseDataForm :input").bind("focusout",function(){
 				refuseformValidator.element(this);
 			});
     	},
