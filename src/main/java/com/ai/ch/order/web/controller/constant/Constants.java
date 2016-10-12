@@ -185,6 +185,9 @@ public final class Constants {
     /**支付中心地址**/
     private static final String CH_PAY_KEY = "ch.pay.url";  
     public static final String CH_PAY_URL = loader.getProperty(CH_PAY_KEY);  
+    /**退款通知地址**/
+    private static final String CH_REFUND_KEY = "ch.refundnotice.url";  
+    public static final String CH_REFUND_URL = loader.getProperty(CH_REFUND_KEY); 
     
    
 }
