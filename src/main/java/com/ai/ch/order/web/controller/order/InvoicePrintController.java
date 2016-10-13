@@ -1,9 +1,7 @@
 package com.ai.ch.order.web.controller.order;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,7 +20,6 @@ import com.ai.ch.order.web.model.order.InvoicePrintInfo;
 import com.ai.ch.order.web.model.order.ListInvoicePrintInfo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.InvoiceUtils;
-import com.ai.opt.base.exception.BusinessException;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.BeanUtils;
@@ -39,7 +36,6 @@ import com.ai.slp.order.api.invoiceprint.param.InvoiceSubmitRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSumbitResponse;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSumbitVo;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
