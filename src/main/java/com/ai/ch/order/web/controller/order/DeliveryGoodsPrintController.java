@@ -28,8 +28,10 @@ import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.slp.order.api.delivergoods.interfaces.IDeliverGoodsPrintSV;
+import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintInfosRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintResponse;
+import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintVo;
 import com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV;
 import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintInfosRequest;
 import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
@@ -74,12 +76,12 @@ public class DeliveryGoodsPrintController {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<BaseResponse> responseData =null;
 		try {
-			DeliveryOrderPrintInfosRequest req=new DeliveryOrderPrintInfosRequest();
-			List<DeliveryProdPrintVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliveryProdPrintVo.class); 
+			DeliverGoodsPrintInfosRequest req=new DeliverGoodsPrintInfosRequest();
+			List<DeliverGoodsPrintVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliverGoodsPrintVo.class); 
 			req.setOrderId(Long.valueOf(orderId));
-			req.setDeliveryProdPrintVos(deliveryProdPrintVos);
+			req.setInvoicePrintVos(deliveryProdPrintVos);
 			req.setTenantId(user.getTenantId());
-			IDeliveryOrderPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
+			IDeliverGoodsPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliverGoodsPrintSV.class);
 			BaseResponse response = deliveryOrderPrintSV.print(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
 				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_SUCCESS, "发货单打印成功",response);
