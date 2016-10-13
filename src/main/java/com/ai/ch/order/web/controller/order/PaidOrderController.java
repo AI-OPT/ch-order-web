@@ -343,6 +343,10 @@ public class PaidOrderController {
 					if (ordOrderVo.getTotalFee() != null) {
 						// 总退款金额
 						orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
+						orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+						orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
+						orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
+						
 					}
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
