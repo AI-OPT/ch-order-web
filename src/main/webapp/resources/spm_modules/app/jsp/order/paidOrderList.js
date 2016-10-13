@@ -27,7 +27,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
     	attrs: {
     	},
     	Statics: {
-    		DEFAULT_PAGE_SIZE: 10
+    		DEFAULT_PAGE_SIZE: 5
     	},
     	//事件代理
     	events: {

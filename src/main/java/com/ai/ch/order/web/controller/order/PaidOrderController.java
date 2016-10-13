@@ -124,8 +124,7 @@ public class PaidOrderController {
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
 		ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
-		String states = "21,212,22,23,31,92,93,94";
-		String[] stateArray = states.split(",");
+		String[] stateArray = Constants.OrdOrder.State.PAIED_STATES.split(",");
 		List<String> stateList = new LinkedList<String>();
 		for (String state : stateArray) {
 			stateList.add(state);
