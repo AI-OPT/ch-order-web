@@ -2,7 +2,7 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -44,10 +44,6 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
     		//调到订单列表页面
     		window.location.href = _base+"/order/toOrderList"
     	},
-    	
-    	/*_backModal:function(Obj,prodObj) {
-    		$("backModalLabel"+Obj).text()=prodObj;
-    	},*/
     	
     	_backOrder:function(orderObject) {
 			 var _obj=$("#backNum"+orderObject).val();
@@ -216,8 +212,30 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 				processing: true,
 				message : "正在处理中，请稍候...",
 				success : function(data) {
-					if(data) {
-						alert("打印成功");
+					if(data.statusCode == "1") {
+						var d = Dialog({
+    	    				title : '提示',
+    	    				content : '打印成功',
+    	    				icon:'success',
+    	    				closeIconShow:false,
+    	    				okValue : "确定",
+    	    				ok : function() {
+    	    					this.close;
+    	    				}
+    	    			});
+    	    			d.show();
+					}else {
+						var d = Dialog({
+    	    				title : '提示',
+    	    				content : '打印失败'+data.statusInfo,
+    	    				icon:'success',
+    	    				closeIconShow:false,
+    	    				okValue : "确定",
+    	    				ok : function() {
+    	    					this.close;
+    	    				}
+    	    			});
+    	    			d.show();
 					}
 				}
 			});

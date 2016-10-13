@@ -97,7 +97,7 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 						var d = Dialog({
 							title: '消息',
 							content:"发货成功",
-							icon:'prompt',
+							icon:'success',
 							okValue: '确 定',
 							ok:function(){
 								this.close();
@@ -108,7 +108,7 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     	        		var d = Dialog({
 							title: '消息',
 							content:"发货失败:"+data.statusInfo,
-							icon:'prompt',
+							icon:'false',
 							okValue: '确 定',
 							ok:function(){
 								this.close();

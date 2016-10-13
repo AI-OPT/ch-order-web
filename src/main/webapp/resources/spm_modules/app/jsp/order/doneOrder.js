@@ -2,7 +2,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
     'use strict';
     var $=require('jquery'),
     Widget = require('arale-widget/1.2.0/widget'),
-    Dialog = require("artDialog/src/dialog"),
+    Dialog = require("optDialog/src/dialog"),
     Paging = require('paging/0.0.1/paging-debug'),
     AjaxController = require('opt-ajax/1.0.0/index');
     require("jsviews/jsrender.min");
@@ -63,7 +63,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 							var d = Dialog({
 								title: '消息',
 								content:"退货申请成功",
-								icon:'prompt',
+								icon:'success',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -74,7 +74,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 	    	        		var d = Dialog({
 								title: '消息',
 								content:"退货申请失败:"+data.statusInfo,
-								icon:'prompt',
+								icon:'false',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -103,7 +103,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 							var d = Dialog({
 								title: '消息',
 								content:"换货申请成功",
-								icon:'prompt',
+								icon:'success',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -114,7 +114,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 	    	        		var d = Dialog({
 								title: '消息',
 								content:"换货申请失败:"+data.statusInfo,
-								icon:'prompt',
+								icon:'false',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -143,7 +143,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 							var d = Dialog({
 								title: '消息',
 								content:"退款申请成功",
-								icon:'prompt',
+								icon:'success',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -154,7 +154,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 	    	        		var d = Dialog({
 								title: '消息',
 								content:"退款申请失败:"+data.statusInfo,
-								icon:'prompt',
+								icon:'false',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
