@@ -267,7 +267,7 @@ public class StasticOrderController {
 				return new ModelAndView("jsp/order/staticAlreadySendsOrder", model);
 			}
 			if(Constants.OrdOrder.State.COMPLETED.equals(state)) { //已完成
-				return new ModelAndView("jsp/order/staticDone", model);
+				return new ModelAndView("jsp/order/staticDoneOrder", model);
 			}
 			if(Constants.OrdOrder.State.CANCEL.equals(state)) { //已关闭
 				return new ModelAndView("jsp/order/staticClose", model);
@@ -298,46 +298,49 @@ public class StasticOrderController {
 		return null;
 	}
     /**
-   	 * 获取物流信息
-   	 * @param com
-   	 * @param oderNo
-   	 * @return  List<LogisticsDetail>
-   	 */
-   	private List<LogisticsDetail> getLogisticsDetails(String com,String oderNo) {
-   		Map<String, String> params = new HashMap<String, String>();
-   		params.put("orderNo", oderNo);
-   		params.put("com", com);
-   		Map<String, String> headers = new HashMap<String, String>();
-   		headers.put("appkey", Constants.LOGISTICS_APPKEY);
-   		String param = JSON.toJSONString(params);
-   		try {
-   			String result = HttpClientUtil.sendPost(Constants.LOGISTICS_URL,param,headers);
-   			 //将返回结果，转换为JSON对象 
-   	        JSONObject json=JSON.parseObject(result);
-   	        String reqResultCode=json.getString("resultCode");
-   	        JSONObject data=JSON.parseObject(json.getString("data"));
-   	        String isSuccess = data.getString("success");
-   	        if("000000".equals(reqResultCode) && "true".equals(isSuccess)){
-   	        	//JSONObject data=JSON.parseObject(json.getString("data"));
-   				String dataStr =data.getString("messages");
-   				JSONArray messages = JSONArray.parseArray(dataStr);
-   				Iterator<Object> it = messages.iterator();
-   				List<LogisticsDetail> logisticsDetails = new ArrayList<LogisticsDetail>();
-   				while (it.hasNext()) {
-   					LogisticsDetail detail = new LogisticsDetail();
-   					JSONObject ob = (JSONObject) it.next();
-   					detail.setTime(ob.getString("time"));
-   					detail.setContext(ob.getString("context"));
-   					logisticsDetails.add(detail);
-   				}
-   				return logisticsDetails;
-   			} else {
-   				// 请求过程失败
-   				System.out.println("请求失败,请求错误码:" + reqResultCode);
-   			}
-   		} catch (Exception e) {
-   			e.printStackTrace();
-   		}
-   		return null;
-   	}
+	 * 获取物流信息
+	 * @param com
+	 * @param oderNo
+	 * @return  List<LogisticsDetail>
+	 */
+	private List<LogisticsDetail> getLogisticsDetails(String com,String oderNo) {
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("orderNo", oderNo);
+		params.put("com", com);
+		Map<String, String> headers = new HashMap<String, String>();
+		headers.put("appkey", Constants.LOGISTICS_APPKEY);
+		String param = JSON.toJSONString(params);
+		try {
+			String result = HttpClientUtil.sendPost(Constants.LOGISTICS_URL,param,headers);
+			 //将返回结果，转换为JSON对象 
+	        JSONObject json=JSON.parseObject(result);
+	        String reqResultCode=json.getString("resultCode");
+	        if("000000".equals(reqResultCode)){
+	        	JSONObject data=JSON.parseObject(json.getString("data"));
+	        	JSONObject responseHeader=JSON.parseObject(data.getString("responseHeader"));
+	        	String success = responseHeader.getString("success");
+	        	if("true".equals(success)){
+					String dataStr =data.getString("messages");
+					JSONArray messages = JSONArray.parseArray(dataStr);
+					Iterator<Object> it = messages.iterator();
+					List<LogisticsDetail> logisticsDetails = new ArrayList<LogisticsDetail>();
+					while (it.hasNext()) {
+						LogisticsDetail detail = new LogisticsDetail();
+						JSONObject ob = (JSONObject) it.next();
+						detail.setTime(ob.getString("time"));
+						detail.setContext(ob.getString("context"));
+						logisticsDetails.add(detail);
+					}
+					return logisticsDetails;
+	        	}
+			} else {
+				// 请求过程失败
+				LOG.error("物流信息请求失败,请求错误码："+ reqResultCode);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOG.error("物流信息请求失败,请求错误码：", e);
+		}
+		return null;
+	}
    }
