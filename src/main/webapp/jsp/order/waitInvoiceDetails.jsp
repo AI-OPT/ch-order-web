@@ -132,10 +132,8 @@
 							</div>  
 							 <div class="modal-body text-center">
 							 <br/><br/>
-								<!--   <input type="button"  class="btn btn-primary"
-						  		 onclick="pager._backOrder('');"  value="退货"> -->
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-						  		 data-toggle="modal" data-target="#backModal${status.index}" onclick="pager._backModal('${status.index}','${prod.prodName}')">退货</button> 
+						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
@@ -144,8 +142,6 @@
 								data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
 								<br/><br/>
 							</div> 
-							<!-- <div>
-							</div> -->
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal -->
 				</div> 
@@ -164,7 +160,7 @@
 					<form id="validateForm" method="post">
 					<div class="modal-body">
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
-							
+							${prod.prodName}
 						</h4><br/>
 						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></form></p>
 					</div><p id="errorMessage"></p>
