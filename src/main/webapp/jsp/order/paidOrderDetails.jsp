@@ -139,8 +139,6 @@
 								data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
 								<br/><br/>
 							</div> 
-							<!-- <div>
-							</div> -->
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal -->
 				</div> 
