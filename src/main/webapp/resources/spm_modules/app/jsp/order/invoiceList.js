@@ -148,7 +148,9 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 				url: url,
 				data:{"invoiceCode":invoiceCode,"invoiceNumber":invoiceNumber},
     	        success: function (data) {
-    	        	alert(data);
+//    	        	alert(data);
+//    	        	$('#url_id').text(data)
+    	        	location.href=data;
     	        }
                 
     	    });
