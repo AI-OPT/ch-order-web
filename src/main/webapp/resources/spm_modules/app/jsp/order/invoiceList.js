@@ -59,6 +59,8 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 			});
 		},
 		_invoicePrint:function(tenantId,orderId){
+			var _this = this;
+			//
 			var url = _base+"/invoice/invoicePrint";
 			ajaxController.ajax({
     	    	type: "post",
@@ -80,10 +82,14 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 							}
 						});
 						d.show();
+    	        	}else if(data.IsSuccessful == true){
+    	        		//
+    	        		_this._modifyInvoiceState(tenantId,orderId,"1");
+    	        		//
     	        	}else{
     	        		var d = Dialog({
-							content:"发票打印成功",
-							icon:'success',
+							content:"发票报送失败",
+							icon:'fail',
 							okValue: '确 定',
 							ok:function(){
 								this.close();
@@ -91,6 +97,58 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 						});
 						d.show();
     	        	}
+    	        }
+                
+    	    });
+		},
+		_modifyInvoiceState:function(tenantId,orderId,invoiceStatus){
+			var url = _base+"/invoice/modifyInvoiceState";
+			ajaxController.ajax({
+    	    	type: "post",
+				dataType: "json",
+				processing: false,
+				message: "打印中，请等待...",
+				url: url,
+				data:{"tenantId":tenantId,"orderId":orderId,"invoiceStatus":invoiceStatus},
+    	        success: function (data) {
+    	        	if(data.responseHeader.resultCode == '000000'){
+    	        		//
+    	        		var d = Dialog({
+							content:"发票报送成功",
+							icon:'success',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}else{
+    	        		//
+    	        		var d = Dialog({
+							content:"发票报送状态修改失败",
+							icon:'fail',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
+    	        }
+                
+    	    });
+		},
+		_downloadInvoice:function(invoiceCode,invoiceNumber){
+			var url = _base+"/invoice/downloadInvoice";
+			ajaxController.ajax({
+    	    	type: "post",
+				dataType: "text",
+				processing: false,
+				message: "下载中，请等待...",
+				url: url,
+				data:{"invoiceCode":invoiceCode,"invoiceNumber":invoiceNumber},
+    	        success: function (data) {
+    	        	alert(data);
     	        }
                 
     	    });
