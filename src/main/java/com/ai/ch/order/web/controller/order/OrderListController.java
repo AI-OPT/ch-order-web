@@ -125,7 +125,7 @@ public class OrderListController {
 						OrdOrderListVo orderListVo=new OrdOrderListVo();
 						BeanUtils.copyProperties(orderListVo, behindParentOrdOrderVo);
 						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustFee()));
-						orderListVo.setOrderTotalCouponFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getTotalCouponFee()));
+						orderListVo.setOrderTotalDiscountFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getDiscountFee()));
 						orderListVo.setTotalJF(behindParentOrdOrderVo.getPoints());
 						orderList.add(orderListVo);
 					}
@@ -176,6 +176,16 @@ public class OrderListController {
 					if(response!=null){
 						orderDetail.setUsername(response.getName());
 					}
+					//翻译配送方式
+					SysParamSingleCond	paramLogistics = new SysParamSingleCond();
+					paramLogistics.setTenantId(Constants.TENANT_ID);
+					paramLogistics.setColumnValue(orderDetail.getLogisticsType());
+					paramLogistics.setTypeCode(Constants.ORD_LOGISTICS_TYPE);
+					paramLogistics.setParamCode(Constants.LOGISTICS_TYPE);
+            		SysParam LogisticsParam = iCacheSV.getSysParamSingle(paramLogistics);
+            		if(LogisticsParam!=null){
+            			orderDetail.setLogisticsType(LogisticsParam.getColumnDesc());
+            		}
 					//翻译订单来源
 					SysParamSingleCond	param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);
@@ -246,7 +256,7 @@ public class OrderListController {
 				if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
 					return new ModelAndView("jsp/order/alreadySendGoods", model);
 				}
-				//TODO 退货其它状态
+				//TODO 退货其它状态(OFC的情况下)
 			}else {
 				/* up平台跳转页面*/
 				if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state) ||Constants.OrdOrder.State.PAID.equals(state)) { //已付款(待配货)
