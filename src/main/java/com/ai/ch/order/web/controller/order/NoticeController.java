@@ -13,6 +13,7 @@ import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
+import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV;
@@ -29,6 +30,7 @@ public class NoticeController {
 	private Key key;
 	@RequestMapping("/payNotice")
 	public String payNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
+		 System.out.println(">>>>>>>>>>>>支付通知开始");
 		//验签
 			try{
 				IOrderPaySV iOrderPaySV = DubboConsumerFactory.getService(IOrderPaySV.class);	
@@ -42,6 +44,7 @@ public class NoticeController {
 	             //02表示支付成功，03表示支付失败
 	             if(!StringUtil.isBlank(state)){
 	            	 if("02".equals(receive.getGrpBody().getPayStatus())){
+	            		 System.out.println(">>>>>>>>>>>>支付成功");
 	            		 //更新订单状态
 	            		 OrderPayRequest request = new OrderPayRequest();
 	            		 List<Long> orderIds = new ArrayList<Long>();
@@ -55,7 +58,8 @@ public class NoticeController {
 	            		 request.setTenantId(Constants.TENANT_ID);
 	            		 request.setOrderIds(orderIds);
 	            		 request.setExternalId(receive.getGrpBody().getPayTranSn());
-	            		 iOrderPaySV.pay(request);
+	            		 BaseResponse base= iOrderPaySV.pay(request);
+	            		 System.out.println("支付数据沉淀"+base.getResponseHeader().getResultMessage());
 	            		 return "SUCCESS";
 	            	 }else{
 	            		 return "FAILED";
