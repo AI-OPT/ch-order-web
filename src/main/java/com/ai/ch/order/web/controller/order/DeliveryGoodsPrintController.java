@@ -32,9 +32,6 @@ import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintInfosRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintResponse;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintVo;
-import com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintInfosRequest;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
