@@ -32,6 +32,7 @@ import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintRequest;
 import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderQueryResponse;
 import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
 import com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV;
+import com.ai.slp.order.api.invoiceprint.param.InvoiceModifyRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSubmitRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSumbitResponse;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSumbitVo;
@@ -121,6 +122,12 @@ public class InvoicePrintController {
 		invoiceSubmitRequest.setTenantId(tenantId);
 		//
 		InvoiceSumbitResponse response = DubboConsumerFactory.getService(IInvoicePrintSV.class).invoiceSubmit(invoiceSubmitRequest);
+		
+		if(!response.getResponseHeader().isSuccess()){
+			//
+			return "{\"IsSuccessful\":false,\"MessageKey\":\""+response.getResponseHeader().getResultMessage()+"\"}";
+		}
+		
 		List<InvoiceSumbitVo> invoiceSumbitVoList = response.getInvoiceSumbitVo();
 		InvoicePrintInfo invoicePrintInfo = null;
 		//
@@ -202,22 +209,35 @@ public class InvoicePrintController {
 	 * @return
 	 * @author zhouxh
 	 */
-	@RequestMapping("/downloadInvoice")
+	@RequestMapping(value="/downloadInvoice",produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String downloadInvoice(HttpServletRequest request,String invoiceCode,String invoiceNumber) {
-		StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_PRINT_URL+InvoiceUtils.GET_FILE);
+		StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_PRINT_URL+InvoiceUtils.DOWNLOAD_INVOICE_FILE_URL);
 		//获取授权ID
 		String id=InvoiceUtils.getID(InvoiceUtils.TYPE_GetFile);
 		getfileURL.append("?id="+id);
-	    invoiceCode ="051201600121";
+	    //invoiceCode ="051201600121";
 	    getfileURL.append("&invoiceCode="+invoiceCode);
-	    invoiceNumber="11450001";
+	    //invoiceNumber="11450001";
 	    getfileURL.append("&invoiceNumber="+invoiceNumber);
 		//返回下载电子发票的URL地址
-//	    return getfileURL;
-		return "http://bill.dchfcloud.com/BILL/PubicInterFace/GetFileByAuthInfo/?id=26B21B24-1A99-4E2D-8ABE-3486D5EC1ECC&invoiceNumber=11450001&invoiceCode=051201600121";
+	    return getfileURL.toString();
+		//return "http://bill.dchfcloud.com/BILL/PubicInterFace/GetFileByAuthInfo/?id=26B21B24-1A99-4E2D-8ABE-3486D5EC1ECC&invoiceNumber=11450001&invoiceCode=051201600121";
 	}
-
+	
+	@RequestMapping(value="/modifyInvoiceState",produces = "application/json;charset=UTF-8")
+	@ResponseBody
+	public BaseResponse modifyInvoiceState(String tenantId,String invoiceStatus,String orderId){
+		InvoiceModifyRequest invoiceModifyRequest = new InvoiceModifyRequest();
+		//
+		invoiceModifyRequest.setTenantId(tenantId);
+		invoiceModifyRequest.setInvoiceStatus(invoiceStatus);
+		invoiceModifyRequest.setOrderId(Long.valueOf(orderId));
+		//
+		BaseResponse response = DubboConsumerFactory.getService(IInvoicePrintSV.class).modifyState(invoiceModifyRequest);
+		//
+		return response;
+	}
 	
 	
 }

@@ -29,6 +29,7 @@ public class InvoiceUtils {
 	public static String QUERY_AUTH = "PubicInterFace/QueryAuth";//获取授权Id接口
 	public static String BATCH_ADD = "PubicInterFace/BatchAdd";//开具发票接口
 	public static String GET_FILE = "PubData/GetFileByAuthInfo";//下载电子发票接口
+	public static String DOWNLOAD_INVOICE_FILE_URL = "PubicInterFace/GetFileByAuthInfo";
 	
 	public static String TYPE_BATCH_ADD ="BatchAdd";//开具发票
 	public static String TYPE_Query ="Query";//查询
@@ -69,8 +70,8 @@ public class InvoiceUtils {
 		try {
 			httpPost.setEntity(new StringEntity(authorizationJson.toString(), "UTF-8"));
 			httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
-			if(getProxy() !=null)
-				httpPost.setConfig(getProxy());
+//			if(getProxy() !=null)
+//				httpPost.setConfig(getProxy());
 			CloseableHttpResponse response = client.execute(httpPost);
 			String authorizationResult = EntityUtils.toString(response.getEntity());
 			JSONObject authorizationResultJson = JSONObject.parseObject(authorizationResult);

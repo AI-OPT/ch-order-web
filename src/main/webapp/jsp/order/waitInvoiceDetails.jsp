@@ -37,7 +37,7 @@
 					                </li>
 					               	<li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderType}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
 					                </li> 
 					            </ul>  
 					            <ul>
@@ -294,7 +294,7 @@
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceType }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTypeName }</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>

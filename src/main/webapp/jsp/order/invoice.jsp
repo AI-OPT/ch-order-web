@@ -125,22 +125,28 @@
 	                                            <td>{{:taxRate}}%</td>
 	                                            <td>{{:taxAmount / 1000}}</td>
 	                                            <td>
-													{{if invoiceType == '0'}}不需要发票{{/if}}
-													{{if invoiceType == '1'}}普通发票{{/if}}
-													{{if invoiceType == '2'}}增值税发票{{/if}}
-													{{if invoiceType == '3'}}电子发票{{/if}}
+													{{if invoiceType == '0'}}电子发票{{/if}}
+													{{if invoiceType == '1'}}纸质发票{{/if}}
+													
 
 												</td>
 	                                            <td>{{if invoiceStatus == '1'}}未打印{{/if}}
 													{{if invoiceStatus == '2'}}已报送{{/if}}
 													{{if invoiceStatus == '3'}}已打印{{/if}}
+													{{if invoiceStatus == '4'}}打印失败{{/if}}
 												</td>
 	                                            <td>
 												{{if invoiceStatus == '1'}}
 													<a href="javascript:void(0);" onclick="pager._invoicePrint('changhong','{{:orderId}}');">发票报送</a>
 												{{/if}}
+												{{if invoiceStatus == '2'}}
+													重新报送
+												{{/if}}
 												{{if invoiceStatus == '3'}}
-													<a href="javascript:void(0);" onclick="JavaScript:void(0);">发票下载</a>
+													<a href="javascript:void(0);" onclick="pager._downloadInvoice('{{:invoiceId}}','{{:invoiceNum}}');">发票下载</a>
+												{{/if}}
+												{{if invoiceStatus == '4'}}
+													<a href="javascript:void(0);" onclick="pager._invoicePrint('changhong','{{:orderId}}');">发票报送</a>
 												{{/if}}
 												</td>
 	                                       </tr>

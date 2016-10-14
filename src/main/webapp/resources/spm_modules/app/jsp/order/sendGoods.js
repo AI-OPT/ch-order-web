@@ -56,6 +56,7 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     		});
     		return formValidator;
     	},
+    	
     	_confirmSendGoods:function(obj,thisObj){
     		var count = 0;
     		$("input[name='flowName']").each(function(){
