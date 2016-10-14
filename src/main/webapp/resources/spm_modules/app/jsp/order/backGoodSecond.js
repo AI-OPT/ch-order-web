@@ -49,9 +49,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 			});
     	},
     	_back:function(){
-    		var orderid = $("#orderId").text();
-    		window.location.href=_base+"/backDetail?orderId="
-            + orderid;
+    		window.location.href=_base+"/toPaidOrder";
     	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMoney").text();
@@ -167,7 +165,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				},
     	        success: function (data) {
     	        	if(data){
-     	        		window.location.href=_base+"/refund";
+     	        		window.location.href=_base+"/toPaidOrder";
      	        	}else{
      	        		var d = Dialog({
 							title: '消息',
