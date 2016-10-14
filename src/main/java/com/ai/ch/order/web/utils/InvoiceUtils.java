@@ -70,8 +70,8 @@ public class InvoiceUtils {
 		try {
 			httpPost.setEntity(new StringEntity(authorizationJson.toString(), "UTF-8"));
 			httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
-			if(getProxy() !=null)
-				httpPost.setConfig(getProxy());
+//			if(getProxy() !=null)
+//				httpPost.setConfig(getProxy());
 			CloseableHttpResponse response = client.execute(httpPost);
 			String authorizationResult = EntityUtils.toString(response.getEntity());
 			JSONObject authorizationResultJson = JSONObject.parseObject(authorizationResult);
