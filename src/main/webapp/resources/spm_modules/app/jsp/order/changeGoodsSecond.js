@@ -39,9 +39,7 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     		changeSecondPager.superclass.setup.call(this);
     	},
     	_back:function(){
-    		var orderid = $("#orderId").text();
-    		window.location.href = _base+"/changeDetail?orderId="
-            + orderid;
+    		window.location.href=_base+"/toPaidOrder";
     	}
     	
 		

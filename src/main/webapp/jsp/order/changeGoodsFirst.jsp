@@ -188,11 +188,31 @@
                             </div>
                             <div class="row">
                             		<p class="center mt-20">
-                             			<input type="button" id="agrren" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意换货">
+                             			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意换货">
                              			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝换货">
                              			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
                              		</p>
                             </div>
+                            <!--同意换货提示弹出框 操作 start-->	
+								<div class="eject-big">
+									<div class="prompt-samll" id="prompt">
+									<div class="eject-medium-title">
+											<p>提示</p>
+											<p class="img"><i class="fa fa-times"></i></p>
+									</div>
+									<!--确认同意换货-->
+									<div class="prompt-samll-confirm">
+										<ul>
+										<li class="word">确定同意换货吗？</li>
+										<li>
+											<input type="button"  id="agrren" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" value="确认">
+											<input id="prompt-close" type="button"  class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" id="closebtn" value="取消"></li>		
+										</ul>
+									</div>
+									</div>	
+								<div class="mask" id="eject-mask"></div>
+								</div>
+							<!--/提示弹出框操作结束 end-->
                             <!-- 换货理由start -->
                             <form id="dataForm" method="post" >
 	                            <div class="eject-medium" id="add-samll">
