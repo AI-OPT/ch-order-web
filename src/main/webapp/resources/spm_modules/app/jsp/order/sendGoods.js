@@ -56,6 +56,7 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     		});
     		return formValidator;
     	},
+    	
     	_confirmSendGoods:function(obj,thisObj){
     		var count = 0;
     		$("input[name='flowName']").each(function(){
@@ -101,6 +102,8 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 							okValue: '确 定',
 							ok:function(){
 								this.close();
+								//调到订单列表页面
+					    		window.location.href=_base+"/toPaidOrder";
 							}
 						});
 						d.show();
