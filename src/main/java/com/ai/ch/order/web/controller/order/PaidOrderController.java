@@ -124,8 +124,7 @@ public class PaidOrderController {
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
 		ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
-		String states = "21,212,22,23,31,92,93,94";
-		String[] stateArray = states.split(",");
+		String[] stateArray = Constants.OrdOrder.State.PAIED_STATES.split(",");
 		List<String> stateList = new LinkedList<String>();
 		for (String state : stateArray) {
 			stateList.add(state);
@@ -422,7 +421,6 @@ public class PaidOrderController {
 		try {
 			IOrderCheckSV iOrderCheckSV = DubboConsumerFactory.getService(IOrderCheckSV.class);
 			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
-			req.setTenantId(Constants.TENANT_ID);
 			req.setOrderId(Long.parseLong(orderId));
 			SysUserQueryRequest userReq = new SysUserQueryRequest();
 			userReq.setTenantId(user.getTenantId());
@@ -515,23 +513,24 @@ public class PaidOrderController {
 				e.printStackTrace();
 			}
 		}
-			
 		if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
 			//用户消费积分撤销
 			shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
 			//退款
 			ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
-			if(resposne.getStatusCode().equals("1")){
+			if("1".equals(resposne.getStatusCode())){
 				//修改退款金额
 				boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
 				if(!flag){
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
 					return responseData;
 				}
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退款成功", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款成功", null);
 			}else{
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "同意退款失败", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款失败", null);
 			}
+		}else{
+			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于于商品赠送积分", null);
 		}
 		return responseData;
 		
@@ -564,8 +563,7 @@ public class PaidOrderController {
 					return Integer.parseInt(data.getString("cash"));
 				}
 			} else {
-				// 请求过程失败
-				System.out.println("请求失败,请求错误码:" + reqResultCode);
+				LOG.error("查询用户积分请求失败", null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -586,6 +584,7 @@ public class PaidOrderController {
 	 * @author zhouxh
 	 */
 	private ResponseData<String> shopback(String accountId, String openId, String appId,String oid,String bisId,String backCash){
+		ResponseData<String> responseData = null;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId", accountId);
 		params.put("openId", openId);
@@ -606,16 +605,16 @@ public class PaidOrderController {
 	        	JSONObject data=JSON.parseObject(json.getString("data"));
 				String dataStr =data.getString("code");
 				if("200".equals(dataStr)){
-					return new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退货成功", null);
+					responseData =  new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
 				}
 			} else {
 				// 请求过程失败
-				System.out.println("请求失败,请求错误码:" + reqResultCode);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销失败", null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "同意退货失败", null);
+		return responseData;
 	}
 		//拒绝退款
 		@RequestMapping("/refuseRefund")
@@ -646,8 +645,8 @@ public class PaidOrderController {
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "拒绝退款失败", null);
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
 				LOG.error("拒绝退款报错：", e);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "拒绝退款失败", null);
 			}
 			return responseData;
 		}		
@@ -690,7 +689,7 @@ public class PaidOrderController {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				LOG.error("退款报错：", e);
+				LOG.error("修改金额报错：", e);
 			}
 			return true;
 		}	
