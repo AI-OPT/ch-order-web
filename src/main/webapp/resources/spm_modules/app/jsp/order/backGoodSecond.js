@@ -165,7 +165,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				},
     	        success: function (data) {
     	        	if(data){
-     	        		window.location.href=_base+"/refund";
+     	        		window.location.href=_base+"/toPaidOrder";
      	        	}else{
      	        		var d = Dialog({
 							title: '消息',
