@@ -105,8 +105,8 @@
 					            <ul>
 					            
 					            	<li  class="col-md-6">
-					                    <p class="word">配送方式：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.logisticsType}</p>
+					                    <p class="word">收货人：</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactName}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货信息：</p>

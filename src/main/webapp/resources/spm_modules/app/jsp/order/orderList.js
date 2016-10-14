@@ -41,6 +41,9 @@ define('app/jsp/order/orderList', function (require, exports, module) {
     		if(staFlag==11){
     			var state ="11";
     			this._changeWaitOrderState(state);
+    		}else if(staFlag==16){
+    			var state ="16";
+    			this._changeAlreadySendState(state);
     		}else{
     			this._searchOrderList();
     		}
@@ -53,6 +56,12 @@ define('app/jsp/order/orderList', function (require, exports, module) {
 		_changeWaitOrderState:function(state){
 			$(".order-list-table a").removeClass("current");
 			$("#waitMoney").addClass("current");
+			$("#searchOrderState").val(state);
+			this._searchOrderList();
+		},
+		_changeAlreadySendState:function(state){
+			$(".order-list-table a").removeClass("current");
+			$("#alreadySend").addClass("current");
 			$("#searchOrderState").val(state);
 			this._searchOrderList();
 		},
