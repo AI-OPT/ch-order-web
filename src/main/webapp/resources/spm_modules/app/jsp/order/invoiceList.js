@@ -71,7 +71,7 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 				data:{"tenantId":tenantId,"orderId":orderId},
     	        success: function (data) {
     	        	
-    	        	if(data.IsSuccessful == false){
+	    	        if(data.IsSuccessful == false){
     	        		//alert(data.MessageKey);
     	        		var d = Dialog({
 							content:data.MessageKey,
@@ -102,6 +102,7 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
     	    });
 		},
 		_modifyInvoiceState:function(tenantId,orderId,invoiceStatus){
+			var _this = this;
 			var url = _base+"/invoice/modifyInvoiceState";
 			ajaxController.ajax({
     	    	type: "post",
@@ -122,6 +123,8 @@ define('app/jsp/order/invoiceList', function (require, exports, module) {
 							}
 						});
 						d.show();
+						//
+						_this._queryPageSearch();
     	        	}else{
     	        		//
     	        		var d = Dialog({

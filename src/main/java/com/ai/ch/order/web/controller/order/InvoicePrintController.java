@@ -122,6 +122,12 @@ public class InvoicePrintController {
 		invoiceSubmitRequest.setTenantId(tenantId);
 		//
 		InvoiceSumbitResponse response = DubboConsumerFactory.getService(IInvoicePrintSV.class).invoiceSubmit(invoiceSubmitRequest);
+		
+		if(!response.getResponseHeader().isSuccess()){
+			//
+			return "{\"IsSuccessful\":false,\"MessageKey\":\""+response.getResponseHeader().getResultMessage()+"\"}";
+		}
+		
 		List<InvoiceSumbitVo> invoiceSumbitVoList = response.getInvoiceSumbitVo();
 		InvoicePrintInfo invoicePrintInfo = null;
 		//
