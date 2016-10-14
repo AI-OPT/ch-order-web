@@ -21,6 +21,7 @@ import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.InvoicePrintInfo;
 import com.ai.ch.order.web.model.order.ListInvoicePrintInfo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
+import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.InvoiceUtils;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
@@ -28,10 +29,10 @@ import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.slp.order.api.delivergoods.interfaces.IDeliverGoodsPrintSV;
+import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintInfoVo;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintInfosRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintResponse;
-import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintVo;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -74,7 +75,10 @@ public class DeliveryGoodsPrintController {
 		ResponseData<BaseResponse> responseData =null;
 		try {
 			DeliverGoodsPrintInfosRequest req=new DeliverGoodsPrintInfosRequest();
-			List<DeliverGoodsPrintVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliverGoodsPrintVo.class); 
+			List<DeliverGoodsPrintInfoVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliverGoodsPrintInfoVo.class); 
+			for (DeliverGoodsPrintInfoVo deliverGoodsPrintInfoVo : deliveryProdPrintVos) {
+				deliverGoodsPrintInfoVo.setSalePrice(AmountUtil.YuanToLi(deliverGoodsPrintInfoVo.getSalePrice()));
+			}
 			req.setOrderId(Long.valueOf(orderId));
 			req.setInvoicePrintVos(deliveryProdPrintVos);
 			req.setTenantId(user.getTenantId());
