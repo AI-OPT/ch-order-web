@@ -9,7 +9,7 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	/**
 	 * 订单总优惠券
 	 */
-	private String orderTotalCouponFee;
+	private String orderTotalDiscountFee;
 	
 	/**
 	 * 总实付
@@ -33,10 +33,10 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	public void setTotalJF(Long totalJF) {
 		this.totalJF = totalJF;
 	}
-	public String getOrderTotalCouponFee() {
-		return orderTotalCouponFee;
+	public String getOrderTotalDiscountFee() {
+		return orderTotalDiscountFee;
 	}
-	public void setOrderTotalCouponFee(String orderTotalCouponFee) {
-		this.orderTotalCouponFee = orderTotalCouponFee;
+	public void setOrderTotalDiscountFee(String orderTotalDiscountFee) {
+		this.orderTotalDiscountFee = orderTotalDiscountFee;
 	}
 }
