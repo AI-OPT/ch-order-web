@@ -316,8 +316,7 @@
 					  		 onclick="" value="打印发票">
 					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
 					  		 onclick="pager._displayInvoiceOrder();" value="打印发货单">
-					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-					  		 onclick="" value="打印快递单"></div>
+					  		 </div>
 							</div>	
                         	</div>	
                         </div>

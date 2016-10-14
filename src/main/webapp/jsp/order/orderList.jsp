@@ -93,7 +93,7 @@
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userName}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userTel}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.totalJF}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.orderTotalCouponFee}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.orderTotalDiscountFee}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.totalAdjustFee}}</td>
 		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.contactTel}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.deliveryFlagName}}</td>
