@@ -61,8 +61,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 						_this._noMergeDisplayDeliveryOrder();
 					}else {
 						var d = Dialog({
-							title: '消息',
-							content:"订单存在售后商品,不可打印",
+							title: '提示',
+							content:"订单存在售后商品,不可打印!",
 							icon:'false',
 							okValue: '确 定',
 							ok:function(){
@@ -165,7 +165,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					success : function(data) {
 						if(data.statusCode == "1"){
 							var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退货申请成功",
 								icon:'success',
 								okValue: '确 定',
@@ -176,7 +176,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 							d.show();
 	    	        	}else{
 	    	        		var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退货申请失败:"+data.statusInfo,
 								icon:'false',
 								okValue: '确 定',
@@ -205,7 +205,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					success : function(data) {
 						if(data.statusCode == "1"){
 							var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"换货申请成功",
 								icon:'success',
 								okValue: '确 定',
@@ -216,7 +216,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 							d.show();
 	    	        	}else{
 	    	        		var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"换货申请失败:"+data.statusInfo,
 								icon:'false',
 								okValue: '确 定',
@@ -245,7 +245,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					success : function(data) {
 						if(data.statusCode == "1"){
 							var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退款申请成功",
 								icon:'success',
 								okValue: '确 定',
@@ -256,7 +256,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 							d.show();
 	    	        	}else{
 	    	        		var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退款申请失败:"+data.statusInfo,
 								icon:'false',
 								okValue: '确 定',
