@@ -62,9 +62,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 					success : function(data) {
 						if(data.statusCode == "1"){
 							var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退货申请成功",
-								icon:'prompt',
+								icon:'success',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -73,9 +73,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 							d.show();
 	    	        	}else{
 	    	        		var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退货申请失败:"+data.statusInfo,
-								icon:'prompt',
+								icon:'false',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -102,9 +102,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 					success : function(data) {
 						if(data.statusCode == "1"){
 							var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"换货申请成功",
-								icon:'prompt',
+								icon:'sucess',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -113,9 +113,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 							d.show();
 	    	        	}else{
 	    	        		var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"换货申请失败:"+data.statusInfo,
-								icon:'prompt',
+								icon:'false',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -142,9 +142,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 					success : function(data) {
 						if(data.statusCode == "1"){
 							var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退款申请成功",
-								icon:'prompt',
+								icon:'success',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
@@ -153,9 +153,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 							d.show();
 	    	        	}else{
 	    	        		var d = Dialog({
-								title: '消息',
+								title: '提示',
 								content:"退款申请失败:"+data.statusInfo,
-								icon:'prompt',
+								icon:'false',
 								okValue: '确 定',
 								ok:function(){
 									this.close();
