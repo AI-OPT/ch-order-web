@@ -79,7 +79,6 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
     		 var _this= this;
     		 var formValidator=_this._initValidate(backSum,index);
  			 formValidator.form();
- 			 alert($("#validateForm"+index).valid());
  			 if(!$("#validateForm"+index).valid()){
  				return false;
  			 }

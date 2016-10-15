@@ -50,13 +50,13 @@ public class AfterSaleOrderController {
 			IOrderAfterSaleSV orderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
 			BaseResponse response = orderAfterSaleSV.back(req);
 			if(response.getResponseHeader().isSuccess()) {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退货成功", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退货申请成功", null);
 			}else {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退货失败", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退货申请失败", null);
 			}
 		} catch (Exception e) {
 			LOG.info(e.getMessage());
-			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退货失败,出现未知异常", null);
+			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退货申请失败,出现未知异常", null);
 		}
 		return data;
 	}
@@ -84,13 +84,13 @@ public class AfterSaleOrderController {
 			IOrderAfterSaleSV orderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
 			BaseResponse response = orderAfterSaleSV.exchange(req);
 			if(response.getResponseHeader().isSuccess()) {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "换货成功", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "换货申请成功", null);
 			}else {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "换货出错", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "换货申请出错", null);
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
-			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "换货失败,出现未知异常", null);
+			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "换货申请失败,出现未知异常", null);
 		}
 		return data;
 	}
@@ -118,13 +118,13 @@ public class AfterSaleOrderController {
 			IOrderAfterSaleSV orderAfterSaleSV = DubboConsumerFactory.getService(IOrderAfterSaleSV.class);
 			BaseResponse response = orderAfterSaleSV.refund(req);
 			if(response.getResponseHeader().isSuccess()) {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款成功", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
 			}else {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款出错", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款申请出错", null);
 			}
 		} catch (Exception e) {
 			LOG.error(e.getMessage());
-			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款失败,出现未知异常", null);
+			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款申请失败,出现未知异常", null);
 		}
 		return data;
 	}

@@ -95,7 +95,7 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 				data:{"orderId":obj,"expressId":expressCompany,"expressOddNumber":expressIdValue},
 	  	        success: function (data) {
 	  	        	if(data.statusCode == "1"){
-					//调到订单列表页面
+	  	        	//调到订单列表页面
 	  	      		var state = "16";
 	  	      		window.location.href = _base+"/order/toOrderList?stateFlag="
 	  	              + state
