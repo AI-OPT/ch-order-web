@@ -95,18 +95,10 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 				data:{"orderId":obj,"expressId":expressCompany,"expressOddNumber":expressIdValue},
 	  	        success: function (data) {
 	  	        	if(data.statusCode == "1"){
-						var d = Dialog({
-							title: '消息',
-							content:"发货成功",
-							icon:'success',
-							okValue: '确 定',
-							ok:function(){
-								this.close();
-								//调到订单列表页面
-					    		window.location.href=_base+"/toPaidOrder";
-							}
-						});
-						d.show();
+					//调到订单列表页面
+	  	      		var state = "16";
+	  	      		window.location.href = _base+"/order/toOrderList?stateFlag="
+	  	              + state
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',
