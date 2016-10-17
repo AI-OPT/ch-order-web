@@ -74,6 +74,7 @@ public class NoticeController {
 	}
 	@RequestMapping("/refundNotice")
 	public String refundNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
+		 System.out.println(">>>>>>>>>>>>退款通知开始");
 		OrdRequest request = new OrdRequest();
 		//验签
 			try{
@@ -86,9 +87,11 @@ public class NoticeController {
 				String orderid = receive.getGrpBody().getMerRefundSn();
 				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
 				if("01".equals(receive.getGrpBody().getRefundStatus())){
+					System.out.println(">>>>>>>>>>>>退款通知成功");
 					request.setOrderId(Long.parseLong(orderid));
 					request.setState(Constants.OrdOrder.State.REFUND_COMPLETE);
-					iOrderModifySV.modify(request);
+					BaseResponse base = iOrderModifySV.modify(request);
+					System.out.println("退款修改订单服务>>>>>>"+base.getResponseHeader().getResultMessage());
 					return "SUCCESS";
 				}else{
 					return "FAILED";
