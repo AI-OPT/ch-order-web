@@ -153,7 +153,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
  			var zs = $("#giveJF").text();
  			var downOrdId = $("#downOrdId").val();
  			var accountId = $("#accountId").val();
- 			var operId = $("#operId").val();
+ 			var operId = $("#userId").val();
 	   		//退款
  		    ajaxController.ajax({
     	    	type: "post",
@@ -162,7 +162,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				message: "查询中，请等待...",
 				url: url,
 				data:{"orderId":orderId,"updateMoney":money,"parentOrderId":parentId,"updateInfo":info,"giveJF":zs,"saleJF":xf,
-					"accountId":accountId,"downOrdId":downOrdId,"banlanceIfId":banlanceIfId,"appId":operId
+					"accountId":accountId,"downOrdId":downOrdId,"banlanceIfId":banlanceIfId,"operId":operId
 				},
     	        success: function (data) {
     	        	if(data){

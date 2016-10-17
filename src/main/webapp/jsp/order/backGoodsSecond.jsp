@@ -11,6 +11,7 @@
 <input type="hidden" value="${order.downstreamOrderId}" id="downOrdId">
 <input type="hidden" value="${order.accountId}" id="accountId">
 <input type="hidden" value="${order.operId}" id="operId">
+<input type="hidden" value="${order.userId}" id="userId">
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->
