@@ -151,6 +151,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		 _backOrder:function(orderObject) {
 			 var _obj=$("#backNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
+			 var _pOrderId = $('#pOrderId').val();
+			 var _state = $('#state').val();
 			 var _prodDetalId=orderObject;
 			 ajaxController.ajax({
 					type : "POST",
@@ -171,6 +173,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 								okValue: '确 定',
 								ok:function(){
 									this.close();
+									 window.location.href = _base+"/order/orderListDetail?orderId="
+							            + _orderId+"&state="+_state+"&pOrderId="+_pOrderId
 								}
 							});
 							d.show();
@@ -193,6 +197,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		 _exchangeOrder:function(orderObject) {
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
+			 var _pOrderId = $('#pOrderId').val();
+			 var _state = $('#state').val();
 			 ajaxController.ajax({
 					type : "POST",
 					url :_base+"/aftersaleorder/exchange",
@@ -211,6 +217,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 								okValue: '确 定',
 								ok:function(){
 									this.close();
+									 window.location.href = _base+"/order/orderListDetail?orderId="
+							            + _orderId+"&state="+_state+"&pOrderId="+_pOrderId
 								}
 							});
 							d.show();
@@ -233,6 +241,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		 _refundOrder:function(orderObject) {
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
+			 var _pOrderId = $('#pOrderId').val();
+			 var _state = $('#state').val();
 			 ajaxController.ajax({
 					type : "POST",
 					url :_base+"/aftersaleorder/refund",
@@ -251,6 +261,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 								okValue: '确 定',
 								ok:function(){
 									this.close();
+									 window.location.href = _base+"/order/orderListDetail?orderId="
+							            + _orderId+"&state="+_state+"&pOrderId="+_pOrderId
 								}
 							});
 							d.show();
