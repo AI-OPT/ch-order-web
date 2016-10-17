@@ -81,7 +81,7 @@
 							                         </tr>
 							                      </table>
 							                 </td>
-							                <td>${sp.prodSalePrice}/件</td>
+							                <td>${sp.prodSalePrice}/${sp.buySum}件</td>
 							                <td>${order.orderTime}</td>
 							                <td>${order.busiCodeName}</td>
 							                <td>${order.stateName}</td>

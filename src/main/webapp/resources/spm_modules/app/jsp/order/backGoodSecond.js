@@ -53,12 +53,13 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMoney").text();
+    		var currentM = parseFloat(currentMoney);
     		var formValidator=$("#dataForm").validate({
     			rules: {
     				updateMoneyData: {
     					required: true,
     					moneyNumber: true,
-    					max:currentMoney,
+    					max:currentM,
     					min:0.1
     					},
 	                 updateMoneyInfo:{

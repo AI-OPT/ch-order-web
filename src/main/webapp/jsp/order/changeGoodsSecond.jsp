@@ -25,7 +25,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${order.orderType}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.orderTypeName}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
@@ -80,7 +80,7 @@
 								                         </tr>
 								                      </table>
 								                 </td>
-								                <td>${sp.prodSalePrice}/件</td>
+								                <td>${sp.prodSalePrice}/${sp.buySum}件</td>
 								                <td>${order.orderTime}</td>
 								                <td>${order.stateName}</td>
 												<td>${sp.prodCouponFee}</td>
@@ -140,7 +140,7 @@
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">业务类型：</p>
+                            			<p class="word">退款类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
                             		<li class="col-md-6">
