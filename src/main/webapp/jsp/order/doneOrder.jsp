@@ -72,6 +72,8 @@
 					  	 	<!--table表格-->
                                 <div class="table-responsive">
                                  <input type="hidden" id="orderId" value="${orderDetail.orderId }">
+                                 <input type="hidden" id="pOrderId" value="${orderDetail.parentOrderId }">
+					  		 	 <input type="hidden" id="state" value="${orderDetail.state}">
                                     <table class="table table-hover table-border table-bordered">
                                         <thead>
                                             <tr>

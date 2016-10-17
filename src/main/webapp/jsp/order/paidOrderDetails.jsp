@@ -307,6 +307,8 @@
 					  	
 					  		 <div class="bc-ang mb-10">
 					  		 <input type="hidden" id="orderId" value="${orderDetail.orderId }">
+					  		 <input type="hidden" id="pOrderId" value="${orderDetail.parentOrderId }">
+					  		 <input type="hidden" id="state" value="${orderDetail.state}">
 					  		 <c:choose>
 					       <c:when test="${orderDetail.state!=13}">
 					       		 <input type="button" class="btn btn-primary" disabled="disabled"
