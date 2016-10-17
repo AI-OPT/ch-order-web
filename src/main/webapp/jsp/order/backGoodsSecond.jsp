@@ -168,7 +168,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款金额：</p>
-                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.ordTotalFee}</p>
+                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">退款理由：</p>
