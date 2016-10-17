@@ -544,6 +544,7 @@ public class PaidOrderController {
 	 * @return cash
 	 */
 	private int integralCashQry(String accountId, String openId, String appId) {
+		System.out.println("用户积分查询开始>>>>");
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId",accountId);
 		params.put("openId", openId);
@@ -551,6 +552,7 @@ public class PaidOrderController {
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SEARCH_APPKEY);
 		String param = JSON.toJSONString(params);
+		System.out.println("用户积分查询参数>>>>"+param);
 		try {
 			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SEARCH_URL,param,headers);
 			 //将返回结果，转换为JSON对象 
@@ -558,6 +560,7 @@ public class PaidOrderController {
 	        String reqResultCode=json.getString("resultCode");
 	        if("000000".equals(reqResultCode)){
 	        	JSONObject data=JSON.parseObject(json.getString("data"));
+	        	System.out.println("用户积分查询返回参数>>>>"+data);
 				String dataStr =data.getString("code");
 				if("200".equals(dataStr)){
 					return Integer.parseInt(data.getString("cash"));
@@ -584,6 +587,7 @@ public class PaidOrderController {
 	 * @author zhouxh
 	 */
 	private ResponseData<String> shopback(String accountId, String openId, String appId,String oid,String bisId,String backCash){
+		System.out.println("用户积分撤销开始>>>>");
 		ResponseData<String> responseData = null;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId", accountId);
@@ -592,22 +596,25 @@ public class PaidOrderController {
 		params.put("oid", oid);
 		params.put("bisId", bisId);
 		params.put("backCash", backCash);
-
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
 		String param = JSON.toJSONString(params);
 		try {
+			
+			System.out.println("撤销积分参数>>>>"+param);
 			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SHOPBACK_URL,param,headers);
 			 //将返回结果，转换为JSON对象 
 	        JSONObject json=JSON.parseObject(result);
 	        String reqResultCode=json.getString("resultCode");
 	        if("000000".equals(reqResultCode)){
 	        	JSONObject data=JSON.parseObject(json.getString("data"));
+	        	System.out.println("撤销积分返回参数>>>>"+data);
 				String dataStr =data.getString("code");
 				if("200".equals(dataStr)){
 					responseData =  new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
 				}
 			} else {
+				System.out.println(">>>>>>>撤销积分请求过程失败");
 				// 请求过程失败
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销失败", null);
 			}
