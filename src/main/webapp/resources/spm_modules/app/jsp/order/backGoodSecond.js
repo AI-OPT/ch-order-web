@@ -162,7 +162,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				message: "查询中，请等待...",
 				url: url,
 				data:{"orderId":orderId,"updateMoney":money,"parentOrderId":parentId,"updateInfo":info,"giveJF":zs,"saleJF":xf,
-					"accountId":accountId,"downOrdId":downOrdId,"banlanceIfId":banlanceIfId,"operId":operId
+					"accountId":accountId,"downOrdId":downOrdId,"banlanceIfId":banlanceIfId,"openId":operId
 				},
     	        success: function (data) {
     	        	if(data){
