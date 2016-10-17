@@ -102,7 +102,7 @@
 							                      </table>
 							                 </td>
 							                <td>${prod.prodSalePrice}元/<p id="buySum${status.index}">${prod.buySum}件</p></td>
-							                <td>${prod.prodState}</td>
+							                <td>${orderDetail.busiCodeName }</td>
 							                <td>${orderDetail.orderTime}</td>
 							                <td>${orderDetail.stateName }</td>
 							                <td>${prod.prodCouponFee }&nbsp;<br/>
