@@ -25,7 +25,7 @@
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">订单类型：</p>
-						                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderType}</p>
+						                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
 						                </li>  
 						            </ul>  
 						            <ul>
@@ -139,7 +139,7 @@
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">账号信息：</p>
+                            			<p class="word">买家账号：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
                             		</li>
                             		<li class="col-md-6">
