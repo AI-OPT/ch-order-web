@@ -291,6 +291,13 @@ public class StasticOrderController {
 					) {   //退款完成
 				return new ModelAndView("jsp/order/staticBackGoodsFirst", model);
 			}
+			if((Constants.OrdOrder.State.WAIT_CHECK.equals(state)||         //退货完成
+					Constants.OrdOrder.State.WAIT_BACK.equals(state)||  //换货完成 
+					Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state) ||
+					Constants.OrdOrder.State.NO_CHECK.equals(state))&& Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)
+					) {   //退款完成
+				return new ModelAndView("jsp/order/staticBackGoodsFirst", model);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			LOG.error("订单详情查询报错：", e);
