@@ -34,9 +34,9 @@ public  class ChUserByNameUtil {
 	     if("000000".equals(reqResultCode)){
 	         String dataStr=(String)json.get("data");
 	         dataJson=JSON.parseObject(dataStr);
-	         Object uid =dataJson.get("uid");
-	         if(uid!=null) {
-	        	 return uid.toString();
+	         Object openId =dataJson.get("openId");
+	         if(openId!=null) {
+	        	 return openId.toString();
 	         }
 	     }else{
 	     	//请求过程失败
