@@ -123,7 +123,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">账号信息：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.userId}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
