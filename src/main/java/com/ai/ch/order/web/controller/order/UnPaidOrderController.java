@@ -143,7 +143,7 @@ public class UnPaidOrderController {
 				if(base.getResponseHeader().getIsSuccess()==true){
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "修改金额成功", null);
 				}else{
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, base.getResponseHeader().getResultMessage(), null);
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
