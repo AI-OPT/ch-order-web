@@ -25,7 +25,7 @@
 						                </li>
 						                <li  class="col-md-6">
 						                    <p class="word">订单类型：</p>
-						                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderType}</p>
+						                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
 						                </li>  
 						            </ul>  
 						            <ul>
@@ -85,7 +85,7 @@
 								                         </tr>
 								                      </table>
 								                 </td>
-								                <td>${sp.prodSalePrice}/件</td>
+								                <td>${sp.prodSalePrice}/${sp.buySum}件</td>
 								                <td>${orderDetail.orderTime}</td>
 								                <td>${orderDetail.busiCodeName}</td>
 								                <td>${orderDetail.stateName}</td>
@@ -116,7 +116,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">售后订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.origOrderId}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.orderId}</p>
                             		</li>
                             		<li class="col-md-6">
 	                            		<p class="word">原始订单号：</p>
@@ -184,7 +184,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款金额:</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordTotalFee}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">退款理由:</p>
