@@ -30,7 +30,7 @@ sed -i "s%integral.search.url=.*%integral.search.url=${INTEGRAL_SEARCH_URL}%g" .
 sed -i "s%integral.shopback.url=.*%integral.shopback.url=${INTEGRAL_SHOPBACK_URL}%g" ./ch-order-web.properties
 sed -i "s%ch.username.url=.*%ch.username.url=${CH_USERNAME_URL}%g" ./ch-order-web.properties
 sed -i "s%ch.pay.url=.*%ch.pay.url=${CH_PAY_URL}%g" ./ch-order-web.properties
-
+sed -i "s%ch.refundnotice.url=.*%ch.refundnotice.url=${CH_REFUNDNOTICE_URL}%g" ./ch-order-web.properties
 # 各中心要根据情况自己修改成与dubbo.properties中对应的配置项
 sed -i "s%dubbo.registry.address=.*%dubbo.registry.address=${REST_REGISTRY_ADDR}%g" ./dubbo.properties
 popd
