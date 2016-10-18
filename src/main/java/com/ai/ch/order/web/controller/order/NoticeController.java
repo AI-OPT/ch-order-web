@@ -38,7 +38,9 @@ public class NoticeController {
 				if (!flag) {
 					throw new UppException("验签失败");
 				}
+				System.out.println(">>>>>>>>>>>>支付通知发起参数"+xmlBody);
 				com.changhong.upp.business.entity.upp_103_001_01.RespInfo receive = (com.changhong.upp.business.entity.upp_103_001_01.RespInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_103_001_01.RespInfo.class);
+				System.out.println(">>>>>>>>>>>>支付通知返回参数"+receive);
 				//获取支付状态
 	             String state =  receive.getGrpBody().getPayStatus();
 	             //02表示支付成功，03表示支付失败
@@ -82,7 +84,9 @@ public class NoticeController {
 				if (!flag) {
 					throw new UppException("验签失败");
 				}
+				System.out.println(">>>>>>>>>>>>退款通知发起参数"+xmlBody);
 				com.changhong.upp.business.entity.upp_803_001_01.RepsInfo receive = (com.changhong.upp.business.entity.upp_803_001_01.RepsInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_803_001_01.RepsInfo.class);
+				System.out.println(">>>>>>>>>>>>退款通知回传信息"+receive);
 				//获取订单状态
 				String orderid = receive.getGrpBody().getMerRefundSn();
 				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
