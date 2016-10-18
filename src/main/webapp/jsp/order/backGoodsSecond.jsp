@@ -192,11 +192,11 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">快递公司：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.expressName}</p>
+                            			<p class="wide-field" style="word-break:break-all;"></p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">快递单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
+                            			<p class="wide-field" style="word-break:break-all;"></p>
                             		</li>
                             	</ul>
                             	<ul>
