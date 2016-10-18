@@ -390,6 +390,7 @@ public class PaidOrderController {
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
+							product.setGiveJF(ordProductVo.getGiveJF());
 							prodList.add(product);
 						}
 					}
@@ -473,6 +474,8 @@ public class PaidOrderController {
 					return "redirect:/changeDetail?orderId=" + orderAfterVo.getOrderId();
 				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)) {
 					return "redirect:/backDetail?orderId=" + orderAfterVo.getOrderId();
+				}else if(Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)) {
+					return "redirect:/backDetail?orderId=" + orderAfterVo.getOrderId()+"&flag=1";
 				}
 			}
 		} catch (Exception e) {
