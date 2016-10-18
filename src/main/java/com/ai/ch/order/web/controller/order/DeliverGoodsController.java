@@ -52,7 +52,7 @@ public class DeliverGoodsController {
 			if(baseResponse!=null&&baseResponse.getResponseHeader().isSuccess()) {
 				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "发货成功", null);
 			}else {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "发货失败", null);
+				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, baseResponse.getResponseHeader().getResultMessage(), null);
 			}
 		} catch (Exception e) {
 			System.out.println(e.getStackTrace());
