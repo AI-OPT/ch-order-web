@@ -509,7 +509,7 @@ public class PaidOrderController {
 		String bisId="bisId";
 		int surplusCash = integralCashQry(accountId, openId, appId);
 		int giveCash =0;
-		if(giveJF.isEmpty()){
+		if(!StringUtil.isBlank(giveJF)){
 			try {
 				giveCash = Integer.parseInt(giveJF);
 			} catch (Exception e) {
