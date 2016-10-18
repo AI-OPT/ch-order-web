@@ -25,7 +25,7 @@
 					                </li>
 					               	<li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderType}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
 					                </li> 
 					            </ul>  
 					            <ul>

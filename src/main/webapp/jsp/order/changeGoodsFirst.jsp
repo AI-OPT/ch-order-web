@@ -121,7 +121,7 @@
                             	<ul>
                             		<li class="col-md-6">
 	                            		<p class="word">售后操作人：</p>
-	                            		<p class="wide-field" style="word-break:break-all;">${orderDetail.username}</p>
+	                            		<p class="wide-field" style="word-break:break-all;">${order.username}</p>
                             		</li>
                             	</ul>
                             </div>

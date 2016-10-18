@@ -156,7 +156,7 @@
 									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.userName}}</td>
 									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.userTel}}</td>
 		   							<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.contactTel}}</td>
-									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.deliveryFlagName}}</td>
+									<td rowspan="{{:~parentOrder.prodTotal}}">{{:~parentOrder.deliveryFlag}}</td>
 								{{/if}}
 								{{if #index ==0 }}
 									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
