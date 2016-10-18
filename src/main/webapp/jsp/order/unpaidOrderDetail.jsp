@@ -61,7 +61,7 @@
 								                      </table>
 								                 </td>
 								                <td>${sp.prodSalePrice}元/${sp.buySum }件</td>
-								                <td>${orderDetail.orderTime}</td>
+								                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								                <td>${orderDetail.stateName}</td>
 								                <td>${sp.prodCouponFee}</td>
 								                <td>${sp.jfFee}</td>

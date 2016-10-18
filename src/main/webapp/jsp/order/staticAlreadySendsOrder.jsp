@@ -92,7 +92,7 @@
 							                 </td>
 							                <td>${prod.prodSalePrice}元/${prod.buySum}件</td>
 							                <td>${prod.prodState}</td>
-							                <td>${orderDetail.orderTime}</td>
+							                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							                <td>${orderDetail.stateName }</td>
 							                <td>${prod.prodCouponFee }</td>
 							                <td>${prod.jfFee }</td>

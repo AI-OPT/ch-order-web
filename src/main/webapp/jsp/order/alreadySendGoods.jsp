@@ -103,7 +103,7 @@
 							                 </td>
 							                <td>${prod.prodSalePrice}元/<p id="buySum${status.index}">${prod.buySum}件</p></td>
 							                <td>${orderDetail.busiCodeName }</td>
-							                <td>${orderDetail.orderTime}</td>
+							                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							                <td>${orderDetail.stateName }</td>
 							                <td>${prod.prodCouponFee }&nbsp;<br/>
 											<c:choose>
