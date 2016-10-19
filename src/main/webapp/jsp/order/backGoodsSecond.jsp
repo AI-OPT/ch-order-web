@@ -206,13 +206,22 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div class="row">
-                           		<p class="center mt-20">
-                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
-                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退款">
-                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-                            	</p>
-                            </div>
+                            <c:if test="${order.state != 212}"> 
+	                            <div class="row">
+	                           		<p class="center mt-20">
+	                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
+	                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退款">
+	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+	                            	</p>
+	                            </div>
+                            </c:if>
+                             <c:if test="${order.state == 212}"> 
+                             	<div class="row">
+	                           		<p class="center mt-20">
+	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+	                            	</p>
+	                            </div>
+                             </c:if>
                             <!-- 拒绝退款理由 start-->
                            <form id="refuseDataForm" method="post" >
                             <div class="eject-big">

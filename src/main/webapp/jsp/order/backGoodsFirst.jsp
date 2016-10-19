@@ -192,13 +192,22 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div class="row">
-                           		<p class="center mt-20">
-                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意退货">
-                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退货">
-                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-                            	</p>
-                            </div>
+                            <c:if test="${order.state != 212}"> 
+	                            <div class="row">
+	                           		<p class="center mt-20">
+	                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意退货">
+	                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退货">
+	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+	                            	</p>
+	                            </div>
+                            </c:if>
+                            <c:if test="${order.state == 212}"> 
+                            	<div class="row">
+	                           		<p class="center mt-20">
+	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+	                            	</p>
+	                            </div>
+                            </c:if>
                             <!--同意退货提示弹出框 操作 start-->	
 								<div class="eject-big">
 									<div class="prompt-samll" id="prompt">
