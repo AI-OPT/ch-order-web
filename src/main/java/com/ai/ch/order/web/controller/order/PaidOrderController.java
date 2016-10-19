@@ -57,6 +57,8 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV;
+import com.ai.slp.order.api.ordermodify.param.OrdRequest;
 import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
 import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
