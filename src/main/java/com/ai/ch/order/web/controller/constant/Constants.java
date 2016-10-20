@@ -28,6 +28,8 @@ public final class Constants {
 	public static final String ORD_CHL_ID = "CHL_ID";
 	/** 物流信息*/
 	public static final String ORD_EXPRESS = "ORD_EXPRESS";
+	/** 业务类型*/
+	public static final String BUSI_CODE = "BUSI_CODE";
 	
 	/**
 	 * 属性文件加载对象
