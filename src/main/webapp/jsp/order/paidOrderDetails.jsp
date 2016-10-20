@@ -150,12 +150,15 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
+						<h4 class="modal-title" id="refundModalLabel${status.index}">
+							退货提示
+						</h4>
 					</div>
 					<div class="modal-body">
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
 							${prod.prodName}
 						</h4><br/>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></p>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货的商品数量" type="text"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
@@ -179,15 +182,18 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="refundModalLabel${status.index}">
-							提示
+							退款提示
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h5 class="word">确认进行退款处理吗?</h5> 
+						<h4 class="modal-title text-c" id="refundModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="refundNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退款的商品数量" type="text" name="refundSum"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._refundOrder('${prod.prodDetalId}')">
+						onclick="pager._refundOrder('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
