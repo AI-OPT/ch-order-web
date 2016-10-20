@@ -45,7 +45,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">子订单号：</p>
-					                    <p id="orderID" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
+					                    <p  class="wide-field" style="word-break:break-all;">${order.origOrderId}</p>
 					                </li>  
 					            </ul>
 					            <ul>
@@ -111,7 +111,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">售后订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
+                            			<p id="orderID" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
                             		</li>
                             		<li class="col-md-6">
 	                            		<p class="word">原始订单号：</p>
@@ -166,15 +166,9 @@
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">子订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
-                            		</li>
-                            		<li class="col-md-6">
                             			<p class="word">类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
-                            	</ul>
-                            	<ul>
                             		<li class="col-md-6">
 	                            		<p class="word">换货理由:</p>
 	                            		<p class="wide-field" style="word-break:break-all;"></p>
@@ -186,22 +180,24 @@
                             		</li>
                             	</ul>
                             </div>
-                            <c:if test="${order.state != 212}"> 
-	                            <div class="row">
+                            <c:choose>
+                            	<c:when test="${order.state != 212 && order.state==21}">
+                            		<div class="row">
 	                            		<p class="center mt-20">
 	                             			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意换货">
 	                             			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝换货">
 	                             			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
 	                             		</p>
-	                            </div>
-                            </c:if>
-                            <c:if test="${order.state == 212}">
-                                <div class="row">
+	                            	</div>
+                            	</c:when> 
+                            	<c:otherwise> 
+                            		<div class="row">
 	                            		<p class="center mt-20">
 	                             			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
 	                             		</p>
-	                            </div>
-                            </c:if>
+	                            	</div>
+                            	</c:otherwise> 
+                            </c:choose>
                             <!--同意换货提示弹出框 操作 start-->	
 								<div class="eject-big">
 									<div class="prompt-samll" id="prompt">

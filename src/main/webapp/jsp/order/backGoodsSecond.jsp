@@ -49,7 +49,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">子订单号：</p>
-					                    <p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
+					                    <p  class="wide-field" style="word-break:break-all;">${order.origOrderId}</p>
 					                </li>  
 					            </ul>
 					            <ul>
@@ -101,7 +101,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">售后订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
+                            			<p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
                             		</li>
                             		<li class="col-md-6">
 	                            		<p class="word">原始订单号：</p>
@@ -200,31 +200,32 @@
                             		</li>
                             	</ul>
                             </div>
-                            <c:if test="${order.state != 212 && order.state != 22}"> 
-	                            <div class="row">
-	                           		<p class="center mt-20">
-	                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
-	                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退款">
-	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-	                            	</p>
-	                            </div>
-                            </c:if>
-                             <c:if test="${order.state == 213 || order.state == 22 || order.state == 312}"> 
-                             	${order.state}
-                             	<div class="row">
-	                           		<p class="center mt-20">
-	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-	                            	</p>
-	                            </div>
-                             </c:if>
-                              <c:if test="${order.state == 95}"> 
-                             	<div class="row">
-	                           		<p class="center mt-20">
-	                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="重新退款">
-	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-	                            	</p>
-	                            </div>
-                             </c:if>
+                            <c:choose>
+                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23}">
+                            		 <div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
+		                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退款">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div> 
+                            	</c:when>
+                            	<c:when test="${order.state == 95}">
+                            		<div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="重新退款">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div>
+                            	</c:when>
+                            	 <c:otherwise>
+                            	 	<div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div>
+                            	 </c:otherwise>
+                            </c:choose>
                             <!-- 拒绝退款理由 start-->
                            <form id="refuseDataForm" method="post" >
                             <div class="eject-big">
