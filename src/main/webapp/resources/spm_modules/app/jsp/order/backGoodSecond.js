@@ -166,10 +166,22 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				},
     	        success: function (data) {
     	        	if(data){
-     	        		window.location.href=_base+"/toPaidOrder";
+    	        		if(data.data=="9999"){
+    	        			var d = Dialog({
+    							content:"退款申请失败",
+    							icon:'prompt',
+    							okValue: '确 定',
+    							ok:function(){
+    								window.location.href=_base+"/toPaidOrder";
+    							}
+    						});
+    						d.show();
+    	        		}else{
+    	        			window.location.href=_base+"/toPaidOrder";
+    	        		}
+     	        		
      	        	}else{
      	        		var d = Dialog({
-							title: '消息',
 							content:"退款失败",
 							icon:'prompt',
 							okValue: '确 定',

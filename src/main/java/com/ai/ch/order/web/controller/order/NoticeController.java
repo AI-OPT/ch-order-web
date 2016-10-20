@@ -97,7 +97,16 @@ public class NoticeController {
 					BaseResponse base = iOrderModifySV.modify(request);
 					System.out.println("退款修改订单服务>>>>>>"+base.getResponseHeader().getResultMessage());
 					return "SUCCESS";
+				}else if("00".equals(receive.getGrpBody().getRefundStatus())){
+					System.out.println(">>>>>>>>>>>>退款中");
+					request.setOrderId(Long.parseLong(orderid));
+					request.setState(Constants.OrdOrder.State.REFUND_ING);
+					BaseResponse base = iOrderModifySV.modify(request);
 				}else{
+					System.out.println(">>>>>>>>>>>>退款失败");
+					request.setOrderId(Long.parseLong(orderid));
+					request.setState(Constants.OrdOrder.State.REFUND_FAILD);
+					BaseResponse base = iOrderModifySV.modify(request);
 					return "FAILED";
 				}
 			}catch(Exception e){

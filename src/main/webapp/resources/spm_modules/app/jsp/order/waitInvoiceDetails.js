@@ -219,6 +219,92 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 			var orderId=obj;
 			window.location.href = _base+"/deliveryPrint/deliverGoods?orderId="+orderId;
 		},
+		/**
+		 * 发票打印 zhangzhongde 2016-10-20 10:27
+		 */
+		_invoicePrint:function(tenantId,orderId){
+			var _this = this;
+			//
+			var url = _base+"/invoice/invoicePrint";
+			ajaxController.ajax({
+    	    	type: "post",
+				dataType: "json",
+				processing: false,
+				message: "打印中，请等待...",
+				url: url,
+				data:{"tenantId":tenantId,"orderId":orderId},
+    	        success: function (data) {
+    	        	
+	    	        if(data.IsSuccessful == false){
+    	        		//alert(data.MessageKey);
+    	        		var d = Dialog({
+							content:data.MessageKey,
+							icon:'fail',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}else if(data.IsSuccessful == true){
+    	        		//
+    	        		_this._modifyInvoiceState(tenantId,orderId,"1");
+    	        		//
+    	        	}else{
+    	        		var d = Dialog({
+							content:"发票报送失败",
+							icon:'fail',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
+    	        }
+                
+    	    });
+		},
+		_modifyInvoiceState:function(tenantId,orderId,invoiceStatus){
+			var _this = this;
+			var url = _base+"/invoice/modifyInvoiceState";
+			ajaxController.ajax({
+    	    	type: "post",
+				dataType: "json",
+				processing: false,
+				message: "打印中，请等待...",
+				url: url,
+				data:{"tenantId":tenantId,"orderId":orderId,"invoiceStatus":invoiceStatus},
+    	        success: function (data) {
+    	        	if(data.responseHeader.resultCode == '000000'){
+    	        		//
+    	        		var d = Dialog({
+							content:"发票报送成功",
+							icon:'success',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+						//
+						
+    	        	}else{
+    	        		//
+    	        		var d = Dialog({
+							content:"发票报送状态修改失败",
+							icon:'fail',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
+    	        }
+                
+    	    });
+		}
     });
     
     module.exports = demopagePager

@@ -288,11 +288,13 @@
 					  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
 					  		 onclick="pager._sendGoods('${orderDetail.orderId }');" value="发货">
 					  		 <c:choose>
-							       <c:when test="${empty orderDetail.invoiceType}">
+							       <c:when test="${empty orderDetail.invoiceType || orderDetail.invoiceType == '1'}">
+							       </c:when>
+							       <c:when test="${orderDetail.invoiceStatus == '2'}">
 							       </c:when>
 							       <c:otherwise>
 							  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-							  		 onclick="" value="打印发票">
+							  		 onclick="pager._invoicePrint('changhong','${orderDetail.orderId }');" value="打印发票">
 							       </c:otherwise>
 							 </c:choose>
 					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
