@@ -132,9 +132,6 @@
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
-								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
-								</button>&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal" 
 								data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
 								<br/><br/>
@@ -172,34 +169,6 @@
 			</div><!-- /.modal -->
 		</div>
 		
-		<!-- 模态框（Modal） -->
-		<div class="modal fade" id="exchangeModal${status.index}" tabindex="-1" role="dialog" 
-		aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
-							&times;
-						</button>
-						<h4 class="modal-title" id="exchangeModalLabel1${status.index}">
-							提示
-						</h4>
-					</div>
-					<div class="modal-body">
-						<h5 class="word">确认进行换货处理吗?</h5> 
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._exchangeOrder('${prod.prodDetalId}')">
-							确认
-						</button>
-						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
-						</button>
-					</div>
-				</div><!-- /.modal-content -->
-			</div><!-- /.modal -->
-		</div>
-
 		<!-- 模态框（Modal） -->
 		<div class="modal fade" id="refundModal${status.index}" tabindex="-1" role="dialog" 
 		aria-labelledby="myModalLabel" aria-hidden="true">
