@@ -88,7 +88,7 @@
 									~parentInd = #index ~parentOrder =~orderData }}	
         						<tr>
 								{{if ~parentInd == 0 && #index ==0}}
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.chlId}}</td>
+									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.chlIdName}}</td>
 		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.pOrderId}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userName}}</td>
 									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userTel}}</td>
