@@ -91,50 +91,6 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 				});
 		 },
 		 
-		 _exchangeOrder:function(orderObject) {
-			 var _orderId = $('#orderId').val();
-			 var _prodDetalId=orderObject;
-			 var _pOrderId = $('#pOrderId').val();
-			 var _state = $('#state').val();
-			 ajaxController.ajax({
-					type : "POST",
-					url :_base+"/aftersaleorder/exchange",
-					data: {
-						orderId:  _orderId,
-						prodDetalId:_prodDetalId
-					},
-					processing: true,
-					message : "正在处理中，请稍候...",
-					success : function(data) {
-						if(data.statusCode == "1"){
-							var d = Dialog({
-								title: '提示',
-								content:"换货申请成功",
-								icon:'sucess',
-								okValue: '确 定',
-								ok:function(){
-									this.close();
-									 window.location.href = _base+"/order/orderListDetail?orderId="
-							            + _orderId+"&state="+_state+"&pOrderId="+_pOrderId
-								}
-							});
-							d.show();
-	    	        	}else{
-	    	        		var d = Dialog({
-								title: '提示',
-								content:"换货申请失败:"+data.statusInfo,
-								icon:'false',
-								okValue: '确 定',
-								ok:function(){
-									this.close();
-								}
-							});
-							d.show();
-	    	        	}
-					}
-				});
-		 },
-		 
 		 _refundOrder:function(orderObject) {
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
