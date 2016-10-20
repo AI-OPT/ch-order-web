@@ -57,7 +57,7 @@
 							            		<p><input class="int-text int-medium" id="userName" type="text" placeholder="请输入用户名"></p>
 							            	</li>
 							            	<li class="col-md-6">
-								            	<p class="word">按订单状态</p>
+								            	<p class="word">按父订单状态</p>
 							            		<p>
 								            		<select class="select select-small" id="state">
 								            			<option value="">请选择</option>
