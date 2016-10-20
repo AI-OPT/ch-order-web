@@ -110,6 +110,14 @@ public final class Constants {
              */
             public static final String REFUND_COMPLETE="94";
             /**
+             * 退款中
+             */
+            public static final String REFUND_ING="312";
+            /**
+             * 退款失败
+             */
+            public static final String REFUND_FAILD="95";
+            /**
              * 待审核
              */
             public static final String WAIT_CHECK="21";

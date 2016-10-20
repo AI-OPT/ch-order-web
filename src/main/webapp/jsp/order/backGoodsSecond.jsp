@@ -192,11 +192,11 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">快递公司：</p>
-                            			<p class="wide-field" style="word-break:break-all;"></p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.expressName}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">快递单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;"></p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -206,7 +206,7 @@
                             		</li>
                             	</ul>
                             </div>
-                            <c:if test="${order.state != 212}"> 
+                            <c:if test="${order.state != 212 && order.state != 22}"> 
 	                            <div class="row">
 	                           		<p class="center mt-20">
 	                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
@@ -215,9 +215,18 @@
 	                            	</p>
 	                            </div>
                             </c:if>
-                             <c:if test="${order.state == 212}"> 
+                             <c:if test="${order.state == 213 || order.state == 22 || order.state == 312}"> 
+                             	${order.state}
                              	<div class="row">
 	                           		<p class="center mt-20">
+	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+	                            	</p>
+	                            </div>
+                             </c:if>
+                              <c:if test="${order.state == 95}"> 
+                             	<div class="row">
+	                           		<p class="center mt-20">
+	                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="重新退款">
 	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
 	                            	</p>
 	                            </div>

@@ -180,6 +180,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 						d.show();
      	        	}
     	        },
+    	        
     	    });
     	}
     		

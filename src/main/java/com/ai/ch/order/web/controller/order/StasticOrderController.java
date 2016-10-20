@@ -128,38 +128,40 @@ public class StasticOrderController {
             req.setPageSize(Integer.parseInt(strPageSize));
             StasticOrderResponse resultInfo = iStasticsOrderSV.queryStasticOrdPage(req);
             PageInfo<StasticParentOrderVo> result= resultInfo.getPageInfo();
-            List<StasticParentOrderVo> list = result.getResult();
-            if(!CollectionUtil.isEmpty(list)){
-            	for(StasticParentOrderVo vo:list){
-            		//获取销售商名称
-                    QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
-                    shopReq.setTenantId(user.getTenantId());
-                    shopReq.setUserId(vo.getSupplierId());
-                    QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
-                    if(base.getResponseHeader().getIsSuccess()==true){
-                    	vo.setStateName(base.getShopName());
-                    }
-            		//翻译订单来源
-					SysParamSingleCond	param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(vo.getChlId());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_CHL_ID);
-            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
-            		if(chldParam!=null){
-            			vo.setChlId(chldParam.getColumnDesc());
-            		}
-            		//翻译是否需要物流
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(vo.getDeliveryFlag());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_DELIVERY_FLAG);
-            		SysParam ifDlive = iCacheSV.getSysParamSingle(param);
-            		if(ifDlive!=null){
-            			vo.setDeliveryFlag(ifDlive.getColumnDesc());
-            		}
-            	}
+            if(result!=null){
+                List<StasticParentOrderVo> list = result.getResult();
+                if(!CollectionUtil.isEmpty(list)){
+                	for(StasticParentOrderVo vo:list){
+                		//获取销售商名称
+                        QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
+                        shopReq.setTenantId(user.getTenantId());
+                        shopReq.setUserId(vo.getSupplierId());
+                        QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
+                        if(base.getResponseHeader().getIsSuccess()==true){
+                        	vo.setStateName(base.getShopName());
+                        }
+                		//翻译订单来源
+    					SysParamSingleCond	param = new SysParamSingleCond();
+                		param.setTenantId(Constants.TENANT_ID);
+                		param.setColumnValue(vo.getChlId());
+                		param.setTypeCode(Constants.TYPE_CODE);
+                		param.setParamCode(Constants.ORD_CHL_ID);
+                		SysParam chldParam = iCacheSV.getSysParamSingle(param);
+                		if(chldParam!=null){
+                			vo.setChlId(chldParam.getColumnDesc());
+                		}
+                		//翻译是否需要物流
+                		param = new SysParamSingleCond();
+                		param.setTenantId(Constants.TENANT_ID);
+                		param.setColumnValue(vo.getDeliveryFlag());
+                		param.setTypeCode(Constants.TYPE_CODE);
+                		param.setParamCode(Constants.ORD_DELIVERY_FLAG);
+                		SysParam ifDlive = iCacheSV.getSysParamSingle(param);
+                		if(ifDlive!=null){
+                			vo.setDeliveryFlag(ifDlive.getColumnDesc());
+                		}
+                	}
+                }
             }
             responseData = new ResponseData<PageInfo<StasticParentOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
         } catch (Exception e) {

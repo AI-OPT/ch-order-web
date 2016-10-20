@@ -227,21 +227,30 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 		},
 
 		_detail:function(orderid,busiCode,state){
-			if(busiCode==3 &&( state=='212' ||state=='22' ||state=='23' || state=='31')){
+			if(busiCode==3 &&( state=='213' ||state=='22' ||state=='23' || state=='31')){
 				//调到第二个审核页面页面
         		var flag="1";
         		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
-			}else if(busiCode==2 &&(state=='212' ||state=='22' ||state=='23' || state=='31')){
+			}else if(busiCode==2 &&(state=='22' ||state=='23' || state=='31')){
 				//判断跳转的页面是第2次审核
         		var flag = "1";
         		window.location.href=_base+"/changeDetail?orderId="+orderid+"&flag="+flag;
-			}else if(busiCode==2 && state=='21'){
+			}else if(busiCode==2 && (state=='21' || state=='212')){
 				window.location.href = _base+"/changeDetail?orderId="
 	            + orderid;
-			}else if(busiCode==3 && state=='21'){
+			}else if(busiCode==3 && (state=='21'|| state=='212')){
 				window.location.href = _base+"/backDetail?orderId="
 	            + orderid;
 			}else if(busiCode==4){
+				//调到第二个审核页面页面
+        		var flag="1";
+        		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
+			}else if(state=='95'){
+				//如果为退费失败那么直接掉到退货审核的第二个页面重新发起退款申请
+				//调到第二个审核页面页面
+        		var flag="1";
+        		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
+			}else if(state=='312'){
 				//调到第二个审核页面页面
         		var flag="1";
         		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;

@@ -57,8 +57,6 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
-import com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV;
-import com.ai.slp.order.api.ordermodify.param.OrdRequest;
 import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
 import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
@@ -530,12 +528,12 @@ public class PaidOrderController {
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
 					return responseData;
 				}
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款成功", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
 			}else{
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款失败", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款申请失败", null);
 			}
 		}else{
-			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于于商品赠送积分", null);
+			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);
 		}
 		return responseData;
 		
