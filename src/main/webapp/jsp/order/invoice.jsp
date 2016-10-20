@@ -140,7 +140,7 @@
 													<a href="javascript:void(0);" onclick="pager._invoicePrint('changhong','{{:orderId}}');">发票报送</a>
 												{{/if}}
 												{{if invoiceStatus == '2'}}
-													重新报送
+													等待下载
 												{{/if}}
 												{{if invoiceStatus == '3'}}
 													<a href="javascript:void(0);" onclick="pager._downloadInvoice('{{:invoiceId}}','{{:invoiceNum}}');">发票下载</a>
