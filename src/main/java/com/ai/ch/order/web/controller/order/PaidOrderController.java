@@ -736,5 +736,17 @@ public class PaidOrderController {
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 				}
 			return responseData;
+		}
+		//收到换货
+		@RequestMapping("/confirmChange")
+		@ResponseBody
+		public ResponseData<String> confirmChange(HttpServletRequest request) {
+			ResponseData<String> responseData = null;
+			try {
+				//调用确认换货服务
+				} catch (Exception e) {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
+				}
+			return responseData;
 		}	
 }

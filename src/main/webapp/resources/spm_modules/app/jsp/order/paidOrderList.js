@@ -241,7 +241,7 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 			}else if(busiCode==3 && (state=='21'|| state=='212')){
 				window.location.href = _base+"/backDetail?orderId="
 	            + orderid;
-			}else if(busiCode==4){
+			}else if(busiCode==4 && state=='31'){
 				//调到第二个审核页面页面
         		var flag="1";
         		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
