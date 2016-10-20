@@ -45,7 +45,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">子订单号：</p>
-					                    <p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
+					                    <p  class="wide-field" style="word-break:break-all;">${order.origOrderId}</p>
 					                </li>  
 					            </ul>
 					            <ul>
@@ -112,7 +112,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">售后订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
+                            			<p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
                             		</li>
                             		<li class="col-md-6">
 	                            		<p class="word">原始订单号：</p>
@@ -187,22 +187,24 @@
                             		</li>
                             	</ul>
                             </div>
-                            <c:if test="${order.state != 212}"> 
-	                            <div class="row">
-	                           		<p class="center mt-20">
-	                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意退货">
-	                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退货">
-	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-	                            	</p>
-	                            </div>
-                            </c:if>
-                            <c:if test="${order.state == 212}"> 
-                            	<div class="row">
-	                           		<p class="center mt-20">
-	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-	                            	</p>
-	                            </div>
-                            </c:if>
+                            <c:choose>
+                            	 <c:when test="${order.state != 212}"> 
+                            	 	 <div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意退货">
+		                           			<input type="button" id="add-k" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="拒绝退货">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div> 
+                            	 </c:when>
+                            	 <c:otherwise>
+                            	 	<div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div>
+                            	 </c:otherwise>
+                            </c:choose>
                             <!--同意退货提示弹出框 操作 start-->	
 								<div class="eject-big">
 									<div class="prompt-samll" id="prompt">
