@@ -214,13 +214,13 @@
                                <div class="text-r">
                             	<ul>
                             		<li>
-                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            			 <p class="word">总优惠金额：<span class="red">${orderDetail.ordDiscountFee}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            			 <p class="word">运费：<span class="red">${orderDetail.ordFreight}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            			 <p class="word">订单应付金额：<span class="red">${orderDetail.ordAdjustFee}</span></p>
                             		</li>
                             	</ul>
                             </div>
