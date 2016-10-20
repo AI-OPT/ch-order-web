@@ -63,7 +63,8 @@ public class AfterSaleOrderController {
 	
 	@RequestMapping("/exchange")
 	@ResponseBody
-	public ResponseData<String> exchange(HttpServletRequest request, String orderId,String prodDetalId) {
+	public ResponseData<String> exchange(HttpServletRequest request, String orderId,
+			String prodDetalId,String prodSum) {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<String> data=null;
 		try {
@@ -71,6 +72,7 @@ public class AfterSaleOrderController {
 			req.setOrderId(Long.parseLong(orderId));
 			req.setProdDetalId(Long.parseLong(prodDetalId));
 			req.setTenantId(user.getTenantId());
+			req.setProdSum(Long.parseLong(prodSum));
 			//获取售后操作人
 			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 			SysUserQueryRequest  userReq = new SysUserQueryRequest ();
@@ -97,7 +99,8 @@ public class AfterSaleOrderController {
 	
 	@RequestMapping("/refund")
 	@ResponseBody
-	public ResponseData<String> refund(HttpServletRequest request, String orderId,String prodDetalId) {
+	public ResponseData<String> refund(HttpServletRequest request, String orderId,
+			String prodDetalId,String prodSum) {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<String> data=null;
 		try {
@@ -105,6 +108,7 @@ public class AfterSaleOrderController {
 			req.setOrderId(Long.parseLong(orderId));
 			req.setProdDetalId(Long.parseLong(prodDetalId));
 			req.setTenantId(user.getTenantId());
+			req.setProdSum(Long.parseLong(prodSum));
 			//获取售后操作人
 			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 			SysUserQueryRequest  userReq = new SysUserQueryRequest ();
