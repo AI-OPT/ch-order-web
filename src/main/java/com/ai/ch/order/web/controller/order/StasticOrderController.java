@@ -138,7 +138,7 @@ public class StasticOrderController {
                         shopReq.setUserId(vo.getSupplierId());
                         QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
                         if(base.getResponseHeader().getIsSuccess()==true){
-                        	vo.setStateName(base.getShopName());
+                        	vo.setSupplierName(base.getShopName());
                         }
                 		//翻译订单来源
     					SysParamSingleCond	param = new SysParamSingleCond();

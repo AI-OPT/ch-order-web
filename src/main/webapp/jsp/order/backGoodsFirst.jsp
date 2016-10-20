@@ -168,25 +168,20 @@
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">子订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.orderId}</p>
-                            		</li>
-                            		<li class="col-md-6">
                             			<p class="word">业务类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
-                            	</ul>
-                            	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款金额:</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
                             		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">退款理由:</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
-                            		</li>
+                            		
                             	</ul>
                             	<ul>
+                            		<li class="col-md-6">
+                            			<p class="word">退款理由:</p>
+                            			<p class="wide-field" style="word-break:break-all;"></p>
+                            		</li>
                             		<li class="col-md-6">
                             			<p class="word">图片:</p>
                             		</li>

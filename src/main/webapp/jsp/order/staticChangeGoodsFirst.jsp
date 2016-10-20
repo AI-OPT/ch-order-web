@@ -171,18 +171,12 @@
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">子订单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.orderId}</p>
-                            		</li>
-                            		<li class="col-md-6">
                             			<p class="word">类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.busiCodeName}</p>
                             		</li>
-                            	</ul>
-                            	<ul>
                             		<li class="col-md-6">
 	                            		<p class="word">换货理由:</p>
-	                            		<p class="wide-field" style="word-break:break-all;">${orderDetail.remark}</p>
+	                            		<p class="wide-field" style="word-break:break-all;"></p>
                             		</li>
                             	</ul>
                             	<ul>

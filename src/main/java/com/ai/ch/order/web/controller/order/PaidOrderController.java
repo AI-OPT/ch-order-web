@@ -530,7 +530,7 @@ public class PaidOrderController {
 				}
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
 			}else{
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "退款申请失败", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
 			}
 		}else{
 			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);

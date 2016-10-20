@@ -177,7 +177,7 @@
                             	<ul>
                             		<li class="col-md-6">
 	                            		<p class="word">换货理由:</p>
-	                            		<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
+	                            		<p class="wide-field" style="word-break:break-all;"></p>
                             		</li>
                             	</ul>
                             	<ul>
