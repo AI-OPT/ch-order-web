@@ -91,7 +91,8 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 				});
 		 },
 		 
-		 _refundOrder:function(orderObject) {
+		 _refundOrder:function(orderObject,refundSum) {
+			 var _obj=$("#refundNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 var _pOrderId = $('#pOrderId').val();
@@ -101,7 +102,8 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 					url :_base+"/aftersaleorder/refund",
 					data: {
 						orderId:  _orderId,
-						prodDetalId:_prodDetalId
+						prodDetalId:_prodDetalId,
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",

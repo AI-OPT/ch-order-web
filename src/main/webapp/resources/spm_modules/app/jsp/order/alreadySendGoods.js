@@ -46,42 +46,7 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
     		window.location.href = _base+"/order/toOrderList"
     	},
     	
-    	_initValidate:function(obj,indexObj){
-    		var currentProdSum = obj;
-    		var formValidator=$("#validateForm"+indexObj).validate({
-    			errorPlacement: function(error, element) {
-    				$("#errorMessage"+indexObj).append( error );
-    			},
-    			rules: {
-    				returnSum: {
-    					required: true,
-    					max:currentProdSum
-    					}
-    			},
-    			messages: {
-    				returnSum: {
-    					required:"请输入退货数量!",
-    					max:"退货数量不能大于购买的商品数量!",
-    				}
-    			}
-    		});
-    		
-    		return formValidator;
-    	},
-    	
-    	
-    	_backModal:function(Obj,prodObj) {
-    		var labelValue=$("#backModalLabel"+Obj);
-    		labelValue.text(prodObj);
-    	},
-    	
-    	_backOrder:function(orderObject,backSum,index) {
-    		 var _this= this;
-    		 var formValidator=_this._initValidate(backSum,index);
- 			 formValidator.form();
- 			 if(!$("#validateForm"+index).valid()){
- 				return false;
- 			 }
+    	_backOrder:function(orderObject,backSum) {
 			 var _obj=$("#backNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
@@ -127,7 +92,8 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
 				});
 		 },
 		 
-		 _exchangeOrder:function(orderObject) {
+		 _exchangeOrder:function(orderObject,exchangeSum) {
+			 var _obj=$("#exchangeNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 var _pOrderId = $('#pOrderId').val();
@@ -137,7 +103,8 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
 					url :_base+"/aftersaleorder/exchange",
 					data: {
 						orderId:  _orderId,
-						prodDetalId:_prodDetalId
+						prodDetalId:_prodDetalId,
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
@@ -171,7 +138,8 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
 				});
 		 },
 		 
-		 _refundOrder:function(orderObject) {
+		 _refundOrder:function(orderObject,refundSum) {
+			 var _obj=$("#refundNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 var _pOrderId = $('#pOrderId').val();
@@ -181,7 +149,8 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
 					url :_base+"/aftersaleorder/refund",
 					data: {
 						orderId:  _orderId,
-						prodDetalId:_prodDetalId
+						prodDetalId:_prodDetalId,
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
