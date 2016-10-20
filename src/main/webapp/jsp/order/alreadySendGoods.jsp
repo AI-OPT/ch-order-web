@@ -134,7 +134,7 @@
 							 <div class="modal-body text-center">
 							 <br/><br/>
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-						  		 data-toggle="modal" data-target="#backModal${status.index}" onclick="pager._backModal('${status.index}','${prod.prodName}')">退货</button> 
+						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
 								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
@@ -143,8 +143,6 @@
 								data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
 								<br/><br/>
 							</div> 
-							<!-- <div>
-							</div> -->
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal -->
 				</div> 
@@ -159,23 +157,24 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
+						<h4 class="modal-title" id="backModalLabel1${status.index}">
+							退货提示
+						</h4>
 					</div>
-		<form method="post" id="validateForm${status.index}">
 					<div class="modal-body">
-						<h4 class="modal-title text-c" id="backModalLabel${status.index}"></h4><br/>
-						<p><input type="hidden" id="buySum"></p>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text" name="returnSum"/></p>
-						<p id="errorMessage${status.index}"></p>
+						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货的商品数量" type="text" name="returnSum"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}','${prod.buySum}','${status.index}')">
+						onclick="pager._backOrder('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
 						</button>
 					</div>
-		</form>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal -->
 		</div>
@@ -190,15 +189,18 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="exchangeModalLabel1${status.index}">
-							提示
+							换货提示
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h5 class="word">确认进行换货处理吗?</h5> 
+						<h4 class="modal-title text-c" id="exchangeModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="exchangeNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入换货的商品数量" type="text" name="exchangeSum"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._exchangeOrder('${prod.prodDetalId}')">
+						onclick="pager._exchangeOrder('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -217,16 +219,19 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
-						<h4 class="modal-title" id="refundModalLabel${status.index}">
-							提示
+						<h4 class="modal-title" id="refundModalLabel1${status.index}">
+							退款提示
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h5 class="word">确认进行退款处理吗?</h5> 
+						<h4 class="modal-title text-c" id="refundModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="refundNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退款的商品数量" type="text" name="refundSum"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._refundOrder('${prod.prodDetalId}')">
+						onclick="pager._refundOrder('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -243,13 +248,13 @@
                            <div class="text-r">
                             	<ul>
                             		<li>
-                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            			 <p class="word">总优惠金额：<span class="red">${orderDetail.ordDiscountFee}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            			 <p class="word">运费：<span class="red">${orderDetail.ordFreight}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            			 <p class="word">订单应付金额：<span class="red">${orderDetail.ordAdjustFee}</span></p>
                             		</li>
                             	</ul>
                             </div>
