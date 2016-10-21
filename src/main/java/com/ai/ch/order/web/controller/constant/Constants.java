@@ -139,6 +139,11 @@ public final class Constants {
              * 审核失败
              */
             public static final String NO_CHECK="212";
+            
+            /**
+             * 审核失败(第二次审核失败)
+             */
+            public static final String NO_AGAIN_CHECK="213";
 
         }
 		
