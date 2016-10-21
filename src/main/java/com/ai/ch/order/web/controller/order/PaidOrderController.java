@@ -470,12 +470,44 @@ public class PaidOrderController {
 			if (response != null && response.getResponseHeader().isSuccess()) {
 				OrderAfterVo orderAfterVo = response.getAfterVo();
 				String busiCode = orderAfterVo.getBusiCode();
-				if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)) {
-					return "redirect:/changeDetail?orderId=" + orderAfterVo.getOrderId();
-				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)) {
-					return "redirect:/backDetail?orderId=" + orderAfterVo.getOrderId();
-				}else if(Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)) {
-					return "redirect:/backDetail?orderId=" + orderAfterVo.getOrderId()+"&flag=1";
+				String state = orderAfterVo.getState();
+				long afterOrderId= orderAfterVo.getOrderId();
+				String flag = "1";
+				//busiCode=2
+				if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)&&
+						(Constants.OrdOrder.State.WAIT_CHECK.equals(state)||
+								Constants.OrdOrder.State.NO_CHECK.equals(state))) {
+					return "redirect:/changeDetail?orderId=" + afterOrderId;
+				}else if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)&&
+						(Constants.OrdOrder.State.WAIT_BACK.equals(state)||
+								Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state))) {
+					//判断跳转的页面是第2次审核
+	        		return "redirect:/changeDetail?orderId="+afterOrderId+"&flag="+flag;
+	        	//busiCode=3
+				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)&&
+						(Constants.OrdOrder.State.WAIT_CHECK.equals(state)||
+								Constants.OrdOrder.State.NO_CHECK.equals(state))) {
+					return "redirect:/backDetail?orderId=" + afterOrderId;
+				}else if(Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)&&
+					(Constants.OrdOrder.State.WAIT_BACK.equals(state)||
+							Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state)||
+							Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state)||
+							Constants.OrdOrder.State.NO_AGAIN_CHECK.equals(state))){
+					//调到第二个审核页面页面
+					return "redirect:/backDetail?orderId="+afterOrderId+"&flag="+flag;
+				//busiCode=4
+				}else if(Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)&&
+						(Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state))) {
+					//调到第二个审核页面页面
+					return "redirect:/backDetail?orderId=" + afterOrderId+"&flag="+flag;
+				}else if(Constants.OrdOrder.State.REFUND_FAILD.equals(state)||
+						Constants.OrdOrder.State.REFUND_ING.equals(state)) {
+					//如果为退费失败那么直接掉到退货审核的第二个页面重新发起退款申请
+					//调到第二个审核页面页面
+	        		return "redirect:/backDetail?orderId="+afterOrderId+"&flag="+flag;
+				}else{
+					return "redirect:/order/orderListDetail?orderId="
+				            + afterOrderId+"&state="+state;
 				}
 			}
 		} catch (Exception e) {
