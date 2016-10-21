@@ -45,7 +45,41 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
     		//调到订单列表页面
     		window.location.href = _base+"/order/toOrderList"
     	},
-    	
+    	//校验退货数量
+    	_validateNum:function(orderObject,buyNum){
+    		var _this = this;
+    		//
+    		var _obj=$("#backNum"+orderObject).val();
+    		//
+    		ajaxController.ajax({
+				type : "POST",
+				url :_base+"/validateReturnGoosNum/validateNum",
+				data: {
+					str: _obj,
+					buyNum:buyNum
+				},
+				processing: true,
+				message : "正在处理中，请稍候...",
+				success : function(data) {
+					if(data == "success"){
+						//
+						_this._backOrder(orderObject,buyNum);
+						
+    	        	}else{
+    	        		var d = Dialog({
+							title: '消息',
+							content:data,
+							icon:'fail',
+							okValue: '确 定',
+							ok:function(){
+								this.close();
+							}
+						});
+						d.show();
+    	        	}
+				}
+			});
+    	},
     	_backOrder:function(orderObject,backSum) {
 			 var _obj=$("#backNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
@@ -91,7 +125,40 @@ define('app/jsp/order/alreadySendGoods', function (require, exports, module) {
 					}
 				});
 		 },
-		 
+		 _exchangeOrderValidateNum:function(orderObject,buyNum){
+			 var _this = this;
+	    		//
+	    		var _obj=$("#exchangeNum"+orderObject).val();
+	    		//
+	    		ajaxController.ajax({
+					type : "POST",
+					url :_base+"/validateReturnGoosNum/validateNum",
+					data: {
+						str: _obj,
+						buyNum:buyNum
+					},
+					processing: true,
+					message : "正在处理中，请稍候...",
+					success : function(data) {
+						if(data == "success"){
+							//
+							_this._exchangeOrder(orderObject,buyNum);
+							
+	    	        	}else{
+	    	        		var d = Dialog({
+								title: '消息',
+								content:data,
+								icon:'fail',
+								okValue: '确 定',
+								ok:function(){
+									this.close();
+								}
+							});
+							d.show();
+	    	        	}
+					}
+				});
+		 },
 		 _exchangeOrder:function(orderObject,exchangeSum) {
 			 var _obj=$("#exchangeNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();

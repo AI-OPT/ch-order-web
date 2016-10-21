@@ -60,6 +60,9 @@ import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
 import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
 import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
+import com.ai.slp.order.api.orderstate.interfaces.IOrderStateServiceSV;
+import com.ai.slp.order.api.orderstate.param.WaitSellReceiveSureRequest;
+import com.ai.slp.order.api.orderstate.param.WaitSellReceiveSureResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.changhong.upp.business.entity.upp_599_001_01.RespInfo;
@@ -536,22 +539,40 @@ public class PaidOrderController {
 	public ResponseData<String> refund(HttpServletRequest request,String updateInfo,String updateMoney, String orderId,String accountId,
 		    String openId,String downOrdId,String giveJF,String saleJF,String banlanceIfId,String parentOrderId) {
 		ResponseData<String> responseData = null;
-		// 查询用户积分 判断是否允许退货
-		//TODO
-		String appId="30a10e21";
-		String bisId="bisId";
-		int surplusCash = integralCashQry(accountId, openId, appId);
-		int giveCash =0;
-		if(!StringUtil.isBlank(giveJF)){
-			try {
-				giveCash = Integer.parseInt(giveJF);
-			} catch (Exception e) {
-				e.printStackTrace();
+		if(!StringUtil.isBlank(downOrdId)){
+			// 查询用户积分 判断是否允许退货
+			//TODO
+			String appId="30a10e21";
+			String bisId="bisId";
+			int surplusCash = integralCashQry(accountId, openId, appId);
+			int giveCash =0;
+			if(!StringUtil.isBlank(giveJF)){
+				try {
+					giveCash = Integer.parseInt(giveJF);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
-		}
-		if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
-			//用户消费积分撤销
-			shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
+			if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
+				//用户消费积分撤销
+				shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
+				//退款
+				ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
+				if("1".equals(resposne.getStatusCode())){
+					//修改退款金额
+					boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
+					if(!flag){
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+						return responseData;
+					}
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
+				}else{
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
+				}
+			}else{
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);
+			}
+		}else{
 			//退款
 			ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
 			if("1".equals(resposne.getStatusCode())){
@@ -565,11 +586,8 @@ public class PaidOrderController {
 			}else{
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
 			}
-		}else{
-			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);
 		}
 		return responseData;
-		
 	}
 
 	/**
@@ -773,13 +791,26 @@ public class PaidOrderController {
 		//收到换货
 		@RequestMapping("/confirmChange")
 		@ResponseBody
-		public ResponseData<String> confirmChange(HttpServletRequest request) {
+		public ResponseData<String> confirmChange(HttpServletRequest request,String expressOddNumber,String expressId,String orderId) {
 			ResponseData<String> responseData = null;
+			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			try {
 				//调用确认换货服务
-				} catch (Exception e) {
+				IOrderStateServiceSV iOrderStateServiceSV = DubboConsumerFactory.getService(IOrderStateServiceSV.class);
+				WaitSellReceiveSureRequest req  = new WaitSellReceiveSureRequest();
+				req.setExpressId(expressId);
+				req.setExpressOddNumber(expressOddNumber);
+				req.setOrderId(Long.valueOf(orderId));
+				req.setTenantId(user.getTenantId());
+				WaitSellReceiveSureResponse response = iOrderStateServiceSV.updateWaitSellRecieveSureState(req);
+				if(response.getResponseHeader().getIsSuccess()==true){
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "收到换货成功", null);
+				}else{
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
 				}
+			} catch (Exception e) {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
+			}
 			return responseData;
 		}	
 }

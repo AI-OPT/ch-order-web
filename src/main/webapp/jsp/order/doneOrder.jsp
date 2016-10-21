@@ -169,7 +169,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}')">
+						onclick="pager._validateNum('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -193,11 +193,15 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h5 class="word">确认进行换货处理吗?</h5> 
+						<h4 class="modal-title text-c" id="exchangeModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="exchangeNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入换货的商品数量" type="text" name="exchangeSum"/></p>
+					
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._exchangeOrder('${prod.prodDetalId}')">
+						onclick="pager._exchangeOrderValidateNum('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消

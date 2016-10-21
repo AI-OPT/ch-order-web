@@ -109,6 +109,7 @@ dependencies {
     compile 'com.ai.slp.order:stasticsorder:1.0.3-SNAPSHOT'
     compile 'com.ai.slp.order:orderrefund:1.0.1-SNAPSHOT'
     compile 'com.ai.slp.order:orderpay:1.0.1-SNAPSHOT'
+    compile 'com.ai.slp.order:orderstate:1.0.1-SNAPSHOT'
 	//仓库
 	compile 'com.ai.slp.route:routemanage:1.0.2-SNAPSHOT'
 	compile 'junit:junit:4.12'
