@@ -171,7 +171,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}','${prod.buySum}')">
+						onclick="pager._validateNum('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -202,7 +202,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._exchangeOrder('${prod.prodDetalId}','${prod.buySum}')">
+						onclick="pager._exchangeOrderValidateNum('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
