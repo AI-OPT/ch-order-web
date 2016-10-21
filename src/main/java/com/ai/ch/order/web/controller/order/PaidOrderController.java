@@ -210,7 +210,11 @@ public class PaidOrderController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if (ordOrderVo != null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
+					// 总退款金额
 					orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
@@ -339,14 +343,11 @@ public class PaidOrderController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if (ordOrderVo != null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
-					if (ordOrderVo.getTotalFee() != null) {
 						// 总退款金额
 						orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
 						orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
 						orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
 						orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
-						
-					}
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
