@@ -539,20 +539,20 @@ public class PaidOrderController {
 	public ResponseData<String> refund(HttpServletRequest request,String updateInfo,String updateMoney, String orderId,String accountId,
 		    String openId,String downOrdId,String giveJF,String saleJF,String banlanceIfId,String parentOrderId) {
 		ResponseData<String> responseData = null;
-		// 查询用户积分 判断是否允许退货
-		//TODO
-		String appId="30a10e21";
-		String bisId="bisId";
-		int surplusCash = integralCashQry(accountId, openId, appId);
-		int giveCash =0;
-		if(!StringUtil.isBlank(giveJF)){
-			try {
-				giveCash = Integer.parseInt(giveJF);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
 		if(!StringUtil.isBlank(downOrdId)){
+			// 查询用户积分 判断是否允许退货
+			//TODO
+			String appId="30a10e21";
+			String bisId="bisId";
+			int surplusCash = integralCashQry(accountId, openId, appId);
+			int giveCash =0;
+			if(!StringUtil.isBlank(giveJF)){
+				try {
+					giveCash = Integer.parseInt(giveJF);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
 			if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
 				//用户消费积分撤销
 				shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
