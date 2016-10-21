@@ -82,7 +82,8 @@
 							                      </table>
 							                 </td>
 							                <td>${sp.prodSalePrice}/${sp.buySum}件</td>
-							                <td>${order.orderTime}</td>
+							                <td><fmt:formatDate value="${order.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+							                <%-- <td>${order.orderTime}</td> --%>
 							                <td>${order.busiCodeName}</td>
 							                <td>${order.stateName}</td>
 							                <td>${sp.prodCouponFee}</td>
