@@ -198,6 +198,10 @@
 	<dubbo:reference id="iOrderModifySV"
 	interface="com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV"
 	registry="baasRegistry" />
+	
+	<dubbo:reference id="iOrderStateServiceSV"
+	interface="com.ai.slp.order.api.orderstate.interfaces.IOrderStateServiceSV"
+	registry="baasRegistry" />
 			
 				
 </beans>

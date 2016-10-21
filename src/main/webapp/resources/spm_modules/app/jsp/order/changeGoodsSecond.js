@@ -32,7 +32,9 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     	events: {
     		//查询
             "click #backPage":"_back",
-            "click #sendGoods":"_sendGoods"
+            "click #sendGoods":"_sendGoods",
+            "click #confirmChange":"_confirmChange"
+            
         },
     	//重写父类
     	setup: function () {
@@ -40,8 +42,39 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     	},
     	_back:function(){
     		window.location.href=_base+"/toPaidOrder";
+    	},
+    	//收到换货
+    	_confirmChange:function(){
+    		var orderid = $("#orderId").text();
+    		var expressId = $("#expressId").val();
+    		var expressOddNumber = $("#expressOddNumber").val();
+    		var url =_base+"/confirmChange";
+    		   ajaxController.ajax({
+       	    	type: "post",
+   				dataType: "json",
+   				processing: false,
+   				message: "查询中，请等待...",
+   				url: url,
+   				data:{"orderId":orderid,"expressId":expressId,"expressOddNumber":expressOddNumber},
+       	        success: function (data) {
+       	        	if(data.statusCode == "1"){
+       	        		window.location.href=_base+"/toPaidOrder";
+       	        	}else{
+       	        		var d = Dialog({
+   							title: '消息',
+   							content:"收到换货失败:"+data.statusInfo,
+   							icon:'prompt',
+   							okValue: '确 定',
+   							ok:function(){
+   								this.close();
+   							}
+   						});
+   						d.show();
+       	        	}
+       	        },
+                   
+       	    });
     	}
-    	
 		
     });
     

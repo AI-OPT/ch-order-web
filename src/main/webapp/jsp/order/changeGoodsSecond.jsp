@@ -8,6 +8,8 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>查询列表</title>
 <%@include file="/inc/inc.jsp" %>
+<input type="hidden" value="${order.expressId}" id="expressId">
+<input type="hidden" value="${order.expressOddNumber}" id="expressOddNumber">
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->
