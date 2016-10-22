@@ -771,6 +771,7 @@ public class PaidOrderController {
 			String parentOrderId, String money, String banlanceIfId) {
 		ResponseData<String> responseData = null;
 		try {
+			System.out.println("退款申请开始>>>>>>");
 			// 将元转换为分
 			String updateMoney = AmountUtil.YToSFen(money);
 			GrpHdr hdr = new GrpHdr();
@@ -779,7 +780,7 @@ public class PaidOrderController {
 			hdr.setTranType(TranType.REFUND_APPLY.getValue());
 			GrpBody body = new GrpBody();
 			body.setPayTranSn(banlanceIfId);
-			body.setMerSeqId(orderId);
+			body.setMerSeqId(parentOrderId);
 			body.setRefundAmt(updateMoney);
 			body.setMerRefundSn(parentOrderId);
 			body.setSonMerNo("CO20160900000010");
