@@ -149,8 +149,8 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 			});
 		 },
 		 
-		 _backOrder:function(orderObject) {
-			 var _obj=$("#backNum"+orderObject).val();
+		 _backOrder:function(orderObject,backSum) {
+			/* var _obj=$("#backNum"+orderObject).val();*/
 			 var _orderId = $('#orderId').val();
 			 var _pOrderId = $('#pOrderId').val();
 			 var _state = $('#state').val();
@@ -161,7 +161,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					data: {
 						orderId:  _orderId,
 						prodDetalId:_prodDetalId,
-						prodSum:_obj
+						prodSum:backSum
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
@@ -196,7 +196,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		 },
 		 
 		 _refundOrder:function(orderObject,refundSum) {
-			 var _obj=$("#refundNum"+orderObject).val();
+			 /*var _obj=$("#refundNum"+orderObject).val();*/
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 var _pOrderId = $('#pOrderId').val();
@@ -207,7 +207,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					data: {
 						orderId:  _orderId,
 						prodDetalId:_prodDetalId,
-						prodSum:_obj
+						prodSum:refundSum
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
