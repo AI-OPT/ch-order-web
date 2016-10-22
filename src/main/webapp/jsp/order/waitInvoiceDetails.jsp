@@ -155,12 +155,18 @@
 							&times;
 						</button>
 					</div>
-					<form id="validateForm" method="post">
+					<%-- <form id="validateForm" method="post">
 					<div class="modal-body">
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
 							${prod.prodName}
 						</h4><br/>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></form></p>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/>
+					</form></p> --%>
+					<div class="modal-body">
+						<p class="center">
+							确定进行退货处理吗?
+						</p>						 
+					</div>
 					</div><p id="errorMessage"></p>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
@@ -189,10 +195,15 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h4 class="modal-title text-c" id="refundModalLabel${status.index}">
+					
+						<%-- <h4 class="modal-title text-c" id="refundModalLabel${status.index}">
 							${prod.prodName}
 						</h4><br/>
 						<p class="text-c"><input id="refundNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退款的商品数量" type="text" name="refundSum"/></p>
+						 --%>
+						<p class="center">
+							确定进行退款处理吗?
+						</p>						 
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"

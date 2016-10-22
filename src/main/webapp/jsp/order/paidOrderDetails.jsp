@@ -157,10 +157,14 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
+						<%-- <h4 class="modal-title text-c" id="backModalLabel${status.index}">
 							${prod.prodName}
 						</h4><br/>
 						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货的商品数量" type="text"/></p>
+						 --%>
+						 <p class="center">
+							确定进行退货处理吗?
+						</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
@@ -187,11 +191,12 @@
 							退款提示
 						</h4>
 					</div>
-					<div class="modal-body">
-						<h4 class="modal-title text-c" id="refundModalLabel${status.index}">
-							${prod.prodName}
-						</h4><br/>
-						<p class="text-c"><input id="refundNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退款的商品数量" type="text" name="refundSum"/></p>
+					<!-- <div class="modal-body"> -->
+					
+					<div class="eject-medium-complete">
+						<p class="center">
+							确定进行退款处理吗?
+						</p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
