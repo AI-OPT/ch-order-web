@@ -187,20 +187,25 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
-						<h4 class="modal-title" id="refundModalLabel${status.index}">
+						<h5 class="modal-title" id="refundModalLabel${status.index}">
 							退款提示
-						</h4>
+						</h5>
 					</div>
+<<<<<<< HEAD
 					<!-- <div class="modal-body"> -->
 					
 					<div class="eject-medium-complete">
 						<p class="center">
 							确定进行退款处理吗?
 						</p>
+=======
+					<div class="modal-body">
+						<h4 class="word">确认进行退款处理吗?</h5> 
+>>>>>>> branch 'master' of https://github.com/AI-OPT/ch-order-web.git
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._refundOrder('${prod.prodDetalId}','${prod.buySum}')">
+						onclick="pager._refundOrder('${prod.prodDetalId}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
