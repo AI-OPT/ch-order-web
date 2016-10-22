@@ -35,7 +35,7 @@ public class ValidateReturnGoosNumController {
 		log.info("flag:"+flag);
 		String msg = "success";
 		if(flag == false){
-			msg = "请输入正整数";
+			msg = "请输入退换货数量";
 			return msg;
 		}
 		if(Integer.parseInt(str) > Integer.parseInt(buyNum)){
