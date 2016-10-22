@@ -98,9 +98,13 @@ public class DeliveryGoodsPrintController {
 	
 	
 	@RequestMapping("/deliverGoods")
-	public ModelAndView deliverGoods(HttpServletRequest request,String orderId) {
+	public ModelAndView deliverGoods(HttpServletRequest request,String orderId,String pOrderId,String state,String busiCode,String Flag) {
 		Map<String, String> model = new HashMap<String, String>();
 		model.put("orderId", orderId);
+		model.put("pOrderId", pOrderId);
+		model.put("state", state);
+		model.put("busiCode", busiCode);
+		model.put("Flag", Flag);
 		return new ModelAndView("jsp/order/sendGoods",model);
 	}
 	

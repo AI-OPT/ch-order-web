@@ -43,7 +43,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
     		window.location.href = _base+"/order/toOrderList"
     	},
     	
-      	_queryDeliveryOrder: function(){
+      	_queryDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
       		var _this = this;
 			var _orderId = $('#orderId').val();
 			ajaxController.ajax({
@@ -58,7 +58,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					if(data.data.mark=="1"){
 						$("#mergeQueryModal").modal('show');
 					}else if(data.data.mark=="2"){
-						_this._noMergeDisplayDeliveryOrder();
+						_this._noMergeDisplayDeliveryOrder(orderId,parentOrderId,state,busiCode,flag);
 					}else {
 						var d = Dialog({
 							title: '提示',
@@ -95,7 +95,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		},
 		
 		
-		_noMergeDisplayDeliveryOrder: function(){
+		_noMergeDisplayDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
 			var _orderId = $('#orderId').val();
 			ajaxController.ajax({
 				type : "POST",
@@ -109,12 +109,19 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					var template = $.templates("#deliveryOrderTempalte");
 					var htmlOutput = template.render(data.data);
 					$("#deliveryModal").html(htmlOutput);
+					$("#deliveryModal_orderId").val(orderId);
+					$("#deliveryModal_parentOrderId").val(parentOrderId);
+					$("#deliveryModal_state").val(state);
+					$("#deliveryModal_busiCode").val(busiCode);
+					$("#deliveryModal_flag").val(flag);
+					
 					$("#myModaltakeGoods").modal('show');
 				}
 			});
 		},
 		
 		 _printDeliveryOrder:function() {
+			 var _this = this;
 			 var orderInfo = new Array();
 			 $("#orderDisPlay").find("tr").each(function(i) {
 				var skuId=$("#"+i+"_skuId").text();
@@ -142,15 +149,32 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 				message : "正在处理中，请稍候...",
 				success : function(data) {
 					if(data) {
+						_this._returnUrl();
 						$("#but").attr("disabled","disabled");
 						
 					}
 				}
 			});
 		 },
+		 //跳转url
+		 _returnUrl:function(){
+			 var orderId = $("#deliveryModal_orderId").val();
+			 var pOrderId = $("#deliveryModal_parentOrderId").val();
+			 var state = $("#deliveryModal_state").val();
+			 if(state == '13'){
+				 state = '14';
+			 }
+			 var busiCode =	$("#deliveryModal_busiCode").val();
+			 var Flag = $("#deliveryModal_flag").val();
+			 var url = _base+"/order/orderListDetail?orderId="+ orderId +"&pOrderId="+pOrderId+"&state="+state+"&busiCode="+busiCode+"&Flag="+Flag;
+			 //alert(url);
+			 location.href = url;
+			//
+			 
+		 },
 		 
-		 _backOrder:function(orderObject,backSum) {
-			/* var _obj=$("#backNum"+orderObject).val();*/
+		 _backOrder:function(orderObject) {
+			 var _obj=$("#backNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _pOrderId = $('#pOrderId').val();
 			 var _state = $('#state').val();
@@ -161,7 +185,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					data: {
 						orderId:  _orderId,
 						prodDetalId:_prodDetalId,
-						prodSum:backSum
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
@@ -196,7 +220,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		 },
 		 
 		 _refundOrder:function(orderObject,refundSum) {
-			 /*var _obj=$("#refundNum"+orderObject).val();*/
+			 var _obj=$("#refundNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 var _pOrderId = $('#pOrderId').val();
@@ -207,7 +231,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					data: {
 						orderId:  _orderId,
 						prodDetalId:_prodDetalId,
-						prodSum:refundSum
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",

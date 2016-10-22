@@ -67,7 +67,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">支付流水号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.externalId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.balacneIfId }</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -298,7 +298,7 @@
 					  		 <input type="hidden" id="pOrderId" value="${orderDetail.parentOrderId }">
 					  		 <input type="hidden" id="state" value="${orderDetail.state}">
 					  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-					  		 onclick="pager._sendGoods('${orderDetail.orderId }');" value="发货">
+					  		 onclick="pager._sendGoods('${orderDetail.orderId }','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');" value="发货">
 					  		 <c:choose>
 							       <c:when test="${empty orderDetail.invoiceType || orderDetail.invoiceType == '1'}">
 							       </c:when>
@@ -353,6 +353,10 @@
 					                </li> 
 					            </ul>  
 					            <ul>
+					                <li  class="col-md-6">
+					                    <p class="word">物流商：</p>
+					                    <p>{{:expressOddNumber}}</p>
+					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">发货仓库：</p>
 					                    <p>{{:routeId}}</p>

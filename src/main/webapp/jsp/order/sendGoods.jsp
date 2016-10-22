@@ -11,6 +11,12 @@
 <%@include file="/inc/inc.jsp" %>
 </head>
 <body>
+	  <input id="deliveryModal_orderId" type="hidden" value="${orderId }" />
+      <input id="deliveryModal_parentOrderId" type="hidden" value="${pOrderId }" />
+      <input id="deliveryModal_state" type="hidden" value="${state }" />
+      <input id="deliveryModal_busiCode" type="hidden" value="${busiCode }" />
+      <input id="deliveryModal_flag" type="hidden" value="${flag }" />
+         
       <div class="row"><!--外围框架-->
             <div class="col-lg-12"><!--删格化-->
                 <div class="row"><!--内侧框架-->

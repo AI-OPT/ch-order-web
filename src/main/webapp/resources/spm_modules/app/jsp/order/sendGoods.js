@@ -98,9 +98,15 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 	  	        success: function (data) {
 	  	        	if(data.statusCode == "1"){
 	  	        	//调到订单列表页面
-	  	      		var state = "16";
-	  	      		window.location.href = _base+"/order/toOrderList?stateFlag="
-	  	              + state
+	  	        		var orderId = $("#deliveryModal_orderId").val();
+						 var pOrderId = $("#deliveryModal_parentOrderId").val();
+						 var state = $("#deliveryModal_state").val();
+						 var state = "16";
+						 var busiCode =	$("#deliveryModal_busiCode").val();
+						 var Flag = $("#deliveryModal_flag").val();
+						 var url = _base+"/order/orderListDetail?orderId="+ orderId +"&pOrderId="+pOrderId+"&state="+state+"&busiCode="+busiCode+"&Flag="+Flag;
+						 //alert(url);
+						 location.href = url;
     	        	}else{
     	        		var d = Dialog({
 							title: '消息',

@@ -215,9 +215,9 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 			window.location.href = _base+"/judge?orderId="
             + orderId+"&skuId="+skuId;
 		},
-		_sendGoods:function(obj){
+		_sendGoods:function(obj,pOrderId,state,busiCode,flag){
 			var orderId=obj;
-			window.location.href = _base+"/deliveryPrint/deliverGoods?orderId="+orderId;
+			window.location.href = _base+"/deliveryPrint/deliverGoods?orderId="+orderId +"&pOrderId="+pOrderId+"&state="+state+"&busiCode="+busiCode+"&Flag="+flag;
 		},
 		/**
 		 * 发票打印 zhangzhongde 2016-10-20 10:27

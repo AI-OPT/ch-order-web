@@ -66,7 +66,7 @@
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">支付流水号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.externalId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.balacneIfId }</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -168,7 +168,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}','${prod.buySum}')">
+						onclick="pager._backOrder('${prod.prodDetalId}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -191,15 +191,21 @@
 							退款提示
 						</h5>
 					</div>
+<<<<<<< HEAD
 					<!-- <div class="modal-body"> -->
+					
 					<div class="eject-medium-complete">
 						<p class="center">
 							确定进行退款处理吗?
 						</p>
+=======
+					<div class="modal-body">
+						<h4 class="word">确认进行退款处理吗?</h5> 
+>>>>>>> branch 'master' of https://github.com/AI-OPT/ch-order-web.git
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._refundOrder('${prod.prodDetalId}','${prod.buySum}')">
+						onclick="pager._refundOrder('${prod.prodDetalId}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -293,11 +299,11 @@
 					  		 <c:choose>
 					       <c:when test="${orderDetail.state!=13}">
 					       		 <input type="button" class="btn btn-primary" disabled="disabled"
-					  		 onclick="pager._queryDeliveryOrder();"  value="打印提货单">
+					  		 onclick="pager._queryDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');"  value="打印提货单">
 					       </c:when>
 					       <c:otherwise>
 								 <input type="button" id="but" class="btn btn-primary"
-					  		 onclick="pager._queryDeliveryOrder();"  value="打印提货单">
+					  		 onclick="pager._queryDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');"  value="打印提货单">
 					       </c:otherwise>
 						</c:choose>
 					  		 </div>
@@ -323,6 +329,12 @@
              	  提货单清单
             </h2>
          </div>
+         <input id="deliveryModal_orderId" type="hidden" value="" />
+         <input id="deliveryModal_parentOrderId" type="hidden" value="" />
+         <input id="deliveryModal_state" type="hidden" value="" />
+         <input id="deliveryModal_busiCode" type="hidden" value="" />
+         <input id="deliveryModal_flag" type="hidden" value="" />
+         
          <div class="modal-body" id="deliveryModal"> </div>
       </div>
 </div><!-- /.modal -->
