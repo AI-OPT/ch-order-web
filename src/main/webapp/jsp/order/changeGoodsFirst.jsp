@@ -51,7 +51,7 @@
 					            <ul>
 					            	<li  class="col-md-6">
 					                    <p class="word">支付流水号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${order.balacneIfId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.externalId}</p>
 					                </li>  
 					            </ul>
 					  	</div>

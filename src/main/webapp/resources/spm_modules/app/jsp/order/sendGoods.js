@@ -45,12 +45,14 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     		var formValidator=$("#dataForm").validate({
     			rules: {
     				flowName: {
-    					regexp: /^[0-9a-zA-Z]*$/g
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
     				}
     			},
     			messages: {
     				flowName: {
-    					regexp: "只能输入字母或数字"
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
     				}
     			}
     		});

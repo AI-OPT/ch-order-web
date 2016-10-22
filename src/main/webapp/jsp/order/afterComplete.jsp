@@ -70,7 +70,7 @@
 							                		</p>
 							                		<p>
 							                			<span>支付流水号:</span>
-							                			<span>${orderDetail.balacneIfId}</span>
+							                			<span>${orderDetail.externalId}</span>
 							                		</p>	
 							                	</div>
 							                </td>

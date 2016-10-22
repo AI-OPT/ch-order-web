@@ -779,9 +779,9 @@ public class PaidOrderController {
 			hdr.setTranType(TranType.REFUND_APPLY.getValue());
 			GrpBody body = new GrpBody();
 			body.setPayTranSn(banlanceIfId);
-			body.setMerSeqId(parentOrderId);
+			body.setMerSeqId(orderId);
 			body.setRefundAmt(updateMoney);
-			body.setMerRefundSn(orderId);
+			body.setMerRefundSn(parentOrderId);
 			body.setSonMerNo("CO20160900000010");
 			body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
@@ -793,6 +793,7 @@ public class PaidOrderController {
 			RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY),
 					key.getKey(KeyType.PUBLIC_KEY));
 			if (!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())) {
+				System.out.println("退款申请>>>>>>>>>>"+rp.getGrpBody().getStsRsn().getRespDesc());
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 			} else {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
