@@ -79,6 +79,8 @@ dependencies {
 	compile 'com.ai.opt.uac:account:2.0-SNAPSHOT'
 	//商品web
 	compile 'com.ai.slp.product:webfront:1.2.2-SNAPSHOT'
+	//减少商品销量
+	compile 'com.ai.slp.product:storageserver:1.1.1-SNAPSHOT'
 	
 	//jersey
 	compile 'org.glassfish.jersey.core:jersey-client:2.9.1'

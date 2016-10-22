@@ -63,6 +63,8 @@ import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
 import com.ai.slp.order.api.orderstate.interfaces.IOrderStateServiceSV;
 import com.ai.slp.order.api.orderstate.param.WaitSellReceiveSureRequest;
 import com.ai.slp.order.api.orderstate.param.WaitSellReceiveSureResponse;
+import com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV;
+import com.ai.slp.product.api.storageserver.param.StorageNumUserReq;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.changhong.upp.business.entity.upp_599_001_01.RespInfo;
@@ -78,9 +80,9 @@ public class PaidOrderController {
 	private static final Logger LOG = Logger.getLogger(PaidOrderController.class);
 	@Autowired
 	private BusinessHandlerFactory businessHandlerFactory;
-	@Resource(name="key")
+	@Resource(name = "key")
 	private Key key;
-	
+
 	@RequestMapping("/toPaidOrder")
 	public ModelAndView toPaidOrder(HttpServletRequest request) {
 
@@ -346,11 +348,11 @@ public class PaidOrderController {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if (ordOrderVo != null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
-						// 总退款金额
-						orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
-						orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
-						orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
-						orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
+					// 总退款金额
+					orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
@@ -475,43 +477,42 @@ public class PaidOrderController {
 				OrderAfterVo orderAfterVo = response.getAfterVo();
 				String busiCode = orderAfterVo.getBusiCode();
 				String state = orderAfterVo.getState();
-				long afterOrderId= orderAfterVo.getOrderId();
+				long afterOrderId = orderAfterVo.getOrderId();
 				String flag = "1";
-				//busiCode=2
-				if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)&&
-						(Constants.OrdOrder.State.WAIT_CHECK.equals(state)||
-								Constants.OrdOrder.State.NO_CHECK.equals(state))) {
+				// busiCode=2
+				if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)
+						&& (Constants.OrdOrder.State.WAIT_CHECK.equals(state)
+								|| Constants.OrdOrder.State.NO_CHECK.equals(state))) {
 					return "redirect:/changeDetail?orderId=" + afterOrderId;
-				}else if(Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)&&
-						(Constants.OrdOrder.State.WAIT_BACK.equals(state)||
-								Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state))) {
-					//判断跳转的页面是第2次审核
-	        		return "redirect:/changeDetail?orderId="+afterOrderId+"&flag="+flag;
-	        	//busiCode=3
-				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)&&
-						(Constants.OrdOrder.State.WAIT_CHECK.equals(state)||
-								Constants.OrdOrder.State.NO_CHECK.equals(state))) {
+				} else if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)
+						&& (Constants.OrdOrder.State.WAIT_BACK.equals(state)
+								|| Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state))) {
+					// 判断跳转的页面是第2次审核
+					return "redirect:/changeDetail?orderId=" + afterOrderId + "&flag=" + flag;
+					// busiCode=3
+				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)
+						&& (Constants.OrdOrder.State.WAIT_CHECK.equals(state)
+								|| Constants.OrdOrder.State.NO_CHECK.equals(state))) {
 					return "redirect:/backDetail?orderId=" + afterOrderId;
-				}else if(Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)&&
-					(Constants.OrdOrder.State.WAIT_BACK.equals(state)||
-							Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state)||
-							Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state)||
-							Constants.OrdOrder.State.NO_AGAIN_CHECK.equals(state))){
-					//调到第二个审核页面页面
-					return "redirect:/backDetail?orderId="+afterOrderId+"&flag="+flag;
-				//busiCode=4
-				}else if(Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)&&
-						(Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state))) {
-					//调到第二个审核页面页面
-					return "redirect:/backDetail?orderId=" + afterOrderId+"&flag="+flag;
-				}else if(Constants.OrdOrder.State.REFUND_FAILD.equals(state)||
-						Constants.OrdOrder.State.REFUND_ING.equals(state)) {
-					//如果为退费失败那么直接掉到退货审核的第二个页面重新发起退款申请
-					//调到第二个审核页面页面
-	        		return "redirect:/backDetail?orderId="+afterOrderId+"&flag="+flag;
-				}else{
-					return "redirect:/order/orderListDetail?orderId="
-				            + afterOrderId+"&state="+state;
+				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)
+						&& (Constants.OrdOrder.State.WAIT_BACK.equals(state)
+								|| Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state)
+								|| Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state)
+								|| Constants.OrdOrder.State.NO_AGAIN_CHECK.equals(state))) {
+					// 调到第二个审核页面页面
+					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag;
+					// busiCode=4
+				} else if (Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)
+						&& (Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state))) {
+					// 调到第二个审核页面页面
+					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag;
+				} else if (Constants.OrdOrder.State.REFUND_FAILD.equals(state)
+						|| Constants.OrdOrder.State.REFUND_ING.equals(state)) {
+					// 如果为退费失败那么直接掉到退货审核的第二个页面重新发起退款申请
+					// 调到第二个审核页面页面
+					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag;
+				} else {
+					return "redirect:/order/orderListDetail?orderId=" + afterOrderId + "&state=" + state;
 				}
 			}
 		} catch (Exception e) {
@@ -523,6 +524,7 @@ public class PaidOrderController {
 
 	/**
 	 * 同意退货
+	 * 
 	 * @param request
 	 * @param orderId
 	 * @param accountId
@@ -536,54 +538,57 @@ public class PaidOrderController {
 	 */
 	@RequestMapping("/refund")
 	@ResponseBody
-	public ResponseData<String> refund(HttpServletRequest request,String updateInfo,String updateMoney, String orderId,String accountId,
-		    String openId,String downOrdId,String giveJF,String saleJF,String banlanceIfId,String parentOrderId) {
+	public ResponseData<String> refund(HttpServletRequest request, String updateInfo, String updateMoney,
+			String orderId, String accountId, String openId, String downOrdId, String giveJF, String saleJF,
+			String banlanceIfId, String parentOrderId) {
 		ResponseData<String> responseData = null;
-		if(!StringUtil.isBlank(downOrdId)){
+		if (!StringUtil.isBlank(downOrdId)) {
 			// 查询用户积分 判断是否允许退货
-			//TODO
-			String appId="30a10e21";
-			String bisId="bisId";
+			// TODO
+			String appId = "30a10e21";
+			String bisId = "bisId";
 			int surplusCash = integralCashQry(accountId, openId, appId);
-			int giveCash =0;
-			if(!StringUtil.isBlank(giveJF)){
+			int giveCash = 0;
+			if (!StringUtil.isBlank(giveJF)) {
 				try {
 					giveCash = Integer.parseInt(giveJF);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
-			if(surplusCash>=giveCash){//当前用户积分余额大于商品赠送积分
-				//用户消费积分撤销
+			if (surplusCash >= giveCash) {// 当前用户积分余额大于商品赠送积分
+				// 用户消费积分撤销
 				shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
-				//退款
-				ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
-				if("1".equals(resposne.getStatusCode())){
-					//修改退款金额
+				// 退款
+				ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
+						banlanceIfId);
+				if ("1".equals(resposne.getStatusCode())) {
+					// 修改退款金额
 					boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
-					if(!flag){
+					if (!flag) {
 						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
 						return responseData;
 					}
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
-				}else{
+				} else {
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
 				}
-			}else{
+			} else {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);
 			}
-		}else{
-			//退款
-			ResponseData<String> resposne =	agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney, banlanceIfId);
-			if("1".equals(resposne.getStatusCode())){
-				//修改退款金额
+		} else {
+			// 退款
+			ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
+					banlanceIfId);
+			if ("1".equals(resposne.getStatusCode())) {
+				// 修改退款金额
 				boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
-				if(!flag){
+				if (!flag) {
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
 					return responseData;
 				}
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
-			}else{
+			} else {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
 			}
 		}
@@ -592,6 +597,7 @@ public class PaidOrderController {
 
 	/**
 	 * 查询用户积分
+	 * 
 	 * @param accountId
 	 * @param openId
 	 * @param appId
@@ -600,23 +606,23 @@ public class PaidOrderController {
 	private int integralCashQry(String accountId, String openId, String appId) {
 		System.out.println("用户积分查询开始>>>>");
 		Map<String, String> params = new HashMap<String, String>();
-		params.put("accountId",accountId);
+		params.put("accountId", accountId);
 		params.put("openId", openId);
 		params.put("appId", appId);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SEARCH_APPKEY);
 		String param = JSON.toJSONString(params);
-		System.out.println("用户积分查询参数>>>>"+param);
+		System.out.println("用户积分查询参数>>>>" + param);
 		try {
-			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SEARCH_URL,param,headers);
-			 //将返回结果，转换为JSON对象 
-	        JSONObject json=JSON.parseObject(result);
-	        String reqResultCode=json.getString("resultCode");
-	        if("000000".equals(reqResultCode)){
-	        	JSONObject data=JSON.parseObject(json.getString("data"));
-	        	System.out.println("用户积分查询返回参数>>>>"+data);
-				String dataStr =data.getString("code");
-				if("200".equals(dataStr)){
+			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SEARCH_URL, param, headers);
+			// 将返回结果，转换为JSON对象
+			JSONObject json = JSON.parseObject(result);
+			String reqResultCode = json.getString("resultCode");
+			if ("000000".equals(reqResultCode)) {
+				JSONObject data = JSON.parseObject(json.getString("data"));
+				System.out.println("用户积分查询返回参数>>>>" + data);
+				String dataStr = data.getString("code");
+				if ("200".equals(dataStr)) {
 					return Integer.parseInt(data.getString("cash"));
 				}
 			} else {
@@ -627,10 +633,10 @@ public class PaidOrderController {
 		}
 		return 0;
 	}
-	
-	
+
 	/**
 	 * 用户消费积分撤销
+	 * 
 	 * @param accountId
 	 * @param openId
 	 * @param appId
@@ -640,7 +646,8 @@ public class PaidOrderController {
 	 * @return ResponseData<String>
 	 * @author zhouxh
 	 */
-	private ResponseData<String> shopback(String accountId, String openId, String appId,String oid,String bisId,String backCash){
+	private ResponseData<String> shopback(String accountId, String openId, String appId, String oid, String bisId,
+			String backCash) {
 		System.out.println("用户积分撤销开始>>>>");
 		ResponseData<String> responseData = null;
 		Map<String, String> params = new HashMap<String, String>();
@@ -654,18 +661,18 @@ public class PaidOrderController {
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
 		String param = JSON.toJSONString(params);
 		try {
-			
-			System.out.println("撤销积分参数>>>>"+param);
-			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SHOPBACK_URL,param,headers);
-			 //将返回结果，转换为JSON对象 
-	        JSONObject json=JSON.parseObject(result);
-	        String reqResultCode=json.getString("resultCode");
-	        if("000000".equals(reqResultCode)){
-	        	JSONObject data=JSON.parseObject(json.getString("data"));
-	        	System.out.println("撤销积分返回参数>>>>"+data);
-				String dataStr =data.getString("code");
-				if("200".equals(dataStr)){
-					responseData =  new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
+
+			System.out.println("撤销积分参数>>>>" + param);
+			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SHOPBACK_URL, param, headers);
+			// 将返回结果，转换为JSON对象
+			JSONObject json = JSON.parseObject(result);
+			String reqResultCode = json.getString("resultCode");
+			if ("000000".equals(reqResultCode)) {
+				JSONObject data = JSON.parseObject(json.getString("data"));
+				System.out.println("撤销积分返回参数>>>>" + data);
+				String dataStr = data.getString("code");
+				if ("200".equals(dataStr)) {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
 				}
 			} else {
 				System.out.println(">>>>>>>撤销积分请求过程失败");
@@ -677,140 +684,183 @@ public class PaidOrderController {
 		}
 		return responseData;
 	}
-		//拒绝退款
-		@RequestMapping("/refuseRefund")
-		@ResponseBody
-		public ResponseData<String> Back(HttpServletRequest request, String orderId,String info) {
-			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-			ResponseData<String> responseData = null;
-			OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
-			try {
-				IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
-				Long Id = Long.parseLong(orderId);
-				query.setOrderId(Id);
-				query.setTenantId(user.getTenantId());
-				query.setRefuseReason(info);
-				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
-				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
-				userReq.setTenantId(user.getTenantId());
-				userReq.setId(user.getUserId());
-				SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
-				if(response!=null){
-					String no = response.getNo();
-					query.setOperId(no);
-				}
-				BaseResponse base = iOrderRefundSV.refuseRefund(query);
-				if(base.getResponseHeader().getIsSuccess()==true){
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "拒绝退款成功", null);
-				}else{
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "拒绝退款失败", null);
-				}
-			} catch (Exception e) {
-				LOG.error("拒绝退款报错：", e);
+
+	// 拒绝退款
+	@RequestMapping("/refuseRefund")
+	@ResponseBody
+	public ResponseData<String> Back(HttpServletRequest request, String orderId, String info) {
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
+				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+		ResponseData<String> responseData = null;
+		OrderRefuseRefundRequest query = new OrderRefuseRefundRequest();
+		try {
+			IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
+			Long Id = Long.parseLong(orderId);
+			query.setOrderId(Id);
+			query.setTenantId(user.getTenantId());
+			query.setRefuseReason(info);
+			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+			SysUserQueryRequest userReq = new SysUserQueryRequest();
+			userReq.setTenantId(user.getTenantId());
+			userReq.setId(user.getUserId());
+			SysUserQueryResponse response = iSysUserQuerySV.queryUserInfo(userReq);
+			if (response != null) {
+				String no = response.getNo();
+				query.setOperId(no);
+			}
+			BaseResponse base = iOrderRefundSV.refuseRefund(query);
+			if (base.getResponseHeader().getIsSuccess() == true) {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "拒绝退款成功", null);
+			} else {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "拒绝退款失败", null);
 			}
-			return responseData;
-		}		
-		
-		/**
-		 * 退款金额修改
-		 * @param request
-		 * @param orderId
-		 * @param info
-		 * @param updateMoney
-		 * @return
-		 * @author zhouxh
-		 */
-		private boolean updateOrderMoney(HttpServletRequest request, String orderId,String info,String updateMoney) {
-			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-			OrderRefundRequest query = new OrderRefundRequest();
-			try {
-				IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
-				Long Id = Long.parseLong(orderId);
-				query.setOrderId(Id);
-				query.setTenantId(user.getTenantId());
-				query.setUpdateReason(info);
-				//转换金额单位
-				Long money = AmountUtil.YToLi(updateMoney);
-				query.setUpdateMoney(money);
-				ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
-				SysUserQueryRequest  userReq = new SysUserQueryRequest ();
-				userReq.setTenantId(user.getTenantId());
-				userReq.setId(user.getUserId());
-				SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
-				if(response!=null){
-					String no = response.getNo();
-					query.setOperId(no);
-				}
-				BaseResponse base = iOrderRefundSV.partRefund(query);
-				if(base.getResponseHeader().getIsSuccess()==true){
-					return true;
-				}else{
-					return false;
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				LOG.error("修改金额报错：", e);
-			}
-			return true;
-		}	
-		//同意退款
-		public ResponseData<String> agreedRefund(HttpServletRequest request, String orderId,String updateInfo,String parentOrderId,String money,String banlanceIfId) {
-			ResponseData<String> responseData = null;
-			try {
-				//将元转换为分
-				String updateMoney = AmountUtil.YToSFen(money);
-				GrpHdr hdr = new GrpHdr();
-				hdr.setMerNo("CO20160900000009");
-				hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-				hdr.setTranType(TranType.REFUND_APPLY.getValue());
-				GrpBody body = new GrpBody();
-				body.setPayTranSn(banlanceIfId);
-				body.setMerSeqId(parentOrderId);
-				body.setRefundAmt(updateMoney);
-				body.setMerRefundSn(orderId);
-				body.setSonMerNo("CO20160900000010");
-				body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
-				body.setNotifyUrl(Constants.CH_REFUND_URL);
-				body.setResv(updateInfo);
-				ReqsInfo reqInfo = new ReqsInfo();
-				reqInfo.setGrpHdr(hdr);
-				reqInfo.setGrpBody(body);
-				BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
-					RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY), key.getKey(KeyType.PUBLIC_KEY));
-					if(!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())){
-						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
-		            }else{
-		            	responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
-		            }
-				} catch (Exception e) {
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
-				}
-			return responseData;
+		} catch (Exception e) {
+			LOG.error("拒绝退款报错：", e);
+			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "拒绝退款失败", null);
 		}
-		//收到换货
-		@RequestMapping("/confirmChange")
-		@ResponseBody
-		public ResponseData<String> confirmChange(HttpServletRequest request,String expressOddNumber,String expressId,String orderId) {
-			ResponseData<String> responseData = null;
-			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-			try {
-				//调用确认换货服务
-				IOrderStateServiceSV iOrderStateServiceSV = DubboConsumerFactory.getService(IOrderStateServiceSV.class);
-				WaitSellReceiveSureRequest req  = new WaitSellReceiveSureRequest();
-				req.setExpressId(expressId);
-				req.setExpressOddNumber(expressOddNumber);
-				req.setOrderId(Long.valueOf(orderId));
-				req.setTenantId(user.getTenantId());
-				WaitSellReceiveSureResponse response = iOrderStateServiceSV.updateWaitSellRecieveSureState(req);
-				if(response.getResponseHeader().getIsSuccess()==true){
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "收到换货成功", null);
-				}else{
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
-				}
-			} catch (Exception e) {
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
+		return responseData;
+	}
+
+	/**
+	 * 退款金额修改
+	 * 
+	 * @param request
+	 * @param orderId
+	 * @param info
+	 * @param updateMoney
+	 * @return
+	 * @author zhouxh
+	 */
+	private boolean updateOrderMoney(HttpServletRequest request, String orderId, String info, String updateMoney) {
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
+				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+		OrderRefundRequest query = new OrderRefundRequest();
+		try {
+			IOrderRefundSV iOrderRefundSV = DubboConsumerFactory.getService(IOrderRefundSV.class);
+			Long Id = Long.parseLong(orderId);
+			query.setOrderId(Id);
+			query.setTenantId(user.getTenantId());
+			query.setUpdateReason(info);
+			// 转换金额单位
+			Long money = AmountUtil.YToLi(updateMoney);
+			query.setUpdateMoney(money);
+			ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+			SysUserQueryRequest userReq = new SysUserQueryRequest();
+			userReq.setTenantId(user.getTenantId());
+			userReq.setId(user.getUserId());
+			SysUserQueryResponse response = iSysUserQuerySV.queryUserInfo(userReq);
+			if (response != null) {
+				String no = response.getNo();
+				query.setOperId(no);
 			}
-			return responseData;
-		}	
+			BaseResponse base = iOrderRefundSV.partRefund(query);
+			if (base.getResponseHeader().getIsSuccess() == true) {
+				return true;
+			} else {
+				return false;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			LOG.error("修改金额报错：", e);
+		}
+		return true;
+	}
+
+	// 同意退款
+	public ResponseData<String> agreedRefund(HttpServletRequest request, String orderId, String updateInfo,
+			String parentOrderId, String money, String banlanceIfId) {
+		ResponseData<String> responseData = null;
+		try {
+			// 将元转换为分
+			String updateMoney = AmountUtil.YToSFen(money);
+			GrpHdr hdr = new GrpHdr();
+			hdr.setMerNo("CO20160900000009");
+			hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+			hdr.setTranType(TranType.REFUND_APPLY.getValue());
+			GrpBody body = new GrpBody();
+			body.setPayTranSn(banlanceIfId);
+			body.setMerSeqId(parentOrderId);
+			body.setRefundAmt(updateMoney);
+			body.setMerRefundSn(orderId);
+			body.setSonMerNo("CO20160900000010");
+			body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+			body.setNotifyUrl(Constants.CH_REFUND_URL);
+			body.setResv(updateInfo);
+			ReqsInfo reqInfo = new ReqsInfo();
+			reqInfo.setGrpHdr(hdr);
+			reqInfo.setGrpBody(body);
+			BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
+			RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY),
+					key.getKey(KeyType.PUBLIC_KEY));
+			if (!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())) {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
+			} else {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
+			}
+		} catch (Exception e) {
+			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
+		}
+		return responseData;
+	}
+
+	// 收到换货
+	@RequestMapping("/confirmChange")
+	@ResponseBody
+	public ResponseData<String> confirmChange(HttpServletRequest request, String expressOddNumber, String expressId,
+			String orderId) {
+		ResponseData<String> responseData = null;
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
+				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+		try {
+			// 调用确认换货服务
+			IOrderStateServiceSV iOrderStateServiceSV = DubboConsumerFactory.getService(IOrderStateServiceSV.class);
+			WaitSellReceiveSureRequest req = new WaitSellReceiveSureRequest();
+			req.setExpressId(expressId);
+			req.setExpressOddNumber(expressOddNumber);
+			req.setOrderId(Long.valueOf(orderId));
+			req.setTenantId(user.getTenantId());
+			WaitSellReceiveSureResponse response = iOrderStateServiceSV.updateWaitSellRecieveSureState(req);
+			// 获取商品信息
+			QueryOrderRequest queryRequest = new QueryOrderRequest();
+			queryRequest.setTenantId(Constants.TENANT_ID);
+			queryRequest.setOrderId(Long.parseLong(orderId));
+			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
+			QueryOrderResponse orderResponse = iOrderListSV.queryOrder(queryRequest);
+			if (orderResponse != null && orderResponse.getResponseHeader().isSuccess()) {
+				OrdOrderVo order = orderResponse.getOrdOrderVo();
+				if (order != null) {
+					// 获取商品信息
+					List<OrdProductVo> prodList = order.getProductList();
+					if (!CollectionUtil.isEmpty(prodList)) {
+						// 减少商品销售量
+						IStorageNumSV iStorageNumSV = DubboConsumerFactory.getService(IStorageNumSV.class);
+						for (OrdProductVo prod : prodList) {
+							StorageNumUserReq storageReq = new StorageNumUserReq();
+							storageReq.setSkuId(prod.getSkuId());
+							storageReq.setSkuNum(prod.getBuySum().intValue());
+							storageReq.setTenantId(user.getTenantId());
+							BaseResponse baseResponse = iStorageNumSV.backSaleNumOfProduct(storageReq);
+							if (baseResponse.getResponseHeader().getIsSuccess() == false) {
+								responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "减少商品销量失败",
+										null);
+								return responseData;
+							}
+						}
+					}
+				}
+			} else {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
+				return responseData;
+			}
+			if (response.getResponseHeader().getIsSuccess() == true) {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "收到换货成功", null);
+			} else {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
+				return responseData;
+			}
+		} catch (Exception e) {
+			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
+		}
+		return responseData;
+	}
 }

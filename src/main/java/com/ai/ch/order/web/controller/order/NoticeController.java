@@ -54,6 +54,15 @@ public class NoticeController {
 	            		 String money = receive.getGrpBody().getOrderAmt();
 	            		 Long ordAmt = AmountUtil.FToL(money);
 	            		 request.setPayFee(ordAmt);
+	            		 if("00".equals(receive.getGrpBody().getPaymentChannel())){
+	            			 request.setPayType(Constants.OrdOrder.PayStyle.CHANG_HONG_STYLE);
+	            		 }else if("01".equals(receive.getGrpBody().getPaymentChannel())){
+	            			 request.setPayType(Constants.OrdOrder.PayStyle.ZHIFUBAO_STYLE);
+	            		 }else if("02".equals(receive.getGrpBody().getPaymentChannel())){
+	            			 request.setPayType(Constants.OrdOrder.PayStyle.WEIXIN_STYLE);
+	            		 }else if("03".equals(receive.getGrpBody().getPaymentChannel())){
+	            			 request.setPayType(Constants.OrdOrder.PayStyle.YINLIAN_STYLE); 
+	            		 }
 	            		 request.setPayType(receive.getGrpBody().getPaymentChannel());
 	            		 String ordId = receive.getGrpBody().getMerOrderId();
 	            		 orderIds.add(Long.valueOf(ordId));

@@ -202,6 +202,10 @@
 	<dubbo:reference id="iOrderStateServiceSV"
 	interface="com.ai.slp.order.api.orderstate.interfaces.IOrderStateServiceSV"
 	registry="baasRegistry" />
+	
+	<dubbo:reference id="iStorageNumSV"
+	interface="com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV"
+	registry="baasRegistry" />
 			
 				
 </beans>
