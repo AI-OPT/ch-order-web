@@ -153,6 +153,17 @@ public final class Constants {
 			 * 积分支付
 			 */
 			public static final String JF = "5";
+			// 1：虹支付
+            public static final String CHANG_HONG_STYLE = "13";
+
+            // 2.支付宝
+            public static final String ZHIFUBAO_STYLE = "21";
+
+            // 3.银联
+            public static final String YINLIAN_STYLE = "22";
+
+            // 4：微信支付
+            public static final String WEIXIN_STYLE = "23";
 		}
 		
 		public static class BusiCode {

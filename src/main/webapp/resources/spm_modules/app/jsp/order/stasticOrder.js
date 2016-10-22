@@ -77,18 +77,28 @@ define('app/jsp/order/stasticOrder', function (require, exports, module) {
 		//高级搜索
 		_highSearch:function(){
 			var _this = this;
-			var queryParams = this._getHignQueryParams();
+//			var queryParams = this._getHignQueryParams();
+			
+			var startTime = $("#orderTimeBegin").val().trim();
+			var endTime = $("#orderTimeEnd").val().trim();
+			var ordParenOrderId = $("#parentOrderId").val().trim();
+			var prodName = $("#productName").val().trim();
+			var state = $("#state").val().trim();
+			var supplierName = $("#supplierName").val().trim();
+			var userName = $("#userName").val().trim();
+			
 			$("#pagination").runnerPagination({
 				url: _base+"/getStasticOrderData",
 				method: "POST",
 				dataType: "json",
-				data : queryParams,
+				data: {"startTime":startTime,"endTime":endTime,"ordParenOrderId":ordParenOrderId,"prodName":prodName,"state":state,"supplierName":supplierName,"userName":userName},
+//				data : queryParams,
 				pageSize: stasticOrderPager.DEFAULT_PAGE_SIZE,
 				visiblePages:5,
 				messageId:"showMessageDiv",
 				renderId:"stasticData",
 				render: function (data) {
-					if(data&&data.length>0){
+					if(data != null && data != 'undefined' &&data.length>0){
 						var template = $.templates("#stasticTemple");
 						var htmlOut = template.render(data);
 						$("#stasticData").html(htmlOut);

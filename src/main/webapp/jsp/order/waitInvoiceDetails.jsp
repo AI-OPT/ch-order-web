@@ -85,7 +85,7 @@
                                                 <th>优惠券</th>
                                                 <th>消费积分</th>
                                                 <th>赠送积分</th>
-                                            </tr>
+                                                <th>操作</th>                                            </tr>
                                         </thead>                                                                                                
                                     <tbody>
 						               <c:forEach var="prod" items="${orderDetail.prodList}">
@@ -102,18 +102,19 @@
 							                <td>${orderDetail.busiCodeName }</td>
 							                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							                <td>${orderDetail.stateName }</td>
-							                <td>${prod.prodCouponFee }&nbsp;<br/>
-											<c:choose>
-										       <c:when test="${prod.cusServiceFlag eq 'Y'}">
-										  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderId }','${prod.skuId}')">售后详情</button>
-										       </c:when>
-										       <c:otherwise>
-												 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
-										       </c:otherwise>
-											</c:choose>
-							                </td>
+							                <td>${prod.prodCouponFee }</td>
 							                <td>${prod.jfFee }</td>
 											<td>${prod.giveJF}</td>
+											<td>
+												<c:choose>
+											       <c:when test="${prod.cusServiceFlag eq 'Y'}">
+											  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderId }','${prod.skuId}')">售后详情</button>
+											       </c:when>
+											       <c:otherwise>
+													 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
+											       </c:otherwise>
+												</c:choose>
+											</td>
 						              </tr> 
 						              
 						              
@@ -311,7 +312,7 @@
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myDeliverModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
-   <div class="modal-dialog">
+   <div class="modal-dialog" style="min-width:1000px;">
       <div class="modal-content">
          <div class="modal-header">
             <button type="button" class="close" 

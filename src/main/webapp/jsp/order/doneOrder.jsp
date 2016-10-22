@@ -85,6 +85,7 @@
                                                 <th>优惠券</th>
                                                 <th>消费积分</th>
                                                 <th>赠送积分</th>
+                                                <th>操作</th>
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
@@ -102,18 +103,19 @@
 							                <td>${orderDetail.busiCodeName }</td>
 							                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 							                <td>${orderDetail.stateName }</td>
-							                <td>${prod.prodCouponFee }&nbsp;<br/>
-											<c:choose>
-										       <c:when test="${prod.cusServiceFlag eq 'Y'}">
-										  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderId }','${prod.skuId}')">售后详情</button>
-										       </c:when>
-										       <c:otherwise>
-												 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
-										       </c:otherwise>
-											</c:choose>
-							                </td>
+							                <td>${prod.prodCouponFee }</td>
 							                <td>${prod.jfFee }</td>
 							                <td>${prod.giveJF}</td>
+							                <td>
+							                	<c:choose>
+											       <c:when test="${prod.cusServiceFlag eq 'Y'}">
+											  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderId }','${prod.skuId}')">售后详情</button>
+											       </c:when>
+											       <c:otherwise>
+													 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
+											       </c:otherwise>
+												</c:choose>
+							                </td>
 						              </tr> 
 						              		              
 				 <!-- 模态框（Modal） -->
@@ -167,7 +169,7 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}')">
+						onclick="pager._validateNum('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -191,11 +193,15 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-						<h5 class="word">确认进行换货处理吗?</h5> 
+						<h4 class="modal-title text-c" id="exchangeModalLabel${status.index}">
+							${prod.prodName}
+						</h4><br/>
+						<p class="text-c"><input id="exchangeNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入换货的商品数量" type="text" name="exchangeSum"/></p>
+					
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._exchangeOrder('${prod.prodDetalId}')">
+						onclick="pager._exchangeOrderValidateNum('${prod.prodDetalId}','${prod.buySum}')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消

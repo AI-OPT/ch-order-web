@@ -79,6 +79,8 @@ dependencies {
 	compile 'com.ai.opt.uac:account:2.0-SNAPSHOT'
 	//商品web
 	compile 'com.ai.slp.product:webfront:1.2.2-SNAPSHOT'
+	//减少商品销量
+	compile 'com.ai.slp.product:storageserver:1.1.1-SNAPSHOT'
 	
 	//jersey
 	compile 'org.glassfish.jersey.core:jersey-client:2.9.1'
@@ -109,6 +111,7 @@ dependencies {
     compile 'com.ai.slp.order:stasticsorder:1.0.3-SNAPSHOT'
     compile 'com.ai.slp.order:orderrefund:1.0.1-SNAPSHOT'
     compile 'com.ai.slp.order:orderpay:1.0.1-SNAPSHOT'
+    compile 'com.ai.slp.order:orderstate:1.0.1-SNAPSHOT'
 	//仓库
 	compile 'com.ai.slp.route:routemanage:1.0.2-SNAPSHOT'
 	compile 'junit:junit:4.12'

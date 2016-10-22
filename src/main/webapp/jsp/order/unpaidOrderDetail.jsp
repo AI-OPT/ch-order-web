@@ -196,12 +196,6 @@
 						                    	<p id="errorMessage"></p>
 							                </li>
 						            	</ul>
-						            	<ul>
-						            		<li>
-						            			<p class="word">改动备注:</p>
-							                    <p><textarea id="updateRemark" rows="4" cols="25" class="int-text"></textarea></p>
-						            		</li>
-						            	</ul>
 								    </div>	
 										<!--按钮-->
 										<div class="row mt-15"><!--删格化-->
