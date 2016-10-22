@@ -55,7 +55,7 @@ public final class Constants {
 			/**
 			 * 售后列表查询的状态
 			 */
-			 public static final String PAIED_STATES = "21,212,22,23,31,92,93,94";
+			 public static final String PAIED_STATES = "21,212,213,22,23,31,92,93,94";
  
             /**
              * 11 待付款
