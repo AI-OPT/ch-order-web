@@ -49,7 +49,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 			});
     	},
     	_back:function(){
-    		window.location.href=_base+"/toPaidOrder";
+    		window.location.href=_base+"/order/toOrderList";
     	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMoney").text();
