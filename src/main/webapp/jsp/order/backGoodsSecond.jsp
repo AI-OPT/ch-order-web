@@ -213,6 +213,14 @@
 		                            	</p>
 	                            	</div>
                             	</c:when>
+                            	<c:when test="${order.state == 22}">
+                            		<div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" id="backGoods" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="收到退货">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div>
+                            	</c:when>
                             	 <c:otherwise>
                             	 	<div class="row">
 		                           		<p class="center mt-20">

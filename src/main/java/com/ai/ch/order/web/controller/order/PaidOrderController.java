@@ -61,9 +61,10 @@ import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
 import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
 import com.ai.slp.order.api.orderstate.interfaces.IOrderStateServiceSV;
-import com.ai.slp.order.api.orderstate.param.WaitSellReceiveSureRequest;
-import com.ai.slp.order.api.orderstate.param.WaitSellReceiveSureResponse;
+import com.ai.slp.order.api.orderstate.param.WaitRebateRequest;
+import com.ai.slp.order.api.orderstate.param.WaitRebateResponse;
 import com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV;
+import com.ai.slp.product.api.storageserver.param.StorageNumBackReq;
 import com.ai.slp.product.api.storageserver.param.StorageNumUserReq;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
@@ -816,44 +817,10 @@ public class PaidOrderController {
 		try {
 			// 调用确认换货服务
 			IOrderStateServiceSV iOrderStateServiceSV = DubboConsumerFactory.getService(IOrderStateServiceSV.class);
-			WaitSellReceiveSureRequest req = new WaitSellReceiveSureRequest();
-			req.setExpressId(expressId);
-			req.setExpressOddNumber(expressOddNumber);
+			WaitRebateRequest req = new WaitRebateRequest();
 			req.setOrderId(Long.valueOf(orderId));
 			req.setTenantId(user.getTenantId());
-			WaitSellReceiveSureResponse response = iOrderStateServiceSV.updateWaitSellRecieveSureState(req);
-			// 获取商品信息
-			QueryOrderRequest queryRequest = new QueryOrderRequest();
-			queryRequest.setTenantId(Constants.TENANT_ID);
-			queryRequest.setOrderId(Long.parseLong(orderId));
-			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
-			QueryOrderResponse orderResponse = iOrderListSV.queryOrder(queryRequest);
-			if (orderResponse != null && orderResponse.getResponseHeader().isSuccess()) {
-				OrdOrderVo order = orderResponse.getOrdOrderVo();
-				if (order != null) {
-					// 获取商品信息
-					List<OrdProductVo> prodList = order.getProductList();
-					if (!CollectionUtil.isEmpty(prodList)) {
-						// 减少商品销售量
-						IStorageNumSV iStorageNumSV = DubboConsumerFactory.getService(IStorageNumSV.class);
-						for (OrdProductVo prod : prodList) {
-							StorageNumUserReq storageReq = new StorageNumUserReq();
-							storageReq.setSkuId(prod.getSkuId());
-							storageReq.setSkuNum(prod.getBuySum().intValue());
-							storageReq.setTenantId(user.getTenantId());
-							BaseResponse baseResponse = iStorageNumSV.backSaleNumOfProduct(storageReq);
-							if (baseResponse.getResponseHeader().getIsSuccess() == false) {
-								responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "减少商品销量失败",
-										null);
-								return responseData;
-							}
-						}
-					}
-				}
-			} else {
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到换货失败", null);
-				return responseData;
-			}
+			WaitRebateResponse response = iOrderStateServiceSV.updateWaitRebateState(req);
 			if (response.getResponseHeader().getIsSuccess() == true) {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "收到换货成功", null);
 			} else {
@@ -865,4 +832,76 @@ public class PaidOrderController {
 		}
 		return responseData;
 	}
+	// 收到退货
+		@RequestMapping("/confirmBack")
+		@ResponseBody
+		public ResponseData<String> confirmBack(HttpServletRequest request, String expressOddNumber, String expressId,
+				String orderId) {
+			ResponseData<String> responseData = null;
+			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
+					.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+			try {
+				// 调用确认退货服务
+				IOrderStateServiceSV iOrderStateServiceSV = DubboConsumerFactory.getService(IOrderStateServiceSV.class);
+				WaitRebateRequest req = new WaitRebateRequest();
+				req.setOrderId(Long.valueOf(orderId));
+				req.setTenantId(user.getTenantId());
+				WaitRebateResponse response = iOrderStateServiceSV.updateWaitRebateState(req);
+				if (response.getResponseHeader().getIsSuccess() == true) {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "收到退货成功", null);
+				} else {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到退货失败", null);
+					return responseData;
+				}
+				// 获取商品信息
+				QueryOrderRequest queryRequest = new QueryOrderRequest();
+				queryRequest.setTenantId(Constants.TENANT_ID);
+				queryRequest.setOrderId(Long.parseLong(orderId));
+				IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
+				QueryOrderResponse orderResponse = iOrderListSV.queryOrder(queryRequest);
+				if (orderResponse != null && orderResponse.getResponseHeader().isSuccess()) {
+					OrdOrderVo order = orderResponse.getOrdOrderVo();
+					if (order != null) {
+						// 获取商品信息
+						List<OrdProductVo> prodList = order.getProductList();
+						if (!CollectionUtil.isEmpty(prodList)) {
+							// 减少商品销售量
+							IStorageNumSV iStorageNumSV = DubboConsumerFactory.getService(IStorageNumSV.class);
+							for (OrdProductVo prod : prodList) {
+								StorageNumUserReq storageReq = new StorageNumUserReq();
+								storageReq.setSkuId(prod.getSkuId());
+								storageReq.setSkuNum(prod.getBuySum().intValue());
+								storageReq.setTenantId(user.getTenantId());
+								BaseResponse baseResponse = iStorageNumSV.backSaleNumOfProduct(storageReq);
+								//增加库存量
+								StorageNumBackReq backReq = new StorageNumBackReq();
+								backReq.setSkuId(prod.getSkuId());
+								 Map<String, Integer> storageNum = JSON.parseObject(prod.getSkuStorageId(),
+						                    new com.alibaba.fastjson.TypeReference<Map<String, Integer>>(){});
+								backReq.setTenantId(user.getTenantId());
+								backReq.setStorageNum(storageNum);
+								BaseResponse backResponse = iStorageNumSV.backStorageNum(backReq);
+								if (baseResponse.getResponseHeader().getIsSuccess() == false) {
+									responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "减少商品销量失败",
+											null);
+									return responseData;
+								}
+								if (backResponse.getResponseHeader().getIsSuccess() == false) {
+									responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "增加库存失败",
+											null);
+									return responseData;
+								}
+								
+							}
+						}
+					}
+				} else {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到退货失败", null);
+					return responseData;
+				}
+			} catch (Exception e) {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到退货失败", null);
+			}
+			return responseData;
+		}
 }
