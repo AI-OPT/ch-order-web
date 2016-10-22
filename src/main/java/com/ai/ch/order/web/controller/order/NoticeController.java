@@ -63,7 +63,6 @@ public class NoticeController {
 	            		 }else if("03".equals(receive.getGrpBody().getPaymentChannel())){
 	            			 request.setPayType(Constants.OrdOrder.PayStyle.YINLIAN_STYLE); 
 	            		 }
-	            		 request.setPayType(receive.getGrpBody().getPaymentChannel());
 	            		 String ordId = receive.getGrpBody().getMerOrderId();
 	            		 orderIds.add(Long.valueOf(ordId));
 	            		 request.setTenantId(Constants.TENANT_ID);

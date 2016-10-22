@@ -51,7 +51,7 @@
 					            <ul>
 					            	<li  class="col-md-6">
 					                    <p class="word">支付流水号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${order.balacneIfId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${order.externalId}</p>
 					                </li>  
 					            </ul>
 					  			</div>
@@ -149,12 +149,6 @@
                             			<p class="word">支付方式：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
                             		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">支付账号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.acctId}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
                             		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
