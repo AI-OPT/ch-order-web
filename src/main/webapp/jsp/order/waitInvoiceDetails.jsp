@@ -343,10 +343,6 @@
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
-					                    <p class="word">物流商：</p>
-					                    <p>{{:expressOddNumber}}</p>
-					                </li>
-					                <li  class="col-md-6">
 					                    <p class="word">发货仓库：</p>
 					                    <p>{{:routeId}}</p>
 					                </li>  
