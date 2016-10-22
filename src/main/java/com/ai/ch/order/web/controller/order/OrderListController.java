@@ -110,7 +110,8 @@ public class OrderListController {
 		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
-			String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
+			//String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
+			String userId =null;
 			queryRequest.setUserId(userId);
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
@@ -217,7 +218,7 @@ public class OrderListController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+					//		product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 							product.setProdState(orderDetail.getBusiCode());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
