@@ -236,12 +236,11 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
         		var flag = "1";
         		window.location.href=_base+"/changeDetail?orderId="+orderid+"&flag="+flag;
 			}else if(busiCode==2 && (state=='21' || state=='212')){
-				window.location.href = _base+"/changeDetail?orderId="
-	            + orderid;
+				window.location.href = _base+"/changeDetail?orderId="+ orderid;
 			}else if(busiCode==3 && (state=='21'|| state=='212')){
 				window.location.href = _base+"/backDetail?orderId="
 	            + orderid;
-			}else if(busiCode==4 && state=='31'){
+			}else if(busiCode==4 && (state=='31'|| state=='213')){
 				//调到第二个审核页面页面
         		var flag="1";
         		window.location.href=_base+"/backDetail?orderId="+orderid+"&flag="+flag;
