@@ -137,12 +137,6 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">支付账号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.acctId}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
                             			<p class="word">退款类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
