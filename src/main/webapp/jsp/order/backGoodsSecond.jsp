@@ -196,7 +196,7 @@
                             	</ul>
                             </div>
                             <c:choose>
-                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23}">
+                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23 && order.state!=213}">
                             		 <div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
