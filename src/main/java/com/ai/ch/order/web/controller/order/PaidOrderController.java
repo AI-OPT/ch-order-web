@@ -798,6 +798,7 @@ public class PaidOrderController {
 				System.out.println("退款申请>>>>>>>>>>"+rp.getGrpBody().getStsRsn().getRespDesc());
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 			} else {
+				System.out.println("退款申请成功>>>>>>");
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
 			}
 		} catch (Exception e) {
