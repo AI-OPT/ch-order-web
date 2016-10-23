@@ -178,7 +178,15 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     						});
     						d.show();
     	        		}else{
-    	        			window.location.href=_base+"/toPaidOrder";
+    	        			var d = Dialog({
+    							content:"退款申请成功",
+    							icon:'prompt',
+    							okValue: '确 定',
+    							ok:function(){
+    								window.location.href=_base+"/toPaidOrder";
+    							}
+    						});
+    						d.show();
     	        		}
      	        		
      	        	}else{

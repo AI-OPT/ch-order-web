@@ -57,6 +57,8 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV;
+import com.ai.slp.order.api.ordermodify.param.OrdRequest;
 import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
 import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
@@ -787,7 +789,7 @@ public class PaidOrderController {
 			body.setSonMerNo("CO20160900000010");
 			body.setRefundDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
-			body.setResv(updateInfo);
+			body.setResv(orderId);
 			ReqsInfo reqInfo = new ReqsInfo();
 			reqInfo.setGrpHdr(hdr);
 			reqInfo.setGrpBody(body);
@@ -801,10 +803,16 @@ public class PaidOrderController {
 					key.getKey(KeyType.PUBLIC_KEY));
 			if (!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())) {
 				System.out.println("退款申请>>>>>>>>>>"+rp.getGrpBody().getStsRsn().getRespDesc());
+				//申请失败修改订单状态为处理中
+				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
+				OrdRequest ordRequest = new OrdRequest();
+				ordRequest.setOrderId(Long.parseLong(orderId));
+				ordRequest.setState(Constants.OrdOrder.State.REFUND_ING);
+				iOrderModifySV.modify(ordRequest);
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 			} else {
 				System.out.println("退款申请成功>>>>>>");
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "申请退款成功", null);
 			}
 		} catch (Exception e) {
 			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
@@ -815,8 +823,7 @@ public class PaidOrderController {
 	// 收到换货
 	@RequestMapping("/confirmChange")
 	@ResponseBody
-	public ResponseData<String> confirmChange(HttpServletRequest request, String expressOddNumber, String expressId,
-			String orderId) {
+	public ResponseData<String> confirmChange(HttpServletRequest request,String orderId) {
 		ResponseData<String> responseData = null;
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
