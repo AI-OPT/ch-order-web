@@ -62,11 +62,11 @@ public class AmountUtil {
      */
     public static String YToSFen(String amount){
     	if(StringUtil.isBlank(amount)){
-    		return "0.00";
+    		return "0";
     	}
     	 BigDecimal money=new BigDecimal(amount);
     	 BigDecimal balance = money.multiply(new BigDecimal(100L));
-         return new DecimalFormat(",###,##0.00").format(balance);
+         return new DecimalFormat(",###,##0").format(balance);
     }
     /** 
      * 将分为单位的转换为里 （乘10）  

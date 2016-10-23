@@ -791,6 +791,10 @@ public class PaidOrderController {
 			ReqsInfo reqInfo = new ReqsInfo();
 			reqInfo.setGrpHdr(hdr);
 			reqInfo.setGrpBody(body);
+			System.out.println("发起参数流水号>>>>"+reqInfo.getGrpBody().getPayTranSn());
+			System.out.println("发起参数主订单号>>>>"+reqInfo.getGrpBody().getMerRefundSn());
+			System.out.println("发起参数子订单号>>>>"+reqInfo.getGrpBody().getMerSeqId());
+			System.out.println("发起参数金额>>>>"+reqInfo.getGrpBody().getRefundAmt());
 			BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 			RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY),
 					key.getKey(KeyType.PUBLIC_KEY));
