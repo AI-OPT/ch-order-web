@@ -204,12 +204,6 @@
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.expressOddNumber }</p>
 					                </li>
 					            </ul>  
-					            <ul>
-					                <li  class="col-md-6">
-					                    <p class="word">发票抬头：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTitle }</p>
-					                </li>
-					            </ul>
 					  	</div>
      <br/>
      <div class="table-responsive">

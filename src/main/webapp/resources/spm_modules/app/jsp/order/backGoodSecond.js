@@ -34,7 +34,8 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     		//查询
             "click #refuseBackMoney":"_refuseBackMoney",
             "click #updateMoney":"_updateMoney",
-            "click #backPage":"_back"
+            "click #backPage":"_back",
+            "click #backGoods":"_confirmBack"
         },
     	//重写父类
     	setup: function () {
@@ -193,6 +194,38 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
      	        	}
     	        },
     	    });
+    	},
+    	//收到退货
+    	_confirmBack:function(){
+    		var orderid = $("#orderId").text();
+    		var expressId = $("#expressId").val();
+    		var expressOddNumber = $("#expressOddNumber").val();
+    		var url =_base+"/confirmBack";
+    		   ajaxController.ajax({
+       	    	type: "post",
+   				dataType: "json",
+   				processing: false,
+   				message: "查询中，请等待...",
+   				url: url,
+   				data:{"orderId":orderid,"expressId":expressId,"expressOddNumber":expressOddNumber},
+       	        success: function (data) {
+       	        	if(data.statusCode == "1"){
+       	        		window.location.href=_base+"/toPaidOrder";
+       	        	}else{
+       	        		var d = Dialog({
+   							title: '消息',
+   							content:"收到换货失败:"+data.statusInfo,
+   							icon:'prompt',
+   							okValue: '确 定',
+   							ok:function(){
+   								this.close();
+   							}
+   						});
+   						d.show();
+       	        	}
+       	        },
+                   
+       	    });
     	}
     		
     });

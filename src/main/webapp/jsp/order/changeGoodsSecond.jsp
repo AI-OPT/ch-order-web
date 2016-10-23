@@ -163,12 +163,23 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div class="row">
-								<p class="center mt-30">
-									<input id="confirmChange" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="收到换货">
-									<input id="backPage" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="返回">
-							   	</p>
-							</div>
+                            <c:choose>
+                            	<c:when test="${order.state==23}">
+                            		<div class="row">
+										<p class="center mt-30">
+											<input id="confirmChange" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="收到换货">
+											<input id="backPage" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="返回">
+									   	</p>
+									</div>
+                            	</c:when>
+                            	<c:otherwise>
+                            		 <div class="row">
+										<p class="center mt-30">
+											<input id="backPage" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="返回">
+									   	</p>
+									</div>
+                            	</c:otherwise>
+                            </c:choose>
                        </div>	
                    </div>
                 </div>

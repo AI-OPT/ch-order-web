@@ -196,7 +196,7 @@
                             	</ul>
                             </div>
                             <c:choose>
-                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23}">
+                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23 && order.state!=213}">
                             		 <div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
@@ -209,6 +209,14 @@
                             		<div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="重新退款">
+		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+		                            	</p>
+	                            	</div>
+                            	</c:when>
+                            	<c:when test="${order.state == 22}">
+                            		<div class="row">
+		                           		<p class="center mt-20">
+		                           			<input type="button" id="backGoods" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="收到退货">
 		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
 		                            	</p>
 	                            	</div>
