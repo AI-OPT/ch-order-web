@@ -158,7 +158,7 @@
 					</div>
 					<div class="modal-body">
 						 <p class="center">
-							<h4 class="word">确定进行退货处理吗?</h4> 
+							<h5 class="word">确定进行退货处理吗?</h5> 
 						</p>
 					</div>
 					<div class="modal-footer">
@@ -186,10 +186,9 @@
 							退款提示
 						</h5>
 					</div>
-					<!-- <div class="modal-body"> -->
-					<div class="eject-medium-complete">
+					 <div class="modal-body">
 						<p class="center">
-							<h4 class="word">确认进行退款处理吗?</h4> 
+							<h5 class="word">确认进行退款处理吗?</h5> 
 						</p>
 					</div>
 					<div class="modal-footer">
