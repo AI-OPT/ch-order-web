@@ -144,7 +144,7 @@
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -160,7 +160,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">收货信息:</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactInfo}</p>
                             		</li>
                             	</ul>
                             </div>

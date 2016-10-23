@@ -130,7 +130,7 @@
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
