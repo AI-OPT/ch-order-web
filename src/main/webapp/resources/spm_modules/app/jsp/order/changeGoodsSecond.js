@@ -41,13 +41,17 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     		changeSecondPager.superclass.setup.call(this);
     	},
     	_back:function(){
-    		window.location.href=_base+"/toPaidOrder";
+    		var sorceFlag = $("#sourceFlag").val();
+    		alert("....."+sorceFlag);
+    		if(sorceFlag=="00"){
+    			window.location.href=_base+"/order/toOrderList";
+    		}else{
+    			window.location.href=_base+"/toPaidOrder";
+    		}
     	},
     	//收到换货
     	_confirmChange:function(){
     		var orderid = $("#orderId").text();
-    		var expressId = $("#expressId").val();
-    		var expressOddNumber = $("#expressOddNumber").val();
     		var url =_base+"/confirmChange";
     		   ajaxController.ajax({
        	    	type: "post",
@@ -55,7 +59,7 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
    				processing: false,
    				message: "查询中，请等待...",
    				url: url,
-   				data:{"orderId":orderid,"expressId":expressId,"expressOddNumber":expressOddNumber},
+   				data:{"orderId":orderid},
        	        success: function (data) {
        	        	if(data.statusCode == "1"){
        	        		window.location.href=_base+"/toPaidOrder";

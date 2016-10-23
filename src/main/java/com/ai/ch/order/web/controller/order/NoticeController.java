@@ -86,6 +86,7 @@ public class NoticeController {
 	public String refundNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
 		 System.out.println(">>>>>>>>>>>>退款通知开始");
 		OrdRequest request = new OrdRequest();
+		request.setTenantId("changhong");
 		//验签
 			try{
 				boolean flag = RSACoder.verify(key.getKey(KeyType.PUBLIC_KEY), xmlBody, signMsg);
@@ -95,24 +96,26 @@ public class NoticeController {
 				System.out.println(">>>>>>>>>>>>退款通知发起参数"+xmlBody);
 				com.changhong.upp.business.entity.upp_803_001_01.RepsInfo receive = (com.changhong.upp.business.entity.upp_803_001_01.RepsInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_803_001_01.RepsInfo.class);
 				System.out.println(">>>>>>>>>>>>退款通知回传信息"+receive);
-				//获取订单状态
-				String orderid = receive.getGrpBody().getMerRefundSn();
+				//获取售后订单
+				String cusOrderId = receive.getGrpBody().getErrorRemak();
 				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
 				if("01".equals(receive.getGrpBody().getRefundStatus())){
 					System.out.println(">>>>>>>>>>>>退款通知成功");
-					request.setOrderId(Long.parseLong(orderid));
+					//修改售后订单为退款完成
+					request.setOrderId(Long.parseLong(cusOrderId));
 					request.setState(Constants.OrdOrder.State.REFUND_COMPLETE);
 					BaseResponse base = iOrderModifySV.modify(request);
+					//判断父订单是否只有一个商品将父订单状态改为退款完成
 					System.out.println("退款修改订单服务>>>>>>"+base.getResponseHeader().getResultMessage());
 					return "SUCCESS";
 				}else if("00".equals(receive.getGrpBody().getRefundStatus())){
 					System.out.println(">>>>>>>>>>>>退款中");
-					request.setOrderId(Long.parseLong(orderid));
+					request.setOrderId(Long.parseLong(cusOrderId));
 					request.setState(Constants.OrdOrder.State.REFUND_ING);
 					BaseResponse base = iOrderModifySV.modify(request);
 				}else{
 					System.out.println(">>>>>>>>>>>>退款失败");
-					request.setOrderId(Long.parseLong(orderid));
+					request.setOrderId(Long.parseLong(cusOrderId));
 					request.setState(Constants.OrdOrder.State.REFUND_FAILD);
 					BaseResponse base = iOrderModifySV.modify(request);
 					return "FAILED";

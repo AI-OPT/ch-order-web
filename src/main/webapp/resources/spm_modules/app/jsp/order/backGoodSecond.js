@@ -50,7 +50,12 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 			});
     	},
     	_back:function(){
-    		window.location.href=_base+"/order/toOrderList";
+    		var sorceFlag = $("#sourceFlag").val();
+    		if(sorceFlag=="00"){
+    			window.location.href=_base+"/order/toOrderList";
+    		}else{
+    			window.location.href=_base+"/toPaidOrder";
+    		}
     	},
     	_initValidate:function(){
     		var currentMoney = $("#currentMoney").text();
@@ -178,7 +183,15 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     						});
     						d.show();
     	        		}else{
-    	        			window.location.href=_base+"/toPaidOrder";
+    	        			var d = Dialog({
+    							content:"退款申请成功",
+    							icon:'prompt',
+    							okValue: '确 定',
+    							ok:function(){
+    								window.location.href=_base+"/toPaidOrder";
+    							}
+    						});
+    						d.show();
     	        		}
      	        		
      	        	}else{

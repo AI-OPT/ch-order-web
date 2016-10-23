@@ -12,6 +12,7 @@
 <input type="hidden" value="${order.accountId}" id="accountId">
 <input type="hidden" value="${order.operId}" id="operId">
 <input type="hidden" value="${order.userId}" id="userId">
+<input type="hidden" name="sourceFlag" id="sourceFlag" value="${requestScope.sourceFlag}"/>
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->
@@ -213,7 +214,7 @@
 		                            	</p>
 	                            	</div>
                             	</c:when>
-                            	<c:when test="${order.state == 22}">
+                            	<c:when test="${order.state == 23}">
                             		<div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" id="backGoods" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="收到退货">
@@ -271,7 +272,7 @@
 								                    <p ><input type="text" class="int-text int-medium" placeholder="不能多余用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
 								                    </li>
 								                <li>
-								                	<p class="word"><span>*</span>修改理由:</p>
+								                	<p class="word"><span>*</span>退款理由:</p>
 								                    <p>
 										 				<textarea id="updateMoneyInfo" name="updateMoneyInfo" rows="4" cols="25" class="int-text"></textarea>
 										 			</p>

@@ -57,6 +57,8 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV;
+import com.ai.slp.order.api.ordermodify.param.OrdRequest;
 import com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV;
 import com.ai.slp.order.api.orderrefund.param.OrderRefundRequest;
 import com.ai.slp.order.api.orderrefund.param.OrderRefuseRefundRequest;
@@ -197,7 +199,8 @@ public class PaidOrderController {
 	}
 
 	@RequestMapping("/changeDetail")
-	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId, String flag) {
+	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId, String flag,String sourceFlag) {
+		request.setAttribute("sourceFlag", sourceFlag);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
@@ -331,7 +334,8 @@ public class PaidOrderController {
 	}
 
 	@RequestMapping("/backDetail")
-	public ModelAndView backFirstDetail(HttpServletRequest request, String orderId, String flag) {
+	public ModelAndView backFirstDetail(HttpServletRequest request, String orderId, String flag,String sourceFlag) {
+		request.setAttribute("sourceFlag", sourceFlag);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
@@ -463,8 +467,9 @@ public class PaidOrderController {
 	}
 
 	@RequestMapping("/judge")
-	public String paidQuery(HttpServletRequest request, String orderId, String skuId) {
+	public String paidQuery(HttpServletRequest request, String orderId, String skuId,String sourceFlag) {
 		try {
+			 request.setAttribute("sourceFlag", sourceFlag);
 			GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 					.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 			OrderJuageRequest req = new OrderJuageRequest();
@@ -484,34 +489,34 @@ public class PaidOrderController {
 				if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)
 						&& (Constants.OrdOrder.State.WAIT_CHECK.equals(state)
 								|| Constants.OrdOrder.State.NO_CHECK.equals(state))) {
-					return "redirect:/changeDetail?orderId=" + afterOrderId;
+					return "redirect:/changeDetail?orderId=" + afterOrderId+"&sourceFlag="+"00";
 				} else if (Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)
 						&& (Constants.OrdOrder.State.WAIT_BACK.equals(state)
 								|| Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state))) {
 					// 判断跳转的页面是第2次审核
-					return "redirect:/changeDetail?orderId=" + afterOrderId + "&flag=" + flag;
+					return "redirect:/changeDetail?orderId=" + afterOrderId + "&flag=" + flag+"&sourceFlag="+"00";
 					// busiCode=3
 				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)
 						&& (Constants.OrdOrder.State.WAIT_CHECK.equals(state)
 								|| Constants.OrdOrder.State.NO_CHECK.equals(state))) {
-					return "redirect:/backDetail?orderId=" + afterOrderId;
+					return "redirect:/backDetail?orderId=" + afterOrderId+"&sourceFlag="+"00";
 				} else if (Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)
 						&& (Constants.OrdOrder.State.WAIT_BACK.equals(state)
 								|| Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state)
 								|| Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state)
 								|| Constants.OrdOrder.State.NO_AGAIN_CHECK.equals(state))) {
 					// 调到第二个审核页面页面
-					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag;
+					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag+"&sourceFlag="+"00";
 					// busiCode=4
 				} else if (Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)
 						&& (Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state))) {
 					// 调到第二个审核页面页面
-					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag;
+					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag+"&sourceFlag="+"00";
 				} else if (Constants.OrdOrder.State.REFUND_FAILD.equals(state)
 						|| Constants.OrdOrder.State.REFUND_ING.equals(state)) {
 					// 如果为退费失败那么直接掉到退货审核的第二个页面重新发起退款申请
 					// 调到第二个审核页面页面
-					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag;
+					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag+"&sourceFlag="+"00";
 				} else {
 					return "redirect:/order/orderListDetail?orderId=" + afterOrderId + "&state=" + state;
 				}
@@ -770,6 +775,8 @@ public class PaidOrderController {
 	// 同意退款
 	public ResponseData<String> agreedRefund(HttpServletRequest request, String orderId, String updateInfo,
 			String parentOrderId, String money, String banlanceIfId) {
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
+				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<String> responseData = null;
 		try {
 			System.out.println("退款申请开始>>>>>>");
@@ -787,7 +794,7 @@ public class PaidOrderController {
 			body.setSonMerNo("CO20160900000010");
 			body.setRefundDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
-			body.setResv(updateInfo);
+			body.setResv(orderId);
 			ReqsInfo reqInfo = new ReqsInfo();
 			reqInfo.setGrpHdr(hdr);
 			reqInfo.setGrpBody(body);
@@ -804,7 +811,14 @@ public class PaidOrderController {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 			} else {
 				System.out.println("退款申请成功>>>>>>");
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款成功", null);
+				//申请失败修改订单状态为处理中
+				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
+				OrdRequest ordRequest = new OrdRequest();
+				ordRequest.setOrderId(Long.parseLong(orderId));
+				ordRequest.setTenantId(user.getTenantId());
+				ordRequest.setState(Constants.OrdOrder.State.REFUND_ING);
+				iOrderModifySV.modify(ordRequest);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "申请退款成功", null);
 			}
 		} catch (Exception e) {
 			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
@@ -815,8 +829,7 @@ public class PaidOrderController {
 	// 收到换货
 	@RequestMapping("/confirmChange")
 	@ResponseBody
-	public ResponseData<String> confirmChange(HttpServletRequest request, String expressOddNumber, String expressId,
-			String orderId) {
+	public ResponseData<String> confirmChange(HttpServletRequest request,String orderId) {
 		ResponseData<String> responseData = null;
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);

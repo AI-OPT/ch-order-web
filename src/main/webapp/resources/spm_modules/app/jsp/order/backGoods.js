@@ -45,7 +45,12 @@ define('app/jsp/order/backGoods', function (require, exports, module) {
 			});
     	},
     	_back:function(){
-    		window.location.href=_base+"/toPaidOrder";
+    		var sorceFlag = $("#sourceFlag").val();
+    		if(sorceFlag=="00"){
+    			window.location.href=_base+"/order/toOrderList";
+    		}else{
+    			window.location.href=_base+"/toPaidOrder";
+    		}
     	},
     	_refuseInitValidate:function(){
     		var formValidator=$("#refuseDataForm").validate({
