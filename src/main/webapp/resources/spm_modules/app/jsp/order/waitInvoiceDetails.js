@@ -210,8 +210,10 @@ define('app/jsp/order/waitInvoiceDetails', function (require, exports, module) {
 		 },
 		 
 		 _afterorderdetail:function(orderId,skuId){
+			 //用于判断来源是订单处理还是售后列表，00代表订单处理，11代表售后列表
+			 var sourceFlag  ="00";
 			window.location.href = _base+"/judge?orderId="
-            + orderId+"&skuId="+skuId;
+            + orderId+"&skuId="+skuId+"&sourceFlag"+sourceFlag;
 		},
 		_sendGoods:function(obj,pOrderId,state,busiCode,flag){
 			var orderId=obj;

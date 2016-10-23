@@ -10,6 +10,7 @@
 <%@include file="/inc/inc.jsp" %>
 <input type="hidden" value="${order.expressId}" id="expressId">
 <input type="hidden" value="${order.expressOddNumber}" id="expressOddNumber">
+<input type="hidden" name="sourceFlag" id="sourceFlag" value="${requestScope.sourceFlag}"/>
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->

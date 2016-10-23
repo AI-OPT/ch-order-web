@@ -45,7 +45,12 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
 			});
     	},
     	_back:function(){
-    		window.location.href=_base+"/toPaidOrder";
+    		var sorceFlag = $("#sourceFlag").val();
+    		if(sorceFlag=="00"){
+    			window.location.href=_base+"/order/toOrderList";
+    		}else{
+    			window.location.href=_base+"/toPaidOrder";
+    		}
     	},
     	_initValidate:function(){
     		var formValidator=$("#dataForm").validate({

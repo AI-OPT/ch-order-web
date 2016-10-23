@@ -41,7 +41,13 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     		changeSecondPager.superclass.setup.call(this);
     	},
     	_back:function(){
-    		window.location.href=_base+"/toPaidOrder";
+    		var sorceFlag = $("#sourceFlag").val();
+    		alert("....."+sorceFlag);
+    		if(sorceFlag=="00"){
+    			window.location.href=_base+"/order/toOrderList";
+    		}else{
+    			window.location.href=_base+"/toPaidOrder";
+    		}
     	},
     	//收到换货
     	_confirmChange:function(){
