@@ -272,7 +272,7 @@
 								                    <p ><input type="text" class="int-text int-medium" placeholder="不能多余用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
 								                    </li>
 								                <li>
-								                	<p class="word"><span>*</span>修改理由:</p>
+								                	<p class="word"><span>*</span>退款理由:</p>
 								                    <p>
 										 				<textarea id="updateMoneyInfo" name="updateMoneyInfo" rows="4" cols="25" class="int-text"></textarea>
 										 			</p>
