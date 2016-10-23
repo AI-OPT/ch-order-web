@@ -154,23 +154,18 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
+						<h4 class="modal-title" id="backModalLabel${status.index}">
+							退货提示
+						</h4>
 					</div>
-					<%-- <form id="validateForm" method="post">
-					<div class="modal-body">
-						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
-							${prod.prodName}
-						</h4><br/>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/>
-					</form></p> --%>
 					<div class="modal-body">
 						<p class="center">
-							确定进行退货处理吗?
+							<h5 class="word">确定进行退货处理吗?</h5> 
 						</p>						 
 					</div>
-					</div><p id="errorMessage"></p>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
-						onclick="pager._backOrder('${prod.prodDetalId}')">
+						onclick="pager._backOrder('${prod.prodDetalId}','${prod.buySum }')">
 							确认
 						</button>
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
@@ -195,14 +190,8 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-					
-						<%-- <h4 class="modal-title text-c" id="refundModalLabel${status.index}">
-							${prod.prodName}
-						</h4><br/>
-						<p class="text-c"><input id="refundNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退款的商品数量" type="text" name="refundSum"/></p>
-						 --%>
 						<p class="center">
-							确定进行退款处理吗?
+							<h5 class="word">确认进行退款处理吗?</h5> 
 						</p>						 
 					</div>
 					<div class="modal-footer">
@@ -353,10 +342,6 @@
 					                </li> 
 					            </ul>  
 					            <ul>
-					                <li  class="col-md-6">
-					                    <p class="word">物流商：</p>
-					                    <p>{{:expressOddNumber}}</p>
-					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">发货仓库：</p>
 					                    <p>{{:routeId}}</p>
