@@ -785,7 +785,7 @@ public class PaidOrderController {
 			body.setRefundAmt(updateMoney);
 			body.setMerRefundSn(parentOrderId);
 			body.setSonMerNo("CO20160900000010");
-			body.setRefundDate(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
+			body.setRefundDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
 			body.setResv(updateInfo);
 			ReqsInfo reqInfo = new ReqsInfo();
@@ -795,6 +795,7 @@ public class PaidOrderController {
 			System.out.println("发起参数主订单号>>>>"+reqInfo.getGrpBody().getMerRefundSn());
 			System.out.println("发起参数子订单号>>>>"+reqInfo.getGrpBody().getMerSeqId());
 			System.out.println("发起参数金额>>>>"+reqInfo.getGrpBody().getRefundAmt());
+			System.out.println("退款时间>>>>"+reqInfo.getGrpBody().getRefundDate());
 			BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 			RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY),
 					key.getKey(KeyType.PUBLIC_KEY));
