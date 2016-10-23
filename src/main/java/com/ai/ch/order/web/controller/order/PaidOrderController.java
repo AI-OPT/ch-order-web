@@ -775,6 +775,8 @@ public class PaidOrderController {
 	// 同意退款
 	public ResponseData<String> agreedRefund(HttpServletRequest request, String orderId, String updateInfo,
 			String parentOrderId, String money, String banlanceIfId) {
+		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
+				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<String> responseData = null;
 		try {
 			System.out.println("退款申请开始>>>>>>");
@@ -813,6 +815,7 @@ public class PaidOrderController {
 				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
 				OrdRequest ordRequest = new OrdRequest();
 				ordRequest.setOrderId(Long.parseLong(orderId));
+				ordRequest.setTenantId(user.getTenantId());
 				ordRequest.setState(Constants.OrdOrder.State.REFUND_ING);
 				iOrderModifySV.modify(ordRequest);
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "申请退款成功", null);
