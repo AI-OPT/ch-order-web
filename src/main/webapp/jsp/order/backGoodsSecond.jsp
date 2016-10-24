@@ -158,57 +158,93 @@
                             		</li>
                             	</ul>
                             </div>
-                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
-                            	<ul>
-                            		<li>退款详细</li>
-                            	</ul>
-                            </div>
-                            <div class="form-label">
-                            		<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">退款类型：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">退款金额：</p>
-                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
-                            		</li>
-                            		
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">退款理由：</p>
-                            			<p class="wide-field" style="word-break:break-all;"></p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">图片：</p>
-                            			<p></p>
-                            		</li>
-                            	</ul>
-                            	</div>
-                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
-                            	<ul>
-                            		<li>退款物流</li>
-                            	</ul>
-                            </div>
-                            <div class="form-label">
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">快递公司：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.expressName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">快递单号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">图片：</p>
-                            			<p></p>
-                            		</li>
-                            	</ul>
-                            </div>
+                            
+                            <c:choose>
+                            	<c:when test="${order.state==22}">
+                            		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>售后详细</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">业务类型：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款金额:</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
+		                            		</li>
+		                            		
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款理由:</p>
+		                            			<p class="wide-field" style="word-break:break-all;"></p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片:</p>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>退款详细</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            		<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款类型：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款金额：</p>
+		                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
+		                            		</li>
+		                            		
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款理由：</p>
+		                            			<p class="wide-field" style="word-break:break-all;"></p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片：</p>
+		                            			<p></p>
+		                            		</li>
+		                            	</ul>
+		                            	</div>
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>退款物流</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">快递公司：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.expressName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">快递单号：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片：</p>
+		                            			<p></p>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+		                         </c:otherwise>
+                            </c:choose>
+                            
+                       
                             <c:choose>
                             	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23 && order.state!=213 && order.state!=312 && requestScope.sourceFlag!=00}">
                             		 <div class="row">

@@ -184,7 +184,7 @@
                             	</ul>
                             </div>
                             <c:choose>
-                            	 <c:when test="${order.state != 212 && requestScope.sourceFlag!=00} "> 
+                            	 <c:when test="${order.state != 212 && requestScope.sourceFlag!=00}"> 
                             	 	 <div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意退货">

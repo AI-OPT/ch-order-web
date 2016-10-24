@@ -110,46 +110,34 @@
                             		</li>
                             	</ul>
                             	</div>
+	                             <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+	                            	<ul>
+	                            		<li>客户信息</li>
+	                            	</ul>
+	                            </div>
+	                            <div class="form-label">
+	                            	<ul>
+	                            		<li class="col-md-6">
+	                            			<p class="word">账号信息：</p>
+	                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
+	                            		</li>
+	                            		<li class="col-md-6">
+	                            			<p class="word">手机号：</p>
+	                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactTel}</p>
+	                            		</li>
+	                            	</ul>
+	                            	<ul>
+	                            		<li class="col-md-6">
+	                            			<p class="word">支付方式：</p>
+	                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.payStyleName}</p>
+	                            		</li>
+	                            		<li class="col-md-6">
+	                            			<p class="word">收货信息:</p>
+	                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactInfo}</p>
+	                            		</li>
+	                            	</ul>
+	                            </div>
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
-                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
-                            	<ul>
-                            		<li>退款人信息</li>
-                            	</ul>
-                            </div>
-                            <div class="form-label">
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">账号信息：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">手机号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactTel}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">支付方式：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.payStyleName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">支付账号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.acctId}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">业务类型：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.busiCodeName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">退款金额：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
-                            		</li>
-                            	</ul>
-                            </div>
-                            	
-                            	 <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
                             		<li>买家退货物流信息</li>
