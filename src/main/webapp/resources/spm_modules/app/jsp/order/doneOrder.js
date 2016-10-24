@@ -61,7 +61,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 				success : function(data) {
 					if(data == "success"){
 						//
-						_this._backOrder(orderObject,buyNum);
+						_this._backOrder(orderObject);
 						
     	        	}else{
     	        		var d = Dialog({
@@ -140,7 +140,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 					success : function(data) {
 						if(data == "success"){
 							//
-							_this._exchangeOrder(orderObject,buyNum);
+							_this._exchangeOrder(orderObject);
 							
 	    	        	}else{
 	    	        		var d = Dialog({
@@ -158,6 +158,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 				});
 		 },
 		 _exchangeOrder:function(orderObject) {
+			 var _obj=$("#exchangeNum"+orderObject).val();
 			 var _orderId = $('#orderId').val();
 			 var _prodDetalId=orderObject;
 			 var _pOrderId = $('#pOrderId').val();
@@ -167,7 +168,8 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 					url :_base+"/aftersaleorder/exchange",
 					data: {
 						orderId:  _orderId,
-						prodDetalId:_prodDetalId
+						prodDetalId:_prodDetalId,
+						rodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
