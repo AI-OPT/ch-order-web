@@ -169,7 +169,7 @@ define('app/jsp/order/doneOrder', function (require, exports, module) {
 					data: {
 						orderId:  _orderId,
 						prodDetalId:_prodDetalId,
-						rodSum:_obj
+						prodSum:_obj
 					},
 					processing: true,
 					message : "正在处理中，请稍候...",
