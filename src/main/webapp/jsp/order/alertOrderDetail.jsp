@@ -76,7 +76,7 @@
 								                      </table>
 								                 </td>
 								                <td>${sp.prodSalePrice}/件</td>
-								                <td>${order.orderTime}</td>
+								                <td><fmt:formatDate value="${order.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								                <td class="color-red">${order.state}</td>
 								                <td>${sp.prodAdjustFee}</td>
 								                <td>${sp.prodDiscountFee}</td>

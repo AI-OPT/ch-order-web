@@ -168,7 +168,7 @@
                             	<c:when test="${order.state==23}">
                             		<div class="row">
 										<p class="center mt-30">
-											<input id="confirmChange" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="收到换货">
+											<input id="operation" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="收到换货">
 											<input id="backPage" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="返回">
 									   	</p>
 									</div>
@@ -181,6 +181,27 @@
 									</div>
                             	</c:otherwise>
                             </c:choose>
+                            
+                            <!--提示弹出框 操作-->	
+							<div class="eject-big">
+								<div class="prompt-samll" id="prompt">
+								<div class="eject-medium-title">
+										<p>提示</p>
+										<p class="img"><i class="fa fa-times"></i></p>
+								</div>
+								<!--确认删除-->
+								<div class="prompt-samll-confirm">
+									<ul>
+									<li class="word">确定要收到换货吗？</li>
+									<li>
+										<input id="confirmChange" type="button"  class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" value="确认">
+										<input id="prompt-close" type="button"  class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" id="closebtn" value="取消"></li>		
+									</ul>
+								</div>
+								</div>	
+							<div class="mask" id="eject-mask"></div>
+							</div>
+						<!--/提示弹出框操作结束-->
                        </div>	
                    </div>
                 </div>

@@ -42,7 +42,6 @@ define('app/jsp/order/changeGoodsSecond', function (require, exports, module) {
     	},
     	_back:function(){
     		var sorceFlag = $("#sourceFlag").val();
-    		alert("....."+sorceFlag);
     		if(sorceFlag=="00"){
     			window.location.href=_base+"/order/toOrderList";
     		}else{

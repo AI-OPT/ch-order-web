@@ -217,7 +217,7 @@
                             	<c:when test="${order.state == 23}">
                             		<div class="row">
 		                           		<p class="center mt-20">
-		                           			<input type="button" id="backGoods" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="收到退货">
+		                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="收到退货">
 		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
 		                            	</p>
 	                            	</div>
@@ -230,6 +230,27 @@
 	                            	</div>
                             	 </c:otherwise>
                             </c:choose>
+                            <!-- 收到退货 start-->
+								<div class="eject-big">
+									<div class="prompt-samll" id="prompt">
+									<div class="eject-medium-title">
+											<p>提示</p>
+											<p class="img"><i class="fa fa-times"></i></p>
+									</div>
+									<!--确认删除-->
+									<div class="prompt-samll-confirm">
+										<ul>
+										<li class="word">确定要收到退货吗？</li>
+										<li>
+											<input type="button"  id="backGoods" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" value="确认">
+											<input id="prompt-close" type="button"  class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" id="closebtn" value="取消"></li>		
+										</ul>
+									</div>
+									</div>	
+								<div class="mask" id="eject-mask"></div>
+								</div>
+                            <!-- 收到退货 end-->
+                            
                             <!-- 拒绝退款理由 start-->
                            <form id="refuseDataForm" method="post" >
                             <div class="eject-big">

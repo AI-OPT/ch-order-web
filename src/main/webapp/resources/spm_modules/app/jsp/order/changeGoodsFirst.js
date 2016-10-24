@@ -84,7 +84,6 @@ define('app/jsp/order/changeGoodsFirst', function (require, exports, module) {
     	    var formValidator=_this._initValidate();
 			formValidator.form();
 			if(!$("#dataForm").valid()){
-				//alert('验证不通过！！！！！');
 				return false;
 			}
     	    ajaxController.ajax({
