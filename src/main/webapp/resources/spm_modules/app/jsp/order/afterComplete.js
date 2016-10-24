@@ -40,8 +40,12 @@ define('app/jsp/order/afterComplete', function (require, exports, module) {
     	
     	
     	_back:function() {
-    		//调到订单列表页面
-    		window.location.href=_base+"/toPaidOrder";
+    		var sorceFlag = $("#sourceFlag").val();
+    		if(sorceFlag=="00"){
+    			window.location.href=_base+"/order/toOrderList";
+    		}else{
+    			window.location.href=_base+"/toPaidOrder";
+    		}
     	}
 
     });

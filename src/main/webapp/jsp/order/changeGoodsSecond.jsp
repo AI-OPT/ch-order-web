@@ -97,6 +97,19 @@
                                
                                 </div>
                             <!--/table表格结束-->
+                            <div class="text-r right">
+                            	<ul class="mt-20">
+                            		<li>
+                            			 <p class="word">总优惠金额：<span class="red">${order.ordDiscountFee}</span></p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">运费：<span class="red">${order.ordFreight}</span></p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">订单应付金额：<span class="red">${order.ordAdjustFee}</span></p>
+                            		</li>
+                            	</ul>
+                            </div>
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
@@ -116,37 +129,75 @@
                             	</ul>
                             </div>
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
-                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
-                            	<ul>
-                            		<li>退款人信息</li>
-                            	</ul>
-                            </div>
-                            <div class="form-label">
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">账号信息：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.userName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">手机号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.aftercontactTel}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">支付方式：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">退款类型：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
-                            		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">退款金额：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.ordTotalFee}</p>
-                            		</li>
-                            	</ul>
-                            </div>
+                             <c:choose>
+                            	<c:when test="${order.state==23}">
+		                            <!-- 客户信息 -->
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>客户信息</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word" >账号信息：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.userName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">手机号：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.aftercontactTel}</p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">支付方式：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">收货信息:</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.aftercontactInfo}</p>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+                            	</c:when>
+                            	<c:otherwise>
+                            		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>退款人信息</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">账号信息：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.userName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">手机号：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.aftercontactTel}</p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">支付方式：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款类型：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款金额：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.ordTotalFee}</p>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+                            	</c:otherwise>
+                            
+                            
+                            
+                            
+                       
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
                             		<li>买家退货物流信息</li>
@@ -165,7 +216,7 @@
                             	</ul>
                             </div>
                             <c:choose>
-                            	<c:when test="${order.state==23}">
+                            	<c:when test="${order.state==23 && requestScope.sourceFlag!=00}">
                             		<div class="row">
 										<p class="center mt-30">
 											<input id="operation" type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5 " value="收到换货">

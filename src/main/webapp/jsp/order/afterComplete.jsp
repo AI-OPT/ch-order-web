@@ -8,6 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>售后详情页面</title>
 <%@include file="/inc/inc.jsp" %>
+<input type="hidden" name="sourceFlag" id="sourceFlag" value="${requestScope.sourceFlag}"/>
 </head>
 <body>
   <div class="content-wrapper-iframe"><!--右侧灰色背景-->

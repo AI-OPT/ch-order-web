@@ -84,7 +84,6 @@
 							                 </td>
 							                <td>${sp.prodSalePrice}/${sp.buySum}件</td>
 							                <td><fmt:formatDate value="${order.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-							                <%-- <td>${order.orderTime}</td> --%>
 							                <td>${order.busiCodeName}</td>
 							                <td>${order.stateName}</td>
 							                <td>${sp.prodCouponFee}</td>
@@ -177,7 +176,7 @@
                             	</ul>
                             </div>
                             <c:choose>
-                            	<c:when test="${order.state != 212 && order.state==21}">
+                            	<c:when test="${order.state != 212 && order.state==21 && requestScope.sourceFlag!=00}">
                             		<div class="row">
 	                            		<p class="center mt-20">
 	                             			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="同意换货">

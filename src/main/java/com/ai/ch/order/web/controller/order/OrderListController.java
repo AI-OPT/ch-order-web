@@ -23,7 +23,6 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.net.xss.util.CollectionUtil;
 import com.ai.net.xss.util.StringUtil;
@@ -146,7 +145,9 @@ public class OrderListController {
 
     @RequestMapping("/orderListDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, String busiCode,
-			String orderId,String state,String pOrderId,String Flag) {
+			String orderId,String state,String pOrderId,String Flag,String sourceFlag) {
+    	//主要用来判断从订单处理来的还是从售后列表来进行查询的
+    	request.setAttribute("sourceFlag", sourceFlag);
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();

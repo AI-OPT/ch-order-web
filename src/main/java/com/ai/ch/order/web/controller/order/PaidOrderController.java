@@ -518,7 +518,7 @@ public class PaidOrderController {
 					// 调到第二个审核页面页面
 					return "redirect:/backDetail?orderId=" + afterOrderId + "&flag=" + flag+"&sourceFlag="+"00";
 				} else {
-					return "redirect:/order/orderListDetail?orderId=" + afterOrderId + "&state=" + state;
+					return "redirect:/order/orderListDetail?orderId=" + afterOrderId + "&state=" + state+"&sourceFlag="+"00";
 				}
 			}
 		} catch (Exception e) {

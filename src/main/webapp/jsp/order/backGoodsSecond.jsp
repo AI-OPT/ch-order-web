@@ -99,6 +99,19 @@
                                
                                 </div>
                             <!--/table表格结束-->
+                            <div class="text-r right">
+                            	<ul class="mt-20">
+                            		<li>
+                            			 <p class="word">总优惠金额：<span class="red">${order.ordDiscountFee}</span></p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">运费：<span class="red">${order.ordFreight}</span></p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">订单应付金额：<span class="red">${order.ordAdjustFee}</span></p>
+                            		</li>
+                            	</ul>
+                            </div>
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
@@ -197,7 +210,7 @@
                             	</ul>
                             </div>
                             <c:choose>
-                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23 && order.state!=213 && order.state!=312}">
+                            	<c:when test="${order.state != 212 && order.state != 22 && order.state != 23 && order.state!=213 && order.state!=312 && requestScope.sourceFlag!=00}">
                             		 <div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="同意退款">
