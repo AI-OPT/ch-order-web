@@ -130,7 +130,7 @@
                             </div>
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
                              <c:choose>
-                            	<c:when test="${order.state==23}">
+                            	<c:when test="${order.state==23 || order.state==22}">
 		                            <!-- 客户信息 -->
 		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
 		                            	<ul>
@@ -156,6 +156,28 @@
 		                            		<li class="col-md-6">
 		                            			<p class="word">收货信息:</p>
 		                            			<p class="wide-field" style="word-break:break-all;">${order.aftercontactInfo}</p>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>售后详细</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">类型：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+			                            		<p class="word">换货理由:</p>
+			                            		<p class="wide-field" style="word-break:break-all;"></p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片:</p>
 		                            		</li>
 		                            	</ul>
 		                            </div>
@@ -192,13 +214,7 @@
 		                            		</li>
 		                            	</ul>
 		                            </div>
-                            	</c:otherwise>
-                            
-                            
-                            
-                            
-                       
-                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                                  <div class="nav-tplist-title bd-bottom pb-10  pt-15">
                             	<ul>
                             		<li>买家退货物流信息</li>
                             	</ul>
@@ -215,6 +231,8 @@
                             		</li>
                             	</ul>
                             </div>
+                            	</c:otherwise>
+                            </c:choose>
                             <c:choose>
                             	<c:when test="${order.state==23 && requestScope.sourceFlag!=00}">
                             		<div class="row">
