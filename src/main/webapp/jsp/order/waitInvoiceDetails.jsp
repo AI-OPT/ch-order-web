@@ -398,11 +398,11 @@
 						</p>
 					</div>
          <div class="modal-footer">
+			<button type="button" onclick="pager._printInvoiceOrder();" class="btn btn-primary" data-dismiss="modal">
+               	确认打印
+            </button>
             <button type="button" class="btn btn-default" 
                data-dismiss="modal">取消
-            </button>
-            <button type="button" onclick="pager._printInvoiceOrder();" class="btn btn-primary" data-dismiss="modal">
-               	确认打印
             </button>
          </div>
 </script>
