@@ -103,7 +103,7 @@
 						               <tr>
 							                <td value="1100023">DHL</td>
 							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
-							                <td>确认发货</td>
+							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100024">优速</td>
