@@ -169,6 +169,7 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
 								okValue: '确 定',
 								ok:function(){
 									this.close();
+									location.href=_base+"/jsp/order_rule/findOrderRuleDetail.jsp";
 								}
 							});
 							d.show();
