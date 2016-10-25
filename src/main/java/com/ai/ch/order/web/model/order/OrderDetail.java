@@ -26,6 +26,10 @@ public class OrderDetail extends OrdOrderVo {
 	 */
 	private String ordTotalFee;
 	/**
+	 * 退款修改金额
+	 */
+	private String updateFee;
+	/**
 	 * 售后操作人
 	 */
 	private String username;
@@ -99,6 +103,14 @@ public class OrderDetail extends OrdOrderVo {
 
 	public void setExpressName(String expressName) {
 		this.expressName = expressName;
+	}
+
+	public String getUpdateFee() {
+		return updateFee;
+	}
+
+	public void setUpdateFee(String updateFee) {
+		this.updateFee = updateFee;
 	}
 
 }

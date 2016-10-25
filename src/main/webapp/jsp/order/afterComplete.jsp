@@ -85,13 +85,33 @@
 								                <td>${sp.prodSalePrice}/${sp.buySum }件</td>
 								                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								                <td>${orderDetail.stateName}</td>
-								                <td>${sp.prodAdjustFee}</td>
+								                <c:choose>
+                            	 					<c:when test="${orderDetail.state!=93}">
+                            	 						<td>${sp.prodAdjustFee}</td>
+                            	 					</c:when> 
+                            	 					<c:otherwise>
+                            	 						<td>${orderDetail.updateFee}</td>
+                            	 					</c:otherwise>
+                            	 				</c:choose>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
                                    </table>
                                 </div>
                             <!--/table表格结束-->
+                              <div class="text-r right">
+                            	<ul class="mt-20">
+                            		<li>
+                            			 <p class="word">总优惠金额：<span class="red">${orderDetail.ordDiscountFee}</span></p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">运费：<span class="red">${orderDetail.ordFreight}</span></p>
+                            		</li>
+                            		<li>
+                            			 <p class="word">订单应付金额：<span class="red">${orderDetail.ordAdjustFee}</span></p>
+                            		</li>
+                            	</ul>
+                            </div>
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
@@ -138,29 +158,32 @@
 	                            	</ul>
 	                            </div>
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
-                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
-                            	<ul>
-                            		<li>买家退货物流信息</li>
-                            	</ul>
-                            </div>
-                            	  <div class="form-label">
-	                            	<ul>
-	                            		<li class="col-md-6">
-	                            			<p class="word">快递公司：</p>
-	                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.expressName}</p>
-	                            		</li>
-	                            		<li class="col-md-6">
-	                            			<p class="word">快递单号：</p>
-	                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.expressOddNumber}</p>
-	                            		</li>
-	                            	</ul>
-                            	  </div>
-                            	   <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
+                            <c:choose>
+                            	 <c:when test="${orderDetail.state!=94}"> 
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>买家退货物流信息</li>
+		                            	</ul>
+		                            </div>
+		                            	  <div class="form-label">
+			                            	<ul>
+			                            		<li class="col-md-6">
+			                            			<p class="word">快递公司：</p>
+			                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.expressName}</p>
+			                            		</li>
+			                            		<li class="col-md-6">
+			                            			<p class="word">快递单号：</p>
+			                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.expressOddNumber}</p>
+			                            		</li>
+			                            	</ul>
+		                            	  </div>
+		                           </c:when>
+		                         </c:choose>
                             	<div class="row">
-		                           		<p class="center mt-20">
-		                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
-		                            	</p>
-	                         </div>
+	                           		<p class="center mt-20">
+	                           			<input type="button" id="backPage" class="biu-btn  btn-primary btn-blue btn-small  ml-5" value="返回">
+	                            	</p>
+	                         	</div>
                             </div>
                        </div>	
                    </div>

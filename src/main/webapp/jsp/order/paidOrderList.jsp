@@ -107,7 +107,7 @@
                         <div class="main-box clearfix"><!--白色背景-->
                         <!--标题-->
                             <header class="main-box-header clearfix">
-                            <h4 class="pull-left">查询结果</h4>
+                            <h4 class="pull-left">售后列表</h4>
                             </header>
                         <!--标题结束-->   
                             <div class="main-box-body clearfix">

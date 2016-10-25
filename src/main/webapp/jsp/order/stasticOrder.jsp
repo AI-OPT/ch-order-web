@@ -5,7 +5,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>查询订单列表</title>
+<title>查询订单统计列表</title>
 <%@include file="/inc/inc.jsp" %>
 </head>
 <body>
@@ -92,7 +92,7 @@
                         <div class="main-box clearfix"><!--白色背景-->
                         <!--标题-->
                             <header class="main-box-header clearfix">
-                            <h4 class="pull-left">查询结果</h4>
+                            <h5 class="pull-left">订单统计列表</h5>
                             </header>
                         <!--标题结束-->   
                             <div class="main-box-body clearfix">

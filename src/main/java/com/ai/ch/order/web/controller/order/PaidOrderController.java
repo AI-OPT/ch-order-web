@@ -224,6 +224,7 @@ public class PaidOrderController {
 					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
+					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidFee()));
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
@@ -358,6 +359,7 @@ public class PaidOrderController {
 					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
+					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidFee()));
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
