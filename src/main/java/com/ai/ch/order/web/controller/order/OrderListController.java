@@ -23,6 +23,7 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
+import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.net.xss.util.CollectionUtil;
 import com.ai.net.xss.util.StringUtil;
@@ -109,8 +110,7 @@ public class OrderListController {
 		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
-			//String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
-			String userId = null;
+			String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
 			queryRequest.setUserId(userId);
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
