@@ -69,6 +69,8 @@ public class StasticOrderController {
     @RequestMapping("/getStasticOrderData")
     @ResponseBody
     public ResponseData<PageInfo<StasticParentOrderVo>> getList(HttpServletRequest request,StasticOrderReqVo reqVo){
+    	long start=System.currentTimeMillis();
+    	LOG.error("开始执行getStasticOrderData，当前时间戳："+start);
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	IStasticsOrderSV iStasticsOrderSV = DubboConsumerFactory.getService(IStasticsOrderSV.class);
         ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
@@ -76,6 +78,8 @@ public class StasticOrderController {
         StasticsOrderRequest req = new StasticsOrderRequest();
         ResponseData<PageInfo<StasticParentOrderVo>> responseData = null;
         if(!StringUtil.isBlank(reqVo.getSupplierName())){
+        	long shopStart=System.currentTimeMillis();
+        	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopStart);
         	//根据店铺名称获取销售商ID
             QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
             shopReq.setTenantId(user.getTenantId());
@@ -86,8 +90,12 @@ public class StasticOrderController {
             }else{
             	req.setSupplierId("-1");
             }
+            long shopEnd=System.currentTimeMillis();
+        	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopEnd+",用时:"+(shopEnd-shopStart)+"毫秒");
         }
         if(!StringUtil.isBlank(reqVo.getUserName())){
+        	long userStart=System.currentTimeMillis();
+        	LOG.error("开始执行getStasticOrderData中的获取用户信息服务，当前时间戳："+userStart);
         	//获取用户id
         	String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
         	if(!StringUtil.isBlank(id)){
@@ -95,6 +103,8 @@ public class StasticOrderController {
         	}else{
         		req.setUserId("-1");
         	}
+        	long userEnd=System.currentTimeMillis();
+        	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+userEnd+",用时:"+(userEnd-userStart)+"毫秒");
         }
         String startT =  reqVo.getStartTime();
         String endT = reqVo.getEndTime();
@@ -126,7 +136,11 @@ public class StasticOrderController {
         try {
             req.setPageNo(Integer.parseInt(strPageNo));
             req.setPageSize(Integer.parseInt(strPageSize));
+            long dubboStart=System.currentTimeMillis();
+        	LOG.error("开始执行getStasticOrderData中的后场订单查询服务，当前时间戳："+dubboStart);
             StasticOrderResponse resultInfo = iStasticsOrderSV.queryStasticOrdPage(req);
+            long dubboEnd=System.currentTimeMillis();
+        	LOG.error("开始执行getStasticOrderData中的后场订单查询服务，当前时间戳："+dubboEnd+",用时:"+(dubboEnd-dubboStart)+"毫秒");
             PageInfo<StasticParentOrderVo> result= resultInfo.getPageInfo();
             if(result!=null){
                 List<StasticParentOrderVo> list = result.getResult();
@@ -136,7 +150,11 @@ public class StasticOrderController {
                         QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
                         shopReq.setTenantId(user.getTenantId());
                         shopReq.setUserId(vo.getSupplierId());
+                        long shopStart=System.currentTimeMillis();
+                    	LOG.error("再次执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopStart);
                         QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
+                        long shopEnd=System.currentTimeMillis();
+                    	LOG.error("再次执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopEnd+",用时:"+(shopEnd-shopStart)+"毫秒");
                         if(base.getResponseHeader().getIsSuccess()==true){
                         	vo.setSupplierName(base.getShopName());
                         }
