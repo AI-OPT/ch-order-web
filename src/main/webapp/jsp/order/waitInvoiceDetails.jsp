@@ -88,7 +88,7 @@
                                                 <th>操作</th>                                            </tr>
                                         </thead>                                                                                                
                                     <tbody>
-						               <c:forEach var="prod" items="${orderDetail.prodList}">
+						               <c:forEach var="prod" items="${orderDetail.prodList}"  varStatus="status">
 							          <tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">

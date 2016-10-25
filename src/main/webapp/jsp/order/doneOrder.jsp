@@ -89,7 +89,7 @@
                                             </tr>
                                         </thead>                                                                                                
                                     <tbody>
-						               <c:forEach var="prod" items="${orderDetail.prodList}">
+						               <c:forEach var="prod" items="${orderDetail.prodList}" varStatus="status">
 							          <tr>
 							                 <td class="sp"  width="45%">
 							                      <table width="100%" border="0">
@@ -160,6 +160,9 @@
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 							&times;
 						</button>
+						<h4 class="modal-title" id="backModalLabel1${status.index}">
+							退货提示
+						</h4>
 					</div>
 					<div class="modal-body">
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
@@ -189,7 +192,7 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="exchangeModalLabel1${status.index}">
-							提示
+							换货提示
 						</h4>
 					</div>
 					<div class="modal-body">
@@ -221,7 +224,7 @@
 							&times;
 						</button>
 						<h4 class="modal-title" id="refundModalLabel${status.index}">
-							提示
+							退款提示
 						</h4>
 					</div>
 					<div class="modal-body">
