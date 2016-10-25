@@ -87,7 +87,6 @@
 								                 </td>
 								                <td>${sp.prodSalePrice}/${sp.buySum}件</td>
 								                <td><fmt:formatDate value="${order.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-								                <%-- <td>${order.orderTime}</td> --%>
 								                <td>${order.stateName}</td>
 								                <td>${sp.prodCouponFee}</td>
 							                	<td id="saleJF">${sp.jfFee}</td>
@@ -189,6 +188,59 @@
 		                            	</ul>
 		                            </div>
                             	</c:when>
+                            	<c:when test="${order.state==312}">
+                            		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>退款详细</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            		<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款类型：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款金额：</p>
+		                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.updateFee}</p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">退款理由：</p>
+		                            			<p class="wide-field" style="word-break:break-all;"></p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片：</p>
+		                            			<p></p>
+		                            		</li>
+		                            	</ul>
+		                            	</div>
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>退款物流</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">快递公司：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.expressName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+		                            			<p class="word">快递单号：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片：</p>
+		                            			<p></p>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+                            	
+                            	</c:when>
                             	<c:otherwise>
                             		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
 		                            	<ul>
@@ -205,7 +257,6 @@
 		                            			<p class="word">退款金额：</p>
 		                            			<p id="currentMoney" class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
 		                            		</li>
-		                            		
 		                            	</ul>
 		                            	<ul>
 		                            		<li class="col-md-6">
