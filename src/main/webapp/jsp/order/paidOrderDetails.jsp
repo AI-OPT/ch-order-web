@@ -282,18 +282,11 @@
 					  	
 					  		 <div class="bc-ang mb-10">
 					  		 <input type="hidden" id="orderId" value="${orderDetail.orderId }">
+					  		 <input type="hidden" id="orderUserId" value="${orderDetail.userId }">
 					  		 <input type="hidden" id="pOrderId" value="${orderDetail.parentOrderId }">
 					  		 <input type="hidden" id="state" value="${orderDetail.state}">
-					  		 <c:choose>
-					       <c:when test="${orderDetail.state!=13}">
-					       		 <input type="button" class="btn btn-primary" disabled="disabled"
-					  		 onclick="pager._queryDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');"  value="打印提货单">
-					       </c:when>
-					       <c:otherwise>
 								 <input type="button" id="but" class="btn btn-primary"
 					  		 onclick="pager._queryDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');"  value="打印提货单">
-					       </c:otherwise>
-						</c:choose>
 					  		 </div>
 							</div>	
                         	</div>	
