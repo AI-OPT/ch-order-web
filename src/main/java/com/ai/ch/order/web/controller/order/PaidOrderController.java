@@ -126,8 +126,13 @@ public class PaidOrderController {
 	@ResponseBody
 	public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,
 			BehindQueryOrderLisReqVo reqVo) {
+		long start=System.currentTimeMillis();
+    	LOG.info("开始执行售后列表查询getPaidOrderData，当前时间戳："+start);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+		
+		long dubboStart=System.currentTimeMillis();
+    	LOG.info("开始执行售后列表查询getPaidOrderData,获取后场IOrderListSV服务，当前时间戳："+dubboStart);
 		IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
@@ -172,6 +177,8 @@ public class PaidOrderController {
 			req.setPageNo(Integer.parseInt(strPageNo));
 			req.setPageSize(Integer.parseInt(strPageSize));
 			BehindQueryOrderListResponse resultInfo = iOrderListSV.behindQueryOrderList(req);
+			long dubboEnd=System.currentTimeMillis();
+	    	LOG.info("开始执行售后列表查询getPaidOrderData,获取后场IOrderListSV服务，当前时间戳："+dubboEnd+",用时:"+(dubboEnd-dubboStart)+"毫秒");
 			PageInfo<BehindParentOrdOrderVo> result = resultInfo.getPageInfo();
 			List<BehindParentOrdOrderVo> list = result.getResult();
 			if (!CollectionUtil.isEmpty(list)) {
@@ -183,7 +190,11 @@ public class PaidOrderController {
 					param.setColumnValue(vo.getChlId());
 					param.setTypeCode(Constants.TYPE_CODE);
 					param.setParamCode(Constants.ORD_CHL_ID);
+					long cacheStart=System.currentTimeMillis();
+			    	LOG.info("开始执行售后列表查询getPaidOrderData,获取公共中心缓存dubbo服务，当前时间戳："+cacheStart);
 					SysParam chldParam = iCacheSV.getSysParamSingle(param);
+					long cacheEnd=System.currentTimeMillis();
+					LOG.info("开始执行售后列表查询getPaidOrderData,获取公共中心缓存dubbo服务，当前时间戳："+cacheEnd+",用时:"+(cacheEnd-cacheStart)+"毫秒");
 					if (chldParam != null) {
 						vo.setChlId(chldParam.getColumnDesc());
 					}
@@ -201,19 +212,24 @@ public class PaidOrderController {
 	@RequestMapping("/changeDetail")
 	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId, String flag,String sourceFlag) {
 		request.setAttribute("sourceFlag", sourceFlag);
+		long start=System.currentTimeMillis();
+    	LOG.info("开始执行售后详情查询changeDetail，当前时间戳："+start);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();
 		try {
 			QueryOrderRequest queryRequest = new QueryOrderRequest();
-			// queryRequest.setTenantId(user.getTenantId());
-			queryRequest.setTenantId(Constants.TENANT_ID);
+			queryRequest.setTenantId(user.getTenantId());
 			queryRequest.setOrderId(Long.parseLong(orderId));
 			OrderDetail orderDetail = new OrderDetail();
 			List<OrdProdVo> prodList = new ArrayList<OrdProdVo>();
+			long dubboStart=System.currentTimeMillis();
+	    	LOG.info("开始执行售后详情查询changeDetail,获取后场IOrderListSV详情查询服务，当前时间戳："+dubboStart);
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			QueryOrderResponse orderResponse = iOrderListSV.queryOrder(queryRequest);
+			long dubboEnd=System.currentTimeMillis();
+	    	LOG.info("开始执行售后详情查询changeDetail，获取后场IOrderListSV详情查询服务,当前时间戳："+dubboEnd+",用时:"+(dubboEnd-dubboStart)+"毫秒");
 			OrdOrderVo ordOrderVo = null;
 			if (orderResponse != null && orderResponse.getResponseHeader().isSuccess()) {
 				ordOrderVo = orderResponse.getOrdOrderVo();
@@ -225,12 +241,16 @@ public class PaidOrderController {
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidFee()));
+					long userStart=System.currentTimeMillis();
+			    	LOG.info("开始执行售后详情查询changeDetail，获取售后操作人服务,当前时间戳："+userStart);
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
 					userReq.setTenantId(user.getTenantId());
 					userReq.setNo(orderDetail.getOperId());
 					SysUserQueryResponse response = iSysUserQuerySV.queryUserInfo(userReq);
+					long userEnd=System.currentTimeMillis();
+			    	LOG.info("开始执行售后详情查询changeDetail，获取售后操作人服务,当前时间戳："+userEnd+",用时:"+(userEnd-userStart)+"毫秒");
 					if (response != null) {
 						orderDetail.setUsername(response.getName());
 					}
@@ -240,7 +260,11 @@ public class PaidOrderController {
 					expressParam.setColumnValue(orderDetail.getExpressId());
 					expressParam.setTypeCode(Constants.TYPE_CODE);
 					expressParam.setParamCode(Constants.ORD_EXPRESS);
+					long cacheStart=System.currentTimeMillis();
+			    	LOG.info("开始执行售后详情查询changeDetail，获取公共中心缓存服务,当前时间戳："+cacheStart);
 					SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
+					long cacheEnd=System.currentTimeMillis();
+			    	LOG.info("开始执行售后详情查询changeDetail，获取公共中心缓存服务,当前时间戳："+userEnd+",用时:"+(cacheEnd-cacheStart)+"毫秒");
 					if (sysParam != null) {
 						orderDetail.setExpressName(sysParam.getColumnDesc());
 					}
@@ -250,7 +274,11 @@ public class PaidOrderController {
 					param.setColumnValue(orderDetail.getChlId());
 					param.setTypeCode(Constants.TYPE_CODE);
 					param.setParamCode(Constants.ORD_CHL_ID);
+					long cacheAStart=System.currentTimeMillis();
+			    	LOG.info("开始执行售后详情查询changeDetail，操作公共中心缓存服务,当前时间戳："+cacheAStart);
 					SysParam chldParam = iCacheSV.getSysParamSingle(param);
+					long cacheAEnd=System.currentTimeMillis();
+			    	LOG.info("开始执行售后详情查询changeDetail，操作公共中心缓存服务,当前时间戳："+userEnd+",用时:"+(cacheAEnd-cacheAStart)+"毫秒");
 					if (chldParam != null) {
 						orderDetail.setChlId(chldParam.getColumnDesc());
 					}
