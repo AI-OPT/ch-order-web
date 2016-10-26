@@ -87,10 +87,10 @@
 								                <td>${orderDetail.stateName}</td>
 								                <c:choose>
                             	 					<c:when test="${orderDetail.state!=93}">
-                            	 						<td>${sp.prodAdjustFee}</td>
+                            	 						<td>${orderDetail.updateFee}</td>
                             	 					</c:when> 
                             	 					<c:otherwise>
-                            	 						<td>${orderDetail.updateFee}</td>
+                            	 						<td>${sp.prodAdjustFee}</td>
                             	 					</c:otherwise>
                             	 				</c:choose>
 							              </tr> 
