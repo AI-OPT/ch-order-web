@@ -46,11 +46,13 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
       	_queryDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
       		var _this = this;
 			var _orderId = $('#orderId').val();
+			var _orderUserId = $('#orderUserId').val();
 			ajaxController.ajax({
 				type : "POST",
 				url :_base+"/order/query",
 				data: {
-					orderId:  _orderId
+					orderId:  _orderId,
+					orderUserId:_orderUserId
 				},
 				processing: true,
 				message : "正在处理中，请稍候...",
@@ -77,11 +79,13 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		
 		_displayDeliveryOrder: function(){
 			var _orderId = $('#orderId').val();
+			var _orderUserId = $('#orderUserId').val();
 			ajaxController.ajax({
 				type : "POST",
 				url :_base+"/order/display",
 				data: {
-					orderId:  _orderId
+					orderId:  _orderId,
+					orderUserId:_orderUserId
 				},
 				processing: true,
 				message : "正在处理中，请稍候...",
@@ -89,7 +93,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					var template = $.templates("#deliveryOrderTempalte");
 					var htmlOutput = template.render(data.data);
 					$("#deliveryModal").html(htmlOutput);
-					$("#myModal").modal('show');
+					$("#myModaltakeGoods").modal('show');
 				}
 			});
 		},
@@ -97,11 +101,13 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		
 		_noMergeDisplayDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
 			var _orderId = $('#orderId').val();
+			var _orderUserId = $('#orderUserId').val();
 			ajaxController.ajax({
 				type : "POST",
 				url :_base+"/order/noMergeQuery",
 				data: {
-					orderId:  _orderId
+					orderId:  _orderId,
+					orderUserId:_orderUserId
 				},
 				processing: true,
 				message : "正在处理中，请稍候...",
@@ -150,8 +156,6 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 				success : function(data) {
 					if(data) {
 						_this._returnUrl();
-						$("#but").attr("disabled","disabled");
-						
 					}
 				}
 			});
