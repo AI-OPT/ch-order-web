@@ -77,7 +77,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 			});
 		},
 		
-		_displayDeliveryOrder: function(){
+		_displayDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
 			var _orderId = $('#orderId').val();
 			var _orderUserId = $('#orderUserId').val();
 			ajaxController.ajax({
@@ -93,6 +93,12 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 					var template = $.templates("#deliveryOrderTempalte");
 					var htmlOutput = template.render(data.data);
 					$("#deliveryModal").html(htmlOutput);
+					$("#deliveryModal_orderId").val(orderId);
+					$("#deliveryModal_parentOrderId").val(parentOrderId);
+					$("#deliveryModal_state").val(state);
+					$("#deliveryModal_busiCode").val(busiCode);
+					$("#deliveryModal_flag").val(flag);
+					
 					$("#myModaltakeGoods").modal('show');
 				}
 			});

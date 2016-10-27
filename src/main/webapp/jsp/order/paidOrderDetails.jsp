@@ -333,8 +333,8 @@
                     	此订单存在合并的订单,是否合并打印?
                 </div>
                <div class="modal-footer">
-                    <button type="button" onclick="pager._displayDeliveryOrder();" class="btn btn-primary" data-dismiss="modal">是</button>
-                    <button type="button" onclick="pager._noMergeDisplayDeliveryOrder();" class="btn btn-default" data-dismiss="modal">否</button>
+                    <button type="button" onclick="pager._displayDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');" class="btn btn-primary" data-dismiss="modal">是</button>
+                    <button type="button" onclick="pager._noMergeDisplayDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');" class="btn btn-default" data-dismiss="modal">否</button>
                  </div>
              </div><!-- /.modal-content -->
          </div><!-- /.modal-dialog -->
