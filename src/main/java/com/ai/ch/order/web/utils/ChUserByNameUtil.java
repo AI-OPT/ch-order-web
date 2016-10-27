@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.opt.sdk.dubbo.util.HttpClientUtil;
+import com.ai.opt.sdk.util.ParseO2pDataUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
@@ -22,27 +23,24 @@ public  class ChUserByNameUtil {
 	       Map<String,String> mapHeader = new HashMap<String,String>();
 	       mapHeader.put("appkey", Constants.CH_USERNAME_APPKEY);
 	       String result ="";
+	       Object openId=null;
 			try {
 				result = HttpClientUtil.sendPost(url, param, mapHeader);
+				JSONObject object = ParseO2pDataUtil.getData(result);
+				Object obj = object.get("resultCode");
+				if(obj!=null) {
+					return null;
+				}
+				openId = object.get("openId");
 			} catch (Exception e) {
 				e.printStackTrace();
+				LOG.error("请求出现错误!");
 			}
-	     //将返回结果，转换为JSON对象 
-		 JSONObject dataJson=null;
-	     JSONObject json=JSON.parseObject(result);
-	     String reqResultCode=json.getString("resultCode");
-	     if("000000".equals(reqResultCode)){
-	         String dataStr=(String)json.get("data");
-	         dataJson=JSON.parseObject(dataStr);
-	         Object openId =dataJson.get("openId");
-	         if(openId!=null) {
-	        	 return openId.toString();
-	         }
-	     }else{
-	     	//请求过程失败
-	    	 LOG.info("请求失败,请求错误码:"+reqResultCode);
-	     }
-	     return null;
+			return openId==null?null:openId.toString();
+	}
+	
+	public static void main(String[] args) {
+		getUserInfo("liangkf11");
 	}
 }
 
