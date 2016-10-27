@@ -155,7 +155,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 				message : "正在处理中，请稍候...",
 				success : function(data) {
 					if(data) {
-						_this._returnUrl();
+						_this._retprintDeliveryOrderurnUrl();
 					}
 				}
 			});
