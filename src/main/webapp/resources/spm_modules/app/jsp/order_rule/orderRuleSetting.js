@@ -200,7 +200,7 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
 						$('#buyIpMonitorTimeType').val(data.orderRuleDetailVo.buyIpMonitorTimeType);
 						$('#buyIpMonitorOrderSum').val(data.orderRuleDetailVo.buyIpMonitorOrderSum);
 						$('#mergeOrderSettingTime').val(data.orderRuleDetailVo.mergeOrderSettingTime);
-						$('#mergeOrderSettingTimeType').val(data.orderRuleDetailVo.mergeOrderSettingTimeType);
+						$('#mergeOrderSettingTimeType').val('MIN');//(data.orderRuleDetailVo.mergeOrderSettingTimeType);
 						
 					}
 				}
