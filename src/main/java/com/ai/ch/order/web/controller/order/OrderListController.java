@@ -220,7 +220,7 @@ public class OrderListController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+					//		product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 							product.setProdState(orderDetail.getBusiCode());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -284,14 +284,13 @@ public class OrderListController {
 		return null;
 	}
     
-    
     /**
 	 * 获取物流信息
 	 * @param com
 	 * @param oderNo
 	 * @return  List<LogisticsDetail>
 	 */
-	private List<LogisticsDetail> getLogisticsDetails(String com,String oderNo) {
+	private static List<LogisticsDetail> getLogisticsDetails(String com,String oderNo) {
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("orderNo", oderNo);
 		params.put("com", com);
