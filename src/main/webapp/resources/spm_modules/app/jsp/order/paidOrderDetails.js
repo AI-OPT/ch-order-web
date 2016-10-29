@@ -143,7 +143,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 				var horOrderId=$("#"+i+"_horOrderId").text();
 				var salePrice=$("#"+i+"_salePrice").text();
 				var prodObj = {"skuId":skuId,"prodName":prodName,"extendInfo":extendInfo,
-						"buySum":buySum,"horOrderId":horOrderId,"salePrice":salePrice};
+						"buySum":buySum,"mergeOrderId":horOrderId,"salePrice":salePrice};
 				orderInfo.push(prodObj);
 			 })
 			var _orderInfos=JSON.stringify(orderInfo);
