@@ -329,8 +329,8 @@
                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                      <h4 class="modal-title" id="myModalLabel">提示</h4>
                 </div>
-                 <div class="modal-body">
-                    	此订单存在合并的订单,是否合并打印?
+                 <div class="modal-body" style="padding:27px">
+                    	<h5>此订单存在合并的订单,是否合并打印?</h5>
                 </div>
                <div class="modal-footer">
                     <button type="button" onclick="pager._displayDeliveryOrder('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');" class="btn btn-primary" data-dismiss="modal">是</button>
