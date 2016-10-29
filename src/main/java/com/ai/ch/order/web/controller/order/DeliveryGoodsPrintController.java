@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -28,12 +29,14 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
+import com.ai.paas.ipaas.util.StringUtil;
 import com.ai.slp.order.api.delivergoods.interfaces.IDeliverGoodsPrintSV;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintInfoVo;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintInfosRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintRequest;
 import com.ai.slp.order.api.delivergoods.param.DeliverGoodsPrintResponse;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
@@ -73,14 +76,30 @@ public class DeliveryGoodsPrintController {
 			String orderInfos) {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<BaseResponse> responseData =null;
-		try {
+		List<DeliverGoodsPrintInfoVo> vos =new ArrayList<DeliverGoodsPrintInfoVo>();
+		    try {
+		    	JSONArray jsStr = JSONArray.parseArray(orderInfos);
+	            Iterator<Object> it = jsStr.iterator();
+	            while (it.hasNext()) {
+	            	List<Long> list=new ArrayList<Long>();
+	                JSONObject ob = (JSONObject) it.next();
+	                DeliverGoodsPrintInfoVo passport = (DeliverGoodsPrintInfoVo)JSON.toJavaObject(ob, DeliverGoodsPrintInfoVo.class);
+	                String mergeOrderId = ob.getString("mergeOrderId");
+	                if(!StringUtil.isBlank(mergeOrderId)){
+	                	String[] mer = mergeOrderId.split(",");
+	                	for (String str : mer) {
+	                		list.add(Long.parseLong(str));
+						}
+	                }
+	                passport.setHorOrderId(list);
+	                vos.add(passport);
+	            }
 			DeliverGoodsPrintInfosRequest req=new DeliverGoodsPrintInfosRequest();
-			List<DeliverGoodsPrintInfoVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliverGoodsPrintInfoVo.class); 
-			for (DeliverGoodsPrintInfoVo deliverGoodsPrintInfoVo : deliveryProdPrintVos) {
+			for (DeliverGoodsPrintInfoVo deliverGoodsPrintInfoVo : vos) {
 				deliverGoodsPrintInfoVo.setSalePrice(AmountUtil.YuanToLi(deliverGoodsPrintInfoVo.getSalePrice()));
 			}
 			req.setOrderId(Long.valueOf(orderId));
-			req.setInvoicePrintVos(deliveryProdPrintVos);
+			req.setInvoicePrintVos(vos);
 			req.setTenantId(user.getTenantId());
 			IDeliverGoodsPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliverGoodsPrintSV.class);
 			BaseResponse response = deliveryOrderPrintSV.print(req);
