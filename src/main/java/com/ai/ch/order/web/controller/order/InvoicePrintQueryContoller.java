@@ -1,19 +1,23 @@
 package com.ai.ch.order.web.controller.order;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
+import com.ai.ch.order.web.model.order.InvoicePrintQueryVo;
+import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.RequestParameterUtils;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
+import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV;
 import com.ai.slp.order.api.invoiceprint.param.InvoicePrintRequest;
@@ -27,7 +31,7 @@ public class InvoicePrintQueryContoller {
 	
 	@RequestMapping(value="/invoiceController/queryList",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
-	public ResponseData<PageInfo<InvoicePrintVo>> queryList(HttpServletRequest request){
+	public ResponseData<PageInfo<InvoicePrintQueryVo>> queryList(HttpServletRequest request){
 		//
 		String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
         String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
@@ -39,7 +43,21 @@ public class InvoicePrintQueryContoller {
 		requestVo.setPageSize(Integer.parseInt(strPageSize));
 		
 		InvoicePrintResponse response = DubboConsumerFactory.getService(IInvoicePrintSV.class).queryList(requestVo);
-		ResponseData<PageInfo<InvoicePrintVo>> responseData = new ResponseData<PageInfo<InvoicePrintVo>>(ResponseData.AJAX_STATUS_SUCCESS,"success",response.getPageInfo());
+		
+		List<InvoicePrintQueryVo> queryList=new ArrayList<InvoicePrintQueryVo>();
+		PageInfo<InvoicePrintQueryVo> pageQuery=new PageInfo<InvoicePrintQueryVo>();
+		PageInfo<InvoicePrintVo> info = response.getPageInfo();
+		List<InvoicePrintVo> result = info.getResult();
+		BeanUtils.copyProperties(pageQuery, info);
+		for (InvoicePrintVo invoicePrintVo : result) {
+			InvoicePrintQueryVo invoiceQuery=new InvoicePrintQueryVo();
+			BeanUtils.copyProperties(invoiceQuery, invoicePrintVo);
+			invoiceQuery.setInvoiceMoney(AmountUtil.LiToYuan(invoicePrintVo.getInvoiceAmount()));
+			invoiceQuery.setTaxMoney(AmountUtil.LiToYuan(invoicePrintVo.getTaxAmount()));
+			queryList.add(invoiceQuery);
+		}
+		pageQuery.setResult(queryList);
+		ResponseData<PageInfo<InvoicePrintQueryVo>> responseData = new ResponseData<PageInfo<InvoicePrintQueryVo>>(ResponseData.AJAX_STATUS_SUCCESS,"success",pageQuery);
 		//
 		log.info("responseData:"+JSON.toJSONString(responseData));
 		return responseData;
