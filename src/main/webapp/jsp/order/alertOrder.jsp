@@ -27,7 +27,7 @@
 					                </li>
 					                <li class="col-md-4">
 					                    <p class="word">结束时间</p>
-					                    <p><input name="control_date" class="int-text int-medium " type="text"  id="orderTimeEnd" name="orderTimeEnd"/>
+					                    <p><input name="control_date" readonly class="int-text int-medium " type="text"  id="orderTimeEnd" name="orderTimeEnd"/>
 					                     <span class="time"><i class="fa  fa-calendar" ></i></span>
 					                    </p>
 					                </li> 
