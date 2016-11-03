@@ -86,9 +86,7 @@ public class StasticOrderController {
             shopReq.setShopName(reqVo.getSupplierName());
             QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
             if(base.getResponseHeader().getIsSuccess()==true){
-            	req.setSupplierId(base.getUserId());
-            }else{
-            	req.setSupplierId("-1");
+            	req.setSupplierId(base.getUserId()==null?reqVo.getSupplierName():base.getUserId());
             }
             long shopEnd=System.currentTimeMillis();
         	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopEnd+",用时:"+(shopEnd-shopStart)+"毫秒");

@@ -111,7 +111,11 @@ public class OrderListController {
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
 			String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
-			queryRequest.setUserId(userId);
+			if(StringUtil.isBlank(userId)) {
+				queryRequest.setUserId(queryParams.getUsername());
+			}else {
+				queryRequest.setUserId(userId);
+			}
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
 			PageInfo<OrdOrderListVo> pageInfoVo = new PageInfo<OrdOrderListVo>();
