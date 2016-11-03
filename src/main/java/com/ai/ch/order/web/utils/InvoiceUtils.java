@@ -100,8 +100,8 @@ public class InvoiceUtils {
 		try {
 			httpPost.setEntity(new StringEntity(entity, "UTF-8"));
 			httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
-			if(getProxy() !=null)
-				httpPost.setConfig(getProxy());
+		/*	if(getProxy() !=null)
+				httpPost.setConfig(getProxy());*/
 			CloseableHttpResponse response = client.execute(httpPost);
 			retVal = EntityUtils.toString(response.getEntity());
 		} catch (Exception e) {
