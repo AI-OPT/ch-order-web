@@ -71,7 +71,7 @@
                         <div class="main-box clearfix"><!--白色背景-->
                         <!--标题-->
                             <header class="main-box-header clearfix">
-                            <h2 class="pull-left">查询结果</h2>
+                            <h2 class="pull-left">发票列表</h2>
                             </header>
                         <!--标题结束-->   
                             <div class="main-box-body clearfix">
@@ -121,9 +121,9 @@
 	                                            <td>{{:orderId}}</td>
 	                                            <td>{{:invoiceContent}}</td>
 	                                            <td>{{:invoiceTitle}}</td>
-	                                            <td>￥{{:invoiceAmount / 1000}}</td>
+	                                            <td>￥{{:invoiceMoney}}</td>
 	                                            <td>{{:taxRate}}%</td>
-	                                            <td>{{:taxAmount / 1000}}</td>
+	                                            <td>{{:taxMoney}}</td>
 	                                            <td>
 													{{if invoiceType == '0'}}电子发票{{/if}}
 													{{if invoiceType == '1'}}纸质发票{{/if}}
