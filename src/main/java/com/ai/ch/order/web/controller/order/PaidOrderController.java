@@ -125,7 +125,7 @@ public class PaidOrderController {
 	@RequestMapping("/getPaidOrderData")
 	@ResponseBody
 	public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,
-			BehindQueryOrderLisReqVo reqVo) {
+			BehindQueryOrderLisReqVo reqVo,String afterSaleState) {
 		long start=System.currentTimeMillis();
     	LOG.info("开始执行售后列表查询getPaidOrderData，当前时间戳："+start);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
@@ -137,10 +137,14 @@ public class PaidOrderController {
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
 		ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
-		String[] stateArray = Constants.OrdOrder.State.PAIED_STATES.split(",");
 		List<String> stateList = new LinkedList<String>();
-		for (String state : stateArray) {
-			stateList.add(state);
+		if(!StringUtil.isBlank(afterSaleState)) {
+			stateList.add(afterSaleState);
+		}else {
+			String[] stateArray = Constants.OrdOrder.State.PAIED_STATES.split(",");
+			for (String state : stateArray) {
+				stateList.add(state);
+			}
 		}
 		req.setStateList(stateList);
 		String startT = reqVo.getStartTime();
