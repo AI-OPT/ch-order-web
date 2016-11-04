@@ -145,7 +145,7 @@
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address },${orderDetail.contactName},${orderDetail.contactTel}</p>
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>
