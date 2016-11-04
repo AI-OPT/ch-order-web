@@ -192,6 +192,10 @@ define('app/jsp/order/paidOrderList', function (require, exports, module) {
 				    "userName":function () {
 				    	_this.userName =jQuery.trim($("#userName").val());
 				    	 return _this.userName;
+				    },
+				    "afterSaleState":function () {
+				    	_this.afterSaleState =jQuery.trim($("#afterSaleSate option:selected").val());
+				    	return _this.afterSaleState;
 				    }
 				}
 			}
