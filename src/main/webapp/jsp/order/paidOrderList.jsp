@@ -82,6 +82,25 @@
 								            		</select>
 							            		</p>
 							            	</li>
+							            		<li class="col-md-6">
+								            	<p class="word">售后订单状态</p>
+								            	<p>
+								            		<select class="select select-small" id="afterSaleSate">
+								            			<option value="">请选择</option>
+								            			<option value="21">待审核</option>
+								            			<option value="212">第一次审核失败</option>
+								            			<option value="213">第二次审核失败</option>
+								            			<option value="22">待买家退货</option>
+								            			<option value="23">待卖家收货确认</option>
+								            			<option value="31">待退款</option>
+								            			<option value="312">处理中</option>
+								            			<option value="92">退货完成</option>
+								            			<option value="93">换货完成</option>
+								            			<option value="94">退费完成</option>
+								            			<option value="95">退费失败</option>
+								            		</select>
+								            	</p>
+							            	</li>
 							            </ul>
 						            </div>
 						            <ul>
