@@ -176,10 +176,21 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款理由:</p>
-                            			<p class="wide-field" style="word-break:break-all;"></p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">图片:</p>
+                            			<c:forEach items="${order.prodList}" var="sp">
+								          <tr>
+								                 <td class="sp"  width="45%">
+								                      <table width="100%" border="0">
+								                         <tr>
+								                             <td><img src="${sp.imageUrl}"></td>
+								                         </tr>
+								                      </table>
+								                 </td>
+							              </tr> 
+						              </c:forEach>
                             		</li>
                             	</ul>
                             </div>
