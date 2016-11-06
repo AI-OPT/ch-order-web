@@ -12,6 +12,7 @@
 <input type="hidden" value="${order.accountId}" id="accountId">
 <input type="hidden" value="${order.operId}" id="operId">
 <input type="hidden" value="${order.userId}" id="userId">
+<input type="hidden" value="${order.token}" id="token">
 <input type="hidden" name="sourceFlag" id="sourceFlag" value="${requestScope.sourceFlag}"/>
 </head>
 <body>
@@ -232,14 +233,7 @@
 		                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
 		                            		</li>
 		                            	</ul>
-		                            	<ul>
-		                            		<li class="col-md-6">
-		                            			<p class="word">图片：</p>
-		                            			<p></p>
-		                            		</li>
-		                            	</ul>
 		                            </div>
-                            	
                             	</c:when>
                             	<c:otherwise>
                             		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
@@ -283,12 +277,6 @@
 		                            		<li class="col-md-6">
 		                            			<p class="word">快递单号：</p>
 		                            			<p class="wide-field" style="word-break:break-all;">${order.expressOddNumber}</p>
-		                            		</li>
-		                            	</ul>
-		                            	<ul>
-		                            		<li class="col-md-6">
-		                            			<p class="word">图片：</p>
-		                            			<p></p>
 		                            		</li>
 		                            	</ul>
 		                            </div>
