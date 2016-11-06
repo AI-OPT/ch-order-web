@@ -435,6 +435,8 @@ public class PaidOrderController {
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+									ordProductVo.getProdExtendInfo()));   // 售后图片  
 							product.setGiveJF(ordProductVo.getGiveJF());
 							prodList.add(product);
 						}
@@ -580,14 +582,14 @@ public class PaidOrderController {
 	@ResponseBody
 	public ResponseData<String> refund(HttpServletRequest request, String updateInfo, String updateMoney,
 			String orderId, String accountId, String openId, String downOrdId, String giveJF, String saleJF,
-			String banlanceIfId, String parentOrderId) {
+			String banlanceIfId, String parentOrderId,String token) {
 		ResponseData<String> responseData = null;
 		if (!StringUtil.isBlank(downOrdId)) {
 			// 查询用户积分 判断是否允许退货
 			// TODO
 			String appId = "30a10e21";
 			String bisId = "bisId";
-			int surplusCash = integralCashQry(accountId, openId, appId);
+			int surplusCash = integralCashQry(accountId, openId, appId,token);
 			int giveCash = 0;
 			if (!StringUtil.isBlank(giveJF)) {
 				try {
@@ -598,7 +600,7 @@ public class PaidOrderController {
 			}
 			if (surplusCash >= giveCash) {// 当前用户积分余额大于商品赠送积分
 				// 用户消费积分撤销
-				shopback(accountId, openId, appId, downOrdId, bisId, saleJF);
+				shopback(accountId, openId, appId, downOrdId, bisId, saleJF,token);
 				// 退款
 				ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
 						banlanceIfId);
@@ -643,12 +645,13 @@ public class PaidOrderController {
 	 * @param appId
 	 * @return cash
 	 */
-	private int integralCashQry(String accountId, String openId, String appId) {
+	private int integralCashQry(String accountId, String openId, String appId,String token) {
 		System.out.println("用户积分查询开始>>>>");
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId", accountId);
 		params.put("openId", openId);
 		params.put("appId", appId);
+		params.put("token", token);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SEARCH_APPKEY);
 		String param = JSON.toJSONString(params);
@@ -687,7 +690,7 @@ public class PaidOrderController {
 	 * @author zhouxh
 	 */
 	private ResponseData<String> shopback(String accountId, String openId, String appId, String oid, String bisId,
-			String backCash) {
+			String backCash,String token) {
 		System.out.println("用户积分撤销开始>>>>");
 		ResponseData<String> responseData = null;
 		Map<String, String> params = new HashMap<String, String>();
@@ -697,6 +700,7 @@ public class PaidOrderController {
 		params.put("oid", oid);
 		params.put("bisId", bisId);
 		params.put("backCash", backCash);
+		params.put("token", token);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
 		String param = JSON.toJSONString(params);
