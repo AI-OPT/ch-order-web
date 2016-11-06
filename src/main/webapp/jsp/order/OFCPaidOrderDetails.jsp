@@ -157,7 +157,7 @@
 						<h4 class="modal-title text-c" id="backModalLabel${status.index}">
 							${prod.prodName}
 						</h4><br/>
-						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text"/></p>
+						<p class="text-c"><input id="backNum${prod.prodDetalId}" class="int-text int-large" placeholder="请输入退货数量" type="text" maxlength="19"/></p>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal"
