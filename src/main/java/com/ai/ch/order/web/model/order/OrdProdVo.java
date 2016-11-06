@@ -81,6 +81,21 @@ public class OrdProdVo implements Serializable{
 	 */
 	private String skuId;
 	
+	/**
+	 * 售后图片信息
+	 */
+	private String afterSaleImageUrl;
+	
+	/**
+	 * 售后图片类型
+	 */
+	private String afterSaleType;
+	
+	/**
+	 * 售后理由
+	 */
+	private String afterSaleReason;
+	
 	public String getProdSalePrice() {
 		return prodSalePrice;
 	}
@@ -198,5 +213,29 @@ public class OrdProdVo implements Serializable{
 
 	public void setProdStateName(String prodStateName) {
 		this.prodStateName = prodStateName;
+	}
+
+	public String getAfterSaleImageUrl() {
+		return afterSaleImageUrl;
+	}
+
+	public void setAfterSaleImageUrl(String afterSaleImageUrl) {
+		this.afterSaleImageUrl = afterSaleImageUrl;
+	}
+
+	public String getAfterSaleReason() {
+		return afterSaleReason;
+	}
+
+	public void setAfterSaleReason(String afterSaleReason) {
+		this.afterSaleReason = afterSaleReason;
+	}
+
+	public String getAfterSaleType() {
+		return afterSaleType;
+	}
+
+	public void setAfterSaleType(String afterSaleType) {
+		this.afterSaleType = afterSaleType;
 	}
 }
