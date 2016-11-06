@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ValidateReturnGoosNumController {
 	private static final Logger log = LoggerFactory.getLogger(ValidateReturnGoosNumController.class);
 	public boolean isNumeric(String str){ 
-	   Pattern pattern = Pattern.compile("^[1-9]+\\d*$"); 
+	   Pattern pattern = Pattern.compile("^[1-9]+\\d*$");
 	   Matcher isNum = pattern.matcher(str);
 //	   if( !isNum.matches() ){
 //	       return false; 
@@ -38,8 +38,12 @@ public class ValidateReturnGoosNumController {
 			msg = "请输入退换货数量";
 			return msg;
 		}
-		if(Integer.parseInt(str) > Integer.parseInt(buyNum)){
-			msg = "退货数量不能大于当前数量";
+		if(str.length()>19) {
+			msg = "退换货数量的位数不能大于19位";
+			return msg;
+		}
+		if(Long.valueOf(str) > Long.parseLong(buyNum)){
+			msg = "退换货数量不能大于当前数量";
 			return msg;
 		}
 		return msg;
