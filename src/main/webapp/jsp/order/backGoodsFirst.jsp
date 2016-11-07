@@ -181,7 +181,7 @@
                             		<li class="col-md-6">
                             			<p class="word">图片：</p>
                             			<c:forEach items="${order.prodList}" var="sp">
-								          <p class="wide-field" style="word-break:break-all;"><img src="${sp.imageUrl}"></p>
+								          <p class="wide-field" style="word-break:break-all;"><img src="${sp.afterSaleImageUrl}"></p>
 						                </c:forEach>
                             		</li>
                             	</ul>
