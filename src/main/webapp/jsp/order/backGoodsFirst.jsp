@@ -151,7 +151,7 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">收货信息:</p>
+                            			<p class="word">收货信息：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.aftercontactInfo}</p>
                             		</li>
                             	</ul>
@@ -168,29 +168,21 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">退款金额:</p>
+                            			<p class="word">退款金额：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.ordAdjustFee}</p>
                             		</li>
                             		
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">退款理由:</p>
+                            			<p class="word">退款理由：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">图片:</p>
+                            			<p class="word">图片：</p>
                             			<c:forEach items="${order.prodList}" var="sp">
-								          <tr>
-								                 <td class="sp"  width="45%">
-								                      <table width="100%" border="0">
-								                         <tr>
-								                             <td><img src="${sp.imageUrl}"></td>
-								                         </tr>
-								                      </table>
-								                 </td>
-							              </tr> 
-						              </c:forEach>
+								          <p class="wide-field" style="word-break:break-all;"><img src="${sp.imageUrl}"></p>
+						                </c:forEach>
                             		</li>
                             	</ul>
                             </div>

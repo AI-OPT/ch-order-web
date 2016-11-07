@@ -176,18 +176,21 @@
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.busiCodeName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">退款金额:</p>
+                            			<p class="word">退款金额：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
                             		</li>
                             		
                             	</ul>
-                            	<ul>
+                            		<ul>
                             		<li class="col-md-6">
-                            			<p class="word">退款理由:</p>
-                            			<p class="wide-field" style="word-break:break-all;"></p>
+                            			<p class="word">退款理由：</p>
+                            			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">图片:</p>
+                            			<p class="word">图片：</p>
+                            			<c:forEach items="${order.prodList}" var="sp">
+								          <p class="wide-field" style="word-break:break-all;"><img src="${sp.imageUrl}"></p>
+						                </c:forEach>
                             		</li>
                             	</ul>
                             </div>
