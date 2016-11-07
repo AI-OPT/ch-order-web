@@ -34,6 +34,7 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.dubbo.util.HttpClientUtil;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.CollectionUtil;
+import com.ai.opt.sdk.util.ParseO2pDataUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
@@ -658,16 +659,10 @@ public class PaidOrderController {
 		System.out.println("用户积分查询参数>>>>" + param);
 		try {
 			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SEARCH_URL, param, headers);
-			// 将返回结果，转换为JSON对象
-			JSONObject json = JSON.parseObject(result);
-			String reqResultCode = json.getString("resultCode");
-			if ("000000".equals(reqResultCode)) {
-				JSONObject data = JSON.parseObject(json.getString("data"));
-				System.out.println("用户积分查询返回参数>>>>" + data);
-				String dataStr = data.getString("code");
-				if ("200".equals(dataStr)) {
-					return Integer.parseInt(data.getString("cash"));
-				}
+			JSONObject jsonObject = ParseO2pDataUtil.getData(result);
+			String dataStr =jsonObject.getString("code");
+			if ("200".equals(dataStr)) {
+				return Integer.parseInt(jsonObject.getString("cash"));
 			} else {
 				LOG.error("查询用户积分请求失败", null);
 			}
@@ -699,25 +694,18 @@ public class PaidOrderController {
 		params.put("appId", appId);
 		params.put("oid", oid);
 		params.put("bisId", bisId);
-		params.put("backCash", backCash);
+	//	params.put("backCash", backCash);
 		params.put("token", token);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
 		String param = JSON.toJSONString(params);
 		try {
-
 			System.out.println("撤销积分参数>>>>" + param);
 			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SHOPBACK_URL, param, headers);
-			// 将返回结果，转换为JSON对象
-			JSONObject json = JSON.parseObject(result);
-			String reqResultCode = json.getString("resultCode");
-			if ("000000".equals(reqResultCode)) {
-				JSONObject data = JSON.parseObject(json.getString("data"));
-				System.out.println("撤销积分返回参数>>>>" + data);
-				String dataStr = data.getString("code");
-				if ("200".equals(dataStr)) {
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
-				}
+			JSONObject jsonObject = ParseO2pDataUtil.getData(result);
+			String dataStr =jsonObject.getString("code");
+			if ("200".equals(dataStr)) {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
 			} else {
 				System.out.println(">>>>>>>撤销积分请求过程失败");
 				// 请求过程失败
