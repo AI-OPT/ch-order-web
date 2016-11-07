@@ -297,25 +297,27 @@ public class StasticOrderController {
 			}
 			if((Constants.OrdOrder.State.WAIT_CHECK.equals(state)||         //待审核
 					Constants.OrdOrder.State.WAIT_BACK.equals(state)||  //待买家退货
-					Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state) ||    //待退费
+					Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state) ||    //待卖家收货确认
 					Constants.OrdOrder.State.NO_CHECK.equals(state))&& Constants.OrdOrder.BusiCode.EXCHANGE_ORDER.equals(busiCode)
-					) {   //退款完成
+					) {   
 				return new ModelAndView("jsp/order/staticChangeGoodsFirst", model);
 			}
 			if((Constants.OrdOrder.State.WAIT_CHECK.equals(state)||         //待审核
 					Constants.OrdOrder.State.WAIT_BACK.equals(state)||  //待买家退货
+					Constants.OrdOrder.State.WAIT_GET_GOODS.equals(state) || //待卖家收货确认
 					Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state) ||    //待退费
 					Constants.OrdOrder.State.REFUND_ING.equals(state) ||   //处理中
+					Constants.OrdOrder.State.NO_AGAIN_CHECK.equals(state)|| 
 					Constants.OrdOrder.State.NO_CHECK.equals(state))&& Constants.OrdOrder.BusiCode.UNSUBSCRIBE_ORDER.equals(busiCode)
-					) {   //退款完成
+					) {   
 				return new ModelAndView("jsp/order/staticBackGoodsFirst", model);
 			}
 			if((Constants.OrdOrder.State.WAIT_CHECK.equals(state)||         //待审核
-					Constants.OrdOrder.State.WAIT_BACK.equals(state)||  //待买家退货
 					Constants.OrdOrder.State.WAIT_BACK_FEE.equals(state) || //待退费
 					Constants.OrdOrder.State.REFUND_ING.equals(state) ||   //处理中
+					Constants.OrdOrder.State.NO_AGAIN_CHECK.equals(state)||
 					Constants.OrdOrder.State.NO_CHECK.equals(state))&& Constants.OrdOrder.BusiCode.CANCEL_ORDER.equals(busiCode)     //审核失败
-					) {   //退款完成
+					) {   
 				return new ModelAndView("jsp/order/staticBackGoodsFirst", model);
 			}
 		} catch (Exception e) {
