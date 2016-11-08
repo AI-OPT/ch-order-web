@@ -148,7 +148,7 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">收货信息:</p>
+                            			<p class="word">收货信息：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.aftercontactInfo}</p>
                             		</li>
                             	</ul>
@@ -165,13 +165,16 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
                             		</li>
                             		<li class="col-md-6">
-	                            		<p class="word">换货理由:</p>
-	                            		<p class="wide-field" style="word-break:break-all;"></p>
+	                            		<p class="word">换货理由：</p>
+	                            		<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
-                            			<p class="word">图片:</p>
+                            			<p class="word">图片：</p>
+                            			<c:forEach items="${order.prodList}" var="sp">
+								          <p class="wide-field" style="word-break:break-all;"><img src="${sp.afterSaleImageUrl}"></p>
+						                </c:forEach>
                             		</li>
                             	</ul>
                             </div>
