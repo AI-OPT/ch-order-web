@@ -301,6 +301,8 @@ public class PaidOrderController {
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+									ordProductVo.getProdExtendInfo()));   // 售后图片  
 							product.setProdTotalFee(AmountUtil.LiToYuan(ordProductVo.getTotalFee()));
 							prodList.add(product);
 						}
