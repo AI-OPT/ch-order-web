@@ -37,87 +37,87 @@
                                     <tbody>
                                       <tr>
 							                <td value="1100010">顺丰</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName1" name="flowName1"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 							          <tr>
 							                <td value="1100011">申通</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName2" name="flowName2"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100012">圆通</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName3" name="flowName3"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 							          <tr>
 							                <td value="1100013">中通</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName4" name="flowName4"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100014">韵达</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName5" name="flowName5"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 							          <tr>
 							                <td value="1100015">宅急送</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName6" name="flowName6"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100016">全峰</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName7" name="flowName7"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100017">天天</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName8" name="flowName8"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100018">EMS</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName9" name="flowName9"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100019">中国邮政</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName10" name="flowName10"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100020">百世汇通</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName11" name="flowName11"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100021">德邦</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName12" name="flowName12"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100022">国通</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName13" name="flowName13"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100023">DHL</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName14" name="flowName14"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						               <tr>
 							                <td value="1100024">优速</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName15" name="flowName15"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						              <tr>
 							                <td value="1100025">UPS</td>
-							                <td><input type="text" class="int-text int-medium" name="flowName"></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName16" name="flowName16"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
 						                <tr>
-							                <td value="1100026"><input type="text" class="int-text int-medium"  placeholder="请填写快递公司名" id="otherName"></td>
-							                <td><input type="text" class="int-text int-medium" name="flowName" id="other"></td>
+							                <td value="1100026"><input type="text" class="int-text int-medium"  placeholder="请填写快递公司名" id="otherName" onblur="pager._valideName()"><input type='text' id='codeErr' class="error" style='display:none;color:red;font-weight:r400'></td>
+							                <td><input type="text" class="int-text int-medium" id="flowName17" name="flowNameother"></td>
 							                <td><a href="javaScript:void(0)"  style="text-decoration: underline" onclick="pager._confirmSendGoods('${orderId}',this)">确认发货</a></td>
 						              </tr>
                                     </tbody>

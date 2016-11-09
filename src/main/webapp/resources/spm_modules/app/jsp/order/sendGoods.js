@@ -44,13 +44,145 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     	_initValidate:function(){
     		var formValidator=$("#dataForm").validate({
     			rules: {
-    				flowName: {
+    				flowName1: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName2: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName3: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName4: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName5: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName6: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName7: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName8: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName9: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName10: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName11: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName12: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName13: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName14: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName15: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowName16: {
+    					regexp: /^[0-9a-zA-Z]*$/g,
+    					maxlength:20
+    				},
+    				flowNameother: {
     					regexp: /^[0-9a-zA-Z]*$/g,
     					maxlength:20
     				}
     			},
     			messages: {
-    				flowName: {
+    				flowName1: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName2: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName3: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName4: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName5: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName6: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName7: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName8: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName9: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName10: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName11: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName12: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName13: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName14: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName15: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName13: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowName16: {
+    					regexp: "只能输入字母或数字",
+    					maxlength:"最大长度不能超过{0}"
+    				},
+    				flowNameother: {
     					regexp: "只能输入字母或数字",
     					maxlength:"最大长度不能超过{0}"
     				}
@@ -59,24 +191,46 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
     		return formValidator;
     	},
     	
+    	_valideName(){
+    		 var name = $("#otherName").val();
+    		 $("#codeErr").hide();
+    		 if(name.length>20){
+    			 $("#codeErr").val("最大长度不能超过20");
+    			 $("#codeErr").show();
+    			 return false;
+    		 }
+    	},
     	_confirmSendGoods:function(obj,thisObj){
     		var count = 0;
-    		$("input[name='flowName']").each(function(){
-    	        if ($(this).val() != ""){
+    		/*$("input[name='flowName']").each(function(){
+    	        if ($(this).val()!= ""){
     	            count++;
     	        }
-    	    });
+    	    });*/
+    		for(var i=1;i<18;i++){
+    			if($("#flowName"+i).val()!=""){
+    				count++;
+    			}
+    		}
     		if(count>1 || count == 0){
     			$('#eject-mask').fadeIn(100);
     			$('#p-operation').slideDown(200);
     			return false;
 	        }
-    		 var id = $("#other").val();
+    		 var id = $("#flowName17").val();
     		 var name = $("#otherName").val();
-    		 if((id=="" && name!="") || (id!="" && name=="")){
-    			 $('#eject-mask').fadeIn(100);
-     			$('#p-operation').slideDown(200);
+    		debugger;
+    		 if((id!="" && name=="")){
+    			$("#codeErr").val("快递公司名不能为空");
+    			$("#codeErr").show();
      			return false; 
+    		 }
+    		 if(id!=""&&name!=""){
+    			 if(name.length>20){
+    				 $("#codeErr").val("最大长度为20");
+    	    		 $("#codeErr").show();
+    	    		 return false;
+    			 }
     		 }
     		 var _this = this;
  			var formValidator=_this._initValidate();
