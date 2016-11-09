@@ -19,6 +19,7 @@
 </script>
 </head>
 <body>
+      	<input type="hidden" value="0" id="whetherPrint">
       		  <div class="row"><!--外围框架-->
             <div class="col-lg-12"><!--删格化-->
                 <div class="row"><!--内侧框架-->
@@ -305,10 +306,10 @@
             <button type="button" class="close" 
                data-dismiss="modal" aria-hidden="true">
                   &times;
-            </button>
-            <h2 class="modal-title text-c" id="myModalLabel">
+            </button><br/>
+            <!-- <h2 class="modal-title text-c" id="myModalLabel">
              	  提货单清单
-            </h2>
+            </h2> -->
          </div>
          <input id="deliveryModal_orderId" type="hidden" value="" />
          <input id="deliveryModal_parentOrderId" type="hidden" value="" />
@@ -362,9 +363,15 @@
 	<div class="mask" id="eject-mask"></div>
 	</div>
 <!--/提示弹出框操作结束-->
-
+		
 </body>
 <script id="deliveryOrderTempalte" type="text/x-jsrender">
+					<div id="realPrint">
+								<br/>
+							   <h3 class="modal-title text-c" id="myModalLabel">
+             	  提货单清单
+            </h3>
+			<br/>
 					<div class="bj-f3">
 						<p>
 							<span>客户订单号:</span>
@@ -407,9 +414,11 @@
 							<span>{{:sum}}</span><br/>
 						</p>
 					</div>
+			</div>
          <div class="modal-footer">
+			<input type="button"  onclick="pager._truePrint()" value="打印" class="btn btn-primary" data-dismiss="modal"/>
             <button type="button" onclick="pager._printDeliveryOrder();" class="btn btn-primary" data-dismiss="modal">
-               	确认打印
+               	确认
             </button>
             <button type="button" class="btn btn-default" 
                data-dismiss="modal">取消

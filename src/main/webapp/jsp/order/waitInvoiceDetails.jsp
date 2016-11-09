@@ -318,10 +318,10 @@
             <button type="button" class="close" 
                data-dismiss="modal" aria-hidden="true">
                   &times;
-            </button>
-            <h2 class="modal-title text-c" id="myModalLabel">
+            </button><br/>
+          <!--   <h2 class="modal-title text-c" id="myModalLabel">
              	  发货清单
-            </h2>
+            </h2> -->
          </div>
          <div class="modal-body" id="deliverPrintModal"> </div>
       </div>
@@ -330,7 +330,13 @@
 
 </body>
 <script id="deliverPrintTempalte" type="text/x-jsrender">
-						<div class="form-label">
+					<div id="realPrint">
+								<br/>
+							   <h3 class="modal-title text-c" id="myModalLabel">
+             					  发货单清单
+            					</h3>
+							<br/>
+					<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">客户订单号：</p>
@@ -345,13 +351,13 @@
 					                <li  class="col-md-6">
 					                    <p class="word">发货仓库：</p>
 					                    <p>{{:routeId}}</p>
-					                </li>  
-					            </ul>
- 								<ul>
-					                <li  class="col-md-6">
+					                </li> 
+									<li  class="col-md-6">
 					                    <p class="word">收货人姓名：</p>
 					                    <p>{{:contactName}}</p>
-					                </li>
+					                </li> 
+					            </ul>
+ 								<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人电话：</p>
 					                    <p>{{:contactTel}}</p>
@@ -397,9 +403,11 @@
 							<span>{{:sum}}</span><br/>
 						</p>
 					</div>
+	</div>
          <div class="modal-footer">
+			<input type="button"  onclick="pager._truePrint()" value="打印" class="btn btn-primary" data-dismiss="modal"/>
 			<button type="button" onclick="pager._printInvoiceOrder();" class="btn btn-primary" data-dismiss="modal">
-               	确认打印
+               	确认
             </button>
             <button type="button" class="btn btn-default" 
                data-dismiss="modal">取消
