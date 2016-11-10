@@ -9,6 +9,7 @@
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
     response.setHeader("Pragma", "No-cache");
+    response.setHeader("Access-Control-Allow-Origin", "*");
     
     String _slpbase=_base+"/resources/slpmall";
     request.setAttribute("_slpbase", _slpbase);
@@ -43,7 +44,7 @@
 
 <!-- <link rel="stylesheet" type="text/css" href="${_base}/resources/slpmall/styles/bootstrap.css"> -->
 
-<img id="img_logincheck" style="display:none;" src="${_base}/logincheck?req=<%=new Date().getTime() %>">
+<%-- <img id="img_logincheck" style="display:none;" src="${_base}/logincheck?req=<%=new Date().getTime() %>"> --%>
 
 <link rel="stylesheet" type="text/css" href="${uedroot}/css/bootstrap/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="${uedroot}/css/bootstrap/font-awesome.css"/>
