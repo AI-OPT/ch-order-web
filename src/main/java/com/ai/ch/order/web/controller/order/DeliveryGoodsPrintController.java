@@ -85,6 +85,8 @@ public class DeliveryGoodsPrintController {
 	                JSONObject ob = (JSONObject) it.next();
 	                DeliverGoodsPrintInfoVo passport = (DeliverGoodsPrintInfoVo)JSON.toJavaObject(ob, DeliverGoodsPrintInfoVo.class);
 	                String mergeOrderId = ob.getString("mergeOrderId");
+	                String price= ob.getString("price");
+	                passport.setSalePrice(AmountUtil.YToLi(price));
 	                if(!StringUtil.isBlank(mergeOrderId)){
 	                	String[] mer = mergeOrderId.split(",");
 	                	for (String str : mer) {
@@ -95,9 +97,6 @@ public class DeliveryGoodsPrintController {
 	                vos.add(passport);
 	            }
 			DeliverGoodsPrintInfosRequest req=new DeliverGoodsPrintInfosRequest();
-			for (DeliverGoodsPrintInfoVo deliverGoodsPrintInfoVo : vos) {
-				deliverGoodsPrintInfoVo.setSalePrice(AmountUtil.YuanToLi(deliverGoodsPrintInfoVo.getSalePrice()));
-			}
 			req.setOrderId(Long.valueOf(orderId));
 			req.setInvoicePrintVos(vos);
 			req.setTenantId(user.getTenantId());
