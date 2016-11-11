@@ -129,20 +129,16 @@
 					                    <p class="word">买家账号：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
 					                </li>
-					            </ul>  
-					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactName}</p>
 					                </li>
-					            </ul>
+					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel }</p>
 					                </li>
-					            </ul>
-					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
@@ -169,8 +165,6 @@
 					                    <p class="word">发票类型：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTypeName }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceContent }</p>
@@ -197,8 +191,6 @@
 					                    <p class="word">快递公司：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.expressId }</p>
 					                </li>
-					            </ul>  
-					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">快递单号：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.expressOddNumber }</p>

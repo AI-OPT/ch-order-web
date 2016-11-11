@@ -132,8 +132,6 @@
 					                    <p class="word">手机号：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel }</p>
 					                </li>
-					            </ul>
-					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}

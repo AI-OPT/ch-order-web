@@ -110,8 +110,9 @@
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactName}</p>
 					                </li>
 					                <li  class="col-md-6">
-					                    <p class="word">收货信息：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.logisticsType}${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                    <p class="word">收货地址：</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
 					                </li>
 					            </ul>
 					            <ul>

@@ -102,13 +102,13 @@
                             <div class="text-r right">
                             	<ul class="mt-20">
                             		<li>
-                            			 <p class="word">总优惠金额：${orderDetail.ordDiscountFee}</p>
+                            			 <p class="word">总优惠金额：<span class="red">${orderDetail.ordDiscountFee}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">运费：${orderDetail.ordFreight}</p>
+                            			 <p class="word">运费：<span class="red">${orderDetail.ordFreight}</span></p>
                             		</li>
                             		<li>
-                            			 <p class="word">订单应付金额：${orderDetail.ordAdjustFee}</p>
+                            			 <p class="word">订单应付金额：<span class="red">${orderDetail.ordAdjustFee}</span></p>
                             		</li>
                             	</ul>
                             </div>
@@ -153,13 +153,7 @@
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">支付账号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.acctId}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">收货信息:</p>
+                            			<p class="word">收货地址：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactInfo}</p>
                             		</li>
                             	</ul>
@@ -184,11 +178,11 @@
                             		<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款理由：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.remark}</p>
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">图片：</p>
-                            			<c:forEach items="${order.prodList}" var="sp">
+                            			<c:forEach items="${orderDetail.prodList}" var="sp">
 								          <p class="wide-field" style="word-break:break-all;"><img src="${sp.afterSaleImageUrl}"></p>
 						                </c:forEach>
                             		</li>

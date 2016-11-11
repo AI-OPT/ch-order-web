@@ -152,14 +152,9 @@
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">支付账号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.acctId}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
-                            			<p class="word">收货信息:</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.address}&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+                            			<p class="word">收货地址：</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
                             		</li>
                             	</ul>
                             </div>
@@ -176,12 +171,15 @@
                             		</li>
                             		<li class="col-md-6">
 	                            		<p class="word">换货理由:</p>
-	                            		<p class="wide-field" style="word-break:break-all;"></p>
+	                            		<p class="wide-field" style="word-break:break-all;">${orderDetail.remark}</p>
                             		</li>
                             	</ul>
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">图片:</p>
+                            			<c:forEach items="${orderDetail.prodList}" var="sp">
+								          			<p class="wide-field" style="word-break:break-all;"><img src="${sp.afterSaleImageUrl}"></p>
+						                </c:forEach>
                             		</li>
                             	</ul>
                             </div>

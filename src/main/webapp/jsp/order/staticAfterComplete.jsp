@@ -138,16 +138,12 @@
                             			<p class="word">支付方式：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.payStyleName}</p>
                             		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">支付账号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.acctId}</p>
-                            		</li>
-                            	</ul>
-                            	<ul>
-                            		<li class="col-md-6">
+                          			 <li class="col-md-6">
                             			<p class="word">业务类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.busiCodeName}</p>
                             		</li>
+                            	</ul>
+                            	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款金额：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
