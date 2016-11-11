@@ -257,6 +257,8 @@ public class StasticOrderController {
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
 							product.setGiveJF(ordProductVo.getGiveJF());
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+							ordProductVo.getProdExtendInfo()));   // 售后图片  
 							product.setCusServiceFlag(ordProductVo.getCusServiceFlag());
 							product.setProdDetalId(ordProductVo.getProdDetalId());
 							product.setSkuId(ordProductVo.getSkuId());
