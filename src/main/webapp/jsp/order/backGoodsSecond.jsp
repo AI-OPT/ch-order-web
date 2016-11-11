@@ -153,7 +153,7 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">收货信息：</p>
+                            			<p class="word">收货地址：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.aftercontactInfo}</p>
                             		</li>
                             	</ul>

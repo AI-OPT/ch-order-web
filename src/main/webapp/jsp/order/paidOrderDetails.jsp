@@ -8,6 +8,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>查询列表</title>
 <%@include file="/inc/inc.jsp" %>
+ <style>      
+    @media print {    
+        .noprint {     
+            display: none     
+        }    
+    }    
+  </style>  
 <script type="text/javascript">
 	var pager;
 	(function () {
@@ -19,6 +26,7 @@
 </script>
 </head>
 <body>
+   <div class="noprint">
       	<input type="hidden" value="0" id="whetherPrint">
       		  <div class="row"><!--外围框架-->
             <div class="col-lg-12"><!--删格化-->
@@ -295,10 +303,10 @@
                 </div>
               </div> 
             </div>
-    </div>
+   <!--  </div> -->
       
 <!-- 模态框（Modal） -->
-<div class="modal fade" id="myModaltakeGoods" tabindex="-1" role="dialog" 
+<!-- <div class="modal fade" id="myModaltakeGoods" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
    <div class="modal-dialog">
       <div class="modal-content">
@@ -307,9 +315,9 @@
                data-dismiss="modal" aria-hidden="true">
                   &times;
             </button><br/>
-            <!-- <h2 class="modal-title text-c" id="myModalLabel">
+            <h2 class="modal-title text-c" id="myModalLabel">
              	  提货单清单
-            </h2> -->
+            </h2>
          </div>
          <input id="deliveryModal_orderId" type="hidden" value="" />
          <input id="deliveryModal_parentOrderId" type="hidden" value="" />
@@ -319,8 +327,8 @@
          
          <div class="modal-body" id="deliveryModal"> </div>
       </div>
-</div><!-- /.modal -->
-</div>
+</div>/.modal
+</div> -->
 
 	<!-- Modal -->
     <div class="modal fade" id="mergeQueryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -363,9 +371,41 @@
 	<div class="mask" id="eject-mask"></div>
 	</div>
 <!--/提示弹出框操作结束-->
-		
+
+
+	</div>	
+	
+	
+	
+	<div class="modal fade" id="myModaltakeGoods" tabindex="-1" role="dialog" 
+   aria-labelledby="myModalLabel" aria-hidden="true">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" 
+               data-dismiss="modal" aria-hidden="true">
+                  &times;
+            </button><br/>
+            <!-- <h2 class="modal-title text-c" id="myModalLabel">
+             	  提货单清单
+            </h2> -->
+         </div>
+         <input id="deliveryModal_orderId" type="hidden" value="" />
+         <input id="deliveryModal_parentOrderId" type="hidden" value="" />
+         <input id="deliveryModal_state" type="hidden" value="" />
+         <input id="deliveryModal_busiCode" type="hidden" value="" />
+         <input id="deliveryModal_flag" type="hidden" value="" />
+         
+         <div class="modal-body" id="deliveryModal"> </div>
+      </div>
+</div><!-- /.modal -->
+	</div>
 </body>
+
+</script>
 <script id="deliveryOrderTempalte" type="text/x-jsrender">
+<!--startprint-->
+<div>
 					<div id="realPrint">
 								<br/>
 							   <h3 class="modal-title text-c" id="myModalLabel">
@@ -415,6 +455,8 @@
 						</p>
 					</div>
 			</div>
+</div>
+<!--endprint-->
          <div class="modal-footer">
 			<input type="button"  onclick="pager._truePrint()" value="打印" class="btn btn-primary" data-dismiss="modal"/>
             <button type="button" onclick="pager._printDeliveryOrder();" class="btn btn-primary" data-dismiss="modal">
@@ -424,5 +466,6 @@
                data-dismiss="modal">取消
             </button>
          </div>
+
 </script>
 </html>

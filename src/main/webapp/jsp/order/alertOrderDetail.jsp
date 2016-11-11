@@ -110,7 +110,7 @@
                             			<p class="wide-field" style="word-break:break-all;">${order.logisticsType}</p>
                             		</li>
                             		<li class="col-md-6">
-                            			<p class="word">收货信息:</p>
+                            			<p class="word">收货地址：</p>
                             			<p class="wide-field" style="word-break:break-all;">${order.address}&nbsp;${order.contactName}&nbsp;${order.contactTel}</p>
                             		</li>
                             	</ul>
