@@ -1,7 +1,6 @@
 package com.ai.ch.order.web.utils;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 import com.ai.opt.sdk.util.StringUtil;
 
@@ -17,8 +16,11 @@ public class AmountUtil {
             return "0.00";
         }
         BigDecimal balance = BigDecimal.valueOf(amount).divide(new BigDecimal(1000L),2,BigDecimal.ROUND_HALF_UP);
-        return new DecimalFormat(",###,##0.00").format(balance);
+        return balance.toString();
+      //  return new DecimalFormat(",###,##0.00").format(balance);
     }
+    
+    
     /** 
      * 将元为单位的转换为里 （乘1000）  
      * 
@@ -66,7 +68,8 @@ public class AmountUtil {
     	}
     	 BigDecimal money=new BigDecimal(amount);
     	 BigDecimal balance = money.multiply(new BigDecimal(100L));
-         return new DecimalFormat(",###,##0").format(balance);
+         return balance.toString();
+      //   return new DecimalFormat(",###,##0").format(balance);
     }
     /** 
      * 将分为单位的转换为里 （乘10）  
