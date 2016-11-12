@@ -68,9 +68,10 @@ public class AmountUtil {
     	}
     	 BigDecimal money=new BigDecimal(amount);
     	 BigDecimal balance = money.multiply(new BigDecimal(100L));
-         return balance.toString();
-      //   return new DecimalFormat(",###,##0").format(balance);
+    	 balance=balance.setScale(0,BigDecimal.ROUND_FLOOR);
+    	 return balance.toString();
     }
+
     /** 
      * 将分为单位的转换为里 （乘10）  
      * 
