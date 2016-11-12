@@ -97,7 +97,7 @@ public class NoticeController {
 				com.changhong.upp.business.entity.upp_803_001_01.RepsInfo receive = (com.changhong.upp.business.entity.upp_803_001_01.RepsInfo) XBConvertor.toBean(xmlBody, com.changhong.upp.business.entity.upp_803_001_01.RepsInfo.class);
 				System.out.println(">>>>>>>>>>>>退款通知回传信息"+receive);
 				//获取售后订单
-				String cusOrderId = receive.getGrpBody().getErrorRemak();
+				String cusOrderId = receive.getGrpBody().getMerRefundSn();
 				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
 				if("01".equals(receive.getGrpBody().getRefundStatus())){
 					System.out.println(">>>>>>>>>>>>退款通知成功");
