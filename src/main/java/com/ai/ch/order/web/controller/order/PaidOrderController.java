@@ -818,7 +818,7 @@ public class PaidOrderController {
 			body.setPayTranSn(banlanceIfId);
 			body.setMerSeqId(parentOrderId);
 			body.setRefundAmt(updateMoney);
-			body.setMerRefundSn(orderId);
+			body.setMerRefundSn(parentOrderId);
 			body.setSonMerNo("CO20160900000010");
 			body.setRefundDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
