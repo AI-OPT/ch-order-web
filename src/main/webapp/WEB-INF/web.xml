@@ -6,7 +6,7 @@
         <filter-class>com.ai.net.xss.filter.XSSFilter</filter-class>
         <init-param>
             <param-name>ignorePath</param-name>
-            <param-value>/prodeditve,/paymentNotifications</param-value>
+            <param-value>/prodeditve,/paymentNotifications,/payNotice,/refundNotice</param-value>
         </init-param>
     </filter>
     <filter-mapping>
