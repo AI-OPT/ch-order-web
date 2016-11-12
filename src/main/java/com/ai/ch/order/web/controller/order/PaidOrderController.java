@@ -431,16 +431,16 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+						/*	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));*/
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+						/*	product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
 									ordProductVo.getProdExtendInfo()));   // 售后图片  
-							product.setGiveJF(ordProductVo.getGiveJF());
+*/							product.setGiveJF(ordProductVo.getGiveJF());
 							prodList.add(product);
 						}
 					}
@@ -818,7 +818,7 @@ public class PaidOrderController {
 			body.setPayTranSn(banlanceIfId);
 			body.setMerSeqId(parentOrderId);
 			body.setRefundAmt(updateMoney);
-			body.setMerRefundSn(parentOrderId);
+			body.setMerRefundSn(orderId);
 			body.setSonMerNo("CO20160900000010");
 			body.setRefundDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
