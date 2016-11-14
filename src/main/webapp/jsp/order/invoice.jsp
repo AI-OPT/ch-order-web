@@ -33,7 +33,7 @@
 					           <ul>
 				                 	<li class="col-md-6">
 							            <p class="word">订单号</p>
-							            <p><input name="command.orderId" class="int-text int-medium"  type="text" placeholder="请输入订单号" ></p>
+							            <p><input name="command.orderId" class="int-text int-medium"  type="text" placeholder="请输入子订单号" ></p>
 							        </li>
 					               <li class="col-md-6">
 							            <p class="word">发票抬头</p>
