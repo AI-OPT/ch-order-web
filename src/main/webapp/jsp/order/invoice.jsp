@@ -49,6 +49,7 @@
 						            			<option value="1">未打印</option>
 						            			<option value="3">已打印</option>
 						            			<option value="2">已报送</option>
+						            			<option value="4">打印失败</option>
 						            		</select>
 					            		</p>
 						            </li>
