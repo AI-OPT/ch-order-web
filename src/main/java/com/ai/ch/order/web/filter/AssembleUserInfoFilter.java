@@ -35,6 +35,7 @@ public class AssembleUserInfoFilter implements Filter {
     private String[] ignor_suffix = {};
     private static final Logger LOG = LoggerFactory.getLogger(AssembleUserInfoFilter.class);
 	private static final String USER_MENUS = "user_menus";
+	private static final String ALL_MENUS = "all_menus";
 
     public void init(FilterConfig filterConfig) throws ServletException {
         String ignore_res = filterConfig.getInitParameter("ignore_suffix");
@@ -68,9 +69,12 @@ public class AssembleUserInfoFilter implements Filter {
                 	SysMenuListQueryResponse menuResp=menuSV.queryMenuByUserId(cond);
                 	
                 	List<String> menuList=new ArrayList<String>();
+                	List<String> allMenuList=new ArrayList<String>();
                 	if(menuResp.getResponseHeader()!=null&&"000000".equalsIgnoreCase(menuResp.getResponseHeader().getResultCode())){
                 		menuList=menuResp.getMenuList();
+                		allMenuList =menuResp.getAllMenuList();
                 		session.setAttribute(USER_MENUS, menuList);
+                		session.setAttribute(ALL_MENUS, allMenuList);
                 	}
                 	
                 	LOG.info("已封装的用户信息为：" + JSON.toJSONString(user));
@@ -81,14 +85,14 @@ public class AssembleUserInfoFilter implements Filter {
 
             } 
             //判断权限 若果没有权限跳到403，判断规则  request.getRequestURI 去掉request.getContext前缀    
-         /*   boolean authMenuFlag=authMenu(req);
+            boolean authMenuFlag=authMenu(req);
             if(!authMenuFlag){
             	//((HttpServletResponse)response).setStatus(HttpServletResponse.SC_FORBIDDEN);
             	((HttpServletResponse)response).sendRedirect(req.getContextPath()+"/403.jsp");
             }
-            else{*/
+            else{
             	chain.doFilter(req, response);
-           // }
+            }
         }
         
         
@@ -150,13 +154,26 @@ public class AssembleUserInfoFilter implements Filter {
 		String targetURL =currentURL.replace(request.getContextPath(), "");
 		LOG.debug("targetURL=" + targetURL);
 		List<String> menuList=new ArrayList<String>();
+		List<String> allMenuList=new ArrayList<String>();
+		
 		if(request.getSession().getAttribute(USER_MENUS)!=null){
-			menuList=(List<String>) request.getSession().getAttribute(USER_MENUS);			
+			menuList=(List<String>) request.getSession().getAttribute(USER_MENUS);	
+			allMenuList=(List<String>) request.getSession().getAttribute(ALL_MENUS);	
 		}
 		//各中心自测的frame直接放行
-		if(targetURL.endsWith("/")||targetURL.endsWith("frame")||targetURL.endsWith("/frame.jsp")){
-			return true;
-		}
+		if (allMenuList != null && allMenuList.size() > 0) {
+			boolean isMenu =false;
+    		for (String menu : allMenuList) {
+    			if (menu.toLowerCase().trim().contains(targetURL.toLowerCase().trim())) {
+    				isMenu =true;
+    			}
+    		}
+    		
+    		if(!isMenu){
+    			return true;
+    		}
+    	}
+		
     	if (menuList != null && menuList.size() > 0) {
     		for (String menu : menuList) {
     			if (menu.toLowerCase().trim().contains(targetURL.toLowerCase().trim())) {
