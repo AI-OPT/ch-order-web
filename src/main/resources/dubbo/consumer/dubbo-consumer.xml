@@ -175,6 +175,10 @@
 	interface="com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV"
 	registry="baasRegistry" />
 	
+	<dubbo:reference id="iSysMenuQuerySV"
+	interface="com.ai.platform.common.api.menu.interfaces.ISysMenuQuerySV"
+	registry="baasRegistry" />
+	
 	<dubbo:reference id="iStasticsOrderSV"
 	interface="com.ai.slp.order.api.stasticsorder.interfaces.IStasticsOrderSV"
 	registry="baasRegistry" />
