@@ -243,6 +243,16 @@ public class StasticOrderController {
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
 					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
+					//翻译配送方式
+					SysParamSingleCond	paramLogistics = new SysParamSingleCond();
+					paramLogistics.setTenantId(Constants.TENANT_ID);
+					paramLogistics.setColumnValue(orderDetail.getLogisticsType());
+					paramLogistics.setTypeCode(Constants.ORD_LOGISTICS_TYPE);
+					paramLogistics.setParamCode(Constants.LOGISTICS_TYPE);
+            		SysParam LogisticsParam = iCacheSV.getSysParamSingle(paramLogistics);
+            		if(LogisticsParam!=null){
+            			orderDetail.setLogisticsType(LogisticsParam.getColumnDesc());
+            		}
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
