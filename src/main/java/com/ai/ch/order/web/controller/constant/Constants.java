@@ -153,7 +153,7 @@ public final class Constants {
 			 * 积分支付
 			 */
 			public static final String JF = "5";
-			// 1：虹支付
+			// 1：虹付通
             public static final String CHANG_HONG_STYLE = "13";
 
             // 2.支付宝
@@ -164,6 +164,68 @@ public final class Constants {
 
             // 4：微信支付
             public static final String WEIXIN_STYLE = "23";
+            
+            //5:在线支付
+            public static final String ZAIXIAN_STYLE = "27";
+            
+            //6:财付通
+            public static final String CAIFUTONG_STYLE = "28";
+            
+            //7:线下转账
+            public static final String XIANXIA_STYLE = "29";
+            
+            //8:货到付款
+            public static final String HUODAOFUKUAN_STYLE = "7";
+            
+            //9:邮局付款
+            public static final String YOUJU_STYLE = "30";
+            
+            //10:分期付款
+            public static final String FENQI_STYLE = "31";
+            
+            //11:易付宝
+            public static final String YIFUBAO_STYLE = "32";
+            
+            //微支付
+            public static final String WEIZHIFU_STYLE = "33";
+            
+            //其它
+            public static final String QITA_STYLE = "34";
+            
+            //网付通
+            public static final String WANGFUTONG_STYLE = "20";
+            
+            //鸿支付
+            public static final String HONGZHIFU_STYLE = "24";
+            
+            //优酷支付
+            public static final String YOUKU_STYLE = "25";
+            
+            //畅捷支付
+            public static final String CHANGJIE_STYLE = "26";
+            //余额支付
+            public static final String YUE_STYLE = "1";
+            //授信支付
+            public static final String SHOUXIN_STYLE = "2";
+            //充值卡
+            public static final String CHONGZHIKA_STYLE = "3";
+            //赠送预存
+            public static final String ZENGSONG_STYLE = "4";
+            //积分
+            public static final String JIFEN_STYLE = "5";
+            //银行卡(POS)
+            public static final String POS_STYLE = "6";
+            //优惠券
+            public static final String YOUHUI_STYLE = "8";
+            //支票支付
+            public static final String ZHIPIAO_STYLE = "9";
+            //转账汇款
+            public static final String ZHUANZHANG_STYLE = "9";
+            //银行卡代扣
+            public static final String DAIKOU_STYLE = "11";
+            //银行卡托收
+			public static final String TUOSHOU_STYLE = "12";
+            
 		}
 		
 		public static class BusiCode {

@@ -121,8 +121,10 @@ dependencies {
 	//店铺信息
     compile "com.ai.ch.user:shopinfo:1.1-SNAPSHOT"
     
+    //ofc
+    compile 'com.ai.slp.order:ofc:1.0-SNAPSHOT'
     
-
+    
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
             "junit:junit:4.12"

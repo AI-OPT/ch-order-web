@@ -211,5 +211,8 @@
 	interface="com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV"
 	registry="baasRegistry" />
 			
+	<dubbo:reference id="iOfcSV"
+	interface="com.ai.slp.order.api.ofc.interfaces.IOfcSV"
+	registry="baasRegistry" />
 				
 </beans>
