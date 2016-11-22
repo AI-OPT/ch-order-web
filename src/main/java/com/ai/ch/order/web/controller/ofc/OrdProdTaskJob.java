@@ -9,7 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.context.annotation.PropertySources;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +18,7 @@ import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 
 @Service
 @Lazy(false)
-@PropertySources(value = {@PropertySource("classpath:/ofcConfig.properties")})
+@PropertySource(value="classpath:ofcConfig.properties")
 public class OrdProdTaskJob {
 
 	private static final Log LOG = LogFactory.getLog(OrdProdTaskJob.class);
