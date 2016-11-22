@@ -67,7 +67,7 @@ public class OrderThread extends Thread {
 		/**
 		 * 订单主表
 		 */
-		LOG.info("开始设置订单数据,时间" + DateUtil.getSysDate());
+		LOG.info("++++++++++ofc开始设置订单数据,时间" + DateUtil.getSysDate());
 		OrdOrderOfcVo record = new OrdOrderOfcVo();
 		OfcCodeRequst requst = new OfcCodeRequst();
 		requst.setTenantId(PropertiesUtil.getStringByKey("ofc.ordOrder.tenantId"));
