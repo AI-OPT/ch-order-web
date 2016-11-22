@@ -197,6 +197,7 @@ public final class SftpUtil {
 			sftp.cd(directory);
 			File dir = new File(saveFilePath);
 			if (!dir.exists()) {
+				LOG.info("++++++++++++++++创建不存在OFC文件夹");
 				dir.mkdir();
 			}
 			File file = new File(saveFilePath + "/" + downloadFile);
