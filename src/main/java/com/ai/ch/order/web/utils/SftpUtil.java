@@ -200,7 +200,7 @@ public final class SftpUtil {
 			LOG.info(JSON.toJSONString(dir)+"++++++++++"+dir.exists());
 			if (!dir.exists()) {
 				LOG.info("++++++++++++++++创建不存在OFC文件夹");
-				dir.mkdir();
+				dir.mkdirs();
 			}
 			File file = new File(saveFilePath + "/" + downloadFile);
 			if (!file.exists()) {
