@@ -23,6 +23,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.ai.opt.sdk.util.DateUtil;
+import com.alibaba.fastjson.JSON;
 import com.jcraft.jsch.Channel;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.ChannelSftp.LsEntry;
@@ -196,6 +197,7 @@ public final class SftpUtil {
 		try {
 			sftp.cd(directory);
 			File dir = new File(saveFilePath);
+			LOG.info(JSON.toJSONString(dir)+"++++++++++"+dir.exists());
 			if (!dir.exists()) {
 				LOG.info("++++++++++++++++创建不存在OFC文件夹");
 				dir.mkdir();
