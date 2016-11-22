@@ -64,9 +64,6 @@ public class OrdProdReadFileThread extends Thread {
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
 						String localPath = localpath + "//rpt//" + errCodeName;
 						File file = new File(localPath);
-						if (!file.exists()) {
-							file.mkdirs();
-						}
 						file.createNewFile();
 						FileWriter fw = new FileWriter(file);
 						BufferedWriter bw = new BufferedWriter(fw);

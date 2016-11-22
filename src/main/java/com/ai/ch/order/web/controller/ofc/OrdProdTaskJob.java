@@ -30,7 +30,6 @@ public class OrdProdTaskJob {
 	public static ExecutorService handlePool;
 
 	@Scheduled(cron = "${ftp.schedule}")
-	//@Scheduled(cron = "0 36 18 * * ?")
 	public void orderImportJob() {
 		run();
 	}
