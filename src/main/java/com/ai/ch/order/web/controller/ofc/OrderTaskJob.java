@@ -8,6 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 
 @Service
 @Lazy(false)
-//@PropertySource(value="classpath:ofcConfig.properties")
+@PropertySource(value="classpath:ofcConfig.properties")
 public class OrderTaskJob {
 
 	private static final Log LOG = LogFactory.getLog(OrderTaskJob.class);
@@ -28,8 +29,8 @@ public class OrderTaskJob {
 
 	public static ExecutorService handlePool;
 
-	//@Scheduled(cron = "${ftp.schedule}")
-	@Scheduled(cron = "0 36 18 * * ?")
+	@Scheduled(cron = "${ftp.schedule}")
+	//@Scheduled(cron = "0 36 18 * * ?")
 	public void orderImportJob() {
 		run();
 	}
