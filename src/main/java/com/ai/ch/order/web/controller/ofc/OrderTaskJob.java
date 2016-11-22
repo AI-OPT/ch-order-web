@@ -8,7 +8,6 @@ import java.util.concurrent.LinkedBlockingQueue;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +29,7 @@ public class OrderTaskJob {
 	public static ExecutorService handlePool;
 
 	//@Scheduled(cron = "${ftp.schedule}")
-	@Scheduled(cron = "0 10 17 * * ?")
+	@Scheduled(cron = "0 36 18 * * ?")
 	public void orderImportJob() {
 		run();
 	}
