@@ -19,13 +19,13 @@ import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 @Service
 @Lazy(false)
 @PropertySource("classpath:ofcConfig.properties")
-public class OrderTaskJob {
+public class OrdProdTaskJob {
 
-	private static final Log LOG = LogFactory.getLog(OrderTaskJob.class);
+	private static final Log LOG = LogFactory.getLog(OrdProdTaskJob.class);
 
 	IOfcSV ofcSV;
 
-	public BlockingQueue<String[]> ordOrderQueue;
+	public BlockingQueue<String[]> ordOdProdQueue;
 
 	public static ExecutorService handlePool;
 
@@ -37,23 +37,23 @@ public class OrderTaskJob {
 	public void run() {
 		LOG.error("任务开始执行，当前时间戳：" + DateUtil.getSysDate());
 		try {
-			ordOrderQueue = new LinkedBlockingQueue<String[]>(1000);
+			ordOdProdQueue = new LinkedBlockingQueue<String[]>(1000);
 
 			handlePool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 			// 生产者
-			Thread producerThred = new Thread(new OrderReadFileThread(ordOrderQueue));
+			Thread producerThred = new Thread(new OrdProdReadFileThread(ordOdProdQueue));
 			producerThred.start();
 			// 消费者
 			ofcSV = DubboConsumerFactory.getService(IOfcSV.class);
-			LOG.error("开始插入订单信息，当前时间戳：" + DateUtil.getSysDate());
+			LOG.error("开始插入订单商品信息，当前时间戳：" + DateUtil.getSysDate());
 			for (int i = 0; i < Runtime.getRuntime().availableProcessors() * 2; i++) {
-				handlePool.execute(new OrderThread(ordOrderQueue, ofcSV));
+				handlePool.execute(new OrdOdProdThread(ordOdProdQueue, ofcSV));
 			}
 			// 未消费完等待
-			while (!ordOrderQueue.isEmpty()) {
+			while (!ordOdProdQueue.isEmpty()) {
 				Thread.sleep(10 * 1000);
 			}
- 
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
