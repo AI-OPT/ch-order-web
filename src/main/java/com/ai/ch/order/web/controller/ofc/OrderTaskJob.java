@@ -26,7 +26,6 @@ public class OrderTaskJob {
 	IOfcSV ofcSV;
 
 	public BlockingQueue<String[]> ordOrderQueue;
-	public BlockingQueue<String[]> ordOdProdQueue;
 
 	public static ExecutorService handlePool;
 
@@ -39,11 +38,10 @@ public class OrderTaskJob {
 		LOG.error("任务开始执行，当前时间戳：" + DateUtil.getSysDate());
 		try {
 			ordOrderQueue = new LinkedBlockingQueue<String[]>(1000);
-			ordOdProdQueue = new LinkedBlockingQueue<String[]>(1000);
 
 			handlePool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() * 2);
 			// 生产者
-			Thread producerThred = new Thread(new SftpReadFileThread(ordOrderQueue, ordOdProdQueue));
+			Thread producerThred = new Thread(new OrderReadFileThread(ordOrderQueue));
 			producerThred.start();
 			// 消费者
 			ofcSV = DubboConsumerFactory.getService(IOfcSV.class);
@@ -55,16 +53,7 @@ public class OrderTaskJob {
 			while (!ordOrderQueue.isEmpty()) {
 				Thread.sleep(10 * 1000);
 			}
-
-			LOG.error("开始插入订单商品信息，当前时间戳：" + DateUtil.getSysDate());
-			for (int i = 0; i < Runtime.getRuntime().availableProcessors() * 2; i++) {
-				handlePool.execute(new OrdOdProdThread(ordOdProdQueue, ofcSV));
-			}
-			// 未消费完等待
-			while (!ordOdProdQueue.isEmpty()) {
-				Thread.sleep(10 * 1000);
-			}
-
+ 
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

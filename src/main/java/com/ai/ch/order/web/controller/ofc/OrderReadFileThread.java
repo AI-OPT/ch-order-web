@@ -25,14 +25,13 @@ import com.ai.opt.sdk.util.StringUtil;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
 
-public class SftpReadFileThread extends Thread {
+public class OrderReadFileThread extends Thread {
 
-	private static final Log LOG = LogFactory.getLog(SftpReadFileThread.class);
+	private static final Log LOG = LogFactory.getLog(OrderReadFileThread.class);
 
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
 	public BlockingQueue<String[]> ordOrderQueue;
-	public BlockingQueue<String[]> ordOdProdQueue;
 
 	String ip = PropertiesUtil.getStringByKey("ftp.ip"); // 服务器IP地址
 	String userName = PropertiesUtil.getStringByKey("ftp.userName"); // 用户名
@@ -41,9 +40,8 @@ public class SftpReadFileThread extends Thread {
 	String path = PropertiesUtil.getStringByKey("ftp.path"); // 读取文件的存放目录
 	String localpath = PropertiesUtil.getStringByKey("ftp.localpath");// 本地存在的文件路径
 
-	public SftpReadFileThread(BlockingQueue<String[]> ordOrderQueue, BlockingQueue<String[]> ordOdProdQueue) {
+	public OrderReadFileThread(BlockingQueue<String[]> ordOrderQueue) {
 		this.ordOrderQueue = ordOrderQueue;
-		this.ordOdProdQueue = ordOdProdQueue;
 	}
 
 	public void run() {
@@ -57,51 +55,52 @@ public class SftpReadFileThread extends Thread {
 		}
 		for (String fileName : nameList) {
 			String chkName = fileName.substring(0, 23) + ".chk";
-			try {
-				ValidateChkUtil util = new ValidateChkUtil();
-				String errCode = util.validateChk(path,localpath,fileName, chkName, sftp);
-				if (!StringUtil.isBlank(errCode)) {
-					LOG.info("校验文件失败,校验码:"+errCode.toString());
-					String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
-					String localPath = localpath+"/rpt/"+errCodeName;
-					File file = new File(localPath);
-					file.createNewFile();
-					FileWriter fw = new FileWriter(file);
-					BufferedWriter bw = new BufferedWriter(fw);
-					bw.write(errCode.toString());
-					bw.write("\n");
-					bw.flush();
-					bw.close();
-					fw.close();
-					InputStream is = new FileInputStream(localPath);
-					//移动文件
-					SftpUtil.uploadIs(path+"/rpt", errCodeName, is, sftp);
-					SftpUtil.uploadIs(path+"/err", chkName,is, sftp);
-					SftpUtil.uploadIs(path+"/err", fileName,is, sftp);
-					SftpUtil.delete(path, fileName, sftp);
-					SftpUtil.delete(path, chkName, sftp);
-					continue; 
-					// 推到ftp上
-				} else {
-					LOG.info("++++++++++++校验成功"+chkName);
-					String localPath = localpath+"//"+chkName;
-					InputStream is = new FileInputStream(localPath);
-					//SftpUtil.delete(path, chkName, sftp);
-					SftpUtil.uploadIs(path+"//sapa//chk", chkName,is, sftp);
-					if ("omsa01002".equals(fileName.substring(11, 20))) {
-						readOrdProdFile(fileName, sftp);
-					} else if ("omsa01001".equals(fileName.substring(11, 20))) {
+			if ("omsa01001".equals(fileName.substring(11, 20))) {
+				try {
+					ValidateChkUtil util = new ValidateChkUtil();
+					String errCode = util.validateChk(path, localpath, fileName, chkName, sftp);
+					if (!StringUtil.isBlank(errCode)) {
+						LOG.info("校验文件失败,校验码:" + errCode.toString());
+						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
+						String localPath = localpath + "//rpt//" + errCodeName;
+						File file = new File(localPath);
+						if (!file.exists()) {
+							file.mkdirs();
+						}
+						file.createNewFile();
+						FileWriter fw = new FileWriter(file);
+						BufferedWriter bw = new BufferedWriter(fw);
+						bw.write(errCode.toString());
+						bw.write("\n");
+						bw.flush();
+						bw.close();
+						fw.close();
+						InputStream is = new FileInputStream(localPath);
+						// 移动文件
+						SftpUtil.uploadIs(path + "//rpt", errCodeName, is, sftp);
+						SftpUtil.uploadIs(path + "//err", chkName, is, sftp);
+						SftpUtil.uploadIs(path + "//err", fileName, is, sftp);
+						SftpUtil.delete(path, fileName, sftp);
+						SftpUtil.delete(path, chkName, sftp);
+						continue;
+						// 推到ftp上
+					} else {
+						LOG.info("++++++++++++校验成功" + chkName);
+						String localPath = localpath + "//" + chkName;
+						InputStream is = new FileInputStream(localPath);
+						SftpUtil.delete(path, chkName, sftp);
+						SftpUtil.uploadIs(path + "//sapa//chk", chkName, is, sftp);
 						readOrderFile(fileName, sftp);
 					}
+				} catch (IOException e) {
+					e.printStackTrace();
+				} catch (ParseException e) {
+					e.printStackTrace();
+				} catch (SftpException e) {
+					e.printStackTrace();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (ParseException e) {
-				e.printStackTrace();
-			} catch (SftpException e) {
-				e.printStackTrace();
-			} catch (Exception e) {
-				e.printStackTrace();
 			}
 		}
 		LOG.error("获取ftp文件结束：" + DateUtil.getSysDate());
@@ -141,42 +140,6 @@ public class SftpReadFileThread extends Thread {
 			e.printStackTrace();
 		} finally {
 			// deleteFile(localpath + fileName);
-		}
-	}
-
-	public void readOrdProdFile(String fileName, ChannelSftp sftp) throws ParseException {
-		InputStream ins = null;
-		try {
-			// 从服务器上读取指定的文件
-			LOG.error("开始读取文件：" + fileName);
-			ins = SftpUtil.download(path, fileName, localpath, sftp);
-			if (ins != null) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
-				String line;
-				while ((line = reader.readLine()) != null) {
-					try {
-						String[] datTemp = line.split("\\t");
-						if (datTemp.length != 8)
-							continue;
-						ordOdProdQueue.put(datTemp);
-						LOG.error("订单Id信息：" + datTemp[0]);
-					} catch (Exception e) {
-						e.printStackTrace();
-						LOG.error("读取文件失败：" + e.getMessage());
-					}
-
-				}
-				reader.close();
-				if (ins != null) {
-					ins.close();
-				}
-				//SftpUtil.delete(path, fileName, sftp);
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			//deleteFile(localpath + fileName);
 		}
 	}
 

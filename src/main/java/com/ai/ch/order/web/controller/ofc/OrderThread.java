@@ -11,7 +11,6 @@ import org.apache.commons.logging.LogFactory;
 import com.ai.ch.order.web.utils.PropertiesUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
-import com.ai.opt.sdk.util.UUIDUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 import com.ai.slp.order.api.ofc.params.OfcCodeRequst;
 import com.ai.slp.order.api.ofc.params.OrdOdFeeTotalVo;
@@ -27,6 +26,8 @@ public class OrderThread extends Thread {
 	private IOfcSV ofcSV;
 
 	private BlockingQueue<String[]> ordOrderQueue;
+	
+	private long count =1;
 
 	public OrderThread(BlockingQueue<String[]> ordOrderQueue, IOfcSV ofcSV) {
 		this.ordOrderQueue = ordOrderQueue;
@@ -36,15 +37,16 @@ public class OrderThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				String[] queue = ordOrderQueue.poll(300, TimeUnit.SECONDS);
+				String[] queue = ordOrderQueue.poll(60, TimeUnit.SECONDS);
 				if (null == queue) {
+					LOG.info("++++++++++++++++++线程OrderThread中断了");
 					break;
 				}
 				synchronized (queue) {
-					LOG.info("开始执行保存订单信息,时间" + DateUtil.getSysDate());
+					LOG.info("第"+(count++)+"开始执行保存订单信息,时间" + DateUtil.getSysDate());
 					OrderOfcVo order = setOrderInfo(queue);
 					ofcSV.insertOrdOrder(order);
-					LOG.info("结束执行保存订单信息,时间" + DateUtil.getSysDate());
+					LOG.info("第"+count+"结束执行保存订单信息,时间" + DateUtil.getSysDate());
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
@@ -176,7 +178,6 @@ public class OrderThread extends Thread {
 		 * 订单-出货表
 		 */
 		OrdOdLogisticsVo ordOdLogistics = new OrdOdLogisticsVo();
-		ordOdLogistics.setLogisticsId(UUIDUtil.genShortId());
 		// 配送类型,必传
 		String logisticsType = "";
 		if (!StringUtil.isBlank(orderData[17])) {
@@ -217,5 +218,4 @@ public class OrderThread extends Thread {
 		LOG.info(JSON.toJSONString(orderVo));
 		return orderVo;
 	}
-
 }

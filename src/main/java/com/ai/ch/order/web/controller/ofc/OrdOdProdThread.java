@@ -18,6 +18,8 @@ public class OrdOdProdThread extends Thread {
 
 	private IOfcSV ofcSV;
 
+	private long count=1;
+	
 	private BlockingQueue<String[]> ordOdProdQueue;
 
 	public OrdOdProdThread(BlockingQueue<String[]> ordOdProdQueue, IOfcSV ofcSV) {
@@ -28,8 +30,9 @@ public class OrdOdProdThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				String[] queue = ordOdProdQueue.poll(150, TimeUnit.SECONDS);
+				String[] queue = ordOdProdQueue.poll(60, TimeUnit.SECONDS);
 				if (null == queue) {
+					LOG.info("++++++++++++++++线程OrdOdProdThread中断了");
 					break;
 				}
 				synchronized (queue) {
@@ -62,10 +65,10 @@ public class OrdOdProdThread extends Thread {
 					ordOdProd.setSalePrice(new Double(queue[5]).longValue());
 					// 数量
 					ordOdProd.setBuySum(Long.valueOf(queue[6]));
-					LOG.info("保存订单商品信息开始,时间:" + DateUtil.getSysDate());
+					LOG.info("第"+(count++)+"次保存订单商品信息开始,时间:" + DateUtil.getSysDate());
 					LOG.info(JSON.toJSONString(ordOdProd));
 					ofcSV.insertOrdOdProd(ordOdProd);
-					LOG.info("保存订单商品信息结束,时间" + DateUtil.getSysDate());
+					LOG.info("第"+count+"保存订单商品信息结束,时间" + DateUtil.getSysDate());
 				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
