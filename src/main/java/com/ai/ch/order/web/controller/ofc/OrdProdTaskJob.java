@@ -16,9 +16,9 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 
-/*@Service
+@Service
 @Lazy(false)
-@PropertySource(value = {"classpath:ofcConfig.properties"})*/
+//@PropertySource(value = {"classpath:ofcConfig.properties"})
 public class OrdProdTaskJob {
 
 	private static final Log LOG = LogFactory.getLog(OrdProdTaskJob.class);
@@ -29,7 +29,8 @@ public class OrdProdTaskJob {
 
 	public static ExecutorService handlePool;
 
-	@Scheduled(cron = "${ftp.schedule}")
+	//@Scheduled(cron = "${ftp.schedule}")
+	@Scheduled(cron = "0 10 17 * * ?")
 	public void orderImportJob() {
 		run();
 	}

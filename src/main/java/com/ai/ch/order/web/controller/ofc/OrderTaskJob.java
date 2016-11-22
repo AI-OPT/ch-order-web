@@ -16,8 +16,8 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 
-//@Service
-//@Lazy(false)
+@Service
+@Lazy(false)
 //@PropertySource(value="classpath:ofcConfig.properties")
 public class OrderTaskJob {
 
@@ -29,7 +29,8 @@ public class OrderTaskJob {
 
 	public static ExecutorService handlePool;
 
-	@Scheduled(cron = "${ftp.schedule}")
+	//@Scheduled(cron = "${ftp.schedule}")
+	@Scheduled(cron = "0 10 17 * * ?")
 	public void orderImportJob() {
 		run();
 	}
