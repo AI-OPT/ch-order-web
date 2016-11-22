@@ -18,7 +18,7 @@ import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 
 @Service
 @Lazy(false)
-@PropertySource("classpath:ofcConfig.properties")
+@PropertySource(value="classpath:ofcConfig.properties")
 public class OrdProdTaskJob {
 
 	private static final Log LOG = LogFactory.getLog(OrdProdTaskJob.class);
