@@ -161,20 +161,8 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
 					data:"",
 					success: function(data){
 						if(data == 'true'){
-							//alert('操作成功');
-							$('#saveModal').modal('hide');
-							var d = Dialog({
-								content:"保存成功",
-								icon:'success',
-								okValue: '确 定',
-								ok:function(){
-									this.close();
-									location.href=_base+"/jsp/order_rule/findOrderRuleDetail.jsp";
-								}
-							});
-							d.show();
+							location.href=_base+"/jsp/order_rule/findOrderRuleDetail.jsp";
 						}
-						
 					}
 				}
 			);
