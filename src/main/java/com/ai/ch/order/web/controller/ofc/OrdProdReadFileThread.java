@@ -22,6 +22,7 @@ import com.ai.ch.order.web.utils.SftpUtil;
 import com.ai.ch.order.web.utils.ValidateChkUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
+import com.alibaba.fastjson.JSON;
 import com.jcraft.jsch.ChannelSftp;
 import com.jcraft.jsch.SftpException;
 
@@ -50,6 +51,7 @@ public class OrdProdReadFileThread extends Thread {
 		List<String> nameList = new ArrayList<>();
 		try {
 			nameList = getFileName(path, sftp);
+			LOG.info("+++++++++++++文件列表"+JSON.toJSONString(nameList));
 		} catch (SftpException e1) {
 			e1.printStackTrace();
 		}
@@ -62,10 +64,14 @@ public class OrdProdReadFileThread extends Thread {
 					if (!StringUtil.isBlank(errCode)) {
 						LOG.info("校验文件失败,校验码:" + errCode.toString());
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
-						String localPath = localpath + "//rpt//" + errCodeName;
+						String localPath = localpath + "//rpt//";
 						File file = new File(localPath);
-						file.createNewFile();
-						FileWriter fw = new FileWriter(file);
+						if (!file.exists()&&!file.isDirectory()){       
+						    file.mkdir(); 
+						}
+						File rptFile = new File(localPath+"//"+"rpt");
+						rptFile.createNewFile();
+						FileWriter fw = new FileWriter(rptFile);
 						BufferedWriter bw = new BufferedWriter(fw);
 						bw.write(errCode.toString());
 						bw.write("\n");
@@ -74,9 +80,9 @@ public class OrdProdReadFileThread extends Thread {
 						fw.close();
 						InputStream is = new FileInputStream(localPath);
 						// 移动文件
-						SftpUtil.uploadIs(path + "//rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "//err", chkName, is, sftp);
-						SftpUtil.uploadIs(path + "//err", fileName, is, sftp);
+						SftpUtil.uploadIs(path + "//sapa//rpt", errCodeName, is, sftp);
+						SftpUtil.uploadIs(path + "//sapa//err", chkName, is, sftp);
+						SftpUtil.uploadIs(path + "//sapa//err", fileName, is, sftp);
 						SftpUtil.delete(path, fileName, sftp);
 						SftpUtil.delete(path, chkName, sftp);
 						continue;
@@ -155,6 +161,7 @@ public class OrdProdReadFileThread extends Thread {
 				}
 			}
 		}
+		
 		return nameList;
 	}
 
