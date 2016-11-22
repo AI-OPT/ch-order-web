@@ -51,7 +51,7 @@ public class OrderReadFileThread extends Thread {
 		List<String> nameList = new ArrayList<>();
 		try {
 			nameList = getFileName(path, sftp);
-			LOG.info("++++++++++++++++++++文件列表"+JSON.toJSONString(nameList));
+			LOG.info("++++++++++++++++++++文件列表" + JSON.toJSONString(nameList));
 		} catch (SftpException e1) {
 			e1.printStackTrace();
 		}
@@ -66,11 +66,13 @@ public class OrderReadFileThread extends Thread {
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
 						String localPath = localpath + "//rpt//";
 						File file = new File(localPath);
-						if (!file.exists()&&!file.isDirectory()){       
-						    file.mkdir(); 
+						if (!file.exists()) {
+							file.mkdir();
 						}
-						File rptFile = new File(localPath+"//"+errCodeName);
-						rptFile.createNewFile();
+						File rptFile = new File(localPath + "//" + errCodeName);
+						if (!rptFile.exists()) {
+							rptFile.createNewFile();
+						}
 						FileWriter fw = new FileWriter(rptFile);
 						BufferedWriter bw = new BufferedWriter(fw);
 						bw.write(errCode.toString());

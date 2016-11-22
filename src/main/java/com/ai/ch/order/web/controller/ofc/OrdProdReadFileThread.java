@@ -66,11 +66,13 @@ public class OrdProdReadFileThread extends Thread {
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
 						String localPath = localpath + "//rpt//";
 						File file = new File(localPath);
-						if (!file.exists()&&!file.isDirectory()){       
+						if (!file.exists()){       
 						    file.mkdir(); 
 						}
 						File rptFile = new File(localPath+"//"+"rpt");
-						rptFile.createNewFile();
+						if(!rptFile.exists()){
+							rptFile.createNewFile();
+						}
 						FileWriter fw = new FileWriter(rptFile);
 						BufferedWriter bw = new BufferedWriter(fw);
 						bw.write(errCode.toString());
