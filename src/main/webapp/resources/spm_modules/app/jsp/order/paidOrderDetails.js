@@ -13,9 +13,6 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
     require("opt-paging/aiopt.pagination");
     require("twbs-pagination/jquery.twbsPagination.min");
     require('bootstrap/js/modal');
-    require('bootstrap/js/modal');
-    require("jsviews/jquery.jqprint-0.3");
-    require("jsviews/jquery-migrate-1.1.0.min");
     var SendMessageUtil = require("app/util/sendMessage");
     
     //实例化AJAX控制处理对象
@@ -82,6 +79,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		
 		_displayDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
 			var _orderId = $('#orderId').val();
+			$('#printType').val('1');
 			var _orderUserId = $('#orderUserId').val();
 			ajaxController.ajax({
 				type : "POST",
@@ -110,6 +108,7 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 		
 		_noMergeDisplayDeliveryOrder: function(orderId,parentOrderId,state,busiCode,flag){
 			var _orderId = $('#orderId').val();
+			$('#printType').val('0');
 			var _orderUserId = $('#orderUserId').val();
 			ajaxController.ajax({
 				type : "POST",
@@ -296,16 +295,21 @@ define('app/jsp/order/paidOrderDetails', function (require, exports, module) {
 	            + orderId+"&skuId="+skuId+"&sourceFlag="+sourceFlag;
 			},
 			
-			_truePrint:function(){
+			_truePrint:function(orderId,parentOrderId,state,busiCode,flag){
 				$("#whetherPrint").val("1");
-		        $("#realPrint").jqprint(
-		        		 {
-		        		     debug: false, //如果是true则可以显示iframe查看效果（iframe默认高和宽都很小，可以再源码中调大），默认是false
-		        		     importCSS: true, //true表示引进原来的页面的css，默认是true。（如果是true，先会找$("link[media=print]")，若没有会去找$("link")中的css文件）
-		        		     printContainer: true, //表示如果原来选择的对象必须被纳入打印（注意：设置为false可能会打破你的CSS规则）。
-		        		     operaSupport: true//表示如果插件也必须支持歌opera浏览器，在这种情况下，它提供了建立一个临时的打印选项卡。默认是true
-		        		}	
-		        );
+				var head="<html><head><title></title></head><body>";//先生成头部
+				var foot="</body></html>";//生成尾部
+				var newstr=document.all.item('realPrint').innerHTML;//获取指定打印区域
+				var oldstr=document.body.innerHTML;//获得原本页面的代码
+				document.body.innerHTML=head+newstr+foot;//购建新的网页
+				window.print();//打印刚才新建的网页
+				document.body.innerHTML=oldstr;//将网页还原
+				if($('#printType').val()==1) {
+					this._displayDeliveryOrder(orderId,parentOrderId,state,busiCode,flag);
+				}else {
+					this._noMergeDisplayDeliveryOrder(orderId,parentOrderId,state,busiCode,flag);
+				}
+				return false;
 		    }
     }); 
     
