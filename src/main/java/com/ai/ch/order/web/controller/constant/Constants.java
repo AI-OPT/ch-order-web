@@ -296,5 +296,10 @@ public final class Constants {
     private static final String CH_REFUND_KEY = "ch.refundnotice.url";  
     public static final String CH_REFUND_URL = loader.getProperty(CH_REFUND_KEY); 
     
-   
+    /**一级商户**/
+    private static final String pay_first_merchant_key = "ch.pay.first.merchant";
+    public static final String ch_pay_first_merchant = loader.getProperty(pay_first_merchant_key); 
+    /**二级商户**/
+    private static final String pay_two_merchant_key = "ch.pay.two.merchant";
+    public static final String ch_pay_two_merchant = loader.getProperty(pay_two_merchant_key); 
 }
