@@ -64,12 +64,12 @@ public class OrdProdReadFileThread extends Thread {
 					if (!StringUtil.isBlank(errCode)) {
 						LOG.info("校验文件失败,校验码:" + errCode.toString());
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
-						String localPath = localpath + "//rpt//";
+						String localPath = localpath + "/rpt";
 						File file = new File(localPath);
 						if (!file.exists()){       
 						    file.mkdirs(); 
 						}
-						File rptFile = new File(localPath+"//"+"rpt");
+						File rptFile = new File(localPath+"/"+"rpt");
 						if(!rptFile.exists()){
 							rptFile.createNewFile();
 						}
@@ -82,20 +82,20 @@ public class OrdProdReadFileThread extends Thread {
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动文件
-						SftpUtil.uploadIs(path + "//sapa//rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "//sapa//err", chkName, is, sftp);
-						SftpUtil.uploadIs(path + "//sapa//err", fileName, is, sftp);
+						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
 						SftpUtil.delete(path, fileName, sftp);
 						SftpUtil.delete(path, chkName, sftp);
 						continue;
 						// 推到ftp上
 					} else {
 						LOG.info("++++++++++++校验成功" + chkName);
-						String localPath = localpath + "//" + chkName;
+						String localPath = localpath + "/" + chkName;
 						InputStream is = new FileInputStream(localPath);
 						readOrdProdFile(fileName, sftp);
 						SftpUtil.delete(path, chkName, sftp);
-						SftpUtil.uploadIs(path + "//sapa//chk", chkName, is, sftp);
+						SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
 					}
 				} catch (IOException e) {
 					e.printStackTrace();
