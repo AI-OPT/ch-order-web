@@ -649,7 +649,7 @@ public class PaidOrderController {
 	 * @return cash
 	 */
 	private int integralCashQry(String accountId, String openId, String appId,String token) {
-		System.out.println("用户积分查询开始>>>>");
+		LOG.info("用户积分查询开始>>>>");
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId", accountId);
 		params.put("openId", openId);
@@ -658,7 +658,7 @@ public class PaidOrderController {
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SEARCH_APPKEY);
 		String param = JSON.toJSONString(params);
-		System.out.println("用户积分查询参数>>>>" + param);
+		LOG.info("用户积分查询参数>>>>" + param);
 		try {
 			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SEARCH_URL, param, headers);
 			JSONObject jsonObject = ParseO2pDataUtil.getData(result);
@@ -696,20 +696,19 @@ public class PaidOrderController {
 		params.put("appId", appId);
 		params.put("oid", oid);
 		params.put("bisId", bisId);
-	//	params.put("backCash", backCash);
 		params.put("token", token);
 		Map<String, String> headers = new HashMap<String, String>();
 		headers.put("appkey", Constants.INTEGRAL_SHOPBACK_APPKEY);
 		String param = JSON.toJSONString(params);
 		try {
-			System.out.println("撤销积分参数>>>>" + param);
+			LOG.info("撤销积分参数>>>>" + param);
 			String result = HttpClientUtil.sendPost(Constants.INTEGRAL_SHOPBACK_URL, param, headers);
 			JSONObject jsonObject = ParseO2pDataUtil.getData(result);
 			String dataStr =jsonObject.getString("code");
 			if ("200".equals(dataStr)) {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销成功", null);
 			} else {
-				System.out.println(">>>>>>>撤销积分请求过程失败");
+				LOG.info(">>>>>>>撤销积分请求过程失败");
 				// 请求过程失败
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销失败", null);
 			}
@@ -807,7 +806,7 @@ public class PaidOrderController {
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ResponseData<String> responseData = null;
 		try {
-			System.out.println("退款申请开始>>>>>>");
+			LOG.info("退款申请开始>>>>>>");
 			// 将元转换为分
 			String updateMoney = AmountUtil.YToSFen(money);
 			GrpHdr hdr = new GrpHdr();
@@ -826,19 +825,19 @@ public class PaidOrderController {
 			ReqsInfo reqInfo = new ReqsInfo();
 			reqInfo.setGrpHdr(hdr);
 			reqInfo.setGrpBody(body);
-			System.out.println("发起参数流水号>>>>"+reqInfo.getGrpBody().getPayTranSn());
-			System.out.println("发起参数主订单号>>>>"+reqInfo.getGrpBody().getMerRefundSn());
-			System.out.println("发起参数子订单号>>>>"+reqInfo.getGrpBody().getMerSeqId());
-			System.out.println("发起参数金额>>>>"+reqInfo.getGrpBody().getRefundAmt());
-			System.out.println("退款时间>>>>"+reqInfo.getGrpBody().getRefundDate());
+			LOG.info("发起参数流水号>>>>"+reqInfo.getGrpBody().getPayTranSn());
+			LOG.info("发起参数主订单号>>>>"+reqInfo.getGrpBody().getMerRefundSn());
+			LOG.info("发起参数子订单号>>>>"+reqInfo.getGrpBody().getMerSeqId());
+			LOG.info("发起参数金额>>>>"+reqInfo.getGrpBody().getRefundAmt());
+			LOG.info("退款时间>>>>"+reqInfo.getGrpBody().getRefundDate());
 			BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 			RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY),
 					key.getKey(KeyType.PUBLIC_KEY));
 			if (!"90000".equals(rp.getGrpBody().getStsRsn().getRespCode())) {
-				System.out.println("退款申请>>>>>>>>>>"+rp.getGrpBody().getStsRsn().getRespDesc());
+				LOG.info("退款申请>>>>>>>>>>"+rp.getGrpBody().getStsRsn().getRespDesc());
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 			} else {
-				System.out.println("退款申请成功>>>>>>");
+				LOG.info("退款申请成功>>>>>>");
 				//申请失败修改订单状态为处理中
 				IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
 				OrdRequest ordRequest = new OrdRequest();
