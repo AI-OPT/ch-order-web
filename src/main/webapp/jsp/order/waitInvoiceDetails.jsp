@@ -307,8 +307,6 @@
                 </div>
               </div> 
             </div>
-    </div>
-      
 <!-- 模态框（Modal） -->
 <div class="modal fade" id="myDeliverModal" tabindex="-1" role="dialog" 
    aria-labelledby="myModalLabel" aria-hidden="true">
@@ -327,7 +325,7 @@
       </div>
 </div><!-- /.modal -->
 </div>
-
+</div>
 </body>
 <script id="deliverPrintTempalte" type="text/x-jsrender">
 					<div id="realPrint">
