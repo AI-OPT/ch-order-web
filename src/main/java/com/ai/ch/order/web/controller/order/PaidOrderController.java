@@ -811,7 +811,7 @@ public class PaidOrderController {
 			// 将元转换为分
 			String updateMoney = AmountUtil.YToSFen(money);
 			GrpHdr hdr = new GrpHdr();
-			hdr.setMerNo("CO20160900000009");
+			hdr.setMerNo(Constants.ch_pay_first_merchant);
 			hdr.setCreDtTm(new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()));
 			hdr.setTranType(TranType.REFUND_APPLY.getValue());
 			GrpBody body = new GrpBody();
@@ -819,7 +819,7 @@ public class PaidOrderController {
 			body.setMerSeqId(parentOrderId);
 			body.setRefundAmt(updateMoney);
 			body.setMerRefundSn(orderId);
-			body.setSonMerNo("CO20160900000010");
+			body.setSonMerNo(Constants.ch_pay_two_merchant);
 			body.setRefundDate(new SimpleDateFormat("yyyyMMdd").format(new Date()));
 			body.setNotifyUrl(Constants.CH_REFUND_URL);
 			body.setResv(orderId);
