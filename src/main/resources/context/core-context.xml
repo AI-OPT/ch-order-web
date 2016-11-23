@@ -40,13 +40,13 @@
 	
 	<bean id="key" class="com.ai.ch.order.web.vo.Key">
 		<constructor-arg index="0">
-			<value>classpath:CO20160900000009.pfx</value>
+			<value>classpath:CO20161100000001.pfx</value>
 		</constructor-arg>
 		<constructor-arg index="1">
 			<value>111111</value>
 		</constructor-arg>
 		<constructor-arg index="2">
-			<value>classpath:ch-mobile.cer</value>
+			<value>classpath:PubKey.cer</value>
 		</constructor-arg>
 	</bean>
 	
