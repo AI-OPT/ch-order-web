@@ -146,7 +146,6 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
     		var formValidator=_this._orderRuleSettingFormValidate();
 			formValidator.form();
 			if(!$("#orderRuleSettingForm").valid()){
-				
 				return;
 			}
     		var data = $("#orderRuleSettingForm").serialize();
@@ -203,7 +202,26 @@ define('app/jsp/order_rule/orderRuleSetting', function (require, exports, module
 				return;
 			}
 			//
-    		$('#saveModal').modal('show');
+    		//$('#saveModal').modal('show');
+    		
+    		var _this = this;
+			Dialog({
+				title : '提示',
+				content : "你是否确认保存信息？",
+				icon:'prompt',
+				button: [
+					        {
+					            value: '确认',
+					            callback: function () {
+					            	_this._orderRuleSetting();
+					            },
+					            autofocus: true
+					        },
+					        {
+					            value: '取消',
+					        }
+					    ]
+			}).showModal();
     	}
       	
     	
