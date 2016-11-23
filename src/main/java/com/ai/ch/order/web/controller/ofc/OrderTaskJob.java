@@ -16,9 +16,9 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 
-@Service
+/*@Service
 @Lazy(false)
-@PropertySource(value="classpath:ofcConfig.properties")
+@PropertySource(value="classpath:ofcConfig.properties")*/
 public class OrderTaskJob {
 
 	private static final Log LOG = LogFactory.getLog(OrderTaskJob.class);
