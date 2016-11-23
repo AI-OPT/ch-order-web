@@ -176,7 +176,7 @@
 				<div class="row">
 
 					<!-- 模态框（Modal） 开始 -->
-					<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
+				<!-- 	<div class="modal fade" id="saveModal" tabindex="-1" role="dialog"
 						aria-labelledby="saveModalLabel" aria-hidden="true">
 						<div class="modal-dialog" style="width: 400px; padding-top:200px;">
 							<div class="modal-content">
@@ -197,10 +197,10 @@
 									
 								</div>
 							</div>
-							<!-- /.modal-content -->
+							/.modal-content
 						</div>
-						<!-- /.modal -->
-					</div>
+						/.modal
+					</div> -->
 					<!-- 模态框（Modal） 结束-->
 
 					<!--内侧框架
