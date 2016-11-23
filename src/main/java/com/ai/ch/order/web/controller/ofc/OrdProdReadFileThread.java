@@ -67,7 +67,7 @@ public class OrdProdReadFileThread extends Thread {
 						String localPath = localpath + "//rpt//";
 						File file = new File(localPath);
 						if (!file.exists()){       
-						    file.mkdir(); 
+						    file.mkdirs(); 
 						}
 						File rptFile = new File(localPath+"//"+"rpt");
 						if(!rptFile.exists()){
