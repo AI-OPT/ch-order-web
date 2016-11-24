@@ -30,8 +30,21 @@ public class ValidateChkUtil {
 	 */
 	public String validateChk(String path, String localpath, String datName, String chkName, ChannelSftp sftp)
 			throws Exception {
-		SftpATTRS chkAttrs = sftp.lstat(path + "/" + chkName);
-		SftpATTRS datAttrs = sftp.lstat(path + "/" + datName);
+		SftpATTRS chkAttrs=null;
+		SftpATTRS datAttrs=null;
+		try{
+		chkAttrs = sftp.lstat(path + "/" + chkName);
+		}catch(Exception e){
+			LOG.info("校验文件"+chkName+"获取不到");
+			return "99";
+		}
+		try{
+		// 校验数据文件是否存在
+		datAttrs = sftp.lstat(path + "/" + datName);
+		}catch(Exception e){
+			LOG.info("数据文件"+datName+"获取不到");
+			return "01";
+		}
 		LOG.info("+++++++开始校验文件:" + datName);
 		StringBuilder errCode = new StringBuilder();
 		// 获取校验文件数据
@@ -58,10 +71,6 @@ public class ValidateChkUtil {
 		// 获取数据文件数据
 		InputStream datInputStream = SftpUtil.download(path, datName, localpath, sftp);
 		InputStreamReader datInputStreamReader = new InputStreamReader(datInputStream, "utf-8");
-		// 校验数据文件是否存在mark
-		if (chkAttrs.getSize() == 0) {
-			errCode.append("01");
-		}
 		BufferedReader datReader = new BufferedReader(datInputStreamReader);
 		String datTemp = datReader.readLine();
 		Long count = 0L;
@@ -71,6 +80,7 @@ public class ValidateChkUtil {
 		}
 
 		// 校验数据文件大小
+		try{
 		if (!String.valueOf(datAttrs.getSize()).equals(str[1])) {
 			errCode.append("02");
 		}
@@ -90,6 +100,9 @@ public class ValidateChkUtil {
 		 * if(!longFormat.format(new Date(createTime)).equals(str[4])){
 		 * errCode.append("05"); }
 		 */
+		}catch(Exception e){
+			errCode.append("99");
+		}
 		return errCode.toString();
 	}
 

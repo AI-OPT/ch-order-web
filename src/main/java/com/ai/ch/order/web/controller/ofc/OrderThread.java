@@ -9,6 +9,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ai.ch.order.web.utils.PropertiesUtil;
+import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
@@ -26,8 +27,8 @@ public class OrderThread extends Thread {
 	private IOfcSV ofcSV;
 
 	private BlockingQueue<String[]> ordOrderQueue;
-	
-	private long count =1;
+
+	private long count = 1;
 
 	public OrderThread(BlockingQueue<String[]> ordOrderQueue, IOfcSV ofcSV) {
 		this.ordOrderQueue = ordOrderQueue;
@@ -37,19 +38,22 @@ public class OrderThread extends Thread {
 	public void run() {
 		while (true) {
 			try {
-				String[] queue = ordOrderQueue.poll(60, TimeUnit.SECONDS);
+				String[] queue = ordOrderQueue.poll(120, TimeUnit.SECONDS);
 				if (null == queue) {
 					LOG.info("++++++++++++++++++线程OrderThread中断了");
 					break;
 				}
 				synchronized (queue) {
-					LOG.info("第"+(count++)+"开始执行保存订单信息,时间" + DateUtil.getSysDate());
+					LOG.info("第" + (count++) + "开始执行保存订单信息,时间" + DateUtil.getSysDate());
 					OrderOfcVo order = setOrderInfo(queue);
-					ofcSV.insertOrdOrder(order);
-					LOG.info("第"+count+"结束执行保存订单信息,时间" + DateUtil.getSysDate());
+					try {
+						ofcSV.insertOrdOrder(order);
+					} catch (SystemException e) {
+						LOG.info("-_-_-_-_-_-_-_-_-这个订单队列被挤爆了-_-_-_-_-_-_-_-_-");
+						ofcSV.insertOrdOrder(order);
+					}
+					LOG.info("第" + count + "结束执行保存订单信息,时间" + DateUtil.getSysDate());
 				}
-			} catch (InterruptedException e) {
-				e.printStackTrace();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -207,9 +211,10 @@ public class OrderThread extends Thread {
 		ordOdLogistics.setContactTel(orderData[21]);
 		// 详细地址
 		ordOdLogistics.setAddress(orderData[22]);
-		// 邮编
-		ordOdLogistics.setPostcode(orderData[24]);
-
+		// 邮编,6位哦
+		if (orderData[25].length() > 0 && orderData[25].length() < 7) {
+			ordOdLogistics.setPostcode(orderData[25]);
+		}
 		OrderOfcVo orderVo = new OrderOfcVo();
 		orderVo.setOrOrderOfcVo(record);
 		orderVo.setOrdOdFeeTotalVo(ordOdFeeTotal);

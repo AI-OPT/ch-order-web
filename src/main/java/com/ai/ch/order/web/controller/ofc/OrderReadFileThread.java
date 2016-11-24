@@ -75,18 +75,18 @@ public class OrderReadFileThread extends Thread {
 						}
 						FileWriter fw = new FileWriter(rptFile);
 						BufferedWriter bw = new BufferedWriter(fw);
-						bw.write(errCode.toString());
-						bw.write("\n");
+						bw.write(fileName+"\n");
+						bw.write(errCode.toString()+"\n");
 						bw.flush();
 						bw.close();
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动文件
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
+						/*SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
 						SftpUtil.delete(path, fileName, sftp);
-						SftpUtil.delete(path, chkName, sftp);
+						SftpUtil.delete(path, chkName, sftp);*/
 						continue;
 						// 推到ftp上
 					} else {

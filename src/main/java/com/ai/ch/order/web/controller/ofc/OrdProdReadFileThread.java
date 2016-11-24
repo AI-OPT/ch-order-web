@@ -52,8 +52,8 @@ public class OrdProdReadFileThread extends Thread {
 		try {
 			nameList = getFileName(path, sftp);
 			LOG.info("+++++++++++++文件列表"+JSON.toJSONString(nameList));
-		} catch (SftpException e1) {
-			e1.printStackTrace();
+		} catch (SftpException e) {
+			e.printStackTrace();
 		}
 		for (String fileName : nameList) {
 			if ("omsa01002".equals(fileName.substring(11, 20))) {
@@ -69,24 +69,24 @@ public class OrdProdReadFileThread extends Thread {
 						if (!file.exists()){       
 						    file.mkdirs(); 
 						}
-						File rptFile = new File(localPath+"/"+"rpt");
+						File rptFile = new File(localPath+"/"+errCodeName);
 						if(!rptFile.exists()){
 							rptFile.createNewFile();
 						}
 						FileWriter fw = new FileWriter(rptFile);
 						BufferedWriter bw = new BufferedWriter(fw);
-						bw.write(errCode.toString());
-						bw.write("\n");
+						bw.write(fileName+"\n");
+						bw.write(errCode.toString()+"\n");
 						bw.flush();
 						bw.close();
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动文件
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
+						/*SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
 						SftpUtil.delete(path, fileName, sftp);
-						SftpUtil.delete(path, chkName, sftp);
+						SftpUtil.delete(path, chkName, sftp);*/
 						continue;
 						// 推到ftp上
 					} else {
@@ -119,7 +119,7 @@ public class OrdProdReadFileThread extends Thread {
 			LOG.error("开始读取文件：" + fileName);
 			ins = SftpUtil.download(path, fileName, localpath, sftp);
 			if (ins != null) {
-				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "UTF-8"));
+				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "gbk"));
 				String line;
 				while ((line = reader.readLine()) != null) {
 					try {
