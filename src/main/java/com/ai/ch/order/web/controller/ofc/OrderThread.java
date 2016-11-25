@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.commons.net.ntp.TimeStamp;
 
 import com.ai.ch.order.web.utils.PropertiesUtil;
 import com.ai.opt.base.exception.SystemException;

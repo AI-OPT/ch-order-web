@@ -82,9 +82,11 @@ public class OrdProdReadFileThread extends Thread {
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动文件
+						InputStream chkIs = new FileInputStream(localpath+"/"+chkName);
+						InputStream datIs = new FileInputStream(localpath+"/"+fileName);
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", fileName, datIs, sftp);
 						SftpUtil.delete(path, fileName, sftp);
 						SftpUtil.delete(path, chkName, sftp);
 						continue;

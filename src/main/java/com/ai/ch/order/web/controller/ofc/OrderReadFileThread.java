@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -82,9 +81,11 @@ public class OrderReadFileThread extends Thread {
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动rpt文件
+						InputStream chkIs = new FileInputStream(localpath+"/"+chkName);
+						InputStream datIs = new FileInputStream(localpath+"/"+fileName);
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", chkName, is ,sftp); 
-						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp); 
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs ,sftp); 
+						SftpUtil.uploadIs(path + "/sapa/err", fileName, datIs, sftp); 
 						SftpUtil.delete(path, fileName,sftp); 
 						SftpUtil.delete(path, chkName, sftp);
 						 

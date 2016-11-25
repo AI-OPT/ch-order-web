@@ -3,7 +3,6 @@ package com.ai.ch.order.web.utils;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.SimpleDateFormat;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,9 +13,6 @@ import com.jcraft.jsch.SftpATTRS;
 public class ValidateChkUtil {
 
 	private static final Log LOG = LogFactory.getLog(ValidateChkUtil.class);
-
-	private SimpleDateFormat longFormat = new SimpleDateFormat("yyyyMMddHHmmss");
-	private SimpleDateFormat shortFormat = new SimpleDateFormat("yyyyMMdd");
 
 	/**
 	 * 校验校验文件
@@ -36,11 +32,6 @@ public class ValidateChkUtil {
 			chkAttrs = sftp.lstat(path + "/" + chkName);
 		} catch (Exception e) {
 			LOG.info("校验文件" + chkName + "获取不到");
-			InputStream is = SftpUtil.download(path, datName, localpath, sftp);
-			if (is != null) {
-				SftpUtil.uploadIs(path + "/sapa/err/", datName, is, sftp);
-				SftpUtil.delete(path, datName, sftp);
-			}
 			return "99";
 		}
 		try {
@@ -67,11 +58,8 @@ public class ValidateChkUtil {
 			//InputStream chkIs = sftp.get(path + "/" + chkName);
 			//InputStream datIs = sftp.get(path + "/" + datName);
 			InputStream chkIs = SftpUtil.download(path, localpath, chkName, sftp);
-			InputStream datIs = SftpUtil.download(path, localpath, datName, sftp);
 			SftpUtil.uploadIs(path + "/sapa/err/", chkName, chkIs, sftp);
-			SftpUtil.uploadIs(path + "/sapa/err/", datName, datIs, sftp);
 			SftpUtil.delete(path, chkName, sftp);
-			SftpUtil.delete(path, datName, sftp);
 			errCode.append("99");
 		}
 		// BufferedReader br = new BufferedReader(inputStreamReader);
@@ -89,11 +77,8 @@ public class ValidateChkUtil {
 		if (!datName.equals(str[0])) {
 			LOG.info("+++++++++++++++校验数据文件名称有问题");
 			InputStream chkIs = SftpUtil.download(path, localpath, chkName, sftp);
-			InputStream datIs = SftpUtil.download(path, localpath, datName, sftp);
 			SftpUtil.uploadIs(path + "/sapa/err/", chkName, chkIs, sftp);
-			SftpUtil.uploadIs(path + "/sapa/err/", datName, datIs, sftp);
 			SftpUtil.delete(path, chkName, sftp);
-			SftpUtil.delete(path, datName, sftp);
 			return "99";
 		}
 		// 获取数据文件数据
@@ -131,11 +116,8 @@ public class ValidateChkUtil {
 		} catch (Exception e) {
 			errCode.append("99");
 			InputStream chkIs = SftpUtil.download(path, localpath, chkName, sftp);
-			InputStream datIs = SftpUtil.download(path, localpath, datName, sftp);
 			SftpUtil.uploadIs(path + "/sapa/err/", chkName, chkIs, sftp);
-			SftpUtil.uploadIs(path + "/sapa/err/", datName, datIs, sftp);
 			SftpUtil.delete(path, chkName, sftp);
-			SftpUtil.delete(path, datName, sftp);
 		}
 		return errCode.toString();
 	}
