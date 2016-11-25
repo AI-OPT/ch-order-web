@@ -8,7 +8,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,7 +56,7 @@ import com.alibaba.fastjson.JSONObject;
 
 @Controller
 public class StasticOrderController {
-	private static final Logger LOG = Logger.getLogger(StasticOrderController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(StasticOrderController.class);
 	
 	@RequestMapping("/toStasticOrder")
 	public ModelAndView toAlertOrder(HttpServletRequest request) {
@@ -195,7 +196,8 @@ public class StasticOrderController {
     	try {
 				QueryOrderRequest queryRequest=new QueryOrderRequest();
 				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)||
-                		Constants.OrdOrder.State.CANCEL.equals(state)){
+                		Constants.OrdOrder.State.CANCEL.equals(state)||
+                		Constants.OrdOrder.State.COMPLETED.equals(state)&&StringUtil.isBlank(orderId)){
 					queryRequest.setOrderId(Long.parseLong(pOrderId));
 				}else{
 					queryRequest.setOrderId(Long.parseLong(orderId));
