@@ -211,7 +211,7 @@ public class OrderThread extends Thread {
 		// 订单Id
 		ordOdLogistics.setOrderId(Long.valueOf(orderData[0]));
 		// 买家名称,长度最大16位
-		if (StringUtil.isBlank(orderData[20])) {
+		if (!StringUtil.isBlank(orderData[20])) {
 			if (orderData[20].length() <= 16) {
 				ordOdLogistics.setContactName(orderData[20]);
 			}
