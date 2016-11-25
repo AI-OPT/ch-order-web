@@ -115,9 +115,21 @@ public class OrderThread extends Thread {
 		// 业务标识,ofc是0
 		record.setFlag(PropertiesUtil.getStringByKey("ofc.ordOrder.flag"));
 		// 业务类型,必传
-		record.setBusiCode(PropertiesUtil.getStringByKey("ofc.ordOrder.busiCode"));
+		String busiCode="";
+		if(StringUtil.isBlank(orderData[27])){
+			requst.setOutCode(orderData[27]);
+			busiCode = ofcSV.parseOfcCode(requst);
+			if(StringUtil.isBlank(busiCode)){
+				requst.setOutCode("其它");
+				busiCode = ofcSV.parseOfcCode(requst);
+			}
+		}else{
+			requst.setOutCode("其它");
+			busiCode = ofcSV.parseOfcCode(requst);
+		}
+		record.setBusiCode(busiCode);
 		// 订单类型,必传
-		record.setOrderType(orderData[27]);
+		record.setOrderType(PropertiesUtil.getStringByKey("ofc.ordOrder.orderType"));
 		// 用户类型,必传
 		record.setUserType(PropertiesUtil.getStringByKey("ofc.ordOrder.userType"));
 		// 用户Id,必传
