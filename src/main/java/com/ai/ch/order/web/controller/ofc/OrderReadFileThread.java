@@ -75,19 +75,19 @@ public class OrderReadFileThread extends Thread {
 						}
 						FileWriter fw = new FileWriter(rptFile);
 						BufferedWriter bw = new BufferedWriter(fw);
-						bw.write(fileName+"\n");
-						bw.write(errCode.toString()+"\n");
+						bw.write(fileName + "\n");
+						bw.write(errCode.toString() + "\n");
 						bw.flush();
 						bw.close();
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动rpt文件
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						
-						/*SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
-						SftpUtil.delete(path, fileName, sftp);
-						SftpUtil.delete(path, chkName, sftp);*/
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, is ,sftp); 
+						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp); 
+						SftpUtil.delete(path, fileName,sftp); 
+						SftpUtil.delete(path, chkName, sftp);
+						 
 						continue;
 						// 推到ftp上
 					} else {
@@ -98,12 +98,6 @@ public class OrderReadFileThread extends Thread {
 						SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
 						readOrderFile(fileName, sftp);
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				} catch (SftpException e) {
-					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

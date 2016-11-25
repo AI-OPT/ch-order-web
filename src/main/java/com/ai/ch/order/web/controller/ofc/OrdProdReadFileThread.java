@@ -83,10 +83,10 @@ public class OrdProdReadFileThread extends Thread {
 						InputStream is = new FileInputStream(rptFile);
 						// 移动文件
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						/*SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
 						SftpUtil.delete(path, fileName, sftp);
-						SftpUtil.delete(path, chkName, sftp);*/
+						SftpUtil.delete(path, chkName, sftp);
 						continue;
 						// 推到ftp上
 					} else {
@@ -97,12 +97,6 @@ public class OrdProdReadFileThread extends Thread {
 						SftpUtil.delete(path, chkName, sftp);
 						SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
 					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				} catch (ParseException e) {
-					e.printStackTrace();
-				} catch (SftpException e) {
-					e.printStackTrace();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

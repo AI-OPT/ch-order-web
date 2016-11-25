@@ -130,7 +130,7 @@ public class OrderThread extends Thread {
 		// 显示状态
 		record.setDisplayFlag(PropertiesUtil.getStringByKey("ofc.ordOrder.displayFlag"));
 		// 状态变更时间
-		if(StringUtil.isBlank(orderData[29])){
+		if(!StringUtil.isBlank(orderData[29])){
 		record.setDisplayFlagChgTime(DateUtil.getTimestamp(orderData[29]));
 		}else{
 			record.setDisplayFlagChgTime(DateUtil.getSysDate());
@@ -181,7 +181,7 @@ public class OrderThread extends Thread {
 		// 待收金额,已完成订单,0,必传
 		ordOdFeeTotal.setPayFee(0);
 		// 变更时间,必传
-		if (StringUtil.isBlank(orderData[29])) {
+		if (!StringUtil.isBlank(orderData[29])) {
 			ordOdFeeTotal.setUpdateTime(DateUtil.getTimestamp(orderData[29]));
 		}else{
 			ordOdFeeTotal.setUpdateTime(DateUtil.getSysDate());
