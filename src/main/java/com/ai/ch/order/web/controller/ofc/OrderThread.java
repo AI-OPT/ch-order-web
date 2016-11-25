@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.commons.net.ntp.TimeStamp;
 
 import com.ai.ch.order.web.utils.PropertiesUtil;
 import com.ai.opt.base.exception.SystemException;
@@ -129,7 +130,11 @@ public class OrderThread extends Thread {
 		// 显示状态
 		record.setDisplayFlag(PropertiesUtil.getStringByKey("ofc.ordOrder.displayFlag"));
 		// 状态变更时间
-		record.setDisplayFlagChgTime(DateUtil.getSysDate());
+		if(StringUtil.isBlank(orderData[29])){
+		record.setDisplayFlagChgTime(DateUtil.getTimestamp(orderData[29]));
+		}else{
+			record.setDisplayFlagChgTime(DateUtil.getSysDate());
+		}
 		/**
 		 * 订单-费用表
 		 */
@@ -176,7 +181,11 @@ public class OrderThread extends Thread {
 		// 待收金额,已完成订单,0,必传
 		ordOdFeeTotal.setPayFee(0);
 		// 变更时间,必传
-		ordOdFeeTotal.setUpdateTime(DateUtil.getSysDate());
+		if (StringUtil.isBlank(orderData[29])) {
+			ordOdFeeTotal.setUpdateTime(DateUtil.getTimestamp(orderData[29]));
+		}else{
+			ordOdFeeTotal.setUpdateTime(DateUtil.getSysDate());
+		}
 
 		/**
 		 * 订单-出货表
