@@ -41,13 +41,13 @@
 						            </ul>
 						             <ul>
 						                <li  class="col-md-6">
-						                    <p class="word">父订单号：</p>
+						                    <p class="word">订单号：</p>
 						                    <p id="orderId" class="wide-field" style="word-break:break-all;">${order.orderId}</p>
 						                </li>
-						                <li  class="col-md-6">
+						           <%--      <li  class="col-md-6">
 						                    <p class="word">子订单号：</p>
 						                    <p class="wide-field" style="word-break:break-all;">${order.parentOrderId}</p>
-						                </li>  
+						                </li>   --%>
 						            </ul>
 					  			</div>
 					  	 	<!--table表格-->
