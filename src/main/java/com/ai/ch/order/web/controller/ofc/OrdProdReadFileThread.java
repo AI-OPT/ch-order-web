@@ -86,8 +86,6 @@ public class OrdProdReadFileThread extends Thread {
 						InputStream datIs = new FileInputStream(localpath+"/"+fileName);
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", fileName, datIs, sftp);
-						SftpUtil.delete(path, fileName, sftp);
 						SftpUtil.delete(path, chkName, sftp);
 						continue;
 						// 推到ftp上
