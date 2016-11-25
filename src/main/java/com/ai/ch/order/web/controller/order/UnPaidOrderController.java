@@ -7,7 +7,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -45,7 +46,7 @@ import com.alibaba.fastjson.JSON;
 
 @Controller
 public class UnPaidOrderController {
-	private static final Logger LOG = Logger.getLogger(UnPaidOrderController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(UnPaidOrderController.class);
 	@RequestMapping("/toUnpaidOrder")
 	public ModelAndView register(HttpServletRequest request) {
 		BehindQueryOrderListRequest orderListRequest=new BehindQueryOrderListRequest();
