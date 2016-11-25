@@ -81,8 +81,9 @@ public class OrderReadFileThread extends Thread {
 						bw.close();
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
-						// 移动文件
+						// 移动rpt文件
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
+						
 						/*SftpUtil.uploadIs(path + "/sapa/err", chkName, is, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", fileName, is, sftp);
 						SftpUtil.delete(path, fileName, sftp);
