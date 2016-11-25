@@ -385,7 +385,7 @@
 							           		<ul>
 								                <li>
 								                    <p class="word"><span>*</span>退款金额:</p>
-								                    <p ><input type="text" class="int-text int-medium" placeholder="不能多余用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
+								                    <p ><input type="text" class="int-text int-medium" placeholder="不能多于用户申请金额" name="updateMoneyData" id="updateMoneyData"></p>
 								                    </li>
 								                <li>
 								                	<p class="word"><span>*</span>退款理由:</p>
