@@ -9,7 +9,8 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -55,7 +56,7 @@ import com.alibaba.fastjson.JSONObject;
 @RequestMapping("/order")
 public class OrderListController {
 	
-	private static final Logger logger = Logger.getLogger(OrderListController.class);
+	private static final Logger logger = LoggerFactory.getLogger(OrderListController.class);
 	
 	@RequestMapping("/toOrderList")
 	public ModelAndView toAlertOrder(HttpServletRequest request,String stateFlag ) {

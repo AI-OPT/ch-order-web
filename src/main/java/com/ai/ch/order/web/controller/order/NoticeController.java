@@ -5,7 +5,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,7 +29,7 @@ import com.changhong.upp.util.XBConvertor;
 @RequestMapping("/notice")
 public class NoticeController {
 	
-	private static final Logger LOG = Logger.getLogger(NoticeController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(NoticeController.class);
 	
 	@Resource(name="key")
 	private Key key;

@@ -11,7 +11,8 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -81,7 +82,7 @@ import com.changhong.upp.business.type.TranType;
 
 @Controller
 public class PaidOrderController {
-	private static final Logger LOG = Logger.getLogger(PaidOrderController.class);
+	private static final Logger LOG = LoggerFactory.getLogger(PaidOrderController.class);
 	@Autowired
 	private BusinessHandlerFactory businessHandlerFactory;
 	@Resource(name = "key")
@@ -188,7 +189,7 @@ public class PaidOrderController {
 			List<BehindParentOrdOrderVo> list = result.getResult();
 			if (!CollectionUtil.isEmpty(list)) {
 				for (BehindParentOrdOrderVo vo : list) {
-					vo.setUserTel(user.getMobile());
+					//vo.setUserTel(user.getMobile());
 					// 翻译订单来源
 					SysParamSingleCond param = new SysParamSingleCond();
 					param.setTenantId(Constants.TENANT_ID);
@@ -589,9 +590,9 @@ public class PaidOrderController {
 		ResponseData<String> responseData = null;
 		if (!StringUtil.isBlank(downOrdId)) {
 			// 查询用户积分 判断是否允许退货
-			// TODO
 			String appId = "30a10e21";
-			String bisId = "bisId";
+			// TODO
+			String bisId = orderId;//订单id
 			int surplusCash = integralCashQry(accountId, openId, appId,token);
 			int giveCash = 0;
 			if (!StringUtil.isBlank(giveJF)) {
@@ -666,7 +667,7 @@ public class PaidOrderController {
 			if ("200".equals(dataStr)) {
 				return Integer.parseInt(jsonObject.getString("cash"));
 			} else {
-				LOG.error("查询用户积分请求失败", null);
+				LOG.error("查询用户积分请求失败");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
