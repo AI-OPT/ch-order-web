@@ -143,7 +143,7 @@
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">手机号：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactTel}</p>
                             		</li>
                             	</ul>
                             	<ul>
@@ -153,8 +153,7 @@
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">收货地址：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.aftercontactInfo}</p>
                             		</li>
                             	</ul>
                             </div>
