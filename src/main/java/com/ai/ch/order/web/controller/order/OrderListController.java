@@ -27,11 +27,11 @@ import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.net.xss.util.CollectionUtil;
-import com.ai.net.xss.util.StringUtil;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.dubbo.util.HttpClientUtil;
 import com.ai.opt.sdk.util.BeanUtils;
+import com.ai.opt.sdk.util.StringUtil;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
@@ -111,11 +111,13 @@ public class OrderListController {
 		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
-			String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
-			if(StringUtil.isBlank(userId)) {
-				queryRequest.setUserId(queryParams.getUsername());
-			}else {
-				queryRequest.setUserId(userId);
+			if(!StringUtil.isBlank(queryParams.getUsername())) {
+				String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
+				if(StringUtil.isBlank(userId)) {
+					queryRequest.setUserId(queryParams.getUsername());
+				}else {
+					queryRequest.setUserId(userId);
+				}
 			}
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
