@@ -7,7 +7,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ai.ch.order.web.utils.PropertiesUtil;
-import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
@@ -73,12 +72,7 @@ public class OrdOdProdThread extends Thread {
 					}
 					LOG.error("保存订单商品信息开始,时间:" + DateUtil.getSysDate());
 					LOG.error(JSON.toJSONString(ordOdProd));
-					try {
 						ofcSV.insertOrdOdProd(ordOdProd);
-					} catch (SystemException e) {
-						LOG.error("-_-_-_-_-_-_-_-_-这个订单商品队列被挤爆了-_-_-_-_-_-_-_-_-");
-						ofcSV.insertOrdOdProd(ordOdProd);
-					}
 					LOG.error("保存订单商品信息结束,时间" + DateUtil.getSysDate());
 				}
 			} catch (InterruptedException e) {

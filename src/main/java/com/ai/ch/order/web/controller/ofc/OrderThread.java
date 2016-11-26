@@ -9,7 +9,6 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.ai.ch.order.web.utils.PropertiesUtil;
-import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
@@ -44,12 +43,7 @@ public class OrderThread extends Thread {
 				synchronized (queue) {
 					LOG.error("开始执行保存订单信息,时间" + DateUtil.getSysDate());
 					OrderOfcVo order = setOrdererror(queue);
-					try {
-						ofcSV.insertOrdOrder(order);
-					} catch (SystemException e) {
-						LOG.error("-_-_-_-_-_-_-_-_-这个订单信息队列被挤爆了-_-_-_-_-_-_-_-_-");
-						ofcSV.insertOrdOrder(order);
-					}
+					ofcSV.insertOrdOrder(order);
 					LOG.error("结束执行保存订单信息,时间" + DateUtil.getSysDate());
 				}
 			} catch (Exception e) {
