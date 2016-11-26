@@ -11,6 +11,7 @@ import org.apache.commons.logging.LogFactory;
 import com.ai.ch.order.web.utils.PropertiesUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
+import com.ai.opt.sdk.util.UUIDUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 import com.ai.slp.order.api.ofc.params.OfcCodeRequst;
 import com.ai.slp.order.api.ofc.params.OrdOdFeeTotalVo;
@@ -203,6 +204,7 @@ public class OrderThread extends Thread {
 		OrdOdLogisticsVo ordOdLogistics = new OrdOdLogisticsVo();
 		// 配送类型,必传
 		String logisticsType = "";
+		ordOdLogistics.setLogisticsId(UUIDUtil.genShortId());
 		if (!StringUtil.isBlank(orderData[17])) {
 			requst.setOutCode(orderData[17]);
 			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.LOGISTICS_TYPE"));

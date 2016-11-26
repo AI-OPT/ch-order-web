@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import com.ai.ch.order.web.utils.PropertiesUtil;
 import com.ai.opt.sdk.util.DateUtil;
 import com.ai.opt.sdk.util.StringUtil;
+import com.ai.opt.sdk.util.UUIDUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 import com.ai.slp.order.api.ofc.params.OrdOdProdVo;
 import com.alibaba.fastjson.JSON;
@@ -44,6 +45,7 @@ public class OrdOdProdThread extends Thread {
 					ordOdProd.setTenantId(PropertiesUtil.getStringByKey("ofc.ordOrder.tenantId"));
 					// 订单id
 					ordOdProd.setOrderId(Long.valueOf(queue[1]));
+					ordOdProd.setProdDetalId(UUIDUtil.genShortId());
 					// 物流号->商品编码
 					ordOdProd.setProdCode(queue[2]);
 					// 商品类型,默认'1',必传
