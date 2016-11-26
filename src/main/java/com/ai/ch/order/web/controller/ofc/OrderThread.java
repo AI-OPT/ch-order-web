@@ -28,8 +28,6 @@ public class OrderThread extends Thread {
 
 	private BlockingQueue<String[]> ordOrderQueue;
 
-	private long count = 1;
-
 	public OrderThread(BlockingQueue<String[]> ordOrderQueue, IOfcSV ofcSV) {
 		this.ordOrderQueue = ordOrderQueue;
 		this.ofcSV = ofcSV;
@@ -44,7 +42,7 @@ public class OrderThread extends Thread {
 					break;
 				}
 				synchronized (queue) {
-					LOG.info("第" + (count++) + "开始执行保存订单信息,时间" + DateUtil.getSysDate());
+					LOG.info("开始执行保存订单信息,时间" + DateUtil.getSysDate());
 					OrderOfcVo order = setOrderInfo(queue);
 					try {
 						ofcSV.insertOrdOrder(order);
@@ -52,7 +50,7 @@ public class OrderThread extends Thread {
 						LOG.info("-_-_-_-_-_-_-_-_-这个订单信息队列被挤爆了-_-_-_-_-_-_-_-_-");
 						ofcSV.insertOrdOrder(order);
 					}
-					LOG.info("第" + count + "结束执行保存订单信息,时间" + DateUtil.getSysDate());
+					LOG.info("结束执行保存订单信息,时间" + DateUtil.getSysDate());
 				}
 			} catch (Exception e) {
 				LOG.info("+++++++++++订单信息报错++++++++++++"+e.getMessage());

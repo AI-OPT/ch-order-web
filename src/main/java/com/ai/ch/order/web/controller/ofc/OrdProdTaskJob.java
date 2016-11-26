@@ -55,6 +55,7 @@ public class OrdProdTaskJob {
 			}
 
 		} catch (Exception e) {
+			LOG.info("订单商品线程报错了,错误信息"+e.getMessage());
 			e.printStackTrace();
 		} finally {
 			handlePool.shutdown();
