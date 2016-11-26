@@ -53,7 +53,7 @@ public class OrdProdTaskJob {
 			while (!ordOdProdQueue.isEmpty()) {
 				Thread.sleep(10 * 1000);
 			}
-
+			LOG.info("订单商品信息队列为空");
 		} catch (Exception e) {
 			LOG.info("订单商品线程报错了,错误信息"+e.getMessage());
 			e.printStackTrace();
