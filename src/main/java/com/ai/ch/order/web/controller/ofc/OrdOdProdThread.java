@@ -9,6 +9,7 @@ import org.apache.commons.logging.LogFactory;
 import com.ai.ch.order.web.utils.PropertiesUtil;
 import com.ai.opt.base.exception.SystemException;
 import com.ai.opt.sdk.util.DateUtil;
+import com.ai.opt.sdk.util.StringUtil;
 import com.ai.slp.order.api.ofc.interfaces.IOfcSV;
 import com.ai.slp.order.api.ofc.params.OrdOdProdVo;
 import com.alibaba.fastjson.JSON;
@@ -54,7 +55,7 @@ public class OrdOdProdThread extends Thread {
 					ordOdProd.setProdId(PropertiesUtil.getStringByKey("ofc.ordOdFeeTotal.prodId"));
 					// 销售商品名
 					ordOdProd.setProdName(queue[3]);
-					//描述
+					// 描述
 					ordOdProd.setProdDesc(queue[4]);
 					// SkuId,必传
 					ordOdProd.setSkuId(PropertiesUtil.getStringByKey("ofc.ordOdFeeTotal.skuId"));
@@ -65,9 +66,13 @@ public class OrdOdProdThread extends Thread {
 					// 更新时间,必传
 					ordOdProd.setUpdateTime(DateUtil.getSysDate());
 					// 销售单价
-					ordOdProd.setSalePrice(new Double(queue[5]).longValue());
+					if (!StringUtil.isBlank(queue[5])) {
+						ordOdProd.setSalePrice(new Double(queue[5]).longValue());
+					}
 					// 数量
-					ordOdProd.setBuySum(Long.valueOf(queue[6]));
+					if (!StringUtil.isBlank(queue[6])) {
+						ordOdProd.setBuySum(Long.valueOf(queue[6]));
+					}
 					LOG.info("第" + (count++) + "次保存订单商品信息开始,时间:" + DateUtil.getSysDate());
 					LOG.info(JSON.toJSONString(ordOdProd));
 					try {

@@ -46,14 +46,6 @@ public class ValidateChkUtil {
 		}
 		LOG.info("+++++++开始校验文件:" + datName);
 		StringBuilder errCode = new StringBuilder();
-		// 获取校验文件数据
-		/*
-		 * FileInputStream fileInputStream = new FileInputStream(chkFile);
-		 * InputStreamReader inputStreamReader = new
-		 * InputStreamReader(fileInputStream, "gb2312"); if (!chkFile.exists()
-		 * || chkFile.isDirectory() || chkFile.length() == 0) {
-		 * errCode.append("99"); }
-		 */
 		if (chkAttrs.getSize() == 0) {
 			//InputStream chkIs = sftp.get(path + "/" + chkName);
 			//InputStream datIs = sftp.get(path + "/" + datName);
@@ -81,7 +73,7 @@ public class ValidateChkUtil {
 			SftpUtil.delete(path, chkName, sftp);
 			return "99";
 		}
-		// 获取数据文件数据
+		/*// 获取数据文件数据
 		InputStream datInputStream = SftpUtil.download(path, datName, localpath, sftp);
 		InputStreamReader datInputStreamReader = new InputStreamReader(datInputStream, "utf-8");
 		BufferedReader datReader = new BufferedReader(datInputStreamReader);
@@ -102,23 +94,23 @@ public class ValidateChkUtil {
 				errCode.append("03");
 			}
 			// 校验数据文件数据修改时间 if(!shortFormat.format(new
-			/*
-			 * if(shortFormat.format(datAttrs.getMTime()).equals(str[3])){
-			 * errCode.append("04"); }
-			 */
+			
+			 if(shortFormat.format(datAttrs.getMTime()).equals(str[3])){
+			 errCode.append("04"); }
+			 
 			// 校验数据文件创建时间
-			/*
-			 * Files.readAttributes(Paths.get(datPath),
-			 * BasicFileAttributes.class).creationTime().toMillis();
-			 * if(!longFormat.format(new Date(createTime)).equals(str[4])){
-			 * errCode.append("05"); }
-			 */
+			
+			 Files.readAttributes(Paths.get(datPath),
+			 BasicFileAttributes.class).creationTime().toMillis();
+			 if(!longFormat.format(new Date(createTime)).equals(str[4])){
+			 errCode.append("05"); }
+			 
 		} catch (Exception e) {
 			errCode.append("99");
 			InputStream chkIs = SftpUtil.download(path, localpath, chkName, sftp);
 			SftpUtil.uploadIs(path + "/sapa/err/", chkName, chkIs, sftp);
 			SftpUtil.delete(path, chkName, sftp);
-		}
+		}*/
 		return errCode.toString();
 	}
 

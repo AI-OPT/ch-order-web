@@ -82,7 +82,6 @@ public class OrderReadFileThread extends Thread {
 						InputStream is = new FileInputStream(rptFile);
 						// 移动rpt文件
 						InputStream chkIs = new FileInputStream(localpath+"/"+chkName);
-						InputStream datIs = new FileInputStream(localpath+"/"+fileName);
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs ,sftp); 
 						SftpUtil.delete(path, chkName, sftp);
@@ -111,7 +110,8 @@ public class OrderReadFileThread extends Thread {
 		try {
 			// 从服务器上读取指定的文件
 			LOG.error("开始读取文件：" + fileName);
-			ins = SftpUtil.download(path, fileName, localpath, sftp);
+			//ins = SftpUtil.download(path, fileName, localpath, sftp);
+			ins = sftp.get(path+"/"+fileName);
 			if (ins != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "gbk"));
 				String line;

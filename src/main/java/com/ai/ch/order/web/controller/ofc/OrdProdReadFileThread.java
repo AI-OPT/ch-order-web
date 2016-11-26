@@ -5,7 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.text.ParseException;
@@ -93,9 +92,9 @@ public class OrdProdReadFileThread extends Thread {
 						LOG.info("++++++++++++校验成功" + chkName);
 						String localPath = localpath + "/" + chkName;
 						InputStream is = new FileInputStream(localPath);
-						readOrdProdFile(fileName, sftp);
-						SftpUtil.delete(path, chkName, sftp);
 						SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
+						SftpUtil.delete(path, chkName, sftp);
+						readOrdProdFile(fileName, sftp);
 					}
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -111,7 +110,8 @@ public class OrdProdReadFileThread extends Thread {
 		try {
 			// 从服务器上读取指定的文件
 			LOG.error("开始读取文件：" + fileName);
-			ins = SftpUtil.download(path, fileName, localpath, sftp);
+			//ins = SftpUtil.download(path, fileName, localpath, sftp);
+			ins = sftp.get(path+"/"+fileName);
 			if (ins != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "gbk"));
 				String line;
