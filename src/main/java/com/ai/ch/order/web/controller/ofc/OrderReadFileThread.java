@@ -92,7 +92,7 @@ public class OrderReadFileThread extends Thread {
 					// 推到ftp上
 				} else {
 					LOG.error("++++++++++++订单信息校验成功" + chkName);
-					InputStream is = SftpUtil.download(path, chkName, localpath, sftp);
+					InputStream is = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
 					SftpUtil.delete(path, chkName, sftp);
 					SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
 					readOrderFile(fileName, sftp);

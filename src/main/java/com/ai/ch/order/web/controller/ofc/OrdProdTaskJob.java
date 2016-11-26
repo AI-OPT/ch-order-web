@@ -56,7 +56,6 @@ public class OrdProdTaskJob {
 			LOG.error("订单商品信息队列为空");
 		} catch (Exception e) {
 			LOG.error("订单商品线程报错了,错误信息"+e.getMessage());
-			e.printStackTrace();
 		} finally {
 			handlePool.shutdown();
 			LOG.error("订单商品任务结束，当前时间戳：" + DateUtil.getSysDate());

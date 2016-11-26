@@ -64,6 +64,14 @@ public class ValidateChkUtil {
 			LOG.error("+++++++++++++++校验数据文件名称有问题");
 			return "99";
 		}
+		//校验文件大小
+		try{
+		if (!String.valueOf(datAttrs.getSize()).equals(str[1])) {
+			errCode.append("02");
+		}
+		}catch(Exception e){
+			errCode.append("99");
+		}
 		/*// 获取数据文件数据
 		InputStream datInputStream = SftpUtil.download(path, datName, localpath, sftp);
 		InputStreamReader datInputStreamReader = new InputStreamReader(datInputStream, "utf-8");

@@ -56,7 +56,7 @@ public class OrderTaskJob {
 			LOG.error("订单信息队列为空");
  
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOG.error("订单信息任务出错了,错误原因"+e.getMessage());
 		} finally {
 			handlePool.shutdown();
 			LOG.error("订单信息任务结束，当前时间戳：" + DateUtil.getSysDate());
