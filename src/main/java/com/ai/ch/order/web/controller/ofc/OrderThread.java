@@ -40,7 +40,7 @@ public class OrderThread extends Thread {
 			try {
 				String[] queue = ordOrderQueue.poll(120, TimeUnit.SECONDS);
 				if (null == queue) {
-					LOG.info("++++++++++++++++++线程OrderThread中断了");
+					LOG.info("+++++++++订单信息+++++++++线程OrderThread中断了");
 					break;
 				}
 				synchronized (queue) {
@@ -49,12 +49,13 @@ public class OrderThread extends Thread {
 					try {
 						ofcSV.insertOrdOrder(order);
 					} catch (SystemException e) {
-						LOG.info("-_-_-_-_-_-_-_-_-这个订单队列被挤爆了-_-_-_-_-_-_-_-_-");
+						LOG.info("-_-_-_-_-_-_-_-_-这个订单信息队列被挤爆了-_-_-_-_-_-_-_-_-");
 						ofcSV.insertOrdOrder(order);
 					}
 					LOG.info("第" + count + "结束执行保存订单信息,时间" + DateUtil.getSysDate());
 				}
 			} catch (Exception e) {
+				LOG.info("+++++++++++订单信息报错++++++++++++"+e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -71,7 +72,7 @@ public class OrderThread extends Thread {
 		/**
 		 * 订单主表
 		 */
-		LOG.info("++++++++++ofc开始设置订单数据,时间" + DateUtil.getSysDate());
+		LOG.info("++++++++++ofc开始设置订单信息数据,时间" + DateUtil.getSysDate());
 		OrdOrderOfcVo record = new OrdOrderOfcVo();
 		OfcCodeRequst requst = new OfcCodeRequst();
 		requst.setTenantId(PropertiesUtil.getStringByKey("ofc.ordOrder.tenantId"));

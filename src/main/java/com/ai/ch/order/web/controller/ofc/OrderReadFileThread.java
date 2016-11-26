@@ -45,12 +45,12 @@ public class OrderReadFileThread extends Thread {
 	}
 
 	public void run() {
-		LOG.error("开始获取ftp文件：" + DateUtil.getSysDate());
+		LOG.error("开始获取订单信息ftp文件：" + DateUtil.getSysDate());
 		ChannelSftp sftp = SftpUtil.connect(ip, port, userName, userPwd);
 		List<String> nameList = new ArrayList<>();
 		try {
 			nameList = getFileName(path, sftp);
-			LOG.info("++++++++++++++++++++文件列表" + JSON.toJSONString(nameList));
+			LOG.info("++++++++++++++++++++订单信息文件列表" + JSON.toJSONString(nameList));
 		} catch (SftpException e1) {
 			e1.printStackTrace();
 		}
@@ -61,7 +61,7 @@ public class OrderReadFileThread extends Thread {
 					ValidateChkUtil util = new ValidateChkUtil();
 					String errCode = util.validateChk(path, localpath, fileName, chkName, sftp);
 					if (!StringUtil.isBlank(errCode)) {
-						LOG.info("校验文件失败,校验码:" + errCode.toString());
+						LOG.info("校验订单信息文件失败,校验码:" + errCode.toString());
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
 						String localPath = localpath + "/rpt";
 						File file = new File(localPath);
@@ -89,7 +89,7 @@ public class OrderReadFileThread extends Thread {
 						continue;
 						// 推到ftp上
 					} else {
-						LOG.info("++++++++++++校验成功" + chkName);
+						LOG.info("++++++++++++订单信息校验成功" + chkName);
 						String localPath = localpath + "/" + chkName;
 						InputStream is = new FileInputStream(localPath);
 						SftpUtil.delete(path, chkName, sftp);
@@ -101,7 +101,7 @@ public class OrderReadFileThread extends Thread {
 				}
 			}
 		}
-		LOG.error("获取ftp文件结束：" + DateUtil.getSysDate());
+		LOG.error("获取订单信息ftp文件结束：" + DateUtil.getSysDate());
 		SftpUtil.disconnect(sftp);
 	}
 
@@ -109,7 +109,7 @@ public class OrderReadFileThread extends Thread {
 		InputStream ins = null;
 		try {
 			// 从服务器上读取指定的文件
-			LOG.error("开始读取文件：" + fileName);
+			LOG.error("开始读取订单信息文件：" + fileName);
 			//ins = SftpUtil.download(path, fileName, localpath, sftp);
 			ins = sftp.get(path+"/"+fileName);
 			if (ins != null) {
@@ -121,10 +121,10 @@ public class OrderReadFileThread extends Thread {
 						if (datTemp.length != 32)
 							continue;
 						ordOrderQueue.put(datTemp);
-						LOG.error("订单Id信息：" + datTemp[0]);
+						LOG.error("订单信息订单Id信息：" + datTemp[0]);
 					} catch (Exception e) {
 						e.printStackTrace();
-						LOG.error("读取文件失败：" + e.getMessage());
+						LOG.error("读取订单信息文件失败：" + e.getMessage());
 					}
 
 				}

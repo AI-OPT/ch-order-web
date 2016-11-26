@@ -35,7 +35,7 @@ public class OrdProdTaskJob {
 	}
 
 	public void run() {
-		LOG.error("任务开始执行，当前时间戳：" + DateUtil.getSysDate());
+		LOG.error("订单商品任务开始执行，当前时间戳：" + DateUtil.getSysDate());
 		try {
 			ordOdProdQueue = new LinkedBlockingQueue<String[]>(1000);
 
@@ -58,7 +58,7 @@ public class OrdProdTaskJob {
 			e.printStackTrace();
 		} finally {
 			handlePool.shutdown();
-			LOG.error("任务结束，当前时间戳：" + DateUtil.getSysDate());
+			LOG.error("订单商品任务结束，当前时间戳：" + DateUtil.getSysDate());
 		}
 	}
 

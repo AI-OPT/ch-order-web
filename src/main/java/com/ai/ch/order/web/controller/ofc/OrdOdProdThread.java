@@ -84,7 +84,7 @@ public class OrdOdProdThread extends Thread {
 					LOG.info("第" + count + "保存订单商品信息结束,时间" + DateUtil.getSysDate());
 				}
 			} catch (InterruptedException e) {
-				e.printStackTrace();
+				LOG.info("+++++++++++订单商品出现错误+++++++++++++"+e.getMessage());
 			}
 		}
 

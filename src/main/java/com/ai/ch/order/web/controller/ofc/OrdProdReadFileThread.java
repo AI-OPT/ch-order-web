@@ -45,12 +45,12 @@ public class OrdProdReadFileThread extends Thread {
 	}
 
 	public void run() {
-		LOG.error("开始获取ftp文件：" + DateUtil.getSysDate());
+		LOG.error("开始获取订单商品ftp文件：" + DateUtil.getSysDate());
 		ChannelSftp sftp = SftpUtil.connect(ip, port, userName, userPwd);
 		List<String> nameList = new ArrayList<>();
 		try {
 			nameList = getFileName(path, sftp);
-			LOG.info("+++++++++++++文件列表"+JSON.toJSONString(nameList));
+			LOG.info("+++++++++++++订单商品文件列表"+JSON.toJSONString(nameList));
 		} catch (SftpException e) {
 			e.printStackTrace();
 		}
@@ -61,7 +61,7 @@ public class OrdProdReadFileThread extends Thread {
 					ValidateChkUtil util = new ValidateChkUtil();
 					String errCode = util.validateChk(path, localpath, fileName, chkName, sftp);
 					if (!StringUtil.isBlank(errCode)) {
-						LOG.info("校验文件失败,校验码:" + errCode.toString());
+						LOG.info("校验订单商品文件失败,校验码:" + errCode.toString());
 						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
 						String localPath = localpath + "/rpt";
 						File file = new File(localPath);
@@ -101,7 +101,7 @@ public class OrdProdReadFileThread extends Thread {
 				}
 			}
 		}
-		LOG.error("获取ftp文件结束：" + DateUtil.getSysDate());
+		LOG.error("获取订单商品ftp文件结束：" + DateUtil.getSysDate());
 		SftpUtil.disconnect(sftp);
 	}
 
@@ -109,7 +109,7 @@ public class OrdProdReadFileThread extends Thread {
 		InputStream ins = null;
 		try {
 			// 从服务器上读取指定的文件
-			LOG.error("开始读取文件：" + fileName);
+			LOG.error("开始读取订单商品文件：" + fileName);
 			//ins = SftpUtil.download(path, fileName, localpath, sftp);
 			ins = sftp.get(path+"/"+fileName);
 			if (ins != null) {
@@ -121,10 +121,10 @@ public class OrdProdReadFileThread extends Thread {
 						if (datTemp.length != 8)
 							continue;
 						ordOdProdQueue.put(datTemp);
-						LOG.error("订单Id信息：" + datTemp[0]);
+						LOG.error("订单商品订单Id信息：" + datTemp[0]);
 					} catch (Exception e) {
 						e.printStackTrace();
-						LOG.error("读取文件失败：" + e.getMessage());
+						LOG.error("读取订单商品文件失败：" + e.getMessage());
 					}
 
 				}
