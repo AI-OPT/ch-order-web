@@ -110,8 +110,8 @@ public class OrderReadFileThread extends Thread {
 		try {
 			// 从服务器上读取指定的文件
 			LOG.error("开始读取订单信息文件：" + fileName);
-			// ins = SftpUtil.download(path, fileName, localpath, sftp);
-			ins = sftp.get(path + "/" + fileName);
+			ins = SftpUtil.download(path, fileName, localpath+"/bak", sftp);
+			//ins = sftp.get(path + "/" + fileName);
 			if (ins != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "gbk"));
 				String line;
