@@ -53,7 +53,7 @@ public class OrderTaskJob {
 			while (!ordOrderQueue.isEmpty()) {
 				Thread.sleep(10 * 1000);
 			}
-			LOG.info("订单信息队列为空");
+			LOG.error("订单信息队列为空");
  
 		} catch (Exception e) {
 			e.printStackTrace();

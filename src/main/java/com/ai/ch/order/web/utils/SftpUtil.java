@@ -197,9 +197,9 @@ public final class SftpUtil {
 		try {
 			sftp.cd(directory);
 			File dir = new File(saveFilePath);
-			LOG.info(JSON.toJSONString(dir)+"++++++++++"+dir.exists());
+			LOG.error(JSON.toJSONString(dir)+"++++++++++"+dir.exists());
 			if (!dir.exists()) {
-				LOG.info("++++++++++++++++创建不存在OFC文件夹");
+				LOG.error("++++++++++++++++创建不存在OFC文件夹");
 				dir.mkdirs();
 			}
 			File file = new File(saveFilePath + "/" + downloadFile);

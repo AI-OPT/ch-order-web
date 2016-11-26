@@ -32,7 +32,7 @@ public class OrdOdProdThread extends Thread {
 			try {
 				String[] queue = ordOdProdQueue.poll(120, TimeUnit.SECONDS);
 				if (null == queue) {
-					LOG.info("++++++++++++++++线程OrdOdProdThread中断了");
+					LOG.error("++++++++++++++++线程OrdOdProdThread中断了");
 					break;
 				}
 				synchronized (queue) {
@@ -71,18 +71,18 @@ public class OrdOdProdThread extends Thread {
 					if (!StringUtil.isBlank(queue[6])) {
 						ordOdProd.setBuySum(Long.valueOf(queue[6]));
 					}
-					LOG.info("保存订单商品信息开始,时间:" + DateUtil.getSysDate());
-					LOG.info(JSON.toJSONString(ordOdProd));
+					LOG.error("保存订单商品信息开始,时间:" + DateUtil.getSysDate());
+					LOG.error(JSON.toJSONString(ordOdProd));
 					try {
 						ofcSV.insertOrdOdProd(ordOdProd);
 					} catch (SystemException e) {
-						LOG.info("-_-_-_-_-_-_-_-_-这个订单商品队列被挤爆了-_-_-_-_-_-_-_-_-");
+						LOG.error("-_-_-_-_-_-_-_-_-这个订单商品队列被挤爆了-_-_-_-_-_-_-_-_-");
 						ofcSV.insertOrdOdProd(ordOdProd);
 					}
-					LOG.info("保存订单商品信息结束,时间" + DateUtil.getSysDate());
+					LOG.error("保存订单商品信息结束,时间" + DateUtil.getSysDate());
 				}
 			} catch (InterruptedException e) {
-				LOG.info("+++++++++++订单商品出现错误+++++++++++++"+e.getMessage());
+				LOG.error("+++++++++++订单商品出现错误+++++++++++++"+e.getMessage());
 			}
 		}
 

@@ -31,17 +31,17 @@ public class ValidateChkUtil {
 		try {
 			chkAttrs = sftp.lstat(path + "/" + chkName);
 		} catch (Exception e) {
-			LOG.info("校验文件" + chkName + "获取不到");
+			LOG.error("校验文件" + chkName + "获取不到");
 			return "09";
 		}
 		try {
 			// 校验数据文件是否存在
 			datAttrs = sftp.lstat(path + "/" + datName);
 		} catch (Exception e) {
-			LOG.info("数据文件" + datName + "获取不到");
+			LOG.error("数据文件" + datName + "获取不到");
 			return "01";
 		}
-		LOG.info("+++++++开始校验文件:" + datName);
+		LOG.error("+++++++开始校验文件:" + datName);
 		StringBuilder errCode = new StringBuilder();
 		if (chkAttrs.getSize() == 0) {
 			//InputStream chkIs = sftp.get(path + "/" + chkName);
@@ -61,7 +61,7 @@ public class ValidateChkUtil {
 		}
 		// 校验数据文件名称
 		if (!datName.equals(str[0])) {
-			LOG.info("+++++++++++++++校验数据文件名称有问题");
+			LOG.error("+++++++++++++++校验数据文件名称有问题");
 			return "99";
 		}
 		/*// 获取数据文件数据

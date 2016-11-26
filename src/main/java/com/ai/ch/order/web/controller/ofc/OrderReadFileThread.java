@@ -50,57 +50,55 @@ public class OrderReadFileThread extends Thread {
 		List<String> nameList = new ArrayList<>();
 		try {
 			nameList = getFileName(path, sftp);
-			LOG.info("++++++++++++++++++++订单信息文件列表" + JSON.toJSONString(nameList));
+			LOG.error("++++++++++++++++++++订单信息文件列表" + JSON.toJSONString(nameList));
 		} catch (SftpException e1) {
 			e1.printStackTrace();
 		}
 		for (String fileName : nameList) {
 			String chkName = fileName.substring(0, 23) + ".chk";
-			if ("omsa01001".equals(fileName.substring(11, 20))) {
-				try {
-					ValidateChkUtil util = new ValidateChkUtil();
-					String errCode = util.validateChk(path, localpath, fileName, chkName, sftp);
-					if (!StringUtil.isBlank(errCode)) {
-						LOG.info("校验订单信息文件失败,校验码:" + errCode.toString());
-						String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
-						String localPath = localpath + "/rpt";
-						File file = new File(localPath);
-						if (!file.exists()) {
-							file.mkdirs();
-						}
-						File rptFile = new File(localPath + "/" + errCodeName);
-						if (!rptFile.exists()) {
-							rptFile.createNewFile();
-						}
-						FileWriter fw = new FileWriter(rptFile);
-						BufferedWriter bw = new BufferedWriter(fw);
-						bw.write(fileName + "\n");
-						bw.write(errCode.toString() + "\n");
-						bw.flush();
-						bw.close();
-						fw.close();
-						InputStream is = new FileInputStream(rptFile);
-						// 移动rpt文件
-						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						SftpUtil.delete(path, chkName, sftp);
-						if(!errCode.toString().equals("09")){
-							//移动chk文件
-							InputStream chkIs = SftpUtil.download(path, chkName, localPath, sftp);
-							SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs ,sftp); 
-							SftpUtil.delete(path, chkName, sftp);
-						}
-						continue;
-						// 推到ftp上
-					} else {
-						LOG.info("++++++++++++订单信息校验成功" + chkName);
-						InputStream is = SftpUtil.download(path, chkName, localpath, sftp);
-						SftpUtil.delete(path, chkName, sftp);
-						SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
-						readOrderFile(fileName, sftp);
+			try {
+				ValidateChkUtil util = new ValidateChkUtil();
+				String errCode = util.validateChk(path, localpath, fileName, chkName, sftp);
+				if (!StringUtil.isBlank(errCode)) {
+					LOG.error("校验订单信息文件失败,校验码:" + errCode.toString());
+					String errCodeName = chkName.substring(0, chkName.lastIndexOf(".")) + ".rpt";
+					String localPath = localpath + "/rpt";
+					File file = new File(localPath);
+					if (!file.exists()) {
+						file.mkdirs();
 					}
-				} catch (Exception e) {
-					e.printStackTrace();
+					File rptFile = new File(localPath + "/" + errCodeName);
+					if (!rptFile.exists()) {
+						rptFile.createNewFile();
+					}
+					FileWriter fw = new FileWriter(rptFile);
+					BufferedWriter bw = new BufferedWriter(fw);
+					bw.write(fileName + "\n");
+					bw.write(errCode.toString() + "\n");
+					bw.flush();
+					bw.close();
+					fw.close();
+					InputStream is = new FileInputStream(rptFile);
+					// 移动rpt文件
+					SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
+					SftpUtil.delete(path, chkName, sftp);
+					if (!errCode.toString().equals("09")) {
+						// 移动chk文件
+						InputStream chkIs = SftpUtil.download(path, chkName, localPath, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
+						SftpUtil.delete(path, chkName, sftp);
+					}
+					continue;
+					// 推到ftp上
+				} else {
+					LOG.error("++++++++++++订单信息校验成功" + chkName);
+					InputStream is = SftpUtil.download(path, chkName, localpath, sftp);
+					SftpUtil.delete(path, chkName, sftp);
+					SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
+					readOrderFile(fileName, sftp);
 				}
+			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		LOG.error("获取订单信息ftp文件结束：" + DateUtil.getSysDate());
@@ -112,8 +110,8 @@ public class OrderReadFileThread extends Thread {
 		try {
 			// 从服务器上读取指定的文件
 			LOG.error("开始读取订单信息文件：" + fileName);
-			//ins = SftpUtil.download(path, fileName, localpath, sftp);
-			ins = sftp.get(path+"/"+fileName);
+			// ins = SftpUtil.download(path, fileName, localpath, sftp);
+			ins = sftp.get(path + "/" + fileName);
 			if (ins != null) {
 				BufferedReader reader = new BufferedReader(new InputStreamReader(ins, "gbk"));
 				String line;
@@ -151,10 +149,6 @@ public class OrderReadFileThread extends Thread {
 			String date = sdf.format(DateUtil.getSysDate());
 			if (string.length() >= 20) {
 				if ((date + "_" + "omsa01001").equals(string.substring(2, 20)) && string.endsWith(".dat")) {
-					nameList.add(string);
-					continue;
-				}
-				if ((date + "_" + "omsa01002").equals(string.substring(2, 20)) && string.endsWith(".dat")) {
 					nameList.add(string);
 				}
 			}

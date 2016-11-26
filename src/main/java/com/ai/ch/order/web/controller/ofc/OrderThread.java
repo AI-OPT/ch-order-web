@@ -38,22 +38,22 @@ public class OrderThread extends Thread {
 			try {
 				String[] queue = ordOrderQueue.poll(120, TimeUnit.SECONDS);
 				if (null == queue) {
-					LOG.info("+++++++++订单信息+++++++++线程OrderThread中断了");
+					LOG.error("+++++++++订单信息+++++++++线程OrderThread中断了");
 					break;
 				}
 				synchronized (queue) {
-					LOG.info("开始执行保存订单信息,时间" + DateUtil.getSysDate());
-					OrderOfcVo order = setOrderInfo(queue);
+					LOG.error("开始执行保存订单信息,时间" + DateUtil.getSysDate());
+					OrderOfcVo order = setOrdererror(queue);
 					try {
 						ofcSV.insertOrdOrder(order);
 					} catch (SystemException e) {
-						LOG.info("-_-_-_-_-_-_-_-_-这个订单信息队列被挤爆了-_-_-_-_-_-_-_-_-");
+						LOG.error("-_-_-_-_-_-_-_-_-这个订单信息队列被挤爆了-_-_-_-_-_-_-_-_-");
 						ofcSV.insertOrdOrder(order);
 					}
-					LOG.info("结束执行保存订单信息,时间" + DateUtil.getSysDate());
+					LOG.error("结束执行保存订单信息,时间" + DateUtil.getSysDate());
 				}
 			} catch (Exception e) {
-				LOG.info("+++++++++++订单信息报错++++++++++++"+e.getMessage());
+				LOG.error("+++++++++++订单信息报错++++++++++++"+e.getMessage());
 				e.printStackTrace();
 			}
 		}
@@ -63,14 +63,14 @@ public class OrderThread extends Thread {
 	/**
 	 * 封装导入订单信息
 	 * 
-	 * @param officeInfo
+	 * @param officeerror
 	 * @return Office
 	 */
-	private OrderOfcVo setOrderInfo(String[] orderData) {
+	private OrderOfcVo setOrdererror(String[] orderData) {
 		/**
 		 * 订单主表
 		 */
-		LOG.info("++++++++++ofc开始设置订单信息数据,时间" + DateUtil.getSysDate());
+		LOG.error("++++++++++ofc开始设置订单信息数据,时间" + DateUtil.getSysDate());
 		OrdOrderOfcVo record = new OrdOrderOfcVo();
 		OfcCodeRequst requst = new OfcCodeRequst();
 		requst.setTenantId(PropertiesUtil.getStringByKey("ofc.ordOrder.tenantId"));
@@ -238,8 +238,8 @@ public class OrderThread extends Thread {
 		orderVo.setOrOrderOfcVo(record);
 		orderVo.setOrdOdFeeTotalVo(ordOdFeeTotal);
 		orderVo.setOrdOdLogisticsVo(ordOdLogistics);
-		LOG.info("结束设置订单信息,时间" + DateUtil.getSysDate());
-		LOG.info(JSON.toJSONString(orderVo));
+		LOG.error("结束设置订单信息,时间" + DateUtil.getSysDate());
+		LOG.error(JSON.toJSONString(orderVo));
 		return orderVo;
 	}
 }
