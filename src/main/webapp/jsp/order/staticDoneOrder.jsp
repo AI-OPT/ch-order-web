@@ -39,14 +39,32 @@
 					                </li>  
 					            </ul>
 					            <ul>
-					                <li  class="col-md-6">
+					            	<c:choose> 
+									  <c:when test="${orderDetail.parentOrderId==0}">   
+									   	<li  class="col-md-6">
+						                    <p class="word">订单号：</p>
+						                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId }</p>
+						                </li> 
+									  </c:when> 
+									  <c:otherwise>   
+									    <li  class="col-md-6">
+						                    <p class="word">父订单号：</p>
+						                    <p class="wide-field" style="word-bre ak:break-all;">${orderDetail.parentOrderId}</p>
+						                </li>
+						                <li  class="col-md-6">
+						                    <p class="word">子订单号：</p>
+						                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId }</p>
+						                </li>   
+									  </c:otherwise> 
+									</c:choose> 
+					               <%--  <li  class="col-md-6">
 					                    <p class="word">父订单号：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.parentOrderId}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">子订单号：</p>
 					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId }</p>
-					                </li>  
+					                </li>   --%>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
