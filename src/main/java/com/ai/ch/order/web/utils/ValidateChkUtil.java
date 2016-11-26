@@ -32,16 +32,13 @@ public class ValidateChkUtil {
 			chkAttrs = sftp.lstat(path + "/" + chkName);
 		} catch (Exception e) {
 			LOG.info("校验文件" + chkName + "获取不到");
-			return "99";
+			return "09";
 		}
 		try {
 			// 校验数据文件是否存在
 			datAttrs = sftp.lstat(path + "/" + datName);
 		} catch (Exception e) {
 			LOG.info("数据文件" + datName + "获取不到");
-			InputStream is = SftpUtil.download(path, chkName, localpath, sftp);
-			SftpUtil.uploadIs(path + "/sapa/err/", chkName, is, sftp);
-			SftpUtil.delete(path, chkName, sftp);
 			return "01";
 		}
 		LOG.info("+++++++开始校验文件:" + datName);
@@ -49,9 +46,6 @@ public class ValidateChkUtil {
 		if (chkAttrs.getSize() == 0) {
 			//InputStream chkIs = sftp.get(path + "/" + chkName);
 			//InputStream datIs = sftp.get(path + "/" + datName);
-			InputStream chkIs = SftpUtil.download(path, localpath, chkName, sftp);
-			SftpUtil.uploadIs(path + "/sapa/err/", chkName, chkIs, sftp);
-			SftpUtil.delete(path, chkName, sftp);
 			errCode.append("99");
 		}
 		// BufferedReader br = new BufferedReader(inputStreamReader);
@@ -68,9 +62,6 @@ public class ValidateChkUtil {
 		// 校验数据文件名称
 		if (!datName.equals(str[0])) {
 			LOG.info("+++++++++++++++校验数据文件名称有问题");
-			InputStream chkIs = SftpUtil.download(path, localpath, chkName, sftp);
-			SftpUtil.uploadIs(path + "/sapa/err/", chkName, chkIs, sftp);
-			SftpUtil.delete(path, chkName, sftp);
 			return "99";
 		}
 		/*// 获取数据文件数据

@@ -81,17 +81,19 @@ public class OrderReadFileThread extends Thread {
 						fw.close();
 						InputStream is = new FileInputStream(rptFile);
 						// 移动rpt文件
-						InputStream chkIs = new FileInputStream(localpath+"/"+chkName);
 						SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs ,sftp); 
 						SftpUtil.delete(path, chkName, sftp);
-						 
+						if(!errCode.toString().equals("09")){
+							//移动chk文件
+							InputStream chkIs = SftpUtil.download(path, chkName, localPath, sftp);
+							SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs ,sftp); 
+							SftpUtil.delete(path, chkName, sftp);
+						}
 						continue;
 						// 推到ftp上
 					} else {
 						LOG.info("++++++++++++订单信息校验成功" + chkName);
-						String localPath = localpath + "/" + chkName;
-						InputStream is = new FileInputStream(localPath);
+						InputStream is = SftpUtil.download(path, chkName, localpath, sftp);
 						SftpUtil.delete(path, chkName, sftp);
 						SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
 						readOrderFile(fileName, sftp);
