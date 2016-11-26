@@ -33,6 +33,16 @@ sed -i "s%ch.pay.url=.*%ch.pay.url=${CH_PAY_URL}%g" ./ch-order-web.properties
 sed -i "s%ch.refundnotice.url=.*%ch.refundnotice.url=${CH_REFUNDNOTICE_URL}%g" ./ch-order-web.properties
 # 各中心要根据情况自己修改成与dubbo.properties中对应的配置项
 sed -i "s%dubbo.registry.address=.*%dubbo.registry.address=${REST_REGISTRY_ADDR}%g" ./dubbo.properties
+
+sed -i "s%ftp.ip=.*%ftp.ip=${ftp.ip}%g" ./ofcConfig.properties
+sed -i "s%ftp.userName=.*%ftp.userName=${ftp.userName}%g" ./ofcConfig.properties
+sed -i "s%ftp.userPwd=.*%ftp.userPwd=${ftp.userPwd}%g" ./ofcConfig.properties
+sed -i "s%ftp.ip=.*%ftp.ip=${ftp.ip}%g" ./ofcConfig.properties
+sed -i "s%ftp.port=.*%ftp.port=${ftp.port}%g" ./ofcConfig.properties
+sed -i "s%ftp.schedule=.*%ftp.schedule=${ftp.schedule}%g" ./ofcConfig.properties
+sed -i "s%ftp.path=.*%ftp.path=${ftp.path}%g" ./ofcConfig.properties
+sed -i "s%ftp.localpath=.*%ftp.localpath=${ftp.localpath}%g" ./ofcConfig.properties
+
 popd
 
 

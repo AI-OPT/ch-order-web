@@ -154,11 +154,11 @@ public class OrderThread extends Thread {
 		ordOdFeeTotal.setTenantId(PropertiesUtil.getStringByKey("ofc.ordOrder.tenantId"));
 		// 抵扣价格
 		if (!StringUtil.isBlank(orderData[6])) {
-			ordOdFeeTotal.setDiscountFee(new BigDecimal(orderData[6]).longValue());
+			ordOdFeeTotal.setDiscountFee(new BigDecimal(orderData[6]).longValue()*1000);
 		}
 		// 订单支付金额
 		if (!StringUtil.isBlank(orderData[15])) {
-			ordOdFeeTotal.setPayFee(new BigDecimal(orderData[15]).longValue());
+			ordOdFeeTotal.setPayFee(new BigDecimal(orderData[15]).longValue()*1000);
 		}
 		// 支付类型,需要解码
 		String payStyle;
@@ -178,12 +178,9 @@ public class OrderThread extends Thread {
 		ordOdFeeTotal.setPayStyle(payStyle);
 		// 收退费标识,必传
 		ordOdFeeTotal.setPayFlag(PropertiesUtil.getStringByKey("ofc.ordOdFeeTotal.payFlag"));
-		// 总费用,抵扣金额+支付金额,必传
-		if ((!StringUtil.isBlank(orderData[15])) && (!StringUtil.isBlank(orderData[6]))) {
-			long totalFee = new BigDecimal(orderData[6]).longValue() + new BigDecimal(orderData[15]).longValue();
-			ordOdFeeTotal.setTotalFee(totalFee);
-			// 总应收费用,总费用?,必传
-			ordOdFeeTotal.setAdjustFee(totalFee);
+		// 总费用,必传
+		if ((!StringUtil.isBlank(orderData[15]))) {
+			ordOdFeeTotal.setAdjustFee(new BigDecimal(orderData[15]).longValue());
 		}
 		// 总实收费用,支付金额?,必传
 		if (!StringUtil.isBlank(orderData[15])) {
