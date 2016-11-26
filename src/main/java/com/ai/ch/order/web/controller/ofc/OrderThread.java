@@ -77,6 +77,7 @@ public class OrderThread extends Thread {
 		String chlId = "";
 		if (!StringUtil.isBlank(orderData[3])) {
 			requst.setOutCode(orderData[3]);
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.CHL_ID"));
 			chlId = ofcSV.parseOfcCode(requst);
 			if (chlId == null) {
 				requst.setOutCode("其他平台");
@@ -84,6 +85,7 @@ public class OrderThread extends Thread {
 			}
 		} else {
 			requst.setOutCode(orderData[3]);
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.CHL_ID"));
 			chlId = ofcSV.parseOfcCode(requst);
 		}
 		record.setChlId(chlId);
@@ -111,6 +113,7 @@ public class OrderThread extends Thread {
 		String orderType="";
 		if(!StringUtil.isBlank(orderData[27])){
 			requst.setOutCode(orderData[27]);
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.ORDER_TYPE"));
 			orderType = ofcSV.parseOfcCode(requst);
 			if(StringUtil.isBlank(orderType)){
 				requst.setOutCode("其它");
@@ -118,6 +121,7 @@ public class OrderThread extends Thread {
 			}
 		}else{
 			requst.setOutCode("其它");
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.ORDER_TYPE"));
 			orderType = ofcSV.parseOfcCode(requst);
 		}
 		record.setOrderType(orderType);
@@ -159,6 +163,7 @@ public class OrderThread extends Thread {
 		String payStyle;
 		if (!StringUtil.isBlank(orderData[16])) {
 			requst.setOutCode(orderData[16]);
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.PAY_STYLE"));
 			payStyle = ofcSV.parseOfcCode(requst);
 			if (payStyle == null) {
 				requst.setOutCode("其它");
@@ -166,6 +171,7 @@ public class OrderThread extends Thread {
 			}
 		} else {
 			requst.setOutCode("其它");
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.PAY_STYLE"));
 			payStyle = ofcSV.parseOfcCode(requst);
 		}
 		ordOdFeeTotal.setPayStyle(payStyle);
@@ -199,6 +205,7 @@ public class OrderThread extends Thread {
 		String logisticsType = "";
 		if (!StringUtil.isBlank(orderData[17])) {
 			requst.setOutCode(orderData[17]);
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.LOGISTICS_TYPE"));
 			logisticsType = ofcSV.parseOfcCode(requst);
 			if (logisticsType == null) {
 				requst.setOutCode("其它");
@@ -206,6 +213,7 @@ public class OrderThread extends Thread {
 			}
 		} else {
 			requst.setOutCode("其它");
+			requst.setParamCode(PropertiesUtil.getStringByKey("ofc.order.LOGISTICS_TYPE"));
 			logisticsType = ofcSV.parseOfcCode(requst);
 		}
 		ordOdLogistics.setLogisticsType(logisticsType);
