@@ -66,7 +66,7 @@ public class OrdOdProdThread extends Thread {
 					ordOdProd.setUpdateTime(DateUtil.getSysDate());
 					// 销售单价
 					if (!StringUtil.isBlank(queue[5])) {
-						ordOdProd.setSalePrice(new Double(queue[5]).longValue());
+						ordOdProd.setSalePrice(new Double(queue[5]).longValue()*1000);
 					}
 					// 数量
 					if (!StringUtil.isBlank(queue[6])) {

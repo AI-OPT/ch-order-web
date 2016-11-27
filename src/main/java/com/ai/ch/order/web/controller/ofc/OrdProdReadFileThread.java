@@ -47,8 +47,10 @@ public class OrdProdReadFileThread extends Thread {
 	public void run() {
 		LOG.error("开始获取订单商品ftp文件：" + DateUtil.getSysDate());
 		ChannelSftp sftp = SftpUtil.connect(ip, port, userName, userPwd);
+		LOG.error("+++++++++++++++++连接订单商品ftp服务器成功");
 		List<String> nameList = new ArrayList<>();
 		try {
+			LOG.error("开始获取订单商品信息文件列表");
 			nameList = getFileName(path, sftp);
 			LOG.error("+++++++++++++订单商品文件列表" + JSON.toJSONString(nameList));
 		} catch (SftpException e) {
@@ -84,17 +86,17 @@ public class OrdProdReadFileThread extends Thread {
 					SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
 					if (!errCode.toString().equals("09")) {
 						// 移动chk文件
-						InputStream chkIs = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
-						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
-						SftpUtil.delete(path, chkName, sftp);
+						//InputStream chkIs = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
+						//SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
+						//SftpUtil.delete(path, chkName, sftp);
 					}
 					continue;
 					// 推到ftp上
 				} else {
 					LOG.error("++++++++++++校验成功" + chkName);
 					InputStream is = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
-					SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
-					SftpUtil.delete(path, chkName, sftp);
+					//SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
+					//SftpUtil.delete(path, chkName, sftp);
 					readOrdProdFile(fileName, sftp);
 				}
 			} catch (Exception e) {
@@ -144,6 +146,7 @@ public class OrdProdReadFileThread extends Thread {
 
 	public List getFileName(String path, ChannelSftp sftp) throws SftpException {
 		List<String> fileList = SftpUtil.listFiles(path, sftp);
+		LOG.error("++++++++++获取ftp订单商品信息文件列表,文件列表如下"+JSON.toJSONString(fileList));
 		List<String> nameList = new ArrayList<>();
 		for (String string : fileList) {
 			String date = sdf.format(DateUtil.getSysDate());
@@ -153,7 +156,7 @@ public class OrdProdReadFileThread extends Thread {
 				}
 			}
 		}
-
+		LOG.error("++++++++++获取订单商品信息文件列表成功,文件列表如下"+JSON.toJSONString(nameList));
 		return nameList;
 	}
 
