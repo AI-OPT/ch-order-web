@@ -188,6 +188,10 @@ public class OrderThread extends Thread {
 		}
 		// 待收金额,已完成订单,0,必传
 		ordOdFeeTotal.setPayFee(0);
+		
+		ordOdFeeTotal.setDiscountFee(0);
+		ordOdFeeTotal.setOperDiscountFee(0);
+		ordOdFeeTotal.setTotalFee(0);
 		// 变更时间,必传
 		if (!StringUtil.isBlank(orderData[29])) {
 			ordOdFeeTotal.setUpdateTime(DateUtil.getTimestamp(orderData[29]));

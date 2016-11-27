@@ -26,7 +26,7 @@ public class OrdProdTaskJob {
 
 	private static final Log LOG = LogFactory.getLog(OrdProdTaskJob.class);
 	
-	private final String REDISKEY="redislock.orderImportJob";
+	private final String REDISKEY="redislock.ordProdImportJob";
 
 	IOfcSV ofcSV;
 
@@ -35,7 +35,7 @@ public class OrdProdTaskJob {
 	public static ExecutorService handlePool;
 
 	@Scheduled(cron = "${ftp.schedule}")
-	public void orderImportJob() {
+	public void ordProdImportJob() {
 		AbstractMutexLock lock=null;
         boolean lockflag=false;
         try{
