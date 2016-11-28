@@ -418,15 +418,12 @@
 			</div>
          <div class="modal-footer">
 			<input type="button"  onclick="pager._truePrint('${orderDetail.orderId}','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1')" value="打印" class="btn btn-primary" data-dismiss="modal"/>
-            <button type="button" onclick="pager._printDeliveryOrder();" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">
+            <button type="button" onclick="pager._printDeliveryOrder();" class="btn btn-primary" data-dismiss="modal">
                	确认
             </button>
-			<button type="button" class="biu-btn  btn-primary btn-blue btn-small ml-15 mt-20 radius" data-dismiss="modal">取消
-			</button>
+            <button type="button" class="btn btn-default" 
+               data-dismiss="modal">取消
+            </button>
          </div>
-
-
-	
-
 </script>
 </html>
