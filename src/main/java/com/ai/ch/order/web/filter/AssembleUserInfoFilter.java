@@ -56,8 +56,16 @@ public class AssembleUserInfoFilter implements Filter {
         else{
         	HttpSession session = req.getSession();
             GeneralSSOClientUser user = (GeneralSSOClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+            GeneralSSOClientUser ssoUser = assembleUser(req);
+            if(user != null && ssoUser != null){
+            	if(!user.getUserId().equalsIgnoreCase(ssoUser.getUserId())){
+            		session.invalidate();
+            		session = req.getSession();
+            		user =null;
+            	}
+            }
             if (user == null) {
-                user = assembleUser(req);
+                user = ssoUser;
                 if(user!=null){
                 	//用户信息存入session
                 	session.setAttribute(SSOClientConstants.USER_SESSION_KEY, user);
