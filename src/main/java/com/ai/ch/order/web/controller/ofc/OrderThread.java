@@ -180,11 +180,14 @@ public class OrderThread extends Thread {
 		ordOdFeeTotal.setPayFlag(PropertiesUtil.getStringByKey("ofc.ordOdFeeTotal.payFlag"));
 		// 总费用,必传
 		if ((!StringUtil.isBlank(orderData[15]))) {
-			ordOdFeeTotal.setAdjustFee(new BigDecimal(orderData[15]).longValue());
+			ordOdFeeTotal.setAdjustFee(new BigDecimal(orderData[15]).longValue()*1000);
 		}
 		// 总实收费用,支付金额?,必传
 		if (!StringUtil.isBlank(orderData[15])) {
-			ordOdFeeTotal.setPaidFee(new BigDecimal(orderData[15]).longValue());
+			ordOdFeeTotal.setPaidFee(new BigDecimal(orderData[15]).longValue()*1000);
+		}
+		if (!StringUtil.isBlank(orderData[6])) {
+			ordOdFeeTotal.setDiscountFee(new BigDecimal(orderData[6]).longValue()*1000);
 		}
 		// 待收金额,已完成订单,0,必传
 		ordOdFeeTotal.setPayFee(0);

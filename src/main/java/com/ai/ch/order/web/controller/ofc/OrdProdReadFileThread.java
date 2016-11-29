@@ -86,17 +86,17 @@ public class OrdProdReadFileThread extends Thread {
 					SftpUtil.uploadIs(path + "/sapa/rpt", errCodeName, is, sftp);
 					if (!errCode.toString().equals("09")) {
 						// 移动chk文件
-						//InputStream chkIs = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
-						//SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
-						//SftpUtil.delete(path, chkName, sftp);
+						InputStream chkIs = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
+						SftpUtil.delete(path, chkName, sftp);
 					}
 					continue;
 					// 推到ftp上
 				} else {
 					LOG.error("++++++++++++校验成功" + chkName);
 					InputStream is = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
-					//SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
-					//SftpUtil.delete(path, chkName, sftp);
+					SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
+					SftpUtil.delete(path, chkName, sftp);
 					readOrdProdFile(fileName, sftp);
 				}
 			} catch (Exception e) {

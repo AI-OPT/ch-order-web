@@ -86,17 +86,17 @@ public class OrderReadFileThread extends Thread {
 					SftpUtil.delete(path, chkName, sftp);
 					if (!errCode.toString().equals("09")) {
 						// 移动chk文件
-						//InputStream chkIs = SftpUtil.download(path, chkName, localPath, sftp);
-						//SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
-						//SftpUtil.delete(path, chkName, sftp);
+						InputStream chkIs = SftpUtil.download(path, chkName, localPath, sftp);
+						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
+						SftpUtil.delete(path, chkName, sftp);
 					}
 					continue;
 					// 推到ftp上
 				} else {
 					LOG.error("++++++++++++订单信息校验成功" + chkName);
 					InputStream is = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
-					//SftpUtil.delete(path, chkName, sftp);
-					//SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
+					SftpUtil.delete(path, chkName, sftp);
+					SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
 					readOrderFile(fileName, sftp);
 				}
 			} catch (Exception e) {
