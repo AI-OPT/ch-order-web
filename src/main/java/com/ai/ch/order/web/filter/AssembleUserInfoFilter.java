@@ -56,16 +56,8 @@ public class AssembleUserInfoFilter implements Filter {
         else{
         	HttpSession session = req.getSession();
             GeneralSSOClientUser user = (GeneralSSOClientUser) session.getAttribute(SSOClientConstants.USER_SESSION_KEY);
-            GeneralSSOClientUser ssoUser = assembleUser(req);
-            if(user != null && ssoUser != null){
-            	if(!user.getUserId().equalsIgnoreCase(ssoUser.getUserId())){
-            		session.invalidate();
-            		session = req.getSession();
-            		user =null;
-            	}
-            }
             if (user == null) {
-                user = ssoUser;
+                user = assembleUser(req);
                 if(user!=null){
                 	//用户信息存入session
                 	session.setAttribute(SSOClientConstants.USER_SESSION_KEY, user);
@@ -95,7 +87,6 @@ public class AssembleUserInfoFilter implements Filter {
                 else{
                 	LOG.info("未获取到用户信息");
                 }            
-
             } 
             //判断权限 若果没有权限跳到403，判断规则  request.getRequestURI 去掉request.getContext前缀    
             boolean authMenuFlag=authMenu(req);
