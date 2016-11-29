@@ -152,14 +152,6 @@ public class OrderThread extends Thread {
 		ordOdFeeTotal.setOrderId(Long.valueOf(orderData[0]));
 		// 租户Id
 		ordOdFeeTotal.setTenantId(PropertiesUtil.getStringByKey("ofc.ordOrder.tenantId"));
-		// 抵扣价格
-		if (!StringUtil.isBlank(orderData[6])) {
-			ordOdFeeTotal.setDiscountFee(new BigDecimal(orderData[6]).longValue()*1000);
-		}
-		// 订单支付金额
-		if (!StringUtil.isBlank(orderData[15])) {
-			ordOdFeeTotal.setPayFee(new BigDecimal(orderData[15]).longValue()*1000);
-		}
 		// 支付类型,需要解码
 		String payStyle;
 		if (!StringUtil.isBlank(orderData[16])) {
@@ -192,7 +184,6 @@ public class OrderThread extends Thread {
 		// 待收金额,已完成订单,0,必传
 		ordOdFeeTotal.setPayFee(0);
 		
-		ordOdFeeTotal.setDiscountFee(0);
 		ordOdFeeTotal.setOperDiscountFee(0);
 		ordOdFeeTotal.setTotalFee(0);
 		// 变更时间,必传
