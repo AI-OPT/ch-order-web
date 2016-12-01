@@ -1,7 +1,5 @@
 package com.ai.ch.order.web.controller.orderrule;
 
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
