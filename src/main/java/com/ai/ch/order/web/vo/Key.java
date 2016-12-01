@@ -14,6 +14,9 @@ public class Key {
 	
 	private Map<KeyType, String> keyMap = new HashMap<KeyType, String>();
 	
+	/**
+	 * 设置私钥,公钥
+	 */
 	public Key(String privateKeyPath, String privateKeyPwd, String publicKeyPath) throws UppException, IOException {
 		ResourceLoader resourceLoader = new DefaultResourceLoader();
 		org.springframework.core.io.Resource resource = resourceLoader.getResource(privateKeyPath);
