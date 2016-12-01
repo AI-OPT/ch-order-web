@@ -17,7 +17,10 @@ public final class ResourceLoader {
     public static ResourceLoader getInstance() {  
         return loader;  
     }  
-      
+    
+    /**
+     * 获取配置文件
+     */
     public Properties getPropFromProperties(String fileName) throws Exception {  
           
         Properties prop = loaderMap.get(fileName);  

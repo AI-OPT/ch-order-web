@@ -5,7 +5,10 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 
 public class RequestParameterUtils {
-
+	
+	/**
+	 * 参数转换
+	 */
 	public static <T> T request2Bean(ServletRequest request, Class<T> beanClass){
 		Map<String,String> map = ParameterMapUtils.getCommandParametersMap(request);
 		//

@@ -11,7 +11,10 @@ public class PropertiesUtil {
 	    private static final String DEFAULT_CONFIG_FILE = "ofcConfig.properties";  
 	  
 	    private static Properties prop = null;  
-	  
+	    
+	    /**
+	     * 读取配置文件信息
+	     */
 	    public static String getStringByKey(String key, String propName) {  
 	        try {  
 	            prop = loader.getPropFromProperties(propName);  
