@@ -9,6 +9,7 @@ public class OrdOrderResVo extends OrdOrderVo {
 	
 	private List<OrdProdInfo> prodInfo;
 	
+	//支付金额
 	private String ordAdjustFee;
 
 	public String getOrdAdjustFee() {
