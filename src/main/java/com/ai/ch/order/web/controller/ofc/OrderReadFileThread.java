@@ -89,6 +89,8 @@ public class OrderReadFileThread extends Thread {
 						InputStream chkIs = SftpUtil.download(path, chkName, localPath, sftp);
 						SftpUtil.uploadIs(path + "/sapa/err", chkName, chkIs, sftp);
 						SftpUtil.delete(path, chkName, sftp);
+						deleteFile(localPath+"/"+errCodeName);
+						deleteFile(localpath+"/bak/"+chkName);
 					}
 					continue;
 					// 推到ftp上
@@ -97,6 +99,7 @@ public class OrderReadFileThread extends Thread {
 					InputStream is = SftpUtil.download(path, chkName, localpath+"/bak", sftp);
 					SftpUtil.delete(path, chkName, sftp);
 					SftpUtil.uploadIs(path + "/sapa/chk", chkName, is, sftp);
+					deleteFile(localpath+"/bak/"+chkName);
 					readOrderFile(fileName, sftp);
 				}
 			} catch (Exception e) {
@@ -140,7 +143,7 @@ public class OrderReadFileThread extends Thread {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			// deleteFile(localpath + fileName);
+			deleteFile(localpath +"/" +fileName);
 		}
 	}
 
