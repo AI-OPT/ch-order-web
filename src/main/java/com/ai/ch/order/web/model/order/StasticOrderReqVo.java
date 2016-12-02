@@ -4,11 +4,11 @@ import com.ai.slp.order.api.stasticsorder.param.StasticsOrderRequest;
 
 public class StasticOrderReqVo extends StasticsOrderRequest {
 	private static final long serialVersionUID = 1L;
-	private String startTime;
-	private String endTime;
-	private String ordParenOrderId;
-	private String userName;
-	private String supplierName;
+	private String startTime;//开始时间
+	private String endTime;//结束时间
+	private String ordParenOrderId;//父订单id
+	private String userName;//用户名称
+	private String supplierName;//商户名称
 
 	public String getStartTime() {
 		return startTime;

@@ -4,8 +4,11 @@ import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 
 public class OrdProdInfo extends OrdProductVo {
 	private static final long serialVersionUID = 1L;
+	//商品单价
 	private String prodSalePrice;
+	//折扣金额
 	private String prodDiscountFee;
+	//支付金额
 	private String prodAdjustFee;
 
 	public String getProdSalePrice() {

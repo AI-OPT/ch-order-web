@@ -10,30 +10,54 @@ public class InvoicePrintInfo {
     private String invoiceKind;
     //购货方纳税人识别号
     private String buyerTaxpayerNumber ;
+    //购货方代码
     private String buyerCode ;
+    //购货方名称
     private String buyerName;
+    //购货方地址
     private String buyerAddress;
+    //购货方固定电话
     private String buyerTelephone  ;
+    //购货方手机
     private String buyerMobiile  ;
-    private String buyerEmail  ;	
+    //购货方邮箱
+    private String buyerEmail  ;
+    //购货方类型
     private String buyerCompanyClass ;
+    //购货方开户行代码
     private String buyerBankCode ;
+    //购货方开户行名称
     private String buyerBankName ;
+    //购货方开户行账号
     private String buyerBankAccount  ;
+    //销售订单号
     private String salesOrderNo  ;
+    //订单创建日期
     private String orderCreateTime ;
+    //项目号
     private String orderItem;
+    //商品编码
     private String materialCode   ;
+    //规格型号
     private String specification;
     private String materialName;//商品名称
+    //商品单价
     private String price   ;
+    //商品数量
     private String quantity   ;
+    //商品单位
     private String unit  ;
+    //商品折扣金额
     private String discountAmount;
+    //税率
     private String rate;
+    //税金
     private String tax;
+    //不含税金额
     private String amount;
+    //含税金额
     private String taxAmount;
+    //备注
     private String remark;
     
     public String getId() {
