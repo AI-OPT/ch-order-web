@@ -32,7 +32,9 @@ public class ValidateChkUtil {
 			chkAttrs = sftp.lstat(path + "/" + chkName);
 		} catch (Exception e) {
 			LOG.error("校验文件" + chkName + "获取不到");
-			return "09";
+			//return "09";
+			//分布式系统会有一台机器找不到校验文件
+			return "";
 		}
 		try {
 			// 校验数据文件是否存在
