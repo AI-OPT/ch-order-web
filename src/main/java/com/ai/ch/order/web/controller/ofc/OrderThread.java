@@ -49,7 +49,6 @@ public class OrderThread extends Thread {
 				}
 			} catch (Exception e) {
 				LOG.error("+++++++++++订单信息报错++++++++++++"+e.getMessage());
-				e.printStackTrace();
 			}
 		}
 

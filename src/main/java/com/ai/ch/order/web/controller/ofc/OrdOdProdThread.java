@@ -77,7 +77,7 @@ public class OrdOdProdThread extends Thread {
 						ofcSV.insertOrdOdProd(ordOdProd);
 					LOG.error("保存订单商品信息结束,时间" + DateUtil.getSysDate());
 				}
-			} catch (InterruptedException e) {
+			} catch (Exception e) {
 				LOG.error("+++++++++++订单商品出现错误+++++++++++++"+e.getMessage());
 			}
 		}
