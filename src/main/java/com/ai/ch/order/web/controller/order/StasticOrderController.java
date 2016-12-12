@@ -93,17 +93,6 @@ public class StasticOrderController {
         	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopEnd+",用时:"+(shopEnd-shopStart)+"毫秒");
         }
         if(!StringUtil.isBlank(reqVo.getUserName())){
-        	/*long userStart=System.currentTimeMillis();
-        	LOG.error("开始执行getStasticOrderData中的获取用户信息服务，当前时间戳："+userStart);
-        	//获取用户id
-        	String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
-        	if(!StringUtil.isBlank(id)){
-        		req.setUserId(id);
-        	}else{
-        		req.setUserId("-1");
-        	}
-        	long userEnd=System.currentTimeMillis();
-        	LOG.error("开始执行getStasticOrderData中的获取用户信息服务，当前时间戳："+userEnd+",用时:"+(userEnd-userStart)+"毫秒");*/
         	req.setUserName(reqVo.getUserName());
         }
         String startT =  reqVo.getStartTime();
