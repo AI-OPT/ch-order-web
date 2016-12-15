@@ -17,6 +17,11 @@
 		});
 	})();
 </script>
+<STYLE TYPE="text/css">   
+	body {
+    	padding-right:0!important;
+	}  
+</STYLE>  
 </head>
 <body>
  	<input type="hidden" value="0" id="whetherPrint">
