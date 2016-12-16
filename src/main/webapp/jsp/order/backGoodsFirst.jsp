@@ -211,7 +211,7 @@
 											<p>提示</p>
 											<p class="img"><i class="fa fa-times"></i></p>
 									</div>
-									<!--确认同意换货-->
+									<!--确认同意退货-->
 									<div class="prompt-samll-confirm">
 										<ul>
 										<li class="word">确定同意退货吗？</li>
