@@ -74,27 +74,27 @@ dependencies {
 	compile 'com.ai.opt.sso.client:opt-sso-client:1.0.2-SNAPSHOT'
     compile "com.ai:ipaas-idps:0.3"
 	//cache
-	compile 'com.ai.runner.center.mmp:manager:1.0.0-SNAPSHOT'
+	//compile 'com.ai.runner.center.mmp:manager:1.0.0-SNAPSHOT'
 	//短信验证等
-	compile 'com.ai.opt.uac:account:2.0-SNAPSHOT'
+//	compile 'com.ai.opt.uac:account:2.0-SNAPSHOT'
 	//商品web
-	compile 'com.ai.slp.product:webfront:1.2.2-SNAPSHOT'
+//	compile 'com.ai.slp.product:webfront:1.2.2-SNAPSHOT'
 	//减少商品销量
-	compile 'com.ai.slp.product:storageserver:1.1.1-SNAPSHOT'
+	compile 'com.ai.slp.product:storageserver:1.1.0-SNAPSHOT'
 	
 	//jersey
 	compile 'org.glassfish.jersey.core:jersey-client:2.9.1'
 	
-	compile 'com.ai.baas.smc:sysparamcache:2.0-SNAPSHOT'
+//	compile 'com.ai.baas.smc:sysparamcache:2.0-SNAPSHOT'
     
     //地区
-    compile 'com.ai.platform.common:area:1.0-SNAPSHOT'
+ //   compile 'com.ai.platform.common:area:1.0-SNAPSHOT'
     //ip地址
-    compile 'com.ai.platform.common:ipaddr:1.0-SNAPSHOT'
+ //   compile 'com.ai.platform.common:ipaddr:1.0-SNAPSHOT'
     //缓存
     compile 'com.ai.platform.common:cache:1.0-SNAPSHOT'
-    compile 'com.ai.platform.common:servicenum:1.0.1-SNAPSHOT'
-    compile 'com.ai.slp.product:webfront:1.1-SNAPSHOT'
+ //   compile 'com.ai.platform.common:servicenum:1.0.1-SNAPSHOT'
+ //   compile 'com.ai.slp.product:webfront:1.1-SNAPSHOT'
     
 
     //订单
