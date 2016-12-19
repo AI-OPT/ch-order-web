@@ -18,6 +18,11 @@
 		});
 	})();
 </script>
+<STYLE TYPE="text/css">   
+	body {
+    	padding-right:0!important;
+	}  
+</STYLE> 
 </head>
 <body>
       		  <div class="row"><!--外围框架-->
