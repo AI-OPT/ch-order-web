@@ -34,7 +34,7 @@ public class OrderTaskJob {
 
 	public static ExecutorService handlePool;
 
-	@Scheduled(cron = "${ftp.schedule}")
+	//@Scheduled(cron = "${ftp.schedule}")
 	public void orderImportJob() {
 		AbstractMutexLock lock=null;
         boolean lockflag=false;
