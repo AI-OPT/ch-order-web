@@ -37,7 +37,7 @@
 	<bean id="dateFormat" class="java.text.SimpleDateFormat">
 		<constructor-arg type="java.lang.String" value="yyyyMMdd"/>
 	</bean>
-	
+	<!-- 构造函数注入 支付中心密钥 -->
 	<bean id="key" class="com.ai.ch.order.web.vo.Key">
 		<constructor-arg index="0">
 			<value>classpath:CO20161100000001.pfx</value>
@@ -50,6 +50,7 @@
 		</constructor-arg>
 	</bean>
 	
+	<!-- 支付相关类注入 -->
 	<bean id="payBusinessHandler" class="com.changhong.upp.business.handler.PayBusinessHandler"/>
 	<bean id="payQueryBusinessHandler" class="com.changhong.upp.business.handler.PayQueryBusinessHandler"/>
 	<bean id="openAccountBusinessHandler" class="com.changhong.upp.business.handler.OpenAccountBusinessHandler"/>

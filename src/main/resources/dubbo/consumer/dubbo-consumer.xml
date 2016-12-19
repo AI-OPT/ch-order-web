@@ -32,7 +32,7 @@
                                 type="annotation" />
     </context:component-scan>
 
-	<dubbo:reference id="iAccountManageSV"
+<!-- 	<dubbo:reference id="iAccountManageSV"
 		interface="com.ai.opt.uac.api.account.interfaces.IAccountManageSV"
 		registry="baasRegistry" />
 
@@ -42,33 +42,33 @@
 
 	<dubbo:reference id="iTenantManageSV"
 		interface="com.ai.opt.uac.api.account.interfaces.ITenantManageSV"
-		registry="baasRegistry" />
+		registry="baasRegistry" /> -->
 
 	<!-- 订单查询 -->
 	<dubbo:reference id="iOrderListSV"
 		interface="com.ai.slp.order.api.orderlist.interfaces.IOrderListSV"
 		registry="baasRegistry" />
-		
+	<!-- 提货单打印服务 -->
 	<dubbo:reference id="deliveryOrderPrintSV"
 		interface="com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV" />
 	<dubbo:reference id="iInvoicePrintSV"
 		interface="com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV" />
-		
+	<!-- 订单规则服务 -->	
 	<dubbo:reference id="orderRuleSV"
 		interface="com.ai.slp.order.api.orderrule.interfaces.IOrderRuleSV" />
-	
+	<!-- 订单售后服务 -->
 	<dubbo:reference id="iOrderAfterSaleSV"
 	interface="com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleSV"
 	registry="baasRegistry" />
-	
+	<!-- 订单所属于业务类型 -->
 	<dubbo:reference id="iOrderAfterSaleJudgeSV"
 	interface="com.ai.slp.order.api.aftersaleorder.interfaces.IOrderAfterSaleJudgeSV"
 	registry="baasRegistry" />
-	
+	<!-- 订单审核 -->
 	<dubbo:reference id="iOrderCheckSV"
 		interface="com.ai.slp.order.api.ordercheck.interfaces.IOrderCheckSV"
 		registry="baasRegistry" />
-		
+	<!-- 预警订单 -->
 	<dubbo:reference id="iOrderWarmSV"
 	interface="com.ai.slp.order.api.warmorder.interfaces.IOrderWarmSV"
 	registry="baasRegistry" />
@@ -94,47 +94,48 @@
 	<dubbo:reference id="ICacheSV"
 		interface="com.ai.platform.common.api.cache.interfaces.ICacheSV"
 		registry="baasRegistry" />
-		
+	<!-- 商户相关服务 -->
 	<dubbo:reference id="iSysUserQuerySV"
 	interface="com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV"
 	registry="baasRegistry" />
-	
+	<!-- 用户菜单信息 -->
 	<dubbo:reference id="iSysMenuQuerySV"
 	interface="com.ai.platform.common.api.menu.interfaces.ISysMenuQuerySV"
 	registry="baasRegistry" />
-	
+	<!-- 订单统计 -->
 	<dubbo:reference id="iStasticsOrderSV"
 	interface="com.ai.slp.order.api.stasticsorder.interfaces.IStasticsOrderSV"
 	registry="baasRegistry" />
-	
+	<!-- 仓库服务 -->
 	<dubbo:reference id="iRouteManageSV"
 	interface="com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV"
 	registry="baasRegistry" />
-	
+	<!-- 商户相关服务 -->
 	<dubbo:reference id="iShopInfoSV"
 	interface="com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV"
 	registry="baasRegistry" />
-	
+	<!-- 订单退款金额修改 -->
 	<dubbo:reference id="iOrderRefundSV"
 	interface="com.ai.slp.order.api.orderrefund.interfaces.IOrderRefundSV"
 	registry="baasRegistry" />
-	
+	<!-- 订单支付及拆分 -->
 	<dubbo:reference id="iOrderPaySV"
 	interface="com.ai.slp.order.api.orderpay.interfaces.IOrderPaySV"
 	registry="baasRegistry" />
 	
+	<!-- 订单状态修改 -->
 	<dubbo:reference id="iOrderModifySV"
 	interface="com.ai.slp.order.api.ordermodify.interfaces.IOrderModifySV"
 	registry="baasRegistry" />
-	
+	<!-- 订单填写物流 -->
 	<dubbo:reference id="iOrderStateServiceSV"
 	interface="com.ai.slp.order.api.orderstate.interfaces.IOrderStateServiceSV"
 	registry="baasRegistry" />
-	
+	<!-- 商品库存 -->
 	<dubbo:reference id="iStorageNumSV"
 	interface="com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV"
 	registry="baasRegistry" />
-			
+	<!-- ofc -->	
 	<dubbo:reference id="iOfcSV"
 	interface="com.ai.slp.order.api.ofc.interfaces.IOfcSV"
 	registry="baasRegistry" />
