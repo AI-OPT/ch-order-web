@@ -31,6 +31,13 @@ sed -i "s%integral.shopback.url=.*%integral.shopback.url=${INTEGRAL_SHOPBACK_URL
 sed -i "s%ch.username.url=.*%ch.username.url=${CH_USERNAME_URL}%g" ./ch-order-web.properties
 sed -i "s%ch.pay.url=.*%ch.pay.url=${CH_PAY_URL}%g" ./ch-order-web.properties
 sed -i "s%ch.refundnotice.url=.*%ch.refundnotice.url=${CH_REFUNDNOTICE_URL}%g" ./ch-order-web.properties
+sed -i "s%invoice.print.url=.*%invoice.print.url=${INVOICE_PRINT_URL}%g" ./ch-order-web.properties
+sed -i "s%invoice.print.loginName=.*%invoice.print.loginName=${INVOICE_PRINT_LOGINNAME}%g" ./ch-order-web.properties
+sed -i "s%invoice.print.password=.*%invoice.print.password=${INVOICE_PRINT_PASSWORD}%g" ./ch-order-web.properties
+
+invoice.print.loginName=123456
+#\u53D1\u7968\u5BC6\u7801
+invoice.print.password=123456
 # 各中心要根据情况自己修改成与dubbo.properties中对应的配置项
 sed -i "s%dubbo.registry.address=.*%dubbo.registry.address=${REST_REGISTRY_ADDR}%g" ./dubbo.properties
 
