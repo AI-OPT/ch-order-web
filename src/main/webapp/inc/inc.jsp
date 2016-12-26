@@ -9,7 +9,7 @@
     response.setHeader("Cache-Control", "no-cache");
     response.setDateHeader("Expires", 0);
     response.setHeader("Pragma", "No-cache");
-    response.setHeader("Access-Control-Allow-Origin", "*");
+/* 	response.setHeader("Access-Control-Allow-Origin", "*"); */
     
     String _slpbase=_base+"/resources/slpmall";
     request.setAttribute("_slpbase", _slpbase);
