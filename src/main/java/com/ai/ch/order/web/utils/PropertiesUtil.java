@@ -1,7 +1,11 @@
 package com.ai.ch.order.web.utils;
 import java.util.Properties;  
 import java.util.concurrent.ConcurrentHashMap;  
-import java.util.concurrent.ConcurrentMap;  
+import java.util.concurrent.ConcurrentMap;
+
+import com.ai.opt.base.exception.BusinessException;
+import com.alibaba.fastjson.JSON;
+import com.esotericsoftware.minlog.Log;  
 
 
 public class PropertiesUtil {
@@ -14,12 +18,13 @@ public class PropertiesUtil {
 	    
 	    /**
 	     * 读取配置文件信息
+	     * @throws Exception 
 	     */
-	    public static String getStringByKey(String key, String propName) {  
+	    public static String getStringByKey(String key, String propName) throws Exception {  
 	        try {  
 	            prop = loader.getPropFromProperties(propName);  
-	        } catch (Exception e) {  
-	            throw new RuntimeException(e);  
+	        } catch (BusinessException e) {  
+	            throw new BusinessException(e);  
 	        }  
 	        key = key.trim();  
 	        if (!configMap.containsKey(key)) {  
@@ -30,15 +35,15 @@ public class PropertiesUtil {
 	        return configMap.get(key);  
 	    }  
 	  
-	    public static String getStringByKey(String key) {  
+	    public static String getStringByKey(String key) throws Exception {  
 	        return getStringByKey(key, DEFAULT_CONFIG_FILE);  
 	    }  
 	  
-	    public static Properties getProperties() {  
+	    public static Properties getProperties() throws Exception {  
 	        try {  
 	            return loader.getPropFromProperties(DEFAULT_CONFIG_FILE);  
-	        } catch (Exception e) {  
-	            e.printStackTrace();  
+	        } catch (BusinessException e) {  
+	           Log.error("操作失败"+JSON.toJSONString(e));  
 	            return null;  
 	        }  
 	    }  
