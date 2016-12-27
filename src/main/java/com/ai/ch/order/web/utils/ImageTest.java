@@ -5,6 +5,9 @@ import com.ai.opt.sdk.components.idps.IDPSClientFactory;
 import com.ai.opt.sdk.util.ImageByteUtil;
 import com.ai.paas.ipaas.image.IImageClient;
 
+/**
+ * 图片信息处理测试
+ */
 public class ImageTest {
 
     @Test
