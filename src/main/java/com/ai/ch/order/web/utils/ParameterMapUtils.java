@@ -3,18 +3,17 @@ package com.ai.ch.order.web.utils;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.servlet.ServletRequest;
-import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.util.StringUtils;
 
-
+/**
+ * 参数组装
+ */
 public class ParameterMapUtils {
 	
 	public static final String PREFIX = "command.";
