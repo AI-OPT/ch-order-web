@@ -4,14 +4,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+/**
+ * 参数转换
+ */
 public class MapBeanUtils {
-	public static Logger log = LogManager.getLogger(MapBeanUtils.class);
+	public static Logger log = LoggerFactory.getLogger(MapBeanUtils.class);
 			
 	public static Map<String, String> bean2map(Object javaBean) {
 		Map<String, String> result = new HashMap<String, String>();
