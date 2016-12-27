@@ -7,7 +7,9 @@ import com.ai.opt.base.exception.BusinessException;
 import com.alibaba.fastjson.JSON;
 import com.esotericsoftware.minlog.Log;  
 
-
+/**
+ * 配置信息公共类 
+ */
 public class PropertiesUtil {
 
 	private static ResourceLoader loader = ResourceLoader.getInstance();  
@@ -38,7 +40,7 @@ public class PropertiesUtil {
 	    public static String getStringByKey(String key) throws Exception {  
 	        return getStringByKey(key, DEFAULT_CONFIG_FILE);  
 	    }  
-	  
+	    /** 获取配置信息*/
 	    public static Properties getProperties() throws Exception {  
 	        try {  
 	            return loader.getPropFromProperties(DEFAULT_CONFIG_FILE);  
