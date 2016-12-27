@@ -22,7 +22,6 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.StasticOrderReqVo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV;
 import com.ai.ch.user.api.shopinfo.params.QueryShopInfoRequest;
