@@ -12,6 +12,9 @@ import com.ai.opt.sdk.util.ParseO2pDataUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
+/**
+ * 查询用户信息
+ */
 public  class ChUserByNameUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(ChUserByNameUtil.class);
 	//获取用户id
