@@ -300,7 +300,7 @@
 							       </c:when>
 							       <c:otherwise>
 							  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-							  		 onclick="pager._invoicePrint('changhong','${orderDetail.orderId }');" value="打印发票">
+							  		 onclick="pager._invoicePrint('changhong','${orderDetail.orderId }');" value="发票报送打印">
 							       </c:otherwise>
 							 </c:choose>
 					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
