@@ -4,6 +4,9 @@ import com.ai.opt.sdk.components.idps.IDPSClientFactory;
 import com.ai.paas.ipaas.image.IImageClient;
 import com.ai.paas.ipaas.util.StringUtil;
 
+/**
+ * 图片信息处理
+ */
 public class ImageUtil {
     public static String getImage(String vsid, String pictype) {
     	try {
