@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ai.ch.order.web.controller.constant.Constants;
+import com.ai.opt.sdk.util.CryptUtils;
 import com.alibaba.fastjson.JSONObject;
 
 /**
@@ -64,8 +65,10 @@ public class InvoiceUtils {
 		HttpPost httpPost = new HttpPost(Constants.INVOICE_PRINT_URL + InvoiceUtils.QUERY_AUTH);
 		CloseableHttpClient client = HttpClients.createDefault();
 		JSONObject authorizationJson = new JSONObject();
-		authorizationJson.put("loginName",Constants.INVOICE_PRINT_USERNAME);
-		authorizationJson.put("password", Constants.INVOICE_PRINT_PASSWORD);
+		
+		
+		authorizationJson.put("loginName",CryptUtils.decrypt(Constants.INVOICE_PRINT_USERNAME));
+		authorizationJson.put("password", CryptUtils.decrypt(Constants.INVOICE_PRINT_PASSWORD));
 		authorizationJson.put("interFaceCode", operateType);
 		try {
 			httpPost.setEntity(new StringEntity(authorizationJson.toString(), "UTF-8"));
@@ -82,7 +85,7 @@ public class InvoiceUtils {
 		}
 		return null;
 	}
-
+	
 	/**
 	 * post请求wcf服务
 	 * 
@@ -110,5 +113,4 @@ public class InvoiceUtils {
 		}
 		return retVal;
 	}
-
 }
