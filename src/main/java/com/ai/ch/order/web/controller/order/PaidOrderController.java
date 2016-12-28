@@ -25,7 +25,6 @@ import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
@@ -168,15 +167,6 @@ public class PaidOrderController {
 			req.setOrderId(Id);
 		}
 		req.setTenantId(user.getTenantId());
-		// 获取用户ID
-		/*if (!StringUtil.isBlank(reqVo.getUserName())) {
-			String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
-			if (!StringUtil.isBlank(id)) {
-				req.setUserId(id);
-			} else {
-				req.setUserId("-1");
-			}
-		}*/
 		if(!StringUtil.isBlank(reqVo.getUserName())){
 			req.setUserName(reqVo.getUserName());
 	    }
