@@ -169,14 +169,17 @@ public class PaidOrderController {
 		}
 		req.setTenantId(user.getTenantId());
 		// 获取用户ID
-		if (!StringUtil.isBlank(reqVo.getUserName())) {
+		/*if (!StringUtil.isBlank(reqVo.getUserName())) {
 			String id = ChUserByNameUtil.getUserInfo(reqVo.getUserName());
 			if (!StringUtil.isBlank(id)) {
 				req.setUserId(id);
 			} else {
 				req.setUserId("-1");
 			}
-		}
+		}*/
+		if(!StringUtil.isBlank(reqVo.getUserName())){
+			req.setUserName(reqVo.getUserName());
+	    }
 		String strPageNo = (null == request.getParameter("pageNo")) ? "1" : request.getParameter("pageNo");
 		String strPageSize = (null == request.getParameter("pageSize")) ? "10" : request.getParameter("pageSize");
 		try {
