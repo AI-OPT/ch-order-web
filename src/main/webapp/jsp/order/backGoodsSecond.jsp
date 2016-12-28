@@ -301,7 +301,7 @@
 		                            	</p>
 	                            	</div> 
                             	</c:when>
-                            	<c:when test="${order.state == 95}">
+                            	<c:when test="${order.state == 95 && requestScope.sourceFlag!=00}">
                             		<div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="重新退款">
@@ -309,7 +309,7 @@
 		                            	</p>
 	                            	</div>
                             	</c:when>
-                            	<c:when test="${order.state == 23}">
+                            	<c:when test="${order.state == 23 && requestScope.sourceFlag!=00}">
                             		<div class="row">
 		                           		<p class="center mt-20">
 		                           			<input type="button" id="operation" class="biu-btn  btn-primary btn-blue btn-small  ml-5" id="edit" value="收到退货">
