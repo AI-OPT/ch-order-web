@@ -24,7 +24,6 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.ChUserByNameUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
 import com.ai.net.xss.util.CollectionUtil;
 import com.ai.opt.base.vo.PageInfo;
@@ -111,14 +110,6 @@ public class OrderListController {
 		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
-			/*if(!StringUtil.isBlank(queryParams.getUsername())) {
-				String userId = ChUserByNameUtil.getUserInfo(queryParams.getUsername());
-				if(StringUtil.isBlank(userId)) {
-					queryRequest.setUserId(queryParams.getUsername());
-				}else {
-					queryRequest.setUserId(userId);
-				}
-			}*/
 			if(!StringUtil.isBlank(queryParams.getUsername())){
 				queryRequest.setUserName(queryParams.getUsername());
 		    }
@@ -244,10 +235,8 @@ public class OrderListController {
 						}
 					}
 					orderDetail.setProdList(prodList);
-					
 					// 翻译物流信息
 					orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
-
 				}
 			}
 			model.put("orderDetail", orderDetail);
