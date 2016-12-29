@@ -139,12 +139,12 @@
 								</h4>
 							</div>  
 							 <div class="modal-body text-center">
-							 <br/><br/>
-							 
+							 <br/>
 							 	<c:choose>
 							       <c:when test="${orderDetail.orderType eq '100000'}">
 							       		<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal" 
 										data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
+										<br/><br/>
 							       </c:when>
 							       <c:otherwise>
 								  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"

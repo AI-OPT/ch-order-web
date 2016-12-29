@@ -137,7 +137,7 @@
 								</h4>
 							</div>  
 							 <div class="modal-body text-center">
-							 <br/><br/>
+							 <br/>
 						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
 						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
 								&nbsp;&nbsp;&nbsp;&nbsp;
