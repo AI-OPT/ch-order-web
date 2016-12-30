@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
+import com.ai.ch.order.web.model.order.LogisticsDetail;
 import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
@@ -70,6 +72,7 @@ import com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV;
 import com.ai.slp.product.api.storageserver.param.StorageNumBackReq;
 import com.ai.slp.product.api.storageserver.param.StorageNumUserReq;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.changhong.upp.business.entity.upp_599_001_01.RespInfo;
 import com.changhong.upp.business.entity.upp_801_001_01.GrpBody;
@@ -439,6 +442,9 @@ public class PaidOrderController {
 						}
 					}
 					orderDetail.setProdList(prodList);
+					
+					// 翻译物流信息
+					orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
 				}
 			}
 			model.put("order", orderDetail);
@@ -943,5 +949,52 @@ public class PaidOrderController {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "收到退货失败", null);
 			}
 			return responseData;
+		}
+		
+		 /**
+		 * 获取物流信息
+		 * @param com
+		 * @param oderNo
+		 * @return  List<LogisticsDetail>
+		 */
+		private static List<LogisticsDetail> getLogisticsDetails(String com,String oderNo) {
+			Map<String, String> params = new HashMap<String, String>();
+			params.put("orderNo", oderNo);
+			params.put("com", com);
+			Map<String, String> headers = new HashMap<String, String>();
+			headers.put("appkey", Constants.LOGISTICS_APPKEY);
+			String param = JSON.toJSONString(params);
+			try {
+				String result = HttpClientUtil.sendPost(Constants.LOGISTICS_URL,param,headers);
+				 //将返回结果，转换为JSON对象 
+		        JSONObject json=JSON.parseObject(result);
+		        String reqResultCode=json.getString("resultCode");
+		        if("000000".equals(reqResultCode)){
+		        	JSONObject data=JSON.parseObject(json.getString("data"));
+		        	JSONObject responseHeader=JSON.parseObject(data.getString("responseHeader"));
+		        	String success = responseHeader.getString("success");
+		        	if("true".equals(success)){
+						String dataStr =data.getString("messages");
+						JSONArray messages = JSONArray.parseArray(dataStr);
+						Iterator<Object> it = messages.iterator();
+						List<LogisticsDetail> logisticsDetails = new ArrayList<LogisticsDetail>();
+						while (it.hasNext()) {
+							LogisticsDetail detail = new LogisticsDetail();
+							JSONObject ob = (JSONObject) it.next();
+							detail.setTime(ob.getString("time"));
+							detail.setContext(ob.getString("context"));
+							logisticsDetails.add(detail);
+						}
+						return logisticsDetails;
+		        	}
+				} else {
+					// 请求过程失败
+					LOG.error("物流信息请求失败,请求错误码："+ reqResultCode);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				LOG.error("物流信息请求失败,请求错误码：", e);
+			}
+			return null;
 		}
 }
