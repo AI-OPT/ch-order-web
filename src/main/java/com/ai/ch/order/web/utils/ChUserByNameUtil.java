@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 /**
- * 查询用户信息
+ * 查询用户信息(已废弃)
  */
 public  class ChUserByNameUtil {
 	private static final Logger LOG = LoggerFactory.getLogger(ChUserByNameUtil.class);
