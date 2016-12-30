@@ -287,6 +287,26 @@
 		                            		</li>
 		                            	</ul>
 		                            </div>
+		                     <br/>
+						     <div class="table-responsive clearfix">
+						                <table class="table table-hover table-border table-bordered" >
+						                    <thead>
+						                        <tr>
+						                            <th>时间</th>
+						                            <th>物流跟踪</th>
+						                        </tr>
+						                    </thead>
+						                <tbody>
+						                 <c:forEach var="logisticsDetail" items="${order.logisticsDetail}">
+						                    <tr>
+						                        <td>${logisticsDetail.time }</td>
+						                         <td>${logisticsDetail.context }</td>
+						                    </tr>
+						                 </c:forEach>
+						                </tbody>
+						                </table>
+						         </div>
+						         <!--/table表格结束-->              
 		                         </c:otherwise>
                             </c:choose>
                             
