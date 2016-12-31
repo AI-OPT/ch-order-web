@@ -212,7 +212,8 @@ public class InvoicePrintController {
 	@RequestMapping(value="/downloadInvoice",produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String downloadInvoice(HttpServletRequest request,String invoiceCode,String invoiceNumber) {
-		StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_PRINT_URL+InvoiceUtils.DOWNLOAD_INVOICE_FILE_URL);
+		//StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_PRINT_URL+InvoiceUtils.DOWNLOAD_INVOICE_FILE_URL);
+		StringBuffer getfileURL =new StringBuffer(Constants.INVOICE_DOWNLOAD_URL);
 		//获取授权ID
 		String id=InvoiceUtils.getID(InvoiceUtils.TYPE_GetFile);
 		getfileURL.append("?id="+id);
@@ -237,6 +238,10 @@ public class InvoicePrintController {
 		BaseResponse response = DubboConsumerFactory.getService(IInvoicePrintSV.class).modifyState(invoiceModifyRequest);
 		//
 		return response;
+	}
+	
+	public static void main(String[] args) {
+		System.out.println(Constants.INVOICE_DOWNLOAD_URL);
 	}
 	
 	
