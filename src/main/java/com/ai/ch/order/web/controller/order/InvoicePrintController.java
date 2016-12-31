@@ -239,10 +239,4 @@ public class InvoicePrintController {
 		//
 		return response;
 	}
-	
-	public static void main(String[] args) {
-		System.out.println(Constants.INVOICE_DOWNLOAD_URL);
-	}
-	
-	
 }
