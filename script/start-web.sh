@@ -34,6 +34,7 @@ sed -i "s%ch.refundnotice.url=.*%ch.refundnotice.url=${CH_REFUNDNOTICE_URL}%g" .
 sed -i "s%invoice.print.url=.*%invoice.print.url=${INVOICE_PRINT_URL}%g" ./ch-order-web.properties
 sed -i "s%invoice.print.loginName=.*%invoice.print.loginName=${INVOICE_PRINT_LOGINNAME}%g" ./ch-order-web.properties
 sed -i "s%invoice.print.password=.*%invoice.print.password=${INVOICE_PRINT_PASSWORD}%g" ./ch-order-web.properties
+sed -i "s%invoice.download.url=.*%invoice.download.url=${INVOICE_DOWNLOAD_URL}%g" ./ch-order-web.properties
 # 各中心要根据情况自己修改成与dubbo.properties中对应的配置项
 sed -i "s%dubbo.registry.address=.*%dubbo.registry.address=${REST_REGISTRY_ADDR}%g" ./dubbo.properties
 
