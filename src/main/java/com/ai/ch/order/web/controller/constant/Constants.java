@@ -254,6 +254,9 @@ public final class Constants {
     /**发票打印URL**/
     private static final String INVOICE_PRINT_URL_KEY = "invoice.print.url";  
     public static final String INVOICE_PRINT_URL = loader.getProperty(INVOICE_PRINT_URL_KEY);  
+    /**发票下载url*/
+    private static final String INVOICE_DOWNLOAD_URL_KEY = "invoice.download.url";  
+    public static final String INVOICE_DOWNLOAD_URL = loader.getProperty(INVOICE_DOWNLOAD_URL_KEY);
     /**发票打印授权用户名**/
     private static final String INVOICE_PRINT_USERNAME_KEY = "invoice.print.loginName";  
     public static final String INVOICE_PRINT_USERNAME = loader.getProperty(INVOICE_PRINT_USERNAME_KEY);  
@@ -297,9 +300,7 @@ public final class Constants {
     public static final String CH_REFUND_URL = loader.getProperty(CH_REFUND_KEY); 
     
     /**一级商户**/
-    private static final String pay_first_merchant_key = "ch.pay.first.merchant";
-    public static final String ch_pay_first_merchant = loader.getProperty(pay_first_merchant_key); 
+    public static final String ch_pay_first_merchant = "CO20161100000001"; 
     /**二级商户**/
-    private static final String pay_two_merchant_key = "ch.pay.two.merchant";
-    public static final String ch_pay_two_merchant = loader.getProperty(pay_two_merchant_key); 
+    public static final String ch_pay_two_merchant = "CO20161100000002"; 
 }
