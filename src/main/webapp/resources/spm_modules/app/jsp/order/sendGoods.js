@@ -219,7 +219,6 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 	        }
     		 var id = $("#flowName17").val();
     		 var name = $("#otherName").val();
-    		debugger;
     		 if((id!="" && name=="")){
     			$("#codeErr").val("快递公司名不能为空");
     			$("#codeErr").show();
