@@ -58,7 +58,7 @@
 														<li class="col-md-12">
 
 															<p class="word" style="text-align: left;"></p>
-															<p>监控时间为
+															<p>监控时间，在
 																<input id="timeMonitorTime" style="width:100px;"
 																	name="command.timeMonitorTime"
 																	class="int-text int-medium " value="100" type="text" />
@@ -69,7 +69,7 @@
 																	<option value="MIN">分钟</option>
 																</select> 内，订单量正常量为 <input id="timeMonitorOrderSum" name="command.timeMonitorOrderSum"
 																	class="int-text int-medium " type="text" />
-																单，超过正常量的进行监控预警
+																单，超过正常量的进行监控预警.
 															</p>
 														</li>
 													</ul>
@@ -95,7 +95,7 @@
 																	<option value="MIN">分钟</option>
 																</select> 内， 购买订单超过 <input id="buyEmployeeMonitorOrderSum"
 																	name="command.buyEmployeeMonitorOrderSum"
-																	class="int-text int-medium " type="text" /> 单，进行监控预警
+																	class="int-text int-medium " type="text" /> 单，进行监控预警.
 															</p>
 														</li>
 													</ul>
@@ -110,7 +110,7 @@
 													<ul>
 														<li class="col-md-12">
 															<p class="word" style="text-align: left;"></p>
-															<p>同一IP ， 在
+															<p>同一IP，在
 																<input id="buyIpMonitorTime" style="width:100px;" name="command.buyIpMonitorTime"
 																	class="int-text int-medium " type="text" /> <select
 																	id="buyIpMonitorTimeType" name="command.buyIpMonitorTimeType"
@@ -119,7 +119,7 @@
 																	<option value="H">小时</option>
 																	<option value="MIN">分钟</option>
 																</select> 内， 购买订单超过 <input id="buyIpMonitorOrderSum" name="command.buyIpMonitorOrderSum"
-																	class="int-text int-medium " type="text" /> 单，进行监控预警
+																	class="int-text int-medium " type="text" /> 单，进行监控预警.
 															</p>
 														</li>
 													</ul>
@@ -134,10 +134,9 @@
 													<ul>
 														<li class="col-md-12">
 															<p class="word" style="text-align: left;"></p>
-															<p>同一用户购买的
-																同一商品，在<input id="mergeOrderSettingTime" name="command.mergeOrderSettingTime"
+															<p>同一用户购买的同一商品，配送至同一收货地址，在<input id="mergeOrderSettingTime" name="command.mergeOrderSettingTime"
 																	class="int-text int-medium " type="text" />
-																分钟内，默认合并为同一订单 <input id="mergeOrderSettingTimeType" type="hidden"
+																分钟内，默认合并为同一订单. <input id="mergeOrderSettingTimeType" type="hidden"
 																	name="command.mergeOrderSettingTimeType" value="MIN"/> <input id="mergeOrderSettingOrderSum"
 																	type="text" name="command.mergeOrderSettingOrderSum" />
 															</p>
