@@ -139,25 +139,16 @@
 								</h4>
 							</div>  
 							 <div class="modal-body text-center">
-							 <br/>
-							 	<c:choose>
-							       <c:when test="${orderDetail.orderType eq '100000'}">
-							       		<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal" 
-										data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
-										<br/><br/>
-							       </c:when>
-							       <c:otherwise>
-								  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-								  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
-										data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
-										</button>&nbsp;&nbsp;&nbsp;&nbsp;
-										<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal" 
-										data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
-										<br/><br/>
-							       </c:otherwise>
-								</c:choose>
+							 	<br/>
+						  		 <button class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
+						  		 data-toggle="modal" data-target="#backModal${status.index}">退货</button> 
+								&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal"
+								data-toggle="modal" data-dismiss="modal" data-target="#exchangeModal${status.index}">换货
+								</button>&nbsp;&nbsp;&nbsp;&nbsp;
+								<button type="button" class="biu-btn btn-blue btn-small  radius" data-dismiss="modal" 
+								data-toggle="modal" data-target="#refundModal${status.index}">退款</button>
+								<br/><br/>
 							</div> 
 						</div><!-- /.modal-content -->
 					</div><!-- /.modal -->
