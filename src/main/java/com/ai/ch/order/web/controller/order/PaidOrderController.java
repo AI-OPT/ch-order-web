@@ -603,7 +603,68 @@ public class PaidOrderController {
 			}
 			if (surplusCash >= giveCash) {// 当前用户积分余额大于商品赠送积分
 				// 用户消费积分撤销
-				shopback(accountId, openId, appId, downOrdId, bisId, saleJF,token);
+				ResponseData<String> shopbackData = shopback(accountId, openId, appId, downOrdId, bisId, saleJF,token);
+				
+				//0元退款
+				if(0==Double.parseDouble(updateMoney)) {
+					if("1".equals(shopbackData.getStatusCode())) {
+						// 修改退款金额
+						LOG.info("修改金额服务>>>>>>,修改金额:"+updateMoney);
+						boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
+						if (!flag) {
+							responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+							return responseData;
+						}
+						BaseResponse base = this.modifyOrd(orderId);
+						if(base.getResponseHeader().getIsSuccess()) {
+							//退款成功
+							LOG.info("退款修改订单服务>>>>>>"+base.getResponseHeader().getResultMessage());
+							responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款成功", null);
+						}else {
+							responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款失败", "9999");
+						}
+					}else {
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款失败", "9999");
+					}
+				}else { 
+					//大于0的情况下
+					// 退款
+					ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
+							banlanceIfId);
+					if ("1".equals(resposne.getStatusCode())&&"1".equals(shopbackData.getStatusCode())) {
+						// 修改退款金额
+						boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
+						if (!flag) {
+							responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+							return responseData;
+						}
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
+					} else {
+						responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
+					}
+				}
+				
+			} else {
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);
+			}
+		} else {	
+			//0元退款
+			if(0==Double.parseDouble(updateMoney)) {
+				// 修改退款金额
+				boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
+				if (!flag) {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
+					return responseData;
+				}
+				BaseResponse base = this.modifyOrd(orderId);
+				if(base.getResponseHeader().getIsSuccess()) {
+					//退款成功
+					LOG.info("退款修改订单服务>>>>>>"+base.getResponseHeader().getResultMessage());
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款成功", null);
+				}else {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款失败", "9999");
+				}
+			}else {
 				// 退款
 				ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
 						banlanceIfId);
@@ -618,23 +679,6 @@ public class PaidOrderController {
 				} else {
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
 				}
-			} else {
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "当前用户积分余额小于商品赠送积分", null);
-			}
-		} else {
-			// 退款
-			ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
-					banlanceIfId);
-			if ("1".equals(resposne.getStatusCode())) {
-				// 修改退款金额
-				boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
-				if (!flag) {
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "修改金额失败", null);
-					return responseData;
-				}
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
-			} else {
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
 			}
 		}
 		return responseData;
@@ -710,7 +754,7 @@ public class PaidOrderController {
 			} else {
 				LOG.info(">>>>>>>撤销积分请求过程失败");
 				// 请求过程失败
-				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "用户消费积分撤销失败", null);
+				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "用户消费积分撤销失败", null);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -997,4 +1041,19 @@ public class PaidOrderController {
 			}
 			return null;
 		}
+		
+		
+	/**
+	 * 修改订单状态
+	 */
+	private BaseResponse modifyOrd(String orderId) {
+		IOrderModifySV iOrderModifySV = DubboConsumerFactory.getService(IOrderModifySV.class);
+		//修改售后订单为退款完成
+		OrdRequest req = new OrdRequest();
+		req.setTenantId(Constants.TENANT_ID);
+		req.setOrderId(Long.parseLong(orderId));
+		req.setState(Constants.OrdOrder.State.REFUND_COMPLETE);
+		LOG.info("修改售后订单为退款完成>>>>>>,修改订单id:"+orderId);
+		return iOrderModifySV.modify(req);
+	}
 }
