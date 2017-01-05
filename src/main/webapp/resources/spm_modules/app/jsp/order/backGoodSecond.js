@@ -35,9 +35,9 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
             "click #refuseBackMoney":"_refuseBackMoney",
             "click #updateMoney":"_updateMoney",
             "click #backPage":"_back",
-            "click #backGoods":"_confirmBack",
-            "blur #updateMoneyData":"_validateZero",
-            "focus #updateMoneyData":"_hideZeroTips",
+            "click #backGoods":"_confirmBack"
+/*            "blur #updateMoneyData":"_validateZero",
+           "focus #updateMoneyData":"_hideZeroTips",*/ 
         },
     	//重写父类
     	setup: function () {
@@ -51,7 +51,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
 				refuseformValidator.element(this);
 			});
     	},
-    	_validateZero:function(){
+    	/*_validateZero:function(){
     		var moneyValue = $("#updateMoneyData").val();
     		if(moneyValue==0){
     			$("#tips").html("退款金额不能等于0");
@@ -63,7 +63,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     	_hideZeroTips:function(){
     		$("#tipsMsg").hide();
 			$("#tips").hide();
-    	},
+    	},*/
     	_back:function(){
     		var sorceFlag = $("#sourceFlag").val();
     		if(sorceFlag=="00"){
@@ -82,7 +82,6 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
     					moneyNumber: true,
     					max:currentM,
     					min:0
-    							
     					},
 	                 updateMoneyInfo:{
 	                	 required: true
@@ -127,7 +126,7 @@ define('app/jsp/order/backGoodSecond', function (require, exports, module) {
  			if(!$("#refuseDataForm").valid()){
  				return false;
  			}
- 			this._validateZero();
+ 			/*this._validateZero();*/
     		var orderId = $("#orderId").text();
  			var info = $("#refuseMoneyInfo").val();
  			var url  = _base+"/refuseRefund";
