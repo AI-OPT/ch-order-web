@@ -30,6 +30,9 @@ public class OrderRuleController {
 	private static final Logger log = LoggerFactory.getLogger(OrderRuleController.class);
 	//text/html
 	//application/json
+	/**
+	 * 订单规则设置
+	 */
 	@RequestMapping(value="/orderRuleSetting",method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String orderRuleSetting(HttpServletRequest request){
@@ -45,6 +48,10 @@ public class OrderRuleController {
 		//
 		return flag;
 	}
+	
+	/**
+	 * 订单规则查看详情
+	 */
 	@RequestMapping(value="/findOrderRuleDetail",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public OrderRuleDetailResponse findOrderRuleDetail(HttpServletRequest request){
