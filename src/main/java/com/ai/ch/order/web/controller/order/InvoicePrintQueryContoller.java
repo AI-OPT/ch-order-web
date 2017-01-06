@@ -29,6 +29,7 @@ import com.alibaba.fastjson.JSON;
 public class InvoicePrintQueryContoller {
 	private static final Logger log = LoggerFactory.getLogger(InvoicePrintQueryContoller.class);
 	
+	//发票打印列表查看
 	@RequestMapping(value="/invoiceController/queryList",method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public ResponseData<PageInfo<InvoicePrintQueryVo>> queryList(HttpServletRequest request){

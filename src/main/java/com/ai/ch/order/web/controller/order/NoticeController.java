@@ -31,6 +31,7 @@ public class NoticeController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(NoticeController.class);
 	
+	//支付通知
 	@Resource(name="key")
 	private Key key;
 	@RequestMapping("/payNotice")
@@ -88,6 +89,8 @@ public class NoticeController {
 			}
 			return null;
 	}
+	
+	//退款通知
 	@RequestMapping("/refundNotice")
 	public String refundNotice( @RequestParam("msgHeader") String msgHead,@RequestParam("xmlBody") String xmlBody,@RequestParam("signMsg") String signMsg){
 		LOG.info(">>>>>>>>>>>>退款通知开始");

@@ -57,6 +57,7 @@ public class OrderListController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(OrderListController.class);
 	
+	//跳转到订单列表
 	@RequestMapping("/toOrderList")
 	public ModelAndView toAlertOrder(HttpServletRequest request,String stateFlag ) {
 		request.setAttribute("stateFlag", stateFlag);
@@ -143,7 +144,7 @@ public class OrderListController {
 	    return responseData;
     }
 
-
+    //订单详情查看
     @RequestMapping("/orderListDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, String busiCode,
 			String orderId,String state,String pOrderId,String Flag,String sourceFlag) {

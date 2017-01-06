@@ -89,31 +89,35 @@ public class PaidOrderController {
 	private BusinessHandlerFactory businessHandlerFactory;
 	@Resource(name = "key")
 	private Key key;
-
+	
+	//跳转售后列表
 	@RequestMapping("/toPaidOrder")
 	public ModelAndView toPaidOrder(HttpServletRequest request) {
 
 		return new ModelAndView("jsp/order/paidOrderList");
 	}
-
+	
+	//跳转换货第一次审核页面
 	@RequestMapping("/toChangeOrderFirst")
 	public ModelAndView toChangeOrderFirst(HttpServletRequest request) {
 
 		return new ModelAndView("jsp/order/changeGoodsFirst");
 	}
 
+	//跳转换货第二次审核页面
 	@RequestMapping("/toChangeOrderSecond")
 	public ModelAndView toChangeOrderSecond(HttpServletRequest request) {
 
 		return new ModelAndView("jsp/order/changeGoodsSecond");
 	}
-
+	
+	//跳转退货第一次审核页面
 	@RequestMapping("/toBackOrderFirst")
 	public ModelAndView toBackOrderFirst(HttpServletRequest request) {
 
 		return new ModelAndView("jsp/order/backGoodsFirst");
 	}
-
+	//跳转退货第二次审核页面
 	@RequestMapping("/toBackOrderSecond")
 	public ModelAndView toBackOrderSecond(HttpServletRequest request) {
 
@@ -210,7 +214,8 @@ public class PaidOrderController {
 		}
 		return responseData;
 	}
-
+	
+	//换货详情
 	@RequestMapping("/changeDetail")
 	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId, String flag,String sourceFlag) {
 		request.setAttribute("sourceFlag", sourceFlag);
@@ -365,7 +370,8 @@ public class PaidOrderController {
 		}
 		return responseData;
 	}
-
+	
+	//退货详情
 	@RequestMapping("/backDetail")
 	public ModelAndView backFirstDetail(HttpServletRequest request, String orderId, String flag,String sourceFlag) {
 		request.setAttribute("sourceFlag", sourceFlag);
@@ -504,7 +510,8 @@ public class PaidOrderController {
 		}
 		return responseData;
 	}
-
+	
+	//判断该商品对应的订单所属业务类型
 	@RequestMapping("/judge")
 	public String paidQuery(HttpServletRequest request, String orderId, String skuId,String sourceFlag) {
 		try {
@@ -922,7 +929,7 @@ public class PaidOrderController {
 		}
 		return responseData;
 	}
-	// 收到退货
+		// 收到退货
 		@RequestMapping("/confirmBack")
 		@ResponseBody
 		public ResponseData<String> confirmBack(HttpServletRequest request, String expressOddNumber, String expressId,

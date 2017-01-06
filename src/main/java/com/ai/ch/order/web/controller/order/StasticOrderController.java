@@ -57,6 +57,7 @@ import com.alibaba.fastjson.JSONObject;
 public class StasticOrderController {
 	private static final Logger LOG = LoggerFactory.getLogger(StasticOrderController.class);
 	
+	//跳转订单统计
 	@RequestMapping("/toStasticOrder")
 	public ModelAndView toAlertOrder(HttpServletRequest request) {
 		return new ModelAndView("jsp/order/stasticOrder");
@@ -176,6 +177,7 @@ public class StasticOrderController {
         }
         return responseData;
     }
+    //查看统计页面详情
     @RequestMapping("/orderDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, 
 			String orderId,String state,String pOrderId,String busiCode) {

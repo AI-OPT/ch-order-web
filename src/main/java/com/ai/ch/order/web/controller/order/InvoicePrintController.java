@@ -2,9 +2,7 @@ package com.ai.ch.order.web.controller.order;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -13,30 +11,20 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.order.InvoicePrintInfo;
 import com.ai.ch.order.web.model.order.ListInvoicePrintInfo;
-import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.InvoiceUtils;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.BeanUtils;
 import com.ai.opt.sdk.util.DateUtil;
-import com.ai.opt.sdk.web.model.ResponseData;
-import com.ai.opt.sso.client.filter.SSOClientConstants;
-import com.ai.slp.order.api.deliveryorderprint.interfaces.IDeliveryOrderPrintSV;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintInfosRequest;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderPrintRequest;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryOrderQueryResponse;
-import com.ai.slp.order.api.deliveryorderprint.param.DeliveryProdPrintVo;
 import com.ai.slp.order.api.invoiceprint.interfaces.IInvoicePrintSV;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceModifyRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSubmitRequest;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSumbitResponse;
 import com.ai.slp.order.api.invoiceprint.param.InvoiceSumbitVo;
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 
 @Controller
@@ -44,65 +32,6 @@ import com.alibaba.fastjson.JSONObject;
 public class InvoicePrintController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(InvoicePrintController.class);
-	
-	@RequestMapping("/query")
-	@ResponseBody
-	public ResponseData<DeliveryOrderQueryResponse> query(HttpServletRequest request,String orderId) {
-		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-		ResponseData<DeliveryOrderQueryResponse> responseData =null;
-		try {
-			DeliveryOrderPrintRequest req=new DeliveryOrderPrintRequest();
-			req.setOrderId(Long.valueOf(orderId));
-			req.setTenantId(user.getTenantId());
-			IDeliveryOrderPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
-			DeliveryOrderQueryResponse response = deliveryOrderPrintSV.query(req);
-			if(response!=null && response.getResponseHeader().isSuccess()) {
-				responseData = new ResponseData<DeliveryOrderQueryResponse>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",response);
-			}else {
-				responseData = new ResponseData<DeliveryOrderQueryResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
-			}
-		} catch (Exception e) {			
-			responseData = new ResponseData<DeliveryOrderQueryResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询出错,出现未知异常");
-			LOG.error("查询信息出错",e);
-		}
-		return responseData;
-	}
-	
-	
-	@RequestMapping("/print")
-	@ResponseBody
-	public ResponseData<BaseResponse> print(HttpServletRequest request,String orderId,
-			String orderInfos) {
-		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-		ResponseData<BaseResponse> responseData =null;
-		try {
-			DeliveryOrderPrintInfosRequest req=new DeliveryOrderPrintInfosRequest();
-			List<DeliveryProdPrintVo> deliveryProdPrintVos = JSON.parseArray(orderInfos, DeliveryProdPrintVo.class); 
-			req.setOrderId(Long.valueOf(orderId));
-			req.setDeliveryProdPrintVos(deliveryProdPrintVos);
-			req.setTenantId(user.getTenantId());
-			IDeliveryOrderPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliveryOrderPrintSV.class);
-			BaseResponse response = deliveryOrderPrintSV.print(req);
-			if(response!=null && response.getResponseHeader().isSuccess()) {
-				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_SUCCESS, "发货单打印成功",response);
-			}else {
-				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
-			}
-		} catch (Exception e) {			
-			responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "打印出错,出现未知异常");
-			LOG.error("打印信息出错",e);
-		}
-		return responseData;
-	}
-	
-	
-	@RequestMapping("/deliverGoods")
-	public ModelAndView deliverGoods(HttpServletRequest request,String orderId) {
-		Map<String, String> model = new HashMap<String, String>();
-		model.put("orderId", orderId);
-		return new ModelAndView("jsp/order/sendGoods",model);
-	}
-	
 	
 	/**
 	 * 发票打印通知
@@ -226,6 +155,7 @@ public class InvoicePrintController {
 		//return "http://bill.dchfcloud.com/BILL/PubicInterFace/GetFileByAuthInfo/?id=26B21B24-1A99-4E2D-8ABE-3486D5EC1ECC&invoiceNumber=11450001&invoiceCode=051201600121";
 	}
 	
+	//修改发票状态
 	@RequestMapping(value="/modifyInvoiceState",produces = "application/json;charset=UTF-8")
 	@ResponseBody
 	public BaseResponse modifyInvoiceState(String tenantId,String invoiceStatus,String orderId){
