@@ -25,6 +25,10 @@ public class AfterSaleOrderController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(AfterSaleOrderController.class);
 	
+	
+	/**
+	 * 订单退货
+	 */
 	@RequestMapping("/back")
 	@ResponseBody
 	public ResponseData<String> back(HttpServletRequest request, String orderId,
@@ -61,6 +65,10 @@ public class AfterSaleOrderController {
 		return data;
 	}
 	
+	
+	/**
+	 * 订单换货
+	 */
 	@RequestMapping("/exchange")
 	@ResponseBody
 	public ResponseData<String> exchange(HttpServletRequest request, String orderId,
@@ -97,6 +105,10 @@ public class AfterSaleOrderController {
 		return data;
 	}
 	
+	
+	/**
+	 * 订单退款
+	 */
 	@RequestMapping("/refund")
 	@ResponseBody
 	public ResponseData<String> refund(HttpServletRequest request, String orderId,
