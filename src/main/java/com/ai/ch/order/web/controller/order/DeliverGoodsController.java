@@ -25,6 +25,7 @@ public class DeliverGoodsController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DeliverGoodsController.class);
 	
+	//订单发货
 	@RequestMapping("/deliver")
 	@ResponseBody
 	public ResponseData<String> deliver(HttpServletRequest request,String orderId,
