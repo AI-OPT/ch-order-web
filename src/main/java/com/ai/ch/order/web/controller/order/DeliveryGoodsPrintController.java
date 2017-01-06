@@ -37,6 +37,8 @@ public class DeliveryGoodsPrintController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DeliveryGoodsPrintController.class);
 	
+	
+	//查询发货单
 	@RequestMapping("/query")
 	@ResponseBody
 	public ResponseData<DeliverGoodsPrintResponse> query(HttpServletRequest request,String orderId) {
@@ -61,7 +63,7 @@ public class DeliveryGoodsPrintController {
 		return responseData;
 	}
 	
-	
+	//打印发货单
 	@RequestMapping("/print")
 	@ResponseBody
 	public ResponseData<BaseResponse> print(HttpServletRequest request,String orderId,
@@ -106,7 +108,7 @@ public class DeliveryGoodsPrintController {
 		return responseData;
 	}
 	
-	
+	//跳转发货页面
 	@RequestMapping("/deliverGoods")
 	public ModelAndView deliverGoods(HttpServletRequest request,String orderId,String pOrderId,String state,String busiCode,String Flag) {
 		Map<String, String> model = new HashMap<String, String>();
