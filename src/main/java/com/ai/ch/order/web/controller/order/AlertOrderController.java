@@ -174,6 +174,8 @@ public class AlertOrderController {
         }
         return responseData;
     }
+    
+    //预警订单详情查询
     @RequestMapping("/alertDetail")
 	public ModelAndView alertDetail(HttpServletRequest request, String orderId) {
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
