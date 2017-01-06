@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ValidateReturnGoosNumController {
 	private static final Logger log = LoggerFactory.getLogger(ValidateReturnGoosNumController.class);
+	//判断是否为数字
 	public boolean isNumeric(String str){ 
 	   Pattern pattern = Pattern.compile("^[1-9]+\\d*$");
 	   Matcher isNum = pattern.matcher(str);
@@ -26,6 +27,8 @@ public class ValidateReturnGoosNumController {
 	   
 	   return true; 
 	}
+	
+	//退换货数量校验
 	@RequestMapping(value="/validateNum",method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
 	@ResponseBody
 	public String validateNum(String str,String buyNum){
