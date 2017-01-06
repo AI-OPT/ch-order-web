@@ -35,6 +35,7 @@ public class DeliveryOrderPrintController {
 	
 	private static final Logger LOG = LoggerFactory.getLogger(DeliveryOrderPrintController.class);
 	
+	//提货单查询
 	@RequestMapping("/query")
 	@ResponseBody
 	public ResponseData<DeliveryOrderQueryResponse> query(HttpServletRequest request,String orderId,String orderUserId) {
@@ -60,7 +61,7 @@ public class DeliveryOrderPrintController {
 		return responseData;
 	}
 	
-	
+	//不合并提货单查询
 	@RequestMapping("/noMergeQuery")
 	@ResponseBody
 	public ResponseData<DeliveryOrderPrintResponse> noMergeQuery(HttpServletRequest request,String orderId,String orderUserId) {
@@ -87,7 +88,7 @@ public class DeliveryOrderPrintController {
 	}
 	
 	
-	
+	//提货单展示
 	@RequestMapping("/display")
 	@ResponseBody
 	public ResponseData<DeliveryOrderPrintResponse> display(HttpServletRequest request,String orderId,String orderUserId) {
@@ -113,7 +114,7 @@ public class DeliveryOrderPrintController {
 	    return responseData;
 	}
 	
-	
+	//提货单打印
 	@RequestMapping("/print")
 	@ResponseBody
 	public ResponseData<Boolean> print(HttpServletRequest request,String orderId,
