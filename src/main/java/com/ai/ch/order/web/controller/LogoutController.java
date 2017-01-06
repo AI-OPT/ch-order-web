@@ -15,7 +15,9 @@ import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.opt.sso.client.filter.SSOClientUtil;
 
-
+/**
+ * 用户登出
+ */
 @Controller
 public class LogoutController {
 	private static final Logger LOG = LoggerFactory.getLogger(LogoutController.class);
