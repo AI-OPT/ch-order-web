@@ -17,7 +17,7 @@
    
    <listener>
 		<listener-class>org.jasig.cas.client.session.SingleSignOutHttpSessionListener</listener-class>
-   <listener>
+   </listener>
    
   <context-param>
     <param-name>contextConfigLocation</param-name>
