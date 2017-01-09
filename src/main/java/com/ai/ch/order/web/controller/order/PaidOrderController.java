@@ -450,7 +450,7 @@ public class PaidOrderController {
 					orderDetail.setProdList(prodList);
 					
 					// 翻译物流信息
-					orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
+				//	orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
 				}
 			}
 			model.put("order", orderDetail);
