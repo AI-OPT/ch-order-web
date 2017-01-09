@@ -287,8 +287,7 @@
 		                            		</li>
 		                            	</ul>
 		                            </div>
-		                     <c:if test=${order.expressOddNumber!=null}>
-		                     	 <br/>
+		                     <br/>
 						     <div class="table-responsive clearfix">
 						                <table class="table table-hover table-border table-bordered" >
 						                    <thead>
@@ -307,9 +306,7 @@
 						                </tbody>
 						                </table>
 						         </div>
-						         <!--/table表格结束-->   
-		                     </c:if>
-		                               
+						         <!--/table表格结束-->              
 		                         </c:otherwise>
                             </c:choose>
                             
