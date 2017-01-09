@@ -130,7 +130,7 @@
                             </div>
                             <div class="nav-tplist-title bd-bottom pb-10  pt-15"></div>
                              <c:choose>
-                            	<c:when test="${order.state==23 || order.state==22}">
+                            	<c:when test="${order.state==22}">
 		                            <!-- 客户信息 -->
 		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
 		                            	<ul>
@@ -186,15 +186,16 @@
 		                            </div>
                             	</c:when>
                             	<c:otherwise>
-                            		<div class="nav-tplist-title bd-bottom pb-10  pt-15">
+                            		  <!-- 客户信息 -->
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
 		                            	<ul>
-		                            		<li>退款人信息</li>
+		                            		<li>客户信息</li>
 		                            	</ul>
 		                            </div>
 		                            <div class="form-label">
 		                            	<ul>
 		                            		<li class="col-md-6">
-		                            			<p class="word">账号信息：</p>
+		                            			<p class="word" >账号信息：</p>
 		                            			<p class="wide-field" style="word-break:break-all;">${order.userName}</p>
 		                            		</li>
 		                            		<li class="col-md-6">
@@ -208,20 +209,42 @@
 		                            			<p class="wide-field" style="word-break:break-all;">${order.payStyleName}</p>
 		                            		</li>
 		                            		<li class="col-md-6">
-		                            			<p class="word">退款类型：</p>
-		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
-		                            		</li>
-		                            		<li class="col-md-6">
-		                            			<p class="word">退款金额：</p>
-		                            			<p class="wide-field" style="word-break:break-all;">${order.ordTotalFee}</p>
+		                            			<p class="word">收货地址：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.aftercontactInfo}</p>
 		                            		</li>
 		                            	</ul>
 		                            </div>
-		                                  <div class="nav-tplist-title bd-bottom pb-10  pt-15">
-                            	<ul>
-                            		<li>买家退货物流信息</li>
-                            	</ul>
-                            </div>
+		                            <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>售后详细</li>
+		                            	</ul>
+		                            </div>
+		                            <div class="form-label">
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">类型：</p>
+		                            			<p class="wide-field" style="word-break:break-all;">${order.busiCodeName}</p>
+		                            		</li>
+		                            		<li class="col-md-6">
+			                            		<p class="word">换货理由：</p>
+			                            		<p class="wide-field" style="word-break:break-all;">${order.remark}</p>
+		                            		</li>
+		                            	</ul>
+		                            	<ul>
+		                            		<li class="col-md-6">
+		                            			<p class="word">图片：</p>
+		                            			<c:forEach items="${order.prodList}" var="sp">
+								          			<p class="wide-field" style="word-break:break-all;"><img src="${sp.afterSaleImageUrl}"></p>
+						                		</c:forEach>
+		                            		</li>
+		                            	</ul>
+		                            </div>
+		                                <div class="nav-tplist-title bd-bottom pb-10  pt-15">
+		                            	<ul>
+		                            		<li>买家退货物流信息</li>
+		                            	</ul>
+		                            </div>
+		                            
                             <div class="form-label">
                             	<ul>
                             		<li class="col-md-6">
@@ -234,6 +257,27 @@
                             		</li>
                             	</ul>
                             </div>
+                           <%--  <br/>
+						     <div class="table-responsive clearfix">
+						                <table class="table table-hover table-border table-bordered" >
+						                    <thead>
+						                        <tr>
+						                            <th>时间</th>
+						                            <th>物流跟踪</th>
+						                        </tr>
+						                    </thead>
+						                <tbody>
+						                 <c:forEach var="logisticsDetail" items="${order.logisticsDetail}">
+						                    <tr>
+						                        <td>${logisticsDetail.time }</td>
+						                         <td>${logisticsDetail.context }</td>
+						                    </tr>
+						                 </c:forEach>
+						                </tbody>
+						                </table>
+						         </div> --%>
+						         <!--/table表格结束-->        
+                            
                             	</c:otherwise>
                             </c:choose>
                             <c:choose>
