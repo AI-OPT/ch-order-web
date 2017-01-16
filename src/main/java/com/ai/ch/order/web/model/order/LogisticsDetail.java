@@ -1,8 +1,8 @@
 package com.ai.ch.order.web.model.order;
 
 public class LogisticsDetail {
-	private String time;
-	private String context;
+	private String time; //时间
+	private String context;//物流信息
 	public String getTime() {
 		return time;
 	}
