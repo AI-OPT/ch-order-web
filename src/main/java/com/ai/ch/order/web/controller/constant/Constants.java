@@ -6,7 +6,7 @@ public final class Constants {
 	private Constants() {
 
 	}
-	
+	/** 订单租户id */
 	public static final String TENANT_ID = "changhong";
 	/** 订单typeCode */
 	public static final String TYPE_CODE = "ORD_ORDER";
@@ -37,7 +37,7 @@ public final class Constants {
 	private static PropertiesLoader loader = new PropertiesLoader("ch-order-web.properties");
 	
 	public static final class OrdOrder {
-		
+		  /** 订单业务标识 */
 		  public static final class Flag {
               /**
                * 0:OFC
@@ -50,7 +50,7 @@ public final class Constants {
               public static final String UPPLATFORM ="1";
 
           }
-
+		/** 订单状态 */
 		public static class State {
 			/**
 			 * 售后列表查询的状态
@@ -146,12 +146,10 @@ public final class Constants {
             public static final String NO_AGAIN_CHECK="213";
 
         }
-		
+		/** 订单支付方式 */
 		public static class PayStyle {
 			
-			/**
-			 * 积分支付
-			 */
+			//积分支付
 			public static final String JF = "5";
 			// 1：虹付通
             public static final String CHANG_HONG_STYLE = "13";
@@ -227,7 +225,7 @@ public final class Constants {
 			public static final String TUOSHOU_STYLE = "12";
             
 		}
-		
+		/** 订单业务类型 */
 		public static class BusiCode {
 			    // 1：正常单
 	            public static final String NORMAL_ORDER = "1";
