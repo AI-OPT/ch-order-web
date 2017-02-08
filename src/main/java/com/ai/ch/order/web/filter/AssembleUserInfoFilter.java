@@ -31,6 +31,11 @@ import com.ai.platform.common.api.menu.param.SysMenuListQueryResponse;
 import com.alibaba.fastjson.JSON;
 
 
+/**
+ * 获取用户登陆信息及菜单权限管理
+ * @author Zh
+ *
+ */
 public class AssembleUserInfoFilter implements Filter {
     private String[] ignor_suffix = {};
     private static final Logger LOG = LoggerFactory.getLogger(AssembleUserInfoFilter.class);
