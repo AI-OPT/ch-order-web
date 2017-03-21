@@ -32,18 +32,6 @@
                                 type="annotation" />
     </context:component-scan>
 
-<!-- 	<dubbo:reference id="iAccountManageSV"
-		interface="com.ai.opt.uac.api.account.interfaces.IAccountManageSV"
-		registry="baasRegistry" />
-
-	<dubbo:reference id="iIndustryManageSV"
-		interface="com.ai.opt.uac.api.account.interfaces.IIndustryManageSV"
-		registry="baasRegistry" />
-
-	<dubbo:reference id="iTenantManageSV"
-		interface="com.ai.opt.uac.api.account.interfaces.ITenantManageSV"
-		registry="baasRegistry" /> -->
-
 	<!-- 订单查询 -->
 	<dubbo:reference id="iOrderListSV"
 		interface="com.ai.slp.order.api.orderlist.interfaces.IOrderListSV"
