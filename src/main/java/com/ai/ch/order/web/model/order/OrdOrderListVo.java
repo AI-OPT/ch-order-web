@@ -6,20 +6,14 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	
 	private static final long serialVersionUID = 1L;
 	
-	/**
-	 * 订单总优惠券
-	 */
+	//订单总优惠券
 	private String orderTotalDiscountFee;
-	
-	/**
-	 * 总实付
-	 */
+	//总实付
 	private String totalAdjustFee;
-	
-	/**
-	 * 总消费积分
-	 */
+	//总消费积分
 	private Long totalJF;
+	//商户名称
+	private String SupplierName;
 		
 	public String getTotalAdjustFee() {
 		return totalAdjustFee;
@@ -38,5 +32,11 @@ public class OrdOrderListVo extends BehindParentOrdOrderVo{
 	}
 	public void setOrderTotalDiscountFee(String orderTotalDiscountFee) {
 		this.orderTotalDiscountFee = orderTotalDiscountFee;
+	}
+	public String getSupplierName() {
+		return SupplierName;
+	}
+	public void setSupplierName(String supplierName) {
+		SupplierName = supplierName;
 	}
 }
