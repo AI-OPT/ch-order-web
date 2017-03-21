@@ -80,32 +80,37 @@
    </div> 
 <script id="orderListTemple" type="text/template">
 
-					{{if orderList!=null}}
-						{{for orderList ~orderData = #data}}  
+					{{if ordextendes!=null}}
+						{{for ordextendes ~orderData = #data}}  
 							<!-- 商品 -->
-								{{for productList ~parentProdSize=prodSize ~cOrderId=orderId 
-									~busiCode=busiCode ~state=state ~stateName=stateName
+								{{for prodinfos ~parentProdSize=prodsize ~cOrderId=orderid 
+									~busiCode=busicode ~state=state ~stateName=statename
 									~parentInd = #index ~parentOrder =~orderData }}	
         						<tr>
 								{{if ~parentInd == 0 && #index ==0}}
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.chlIdName}}</td>
-		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.pOrderId}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userName}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.userTel}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.totalJF}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.orderTotalDiscountFee}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.totalAdjustFee}}</td>
-		   							<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.contactTel}}</td>
-									<td rowspan="{{:~parentOrder.totalProdSize}}">{{:~parentOrder.deliveryFlagName}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.chlidname}}</td>
+		   							<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.porderid}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.username}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.usertel}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.totalJF}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.orderTotalDiscountFee}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.totalAdjustFee}}</td>
+		   							<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.contacttel}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.deliveryflagname}}</td>
 								{{/if}}
-								{{if #index ==0 }}
+								{{if #index ==0 && ~busiCode==1 && ~cOrderId==0}}
+									<td rowspan="{{:~parentProdSize}}"></td>
+								{{/if}}
+								{{if #index ==0 && ~busiCode==1 && ~cOrderId!=0}}
 									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
 								{{/if}}
-									<td title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>	
-									<td >{{:buySum}}</td>
-								{{if #index ==0 }}
+								{{if ~busiCode==1}}
+									<td title="{{:prodname}}">{{:~subStr(10,prodname)}}</td>	
+									<td >{{:buysum}}</td>
+								{{/if}}
+								{{if #index ==0 && ~busiCode==1}}
 									<td  rowspan="{{:~parentProdSize}}">{{:~stateName}}</td>
-									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:~cOrderId}}','{{:~state}}','{{:~parentOrder.pOrderId}}')">查看详情</a></td>
+									<td  rowspan="{{:~parentProdSize}}"><a  href="javascript:void(0);" onclick="pager._detailPage('{{:~cOrderId}}','{{:~state}}','{{:~parentOrder.porderid}}')">查看详情</a></td>
 								{{/if}}
         					</tr>
         			{{/for}}
