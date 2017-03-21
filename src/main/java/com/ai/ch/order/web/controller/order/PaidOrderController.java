@@ -134,18 +134,13 @@ public class PaidOrderController {
 	@ResponseBody
 	public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,
 			BehindQueryOrderLisReqVo reqVo,String afterSaleState) {
-		long start=System.currentTimeMillis();
-    	LOG.info("开始执行售后列表查询getPaidOrderData，当前时间戳："+start);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		
-		long dubboStart=System.currentTimeMillis();
-    	LOG.info("开始执行售后列表查询getPaidOrderData,获取后场IOrderListSV服务，当前时间戳："+dubboStart);
 		IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
-		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
 		ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
-		List<String> stateList = new LinkedList<String>();
+		List<Object> stateList = new LinkedList<Object>();
 		if(!StringUtil.isBlank(afterSaleState)) {
 			stateList.add(afterSaleState);
 		}else {
@@ -155,15 +150,11 @@ public class PaidOrderController {
 			}
 		}
 		req.setStateList(stateList);
-		String startT = reqVo.getStartTime();
-		String endT = reqVo.getEndTime();
-		if (!StringUtil.isBlank(startT)) {
-			startT = startT + " 00:00:00";
-			req.setOrderTimeBegin(startT);
+		if (!StringUtil.isBlank( reqVo.getStartTime())) {
+			req.setOrderTimeBegin( reqVo.getStartTime()+" 00:00:00");
 		}
-		if (!StringUtil.isBlank(endT)) {
-			endT = endT + " 23:59:59";
-			req.setOrderTimeEnd(endT);
+		if (!StringUtil.isBlank(reqVo.getEndTime())) {
+			req.setOrderTimeEnd(reqVo.getEndTime()+" 23:59:59");
 		}
 		req.setChlId(reqVo.getChlId());
 		req.setDeliveryFlag(reqVo.getDeliveryFlag());
@@ -183,29 +174,7 @@ public class PaidOrderController {
 			req.setPageNo(Integer.parseInt(strPageNo));
 			req.setPageSize(Integer.parseInt(strPageSize));
 			BehindQueryOrderListResponse resultInfo = iOrderListSV.behindQueryOrderList(req);
-			long dubboEnd=System.currentTimeMillis();
-	    	LOG.info("开始执行售后列表查询getPaidOrderData,获取后场IOrderListSV服务，当前时间戳："+dubboEnd+",用时:"+(dubboEnd-dubboStart)+"毫秒");
 			PageInfo<BehindParentOrdOrderVo> result = resultInfo.getPageInfo();
-			List<BehindParentOrdOrderVo> list = result.getResult();
-			if (!CollectionUtil.isEmpty(list)) {
-				for (BehindParentOrdOrderVo vo : list) {
-					//vo.setUserTel(user.getMobile());
-					// 翻译订单来源
-					SysParamSingleCond param = new SysParamSingleCond();
-					param.setTenantId(Constants.TENANT_ID);
-					param.setColumnValue(vo.getChlId());
-					param.setTypeCode(Constants.TYPE_CODE);
-					param.setParamCode(Constants.ORD_CHL_ID);
-					long cacheStart=System.currentTimeMillis();
-			    	LOG.info("开始执行售后列表查询getPaidOrderData,获取公共中心缓存dubbo服务，当前时间戳："+cacheStart);
-					SysParam chldParam = iCacheSV.getSysParamSingle(param);
-					long cacheEnd=System.currentTimeMillis();
-					LOG.info("开始执行售后列表查询getPaidOrderData,获取公共中心缓存dubbo服务，当前时间戳："+cacheEnd+",用时:"+(cacheEnd-cacheStart)+"毫秒");
-					if (chldParam != null) {
-						vo.setChlId(chldParam.getColumnDesc());
-					}
-				}
-			}
 			responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",
 					result);
 		} catch (Exception e) {
@@ -296,15 +265,15 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+						/*	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));*/
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-									ordProductVo.getProdExtendInfo()));   // 售后图片  
+					/*		product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+									ordProductVo.getProdExtendInfo())); */  // 售后图片  
 							product.setProdTotalFee(AmountUtil.LiToYuan(ordProductVo.getTotalFee()));
 							prodList.add(product);
 						}
@@ -434,15 +403,15 @@ public class PaidOrderController {
 							// 翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+						/*	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
+									ordProductVo.getProductImage().getPicType()));*/
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-									ordProductVo.getProdExtendInfo()));   // 售后图片  
+					/*		product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+									ordProductVo.getProdExtendInfo()));  */ // 售后图片  
 							product.setGiveJF(ordProductVo.getGiveJF());
 							prodList.add(product);
 						}

@@ -73,47 +73,34 @@ public class OrderListController {
     	ResponseData<PageInfo<OrdOrderListVo>> responseData = null;
 	    try{
 	    	BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
-			BeanUtils.copyProperties(queryRequest, queryParams);
-			String parentOrderId = queryParams.getParentOrderId();
-			if(!StringUtil.isBlank(parentOrderId)) {
-				boolean isNum = parentOrderId.matches("[0-9]+");
+			//拷贝属性
+	    	BeanUtils.copyProperties(queryRequest, queryParams);
+	    	//父订单参数判断及类型转换
+			if(!StringUtil.isBlank(queryParams.getParentOrderId())) {
+				boolean isNum = queryParams.getParentOrderId().matches("[0-9]+");
 				if(isNum) {
-					queryRequest.setOrderId(Long.parseLong(parentOrderId));
+					queryRequest.setOrderId(Long.parseLong(queryParams.getParentOrderId()));
 				}else {
 					queryRequest.setOrderId(0l);
 				}
-			}else {
+			} else {
 				queryRequest.setOrderId(null);
 			}
-			String states = queryParams.getStates();
-			if(!StringUtil.isBlank(states)){
-				String[] stateArray = states.split(",");
-				List<String> stateList = new LinkedList<String>();
-				for(String state : stateArray){
-					stateList.add(state);
-				}
-				queryRequest.setStateList(stateList);
+			List<Object> stateList = this.stringToList(queryParams);
+			queryRequest.setStateList(stateList);
+			if (!StringUtil.isBlank( queryRequest.getOrderTimeBegin())) {
+				queryRequest.setOrderTimeBegin( queryRequest.getOrderTimeBegin() + " 00:00:00");
 			}
-			String orderTimeBegin = queryRequest.getOrderTimeBegin();
-			if (!StringUtil.isBlank(orderTimeBegin)) {
-				queryRequest.setOrderTimeBegin(orderTimeBegin + " 00:00:00");
-			}else{
-				queryRequest.setOrderTimeBegin(null);
-			}
-			String orderTimeEnd = queryRequest.getOrderTimeEnd();
-			if (!StringUtil.isBlank(orderTimeEnd)) {
-				queryRequest.setOrderTimeEnd(orderTimeEnd + " 23:59:59");
-			}else{
-				queryRequest.setOrderTimeEnd(null);
+			if (!StringUtil.isBlank(queryRequest.getOrderTimeEnd())) {
+				queryRequest.setOrderTimeEnd(queryRequest.getOrderTimeEnd() + " 23:59:59");
 			}
 			String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
 		    String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
 		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
-			if(!StringUtil.isBlank(queryParams.getUsername())){
-				queryRequest.setUserName(queryParams.getUsername());
-		    }
+			queryRequest.setUserName(queryParams.getUsername());
+			
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
 			PageInfo<OrdOrderListVo> pageInfoVo = new PageInfo<OrdOrderListVo>();
@@ -126,8 +113,8 @@ public class OrderListController {
 					for (BehindParentOrdOrderVo behindParentOrdOrderVo : result) {
 						OrdOrderListVo orderListVo=new OrdOrderListVo();
 						BeanUtils.copyProperties(orderListVo, behindParentOrdOrderVo);
-						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustFee()));
-						orderListVo.setOrderTotalDiscountFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getDiscountFee()));
+						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustfee()));
+						orderListVo.setOrderTotalDiscountFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getDiscountfee()));
 						orderListVo.setTotalJF(behindParentOrdOrderVo.getPoints());
 						orderList.add(orderListVo);
 					}
@@ -222,7 +209,7 @@ public class OrderListController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+					//		product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 							product.setProdState(orderDetail.getBusiCode());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
@@ -327,6 +314,22 @@ public class OrderListController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("物流信息请求失败,请求错误码：", e);
+		}
+		return null;
+	}
+	
+	/**
+	 * 字符串转换为list
+	 */
+	private List<Object> stringToList(OrderListQueryParams queryParams) {
+		String states = queryParams.getStates();
+		if(!StringUtil.isBlank(states)){
+			String[] stateArray = states.split(",");
+			List<Object> stateList = new LinkedList<Object>();
+			for(String state : stateArray){
+				stateList.add(state);
+			}
+			return stateList;
 		}
 		return null;
 	}

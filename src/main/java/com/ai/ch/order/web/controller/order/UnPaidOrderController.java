@@ -18,8 +18,8 @@ import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
-import com.ai.slp.order.api.ordermodify.interfaces.INotPaidOrderModifySV;
-import com.ai.slp.order.api.ordermodify.param.OrderModifyRequest;
+import com.ai.slp.order.api.orderpricemodify.interfaces.INotPaidOrderModifySV;
+import com.ai.slp.order.api.orderpricemodify.param.OrderModifyRequest;
 
 @Controller
 public class UnPaidOrderController {

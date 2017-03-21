@@ -41,14 +41,13 @@ import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
+import com.ai.slp.order.api.orderlist.param.BehindParentOrdOrderVo;
+import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
+import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListResponse;
 import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
-import com.ai.slp.order.api.stasticsorder.interfaces.IStasticsOrderSV;
-import com.ai.slp.order.api.stasticsorder.param.StasticOrderResponse;
-import com.ai.slp.order.api.stasticsorder.param.StasticParentOrderVo;
-import com.ai.slp.order.api.stasticsorder.param.StasticsOrderRequest;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -69,114 +68,76 @@ public class StasticOrderController {
      */
     @RequestMapping("/getStasticOrderData")
     @ResponseBody
-    public ResponseData<PageInfo<StasticParentOrderVo>> getList(HttpServletRequest request,StasticOrderReqVo reqVo){
-    	long start=System.currentTimeMillis();
-    	LOG.error("开始执行getStasticOrderData，当前时间戳："+start);
+    public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,StasticOrderReqVo reqVo){
+    	BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-    	IStasticsOrderSV iStasticsOrderSV = DubboConsumerFactory.getService(IStasticsOrderSV.class);
-        ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
         IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
-        StasticsOrderRequest req = new StasticsOrderRequest();
-        ResponseData<PageInfo<StasticParentOrderVo>> responseData = null;
+        ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
         if(!StringUtil.isBlank(reqVo.getSupplierName())){
-        	long shopStart=System.currentTimeMillis();
-        	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopStart);
         	//根据店铺名称获取销售商ID
             QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
             shopReq.setTenantId(user.getTenantId());
             shopReq.setShopName(reqVo.getSupplierName());
             QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
             if(base.getResponseHeader().getIsSuccess()==true){
-            	req.setSupplierId(base.getUserId()==null?reqVo.getSupplierName():base.getUserId());
+            	queryRequest.setSupplierId(base.getUserId()==null?reqVo.getSupplierName():base.getUserId());
             }
-            long shopEnd=System.currentTimeMillis();
-        	LOG.error("开始执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopEnd+",用时:"+(shopEnd-shopStart)+"毫秒");
         }
         if(!StringUtil.isBlank(reqVo.getUserName())){
-        	req.setUserName(reqVo.getUserName());
+        	queryRequest.setUserName(reqVo.getUserName());
         }
-        String startT =  reqVo.getStartTime();
-        String endT = reqVo.getEndTime();
-        if(!StringUtil.isBlank(startT)){
-        	startT = startT + " 00:00:00";
-			req.setOrderTimeStart(startT);
+        if(!StringUtil.isBlank( reqVo.getStartTime())){
+        	queryRequest.setOrderTimeBegin( reqVo.getStartTime()+ " 00:00:00");
 	    }
-	    if(!StringUtil.isBlank(endT)){
-	    	endT = endT + " 23:59:59";
-			req.setOrderTimeEnd(endT);
+	    if(!StringUtil.isBlank(reqVo.getEndTime())){
+	    	queryRequest.setOrderTimeEnd(reqVo.getEndTime()+ " 23:59:59");
 	    }
         if(!StringUtil.isBlank(reqVo.getOrdParenOrderId())){
         	 boolean isNum = reqVo.getOrdParenOrderId().matches("[0-9]+");
         	 if(isNum) {
-        		 req.setOrderId(Long.parseLong(reqVo.getOrdParenOrderId()));
+        		 queryRequest.setOrderId(Long.parseLong(reqVo.getOrdParenOrderId()));
  			 }else {
- 				req.setOrderId(0l);
+ 				queryRequest.setOrderId(0l);
  			 }
 		}else {
-			req.setOrderId(null);
+			queryRequest.setOrderId(null);
 		}
         if(!StringUtil.isBlank(reqVo.getProdName())){
-        	 req.setProdName(reqVo.getProdName());
+        	queryRequest.setProdName(reqVo.getProdName());
        }
-        req.setTenantId(user.getTenantId());
-        req.setState(reqVo.getState());
+        queryRequest.setTenantId(user.getTenantId());
+        queryRequest.setParentOrderState(reqVo.getState());
         String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
         String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
         try {
-            req.setPageNo(Integer.parseInt(strPageNo));
-            req.setPageSize(Integer.parseInt(strPageSize));
-            long dubboStart=System.currentTimeMillis();
-        	LOG.error("开始执行getStasticOrderData中的后场订单查询服务，当前时间戳："+dubboStart);
-            StasticOrderResponse resultInfo = iStasticsOrderSV.queryStasticOrdPage(req);
-            long dubboEnd=System.currentTimeMillis();
-        	LOG.error("开始执行getStasticOrderData中的后场订单查询服务，当前时间戳："+dubboEnd+",用时:"+(dubboEnd-dubboStart)+"毫秒");
-            PageInfo<StasticParentOrderVo> result= resultInfo.getPageInfo();
-            if(result!=null){
-                List<StasticParentOrderVo> list = result.getResult();
-                if(!CollectionUtil.isEmpty(list)){
-                	for(StasticParentOrderVo vo:list){
-                		//获取销售商名称
-                        QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
+        	queryRequest.setPageNo(Integer.parseInt(strPageNo));
+        	queryRequest.setPageSize(Integer.parseInt(strPageSize));
+        	IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
+			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
+			if (orderListResponse != null && orderListResponse.getResponseHeader().isSuccess()) {
+				PageInfo<BehindParentOrdOrderVo> pageInfo = orderListResponse.getPageInfo();
+				List<BehindParentOrdOrderVo> orderListVos = pageInfo.getResult();
+				if(!CollectionUtil.isEmpty(orderListVos)) {
+					for (BehindParentOrdOrderVo ordOrderListVo : orderListVos) {
+						QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
                         shopReq.setTenantId(user.getTenantId());
-                        shopReq.setUserId(vo.getSupplierId());
-                        long shopStart=System.currentTimeMillis();
-                    	LOG.error("再次执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopStart);
+                        shopReq.setUserId(ordOrderListVo.getSupplierid());
                         QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
-                        long shopEnd=System.currentTimeMillis();
-                    	LOG.error("再次执行getStasticOrderData中的获取店铺服务，当前时间戳："+shopEnd+",用时:"+(shopEnd-shopStart)+"毫秒");
                         if(base.getResponseHeader().getIsSuccess()==true){
-                        	vo.setSupplierName(base.getShopName());
+                        	ordOrderListVo.setSuppliername(base.getShopName());
                         }
-                		//翻译订单来源
-    					SysParamSingleCond	param = new SysParamSingleCond();
-                		param.setTenantId(Constants.TENANT_ID);
-                		param.setColumnValue(vo.getChlId());
-                		param.setTypeCode(Constants.TYPE_CODE);
-                		param.setParamCode(Constants.ORD_CHL_ID);
-                		SysParam chldParam = iCacheSV.getSysParamSingle(param);
-                		if(chldParam!=null){
-                			vo.setChlId(chldParam.getColumnDesc());
-                		}
-                		//翻译是否需要物流
-                		param = new SysParamSingleCond();
-                		param.setTenantId(Constants.TENANT_ID);
-                		param.setColumnValue(vo.getDeliveryFlag());
-                		param.setTypeCode(Constants.TYPE_CODE);
-                		param.setParamCode(Constants.ORD_DELIVERY_FLAG);
-                		SysParam ifDlive = iCacheSV.getSysParamSingle(param);
-                		if(ifDlive!=null){
-                			vo.setDeliveryFlag(ifDlive.getColumnDesc());
-                		}
-                	}
-                }
-            }
-            responseData = new ResponseData<PageInfo<StasticParentOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
-        } catch (Exception e) {
-            responseData = new ResponseData<PageInfo<StasticParentOrderVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
-            LOG.error("获取信息出错：", e);
-        }
-        return responseData;
+					}
+				}
+				responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",pageInfo);
+			} else {
+				responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败", null);
+			}
+		} catch (Exception e) {
+			responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询信息异常", null);
+		}
+	    return responseData;
     }
+    
     //查看统计页面详情
     @RequestMapping("/orderDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, 
@@ -253,15 +214,15 @@ public class StasticOrderController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+						//	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
 							product.setGiveJF(ordProductVo.getGiveJF());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-							ordProductVo.getProdExtendInfo()));   // 售后图片  
+							/*product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+							ordProductVo.getProdExtendInfo())); */  // 售后图片  
 							product.setCusServiceFlag(ordProductVo.getCusServiceFlag());
 							product.setProdDetalId(ordProductVo.getProdDetalId());
 							product.setSkuId(ordProductVo.getSkuId());
