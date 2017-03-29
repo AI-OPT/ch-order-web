@@ -158,9 +158,14 @@
 		   							<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.contacttel}}</td>
 									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.deliveryflagname}}</td>
 								{{/if}}
-								{{if #index ==0 }}
+								<!-- 子订单不存在的情况-->
+								{{if #index ==0 && ~cOrderId==0}}
+									<td rowspan="{{:~parentProdSize}}"></td>
+								{{/if}}
+								{{if #index ==0 && ~cOrderId!=0 }}
 									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
 								{{/if}}
+
 									<td title="{{:prodname}}">{{:~subStr(10,prodname)}}</td>	
 									<td >{{:buysum}}</td>
 								{{if #index ==0 }}
