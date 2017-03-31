@@ -214,15 +214,15 @@ public class StasticOrderController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-						//	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
 							product.setProdState(ordProductVo.getState());
 							product.setProdName(ordProductVo.getProdName());
 							product.setBuySum(ordProductVo.getBuySum());
 							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
 							product.setJfFee(ordProductVo.getJfFee());
 							product.setGiveJF(ordProductVo.getGiveJF());
-							/*product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-							ordProductVo.getProdExtendInfo())); */  // 售后图片  
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
+							ordProductVo.getProdExtendInfo()));   // 售后图片  
 							product.setCusServiceFlag(ordProductVo.getCusServiceFlag());
 							product.setProdDetalId(ordProductVo.getProdDetalId());
 							product.setSkuId(ordProductVo.getSkuId());
