@@ -75,7 +75,7 @@
 	
 	<!-- 金额修改 -->
 	<dubbo:reference id="iNotPaidOrderModifySV"
-	interface="com.ai.slp.order.api.ordermodify.interfaces.INotPaidOrderModifySV"
+	interface="com.ai.slp.order.api.orderpricemodify.interfaces.INotPaidOrderModifySV"
 	registry="baasRegistry" />
 	
 	<!-- 缓存 -->
