@@ -39,16 +39,25 @@ public final class Constants {
 	public static final class OrdOrder {
 		  /** 订单业务标识 */
 		  public static final class Flag {
-              /**
-               * 0:OFC
-               */
-              public static final String OFC = "0";
+      			/**
+      			 * 0:OFC(定时)
+      			 */
+      			public static final String OFC_DTIME = "0";
 
-              /**
-               * 1：up平台
-               */
-              public static final String UPPLATFORM ="1";
-
+      			/**
+      			 * 1：up平台
+      			 */
+      			public static final String UPPLATFORM = "1";
+      			
+      			/**
+      			 * 1：积分平台(同步)
+      			 */
+      			public static final String JFSYNCH = "2";
+      			
+      			/**
+      			 * 3:OFC(实时)
+      			 */
+      			public static final String OFC_ACTUAL_TIME  = "3";
           }
 		/** 订单状态 */
 		public static class State {
