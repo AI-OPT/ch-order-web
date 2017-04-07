@@ -88,6 +88,11 @@ public class OrderListController {
 			}
 			List<Object> stateList = this.stringToList(queryParams);
 			queryRequest.setStateList(stateList);
+			//订单业务标识
+			List<Object> flagList = new ArrayList<Object>();
+			flagList.add(Constants.OrdOrder.Flag.UPPLATFORM);
+			queryRequest.setFlagList(flagList);
+			
 			if (!StringUtil.isBlank( queryRequest.getOrderTimeBegin())) {
 				queryRequest.setOrderTimeBegin( queryRequest.getOrderTimeBegin() + " 00:00:00");
 			}
@@ -95,7 +100,7 @@ public class OrderListController {
 				queryRequest.setOrderTimeEnd(queryRequest.getOrderTimeEnd() + " 23:59:59");
 			}
 			String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
-		    String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
+		    String strPageSize=(null==request.getParameter("pageSize"))?"5":request.getParameter("pageSize");
 		    queryRequest.setPageNo(Integer.parseInt(strPageNo));
 		    queryRequest.setPageSize(Integer.parseInt(strPageSize));
 			queryRequest.setTenantId(Constants.TENANT_ID);
@@ -135,19 +140,21 @@ public class OrderListController {
     @RequestMapping("/orderListDetail")
 	public ModelAndView orderListDetail(HttpServletRequest request, String busiCode,
 			String orderId,String state,String pOrderId,String Flag,String sourceFlag) {
-    	//主要用来判断从订单处理来的还是从售后列表来进行查询的
-    	request.setAttribute("sourceFlag", sourceFlag);
-    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-    	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
-    	Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();
     	try {
-				QueryOrderRequest queryRequest=new QueryOrderRequest();
-				if(Constants.OrdOrder.State.WAIT_PAY.equals(state)||
-                		Constants.OrdOrder.State.CANCEL.equals(state)){
-					queryRequest.setOrderId(Long.parseLong(pOrderId));
-				}else{
-					queryRequest.setOrderId(Long.parseLong(orderId));
-				}
+	    	//主要用来判断从订单处理来的还是从售后列表来进行查询的
+	    	request.setAttribute("sourceFlag", sourceFlag);
+	    	GeneralSSOClientUser user = (GeneralSSOClientUser) 
+	    			request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+	    	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
+	    	Map<String, OrderDetail> model = new HashMap<String, OrderDetail>();
+    	
+			QueryOrderRequest queryRequest=new QueryOrderRequest();
+			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)||
+            		Constants.OrdOrder.State.CANCEL.equals(state)){
+				queryRequest.setOrderId(Long.parseLong(pOrderId));
+			}else{
+				queryRequest.setOrderId(Long.parseLong(orderId));
+			}
 			queryRequest.setTenantId(user.getTenantId());
 			OrderDetail orderDetail = new OrderDetail();
 			List<OrdProdVo> prodList = new ArrayList<OrdProdVo>();

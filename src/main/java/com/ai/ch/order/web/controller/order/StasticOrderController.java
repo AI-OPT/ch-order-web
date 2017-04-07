@@ -69,47 +69,55 @@ public class StasticOrderController {
     @RequestMapping("/getStasticOrderData")
     @ResponseBody
     public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,StasticOrderReqVo reqVo){
-    	BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
-    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-        IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
-        ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
-        if(!StringUtil.isBlank(reqVo.getSupplierName())){
-        	//根据店铺名称获取销售商ID
-            QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
-            shopReq.setTenantId(user.getTenantId());
-            shopReq.setShopName(reqVo.getSupplierName());
-            QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
-            if(base.getResponseHeader().getIsSuccess()==true){
-            	queryRequest.setSupplierId(base.getUserId()==null?reqVo.getSupplierName():base.getUserId());
-            }
-        }
-        if(!StringUtil.isBlank(reqVo.getUserName())){
-        	queryRequest.setUserName(reqVo.getUserName());
-        }
-        if(!StringUtil.isBlank( reqVo.getStartTime())){
-        	queryRequest.setOrderTimeBegin( reqVo.getStartTime()+ " 00:00:00");
-	    }
-	    if(!StringUtil.isBlank(reqVo.getEndTime())){
-	    	queryRequest.setOrderTimeEnd(reqVo.getEndTime()+ " 23:59:59");
-	    }
-        if(!StringUtil.isBlank(reqVo.getOrdParenOrderId())){
-        	 boolean isNum = reqVo.getOrdParenOrderId().matches("[0-9]+");
-        	 if(isNum) {
-        		 queryRequest.setOrderId(Long.parseLong(reqVo.getOrdParenOrderId()));
- 			 }else {
- 				queryRequest.setOrderId(0l);
- 			 }
-		}else {
-			queryRequest.setOrderId(null);
-		}
-        if(!StringUtil.isBlank(reqVo.getProdName())){
-        	queryRequest.setProdName(reqVo.getProdName());
-       }
-        queryRequest.setTenantId(user.getTenantId());
-        queryRequest.setParentOrderState(reqVo.getState());
-        String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
-        String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
-        try {
+    	ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
+	    BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
+	    try {
+	    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
+	        IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
+	        if(!StringUtil.isBlank(reqVo.getSupplierName())){
+	        	//根据店铺名称获取销售商ID
+	            QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
+	            shopReq.setTenantId(user.getTenantId());
+	            shopReq.setShopName(reqVo.getSupplierName());
+	            QueryShopInfoResponse base = iShopInfoSV.queryShopInfo(shopReq);
+	            if(base.getResponseHeader().getIsSuccess()==true){
+	            	queryRequest.setSupplierId(base.getUserId()==null?reqVo.getSupplierName():base.getUserId());
+	            }
+	        }
+	        if(!StringUtil.isBlank(reqVo.getUserName())){
+	        	queryRequest.setUserName(reqVo.getUserName());
+	        }
+	        if(!StringUtil.isBlank( reqVo.getStartTime())){
+	        	queryRequest.setOrderTimeBegin( reqVo.getStartTime()+ " 00:00:00");
+		    }
+		    if(!StringUtil.isBlank(reqVo.getEndTime())){
+		    	queryRequest.setOrderTimeEnd(reqVo.getEndTime()+ " 23:59:59");
+		    }
+	        if(!StringUtil.isBlank(reqVo.getOrdParenOrderId())){
+	        	 boolean isNum = reqVo.getOrdParenOrderId().matches("[0-9]+");
+	        	 if(isNum) {
+	        		 queryRequest.setOrderId(Long.parseLong(reqVo.getOrdParenOrderId()));
+	 			 }else {
+	 				queryRequest.setOrderId(0l);
+	 			 }
+			}else {
+				queryRequest.setOrderId(null);
+			}
+	        if(!StringUtil.isBlank(reqVo.getProdName())){
+	        	queryRequest.setProdName(reqVo.getProdName());
+	       }
+	        
+	        //订单业务标识
+			List<Object> flagList = new ArrayList<Object>();
+			flagList.add(Constants.OrdOrder.Flag.OFC_DTIME);
+			flagList.add(Constants.OrdOrder.Flag.UPPLATFORM);
+			flagList.add(Constants.OrdOrder.Flag.JFSYNCH);
+			queryRequest.setFlagList(flagList);
+			
+	        queryRequest.setTenantId(user.getTenantId());
+	        queryRequest.setParentOrderState(reqVo.getState());
+	        String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
+	        String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
         	queryRequest.setPageNo(Integer.parseInt(strPageNo));
         	queryRequest.setPageSize(Integer.parseInt(strPageSize));
         	IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
