@@ -84,7 +84,7 @@ dependencies {
     //订单
     compile 'com.ai.slp.order:deliveryorderprint:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:invoiceprint:1.01-SNAPSHOT'
-    compile 'com.ai.slp.order:orderlist:1.02-SNAPSHOT'
+    compile 'com.ai.slp.order:orderlist:1.03-SNAPSHOT'
     compile 'com.ai.slp.order:aftersaleorder:1.01-SNAPSHOT'
     compile 'com.ai.slp.order:orderrule:1.0.1-SNAPSHOT'
     compile 'com.ai.slp.order:ordercheck:1.0.2-SNAPSHOT'
