@@ -109,6 +109,9 @@ dependencies {
     //ofc
     compile 'com.ai.slp.order:ofc:1.0-SNAPSHOT'
     
+    //ses
+    compile 'com.ai.slp.order:sesdata:1.01-SNAPSHOT'
+    
     
     testCompile(
             "org.springframework:spring-test:4.1.7.RELEASE",
