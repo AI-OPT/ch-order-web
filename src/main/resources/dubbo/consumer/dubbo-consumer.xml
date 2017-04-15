@@ -127,5 +127,8 @@
 	<dubbo:reference id="iOfcSV"
 	interface="com.ai.slp.order.api.ofc.interfaces.IOfcSV"
 	registry="baasRegistry" />
+	<!-- 搜索引擎刷新 -->
+	<dubbo:reference id="iSesDataRefreshSV"
+	interface="com.ai.slp.order.api.sesdata.interfaces.ISesDataRefreshSV" />
 				
 </beans>
