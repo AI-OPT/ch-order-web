@@ -19,7 +19,7 @@
 			<ul style="margin: 30px 20px 30px 40px">
 				<li style="margin: 10px 20px 30px 40px">符合条件的查询数据共有:${resp.queryCount } 个</li>
 				<li style="margin: 10px 20px 30px 40px">成功刷新的数据有:${resp.queryCount-resp.failCount-resp.shareParentCount} 个</li>
-				<li style="margin: 10px 20px 30px 40px">刷新失败的数据有:${resp.failCount } 个</li>
+				<li style="margin: 10px 20px 30px 40px">刷新失败的数据有:${resp.failCount } 个 .订单id具体有: ${failOrders}</li>
 				<li style="margin: 10px 20px 30px 40px">存在相同父订单的数据有:${resp.shareParentCount } 个</li>
 			</ul>
 		</div>
