@@ -1,5 +1,7 @@
 package com.ai.ch.order.web.controller.ses;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -12,6 +14,8 @@ import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.slp.order.api.sesdata.interfaces.ISesDataRefreshSV;
 import com.ai.slp.order.api.sesdata.param.SesDataByPageRequest;
 import com.ai.slp.order.api.sesdata.param.SesDataResponse;
+import com.alibaba.fastjson.JSON;
+
 
 @Controller
 @RequestMapping("/order")
@@ -25,6 +29,8 @@ public class SesDataRefreshController {
 			ISesDataRefreshSV sesDataRefreshSV = DubboConsumerFactory.getService(ISesDataRefreshSV.class);
 			SesDataResponse response = sesDataRefreshSV.refreshSesData(req);
 			if(response!=null && response.getResponseHeader().isSuccess()) {
+				List<Long> failOrders = response.getFailOrders();
+				request.setAttribute("failOrders", JSON.toJSONString(failOrders));
 				request.setAttribute("resp", response);
 			}else {
 				request.setAttribute("error", response.getResponseHeader().getResultMessage());
