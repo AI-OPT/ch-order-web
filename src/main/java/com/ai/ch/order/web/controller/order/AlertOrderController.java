@@ -36,6 +36,7 @@ import com.ai.slp.order.api.ordercancel.param.OrderCancelRequest;
 import com.ai.slp.order.api.warmorder.interfaces.IOrderWarmSV;
 import com.ai.slp.order.api.warmorder.param.OrderWarmDetailRequest;
 import com.ai.slp.order.api.warmorder.param.OrderWarmDetailResponse;
+import com.ai.slp.order.api.warmorder.param.OrderWarmListVo;
 import com.ai.slp.order.api.warmorder.param.OrderWarmRequest;
 import com.ai.slp.order.api.warmorder.param.OrderWarmResponse;
 import com.ai.slp.order.api.warmorder.param.OrderWarmVo;
@@ -57,20 +58,12 @@ public class AlertOrderController {
      */
     @RequestMapping("/getAlertOrderData")
     @ResponseBody
-    public ResponseData<PageInfo<OrderWarmVo>> getList(HttpServletRequest request,String orderTimeBegin,String orderTimeEnd){
-    	long start=System.currentTimeMillis();
-    	LOG.info("开始执行预警订单列表查询getAlertOrderData，当前时间戳："+start);
+    public ResponseData<PageInfo<OrderWarmListVo>> getList(HttpServletRequest request,String orderTimeBegin,String orderTimeEnd){
     	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
-    	long dubboStart=System.currentTimeMillis();
-    	LOG.info("开始执行预警订单列表查询getAlertOrderData，获取后场IOrderWarmSV服务,当前时间戳："+dubboStart);
     	IOrderWarmSV iOrderWarmSV = DubboConsumerFactory.getService(IOrderWarmSV.class);
-    	long cacheStart=System.currentTimeMillis();
-    	LOG.info("开始执行预警订单列表查询getAlertOrderData，获取公共中心缓存服务,当前时间戳："+cacheStart);
-    	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
-    	long cacheEnd=System.currentTimeMillis();
-    	LOG.info("开始执行预警订单列表查询getAlertOrderData，获取公共中心缓存服务,当前时间戳："+cacheEnd+",用时:"+(cacheEnd-cacheStart)+"毫秒");
+    //	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	OrderWarmRequest req = new OrderWarmRequest();
-    	ResponseData<PageInfo<OrderWarmVo>> responseData = null;
+    	ResponseData<PageInfo<OrderWarmListVo>> responseData = null;
         req.setTenantId(user.getTenantId());
         if (!StringUtil.isBlank(orderTimeBegin)) {
         	orderTimeBegin = orderTimeBegin + " 00:00:00";
@@ -88,26 +81,21 @@ public class AlertOrderController {
             req.setPageNo(Integer.parseInt(strPageNo));
             req.setPageSize(Integer.parseInt(strPageSize));
             OrderWarmResponse resultInfo = iOrderWarmSV.serchWarmOrder(req);
-            long dubboEnd=System.currentTimeMillis();
-        	LOG.info("开始执行预警订单列表查询getAlertOrderData，获取后场IOrderWarmSV服务,当前时间戳："+dubboEnd+"用时:"+(dubboEnd-dubboStart)+"毫秒");
-            PageInfo<OrderWarmVo> result= resultInfo.getPageInfo();
+            PageInfo<OrderWarmListVo> result= resultInfo.getPageInfo();
+            
+            
             //翻译
-            List<OrderWarmVo> list = result.getResult();
+         /*   List<OrderWarmListVo> list = result.getResult();
             SysParamSingleCond param = new SysParamSingleCond();
             if(!CollectionUtil.isEmpty(list)){
-            	for(OrderWarmVo order:list){
+            	for(OrderWarmListVo order:list){
             		//翻译预警类型
             		param = new SysParamSingleCond();
             		param.setTenantId(Constants.TENANT_ID);
             		param.setColumnValue(order.getWarningType());
             		param.setTypeCode(Constants.TYPE_CODE);
             		param.setParamCode(Constants.ORD_WARNING_TYPE);
-            		long cacheOneStart=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第一次操作公共中心缓存服务,当前时间戳："+cacheOneStart);
             		SysParam sysParam = iCacheSV.getSysParamSingle(param);
-            		long cacheOneEnd=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第一次操作公共中心缓存服务,当前时间戳："
-                			+cacheOneEnd+",用时:"+(cacheOneEnd-cacheOneStart)+"毫秒");
             		if(sysParam!=null){
             			order.setWarningType(sysParam.getColumnDesc());
             		}
@@ -132,12 +120,7 @@ public class AlertOrderController {
             		param.setColumnValue(order.getDeliveryFlag());
             		param.setTypeCode(Constants.TYPE_CODE);
             		param.setParamCode(Constants.ORD_DELIVERY_FLAG);
-            		long cache3Start=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第三次操作公共中心缓存服务,当前时间戳："+cache3Start);
                 	SysParam ifDlive = iCacheSV.getSysParamSingle(param);
-            		long cache3End=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第三次操作公共中心缓存服务,当前时间戳："
-                			+cache3End+",用时:"+(cache3End-cache3Start)+"毫秒");
             		if(ifDlive!=null){
             			order.setDeliveryFlag(ifDlive.getColumnDesc());
             		}
@@ -147,11 +130,7 @@ public class AlertOrderController {
             		param.setColumnValue(order.getIfWarning());
             		param.setTypeCode(Constants.TYPE_CODE);
             		param.setParamCode(Constants.ORD_IF_WARNING);
-            		long cache4Start=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第四次操作公共中心缓存服务,当前时间戳："+cache4Start);
             		SysParam ifWarmOrder = iCacheSV.getSysParamSingle(param);
-            		long cache4End=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第四次操作公共中心缓存服务,当前时间戳："+cache4End+",用时:"+(cache4End-cache4Start)+"毫秒");
             		if(ifWarmOrder!=null){
             			order.setIfWarning(ifWarmOrder.getColumnDesc());
             		}
@@ -166,10 +145,11 @@ public class AlertOrderController {
             			order.setState(stateOrder.getColumnDesc());
             		}
             	}
-            }
-            responseData = new ResponseData<PageInfo<OrderWarmVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
+            }*/
+            
+            responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
         } catch (Exception e) {
-            responseData = new ResponseData<PageInfo<OrderWarmVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
+            responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
             LOG.error("获取信息出错：", e);
         }
         return responseData;
