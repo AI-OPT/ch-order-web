@@ -98,46 +98,36 @@
     	</div>
    </div> 
 <script id="alertTemple" type="text/template">
-<tr>
-    	<td>{{:chlId}}</td>
-        <td>{{:orderId}}</td>
-		<td>{{:userName}}</td>
-        <td>{{:userTel}}</td>
-        <td>{{:ifWarning}}</td>
-		<td>{{:warningType}}</td>
-        <td>{{:contactTel}}</td>
-        <td>{{:deliveryFlag}}</td>
-		<td>{{:~timestampToDate('yyyy-MM-dd hh:mm:ss', orderTime)}}</td>
-        <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if prodInfo!=null}}
-						{{for prodInfo}}
-        					<tr>
-								<td  class="new-td" title="{{:prodName}}">{{:~subStr(10,prodName)}}</td>
+			{{if ordextendes!=null}}
+						{{for ordextendes ~orderData = #data}}  
+							<!-- 商品 -->
+								{{for prodinfos ~parentProdSize=prodsize ~cOrderId=orderid 
+									~busiCode=busicode ~state=state ~stateName=statename
+									~parentInd = #index ~parentOrder =~orderData }}	
+        						<tr>
+								{{if ~parentInd == 0 && #index ==0}}
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.chlidname}}</td>
+		   							<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.porderid}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.username}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.usertel}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.ifwarning}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.warningtype}}</td>
+		   							<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.contacttel}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.deliveryflagname}}</td>
+									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~timestampToDate('yyyy-MM-dd hh:mm:ss', ~parentOrder.ordertime)}}</td>
+								{{/if}}
+
+								<td title="{{:prodname}}">{{:~subStr(10,prodname)}}</td>	
+								<td >{{:buysum}}</td>
+								{{if #index ==0}}
+									<td rowspan="{{:~parentProdSize}}">{{:~stateName}}</td>
+									<td rowspan="{{:~parentProdSize}}"><a href="javascript:void(0);" onclick="pager._detailPage('{{:~parentOrder.porderid}}')">订单详情</a></td>
+      							    <td rowspan="{{:~parentProdSize}}"><a href="javascript:void(0);" onclick="pager._closeOrder('{{:~parentOrder.porderid}}')">关闭订单</a></td>
+								{{/if}}
         					</tr>
-						{{/for}}
-					{{/if}}
-        		</tbody>	
-        	</table>
-        </td>
-       <td>
-        	 <table class="table close-border" width="100%">
-        		<tbody>
-					{{if prodInfo!=null}}
-						{{for prodInfo}}
-        					<tr>
-        						<td class="new-td">{{:buySum}}</td>	
-        					</tr>
-						{{/for}}
-					{{/if}}
-        		</tbody>	
-        	</table>
-        </td>
-        <td>{{:state}}</td>
-         <td><a  href="javascript:void(0);" onclick="pager._detailPage('{{:orderId}}')">订单详情</a></td>
-         <td><a  href="javascript:void(0);" onclick="pager._closeOrder('{{:orderId}}')">关闭订单</a></td>
-    </tr>
+        			{{/for}}
+				{{/for}}
+			{{/if}}	
  </script> 
   <script type="text/javascript">
   <%-- 展示日历 --%>
