@@ -59,12 +59,9 @@ public class AlertOrderController {
     @RequestMapping("/getAlertOrderData")
     @ResponseBody
     public ResponseData<PageInfo<OrderWarmListVo>> getList(HttpServletRequest request,String orderTimeBegin,String orderTimeEnd){
-    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
     	IOrderWarmSV iOrderWarmSV = DubboConsumerFactory.getService(IOrderWarmSV.class);
-    //	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
     	OrderWarmRequest req = new OrderWarmRequest();
     	ResponseData<PageInfo<OrderWarmListVo>> responseData = null;
-        req.setTenantId(user.getTenantId());
         if (!StringUtil.isBlank(orderTimeBegin)) {
         	orderTimeBegin = orderTimeBegin + " 00:00:00";
 			Timestamp ts  = Timestamp.valueOf(orderTimeBegin);
@@ -80,76 +77,16 @@ public class AlertOrderController {
         try {
             req.setPageNo(Integer.parseInt(strPageNo));
             req.setPageSize(Integer.parseInt(strPageSize));
-            OrderWarmResponse resultInfo = iOrderWarmSV.serchWarmOrder(req);
-            PageInfo<OrderWarmListVo> result= resultInfo.getPageInfo();
-            
-            
-            //翻译
-         /*   List<OrderWarmListVo> list = result.getResult();
-            SysParamSingleCond param = new SysParamSingleCond();
-            if(!CollectionUtil.isEmpty(list)){
-            	for(OrderWarmListVo order:list){
-            		//翻译预警类型
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(order.getWarningType());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_WARNING_TYPE);
-            		SysParam sysParam = iCacheSV.getSysParamSingle(param);
-            		if(sysParam!=null){
-            			order.setWarningType(sysParam.getColumnDesc());
-            		}
-            		//翻译订单来源
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(order.getChlId());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_CHL_ID);
-            		long cacheSecondStart=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第二次操作公共中心缓存服务,当前时间戳："+cacheSecondStart);
-            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
-            		long cacheSecondEnd=System.currentTimeMillis();
-                	LOG.info("开始执行预警订单列表查询getAlertOrderData，第二次操作公共中心缓存服务,当前时间戳："
-                			+cacheOneEnd+",用时:"+(cacheSecondEnd-cacheSecondStart)+"毫秒");
-            		if(chldParam!=null){
-            			order.setChlId(chldParam.getColumnDesc());
-            		}
-            		//翻译是否需要物流
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(order.getDeliveryFlag());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_DELIVERY_FLAG);
-                	SysParam ifDlive = iCacheSV.getSysParamSingle(param);
-            		if(ifDlive!=null){
-            			order.setDeliveryFlag(ifDlive.getColumnDesc());
-            		}
-            		//翻译是否是预警订单
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(order.getIfWarning());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_IF_WARNING);
-            		SysParam ifWarmOrder = iCacheSV.getSysParamSingle(param);
-            		if(ifWarmOrder!=null){
-            			order.setIfWarning(ifWarmOrder.getColumnDesc());
-            		}
-            		//翻译订单状态
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(order.getState());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_STATE);
-            		SysParam stateOrder = iCacheSV.getSysParamSingle(param);
-            		if(stateOrder!=null){
-            			order.setState(stateOrder.getColumnDesc());
-            		}
-            	}
-            }*/
-            
-            responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
+            req.setTenantId(Constants.TENANT_ID);
+            OrderWarmResponse resp = iOrderWarmSV.serchWarmOrder(req);
+            if(resp!=null && resp.getResponseHeader().isSuccess()) {
+            	PageInfo<OrderWarmListVo> result= resp.getPageInfo();
+            	responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功", result);
+            }else {
+            	responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
+            }
         } catch (Exception e) {
-            responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
+        	responseData = new ResponseData<PageInfo<OrderWarmListVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询信息异常");
             LOG.error("获取信息出错：", e);
         }
         return responseData;
