@@ -21,17 +21,17 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlidname}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.ordertypename}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">父订单号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderid}</p>
 					                </li>
 					            </ul> 
 					  	</div>
@@ -61,8 +61,8 @@
 								                      </table>
 								                 </td>
 								                <td>${sp.prodSalePrice}元/${sp.buySum }件</td>
-								                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-								                <td>${orderDetail.stateName}</td>
+								                <td><fmt:formatDate value="${orderDetail.ordertime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+								                <td>${orderDetail.statename}</td>
 								                <td>${sp.prodCouponFee}</td>
 								                <td>${sp.jfFee}</td>
 								                <td>${sp.giveJF}</td>
@@ -95,23 +95,23 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.username}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contacttel}</p>
 					                </li>  
 					            </ul>  
 					            <ul>
 					            
 					            	<li  class="col-md-6">
 					                    <p class="word">收货人：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactname}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provincecode}${orderDetail.citycode }${orderDetail.countycode}
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactname}&nbsp;${orderDetail.contacttel}</p>
 					                </li>
 					            </ul>
 					            <ul>
@@ -130,17 +130,17 @@
 					           	<ul>
 					           		<li class="col-md-6">
 					                    <p class="word">发票类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTypeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoicetypename}</p>
 					                </li>
 					                <li class="col-md-6">
 					                    <p class="word">发票类目：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceContent}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoicecontent}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					            	<li class="col-md-6">
 					                    <p class="word">发票抬头：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTitle}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoicetitle}</p>
 					                </li>
 					            </ul>
 					  		</div>
@@ -181,7 +181,7 @@
 										<ul>
 							                <li>
 						                    <p class="word">订单号:</p>
-						                    <p id="orderid">${orderDetail.orderId}</p>
+						                    <p id="orderid">${orderDetail.orderid}</p>
 							                </li>
 						            	</ul>
 						            	<ul>

@@ -98,10 +98,10 @@
 		   							<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.contacttel}}</td>
 									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.deliveryflagname}}</td>
 								{{/if}}
-								{{if #index ==0 && ~busiCode==1 && ~cOrderId==0}}
+								{{if #index ==0 && ~busiCode==1 &&(~state==11 || ~state==91)}}
 									<td rowspan="{{:~parentProdSize}}"></td>
 								{{/if}}
-								{{if #index ==0 && ~busiCode==1 && ~cOrderId!=0}}
+								{{if #index ==0 && ~busiCode==1 &&  ~state!=11 &&  ~state!=91 }}
 									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
 								{{/if}}
 								{{if ~busiCode==1}}

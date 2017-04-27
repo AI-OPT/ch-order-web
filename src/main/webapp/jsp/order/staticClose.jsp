@@ -21,17 +21,17 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.ordertypename}</p>
 					                </li>  
 					                 <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlidname}</p>
 					                </li>
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">父订单号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderid}</p>
 					                </li>  
 					            </ul>   
 					  	</div>
@@ -58,8 +58,8 @@
 								                      </table>
 								                 </td>
 								                <td>${sp.prodSalePrice}元/${sp.buySum}件</td>
-								                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-								                <td>${orderDetail.stateName}</td>
+								                <td><fmt:formatDate value="${orderDetail.ordertime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+								                <td>${orderDetail.statename}</td>
 							              </tr>
 							            </c:forEach> 							           						       						           
                                     </tbody>
@@ -75,24 +75,24 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.userName}
-					                    	<input type="hidden" id="userId" value="${orderDetail.userId}"/>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.username}
+					                    	<input type="hidden" id="userId" value="${orderDetail.userid}"/>
 					                    </p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contacttel}</p>
 					                </li>
 					            </ul>  
 					            <ul>
 					             	<li  class="col-md-6">
 					                    <p class="word">配送方式：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.logisticsType}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.logisticstype}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provincecode}${orderDetail.citycode }${orderDetail.countycode}
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactname}&nbsp;${orderDetail.contacttel}</p>
 					                </li>
 					            </ul>
 					            <ul>

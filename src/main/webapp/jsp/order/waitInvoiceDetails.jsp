@@ -31,48 +31,45 @@
                     <div class="col-lg-12"><!--删格化-->
                         <div class="main-box clearfix"><!--白色背景-->
                         	<div class="main-box-body clearfix">	<!--padding20-->
-	                     		<!--  <div class="form-label">
-	                     				<p class="word" ><a id="backPage" href="javascript:void(0)">返回上一级</a>&nbsp;&nbsp;&nbsp;当前位置：订单详细</p>
-	                     		</div>-->
 							<div class="form-label">
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">订单来源：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.chlidname}</p>
 					                </li>
 					               	<li  class="col-md-6">
 					                    <p class="word">订单类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderTypeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.ordertypename}</p>
 					                </li> 
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库ID：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.routeId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.routeid}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">仓库信息：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.routeName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.routename}</p>
 					                </li>  
 					            </ul>
 					             <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">父订单号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.parentOrderId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.parentorderid}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">子订单号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderId }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.orderid }</p>
 					                </li>  
 					            </ul>
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">支付方式：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.payStyleName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.paystylename}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">支付流水号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.externalId}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.externalid}</p>
 					                </li>  
 					            </ul>
 					  	</div>
@@ -104,16 +101,16 @@
 							                      </table>
 							                 </td>
 							                <td>${prod.prodSalePrice}元/${prod.buySum}件</td>
-							                <td>${orderDetail.busiCodeName }</td>
-							                <td><fmt:formatDate value="${orderDetail.orderTime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-							                <td>${orderDetail.stateName }</td>
+							                <td>${orderDetail.busicodename }</td>
+							                <td><fmt:formatDate value="${orderDetail.ordertime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+							                <td>${orderDetail.statename }</td>
 							                <td>${prod.prodCouponFee }</td>
 							                <td>${prod.jfFee }</td>
 											<td>${prod.giveJF}</td>
 											<td>
 												<c:choose>
 											       <c:when test="${prod.cusServiceFlag eq 'Y'}">
-											  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderId }','${prod.skuId}')">售后详情</button>
+											  		  <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" onclick="pager._afterorderdetail('${orderDetail.orderid }','${prod.skuId}')">售后详情</button>
 											       </c:when>
 											       <c:otherwise>
 													 <button class="biu-btn btn-blue btn-small  radius"  data-toggle="modal" data-target="#myModal${status.index}">售后</button>
@@ -239,22 +236,22 @@
 					           	<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">买家账号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.userName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.username}</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货人：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactName}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactname}</p>
 					                </li>
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">手机号：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contactTel }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.contacttel }</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">收货地址：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provinceCode}${orderDetail.cityCode }${orderDetail.countyCode}
-					                    ${orderDetail.address }&nbsp;${orderDetail.contactName}&nbsp;${orderDetail.contactTel}</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.provincecode}${orderDetail.citycode }${orderDetail.countycode}
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactname}&nbsp;${orderDetail.contacttel}</p>
 					                </li>
 					            </ul>
 					            <ul>
@@ -273,34 +270,34 @@
 					  	  		<ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类型：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTypeName }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoicetypename }</p>
 					                </li>
 					                <li  class="col-md-6">
 					                    <p class="word">发票类目：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceContent }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoicecontent }</p>
 					                </li>
 					            </ul>  
 					            <ul>
 					                <li  class="col-md-6">
 					                    <p class="word">发票抬头：</p>
-					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoiceTitle }</p>
+					                    <p class="wide-field" style="word-break:break-all;">${orderDetail.invoicetitle }</p>
 					                </li>
 					            </ul>
 					  	</div>
 					  		 <div class="mb-10 text-l">
-					  		 <input type="hidden" id="orderId" value="${orderDetail.orderId }">
-					  		 <input type="hidden" id="pOrderId" value="${orderDetail.parentOrderId }">
+					  		 <input type="hidden" id="orderId" value="${orderDetail.orderid }">
+					  		 <input type="hidden" id="pOrderId" value="${orderDetail.parentorderid }">
 					  		 <input type="hidden" id="state" value="${orderDetail.state}">
 					  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-					  		 onclick="pager._sendGoods('${orderDetail.orderId }','${orderDetail.parentOrderId }','${orderDetail.state}','${orderDetail.busiCode}','1');" value="发货">
+					  		 onclick="pager._sendGoods('${orderDetail.orderid }','${orderDetail.parentorderid }','${orderDetail.state}','${orderDetail.busicode}','1');" value="发货">
 					  		 <c:choose>
-							       <c:when test="${empty orderDetail.invoiceType || orderDetail.invoiceType == '1'}">
+							       <c:when test="${empty orderDetail.invoicetype || orderDetail.invoicetype == '1'}">
 							       </c:when>
-							       <c:when test="${orderDetail.invoiceStatus == '2'}">
+							       <c:when test="${orderDetail.invoicestatus == '2'}">
 							       </c:when>
 							       <c:otherwise>
 							  		  <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
-							  		 onclick="pager._invoicePrint('changhong','${orderDetail.orderId }');" value="发票报送打印">
+							  		 onclick="pager._invoicePrint('changhong','${orderDetail.orderid }');" value="发票报送打印">
 							       </c:otherwise>
 							 </c:choose>
 					  		 <input type="button" class="biu-btn btn-primary btn-blue btn-medium ml-10" 
@@ -322,9 +319,6 @@
                data-dismiss="modal" aria-hidden="true">
                   &times;
             </button><br/>
-          <!--   <h2 class="modal-title text-c" id="myModalLabel">
-             	  发货清单
-            </h2> -->
          </div>
          <div class="modal-body" id="deliverPrintModal"> </div>
       </div>
