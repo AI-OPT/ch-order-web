@@ -32,7 +32,8 @@ public class OrderDetail extends OrdOrderVo {
 	/**
 	 * 售后操作人
 	 */
-	private String username;
+	private String afterSalesOperator;
+;
 	/**
 	 * 快递公司
 	 */
@@ -89,14 +90,6 @@ public class OrderDetail extends OrdOrderVo {
 		this.ordTotalFee = ordTotalFee;
 	}
 
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getExpressName() {
 		return expressName;
 	}
@@ -113,4 +106,12 @@ public class OrderDetail extends OrdOrderVo {
 		this.updateFee = updateFee;
 	}
 
+	public String getAfterSalesOperator() {
+		return afterSalesOperator;
+	}
+
+	public void setAfterSalesOperator(String afterSalesOperator) {
+		this.afterSalesOperator = afterSalesOperator;
+	}
+	
 }
