@@ -30,6 +30,13 @@ public final class Constants {
 	public static final String ORD_EXPRESS = "ORD_EXPRESS";
 	/** 业务类型*/
 	public static final String BUSI_CODE = "BUSI_CODE";
+	/** 发票类型*/
+	public static final String ORD_OD_INVOICE = "ORD_OD_INVOICE";
+	public static final String INVOICE_TYPE = "INVOICE_TYPE";
+	/**支付方式类型*/
+	public static final String ORD_OD_FEE_TOTAL = "ORD_OD_FEE_TOTAL";
+	public static final String PAY_STYLE = "PAY_STYLE";
+	
 	
 	/**
 	 * 属性文件加载对象
