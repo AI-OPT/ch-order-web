@@ -23,6 +23,7 @@ import com.ai.ch.order.web.model.order.StasticOrderReqVo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.ch.order.web.utils.TranslateFiledsUtil;
 import com.ai.ch.user.api.shopinfo.interfaces.IShopInfoSV;
 import com.ai.ch.user.api.shopinfo.params.QueryShopInfoRequest;
 import com.ai.ch.user.api.shopinfo.params.QueryShopInfoResponse;
@@ -36,7 +37,6 @@ import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
-import com.ai.platform.common.api.cache.param.SysParamSingleCond;
 import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
@@ -48,6 +48,9 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV;
+import com.ai.slp.route.api.routemanage.param.RouteIdParamRequest;
+import com.ai.slp.route.api.routemanage.param.RouteResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -71,6 +74,7 @@ public class StasticOrderController {
     public ResponseData<PageInfo<BehindParentOrdOrderVo>> getList(HttpServletRequest request,StasticOrderReqVo reqVo){
     	ResponseData<PageInfo<BehindParentOrdOrderVo>> responseData = null;
 	    BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
+	    ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 	    try {
 	    	GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession().getAttribute(SSOClientConstants.USER_SESSION_KEY);
 	        IShopInfoSV iShopInfoSV = DubboConsumerFactory.getService(IShopInfoSV.class);
@@ -106,20 +110,19 @@ public class StasticOrderController {
 	        if(!StringUtil.isBlank(reqVo.getProdName())){
 	        	queryRequest.setProdName(reqVo.getProdName());
 	       }
-	        
 	        //订单业务标识
 			List<Object> flagList = new ArrayList<Object>();
 			flagList.add(Constants.OrdOrder.Flag.OFC_DTIME);
 			flagList.add(Constants.OrdOrder.Flag.UPPLATFORM);
 			flagList.add(Constants.OrdOrder.Flag.JFSYNCH);
 			queryRequest.setFlagList(flagList);
-			
 	        queryRequest.setTenantId(user.getTenantId());
 	        queryRequest.setParentOrderState(reqVo.getState());
 	        String strPageNo=(null==request.getParameter("pageNo"))?"1":request.getParameter("pageNo");
 	        String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
         	queryRequest.setPageNo(Integer.parseInt(strPageNo));
         	queryRequest.setPageSize(Integer.parseInt(strPageSize));
+        	//
         	IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			BehindQueryOrderListResponse orderListResponse = iOrderListSV.behindQueryOrderList(queryRequest);
 			if (orderListResponse != null && orderListResponse.getResponseHeader().isSuccess()) {
@@ -127,6 +130,11 @@ public class StasticOrderController {
 				List<BehindParentOrdOrderVo> orderListVos = pageInfo.getResult();
 				if(!CollectionUtil.isEmpty(orderListVos)) {
 					for (BehindParentOrdOrderVo ordOrderListVo : orderListVos) {
+						//翻译
+						SysParam chldParam = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
+								Constants.TYPE_CODE,Constants.ORD_CHL_ID,ordOrderListVo.getChlid(), iCacheSV);
+						ordOrderListVo.setChlidname(chldParam == null ? "" : chldParam.getColumnDesc());
+						
 						QueryShopInfoRequest shopReq = new QueryShopInfoRequest();
                         shopReq.setTenantId(user.getTenantId());
                         shopReq.setUserId(ordOrderListVo.getSupplierid());
@@ -176,71 +184,57 @@ public class StasticOrderController {
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest  userReq = new SysUserQueryRequest ();
 					userReq.setTenantId(user.getTenantId());
-					userReq.setNo(orderDetail.getOperId());
+					userReq.setNo(orderDetail.getOperid());
 					SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
-					if(response!=null){
-						orderDetail.setUsername(response.getName());
+					if(response!=null && response.getResponseHeader().isSuccess()){
+						orderDetail.setAfterSalesOperator(response.getName());
 					}
-					//翻译订单来源
-					SysParamSingleCond	param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(orderDetail.getChlId());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_CHL_ID);
-            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
-            		if(chldParam!=null){
-            			orderDetail.setChlId(chldParam.getColumnDesc());
-            		}
-            		//翻译物流公司
-					SysParamSingleCond	expressParam = new SysParamSingleCond();
-					expressParam.setTenantId(Constants.TENANT_ID);
-					expressParam.setColumnValue(orderDetail.getExpressId());
-					expressParam.setTypeCode(Constants.TYPE_CODE);
-					expressParam.setParamCode(Constants.ORD_EXPRESS);
-            		SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
-            		if(sysParam!=null){
-            			orderDetail.setExpressName(sysParam.getColumnDesc());
-            		}
+					
+					//翻译字段
+					TranslateFiledsUtil.translateFileds(orderDetail, iCacheSV);
+					//查询仓库信息
+					if (orderDetail.getRouteid() != null) {
+						// 查询仓库名称
+						IRouteManageSV iRouteManageSV = DubboConsumerFactory.getService(IRouteManageSV.class);
+						RouteIdParamRequest routeRequest = new RouteIdParamRequest();
+						routeRequest.setRouteId(orderDetail.getRouteid());
+						RouteResponse routeInfo = iRouteManageSV.findRouteInfo(routeRequest);
+						if(routeInfo!=null && routeInfo.getResponseHeader().isSuccess()) {
+							orderDetail.setRoutename(routeInfo.getRouteName()); 
+						}
+					}
+					
             		//翻译订单应收/优惠金额、运费
-					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
-					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustfee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountfee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
-					//翻译配送方式
-					SysParamSingleCond	paramLogistics = new SysParamSingleCond();
-					paramLogistics.setTenantId(Constants.TENANT_ID);
-					paramLogistics.setColumnValue(orderDetail.getLogisticsType());
-					paramLogistics.setTypeCode(Constants.ORD_LOGISTICS_TYPE);
-					paramLogistics.setParamCode(Constants.LOGISTICS_TYPE);
-            		SysParam LogisticsParam = iCacheSV.getSysParamSingle(paramLogistics);
-            		if(LogisticsParam!=null){
-            			orderDetail.setLogisticsType(LogisticsParam.getColumnDesc());
-            		}
+					
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
 							OrdProdVo product = new OrdProdVo();
 							//翻译金额
-							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
-							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSaleprice()));
+							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustfee()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductimage().getVfsId(), ordProductVo.getProductimage().getPicType()));
 							product.setProdState(ordProductVo.getState());
-							product.setProdName(ordProductVo.getProdName());
-							product.setBuySum(ordProductVo.getBuySum());
-							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
-							product.setJfFee(ordProductVo.getJfFee());
-							product.setGiveJF(ordProductVo.getGiveJF());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-							ordProductVo.getProdExtendInfo()));   // 售后图片  
-							product.setCusServiceFlag(ordProductVo.getCusServiceFlag());
-							product.setProdDetalId(ordProductVo.getProdDetalId());
-							product.setSkuId(ordProductVo.getSkuId());
+							product.setProdName(ordProductVo.getProdname());
+							product.setBuySum(ordProductVo.getBuysum());
+							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponfee()));
+							product.setJfFee(ordProductVo.getJffee());
+							product.setGiveJF(ordProductVo.getGivejf());
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageurl(),
+							ordProductVo.getProdextendinfo()));   // 售后图片  
+							product.setCusServiceFlag(ordProductVo.getCusserviceflag());
+							product.setProdDetalId(ordProductVo.getProddetalid());
+							product.setSkuId(ordProductVo.getSkuid());
 							prodList.add(product);
 						}
 					}
 					orderDetail.setProdList(prodList);
 					// 翻译物流信息
-					if((!StringUtil.isBlank(orderDetail.getExpressId())) && (!StringUtil.isBlank(orderDetail.getExpressOddNumber()))){
-						orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
+					if((!StringUtil.isBlank(orderDetail.getExpressid())) && (!StringUtil.isBlank(orderDetail.getExpressoddnumber()))){
+						orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressid(),orderDetail.getExpressoddnumber()));
 					}
 				}
 			}
@@ -346,4 +340,4 @@ public class StasticOrderController {
 		}
 		return null;
 	}
-   }
+}

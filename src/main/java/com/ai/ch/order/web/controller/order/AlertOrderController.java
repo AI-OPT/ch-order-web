@@ -20,6 +20,7 @@ import com.ai.ch.order.web.model.ProductVo;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.ch.order.web.utils.TranslateFiledsUtil;
 import com.ai.opt.base.vo.BaseResponse;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
@@ -30,7 +31,6 @@ import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
-import com.ai.platform.common.api.cache.param.SysParamSingleCond;
 import com.ai.slp.order.api.ordercancel.interfaces.IOrderCancelSV;
 import com.ai.slp.order.api.ordercancel.param.OrderCancelRequest;
 import com.ai.slp.order.api.warmorder.interfaces.IOrderWarmSV;
@@ -102,7 +102,6 @@ public class AlertOrderController {
 		OrderWarmDetailRequest  query =new OrderWarmDetailRequest ();
 		OrderWarmDetail orderDetail = new OrderWarmDetail();
 		List<ProductVo> productList = new ArrayList<ProductVo>();
-		SysParamSingleCond param = new SysParamSingleCond();
 		try {
 			Long Id = Long.parseLong(orderId);
 			query.setOrderId(Id);
@@ -113,59 +112,10 @@ public class AlertOrderController {
 				if(orderWarm!=null){
 					BeanUtils.copyProperties(orderDetail, orderWarm);
 					orderDetail.setUserTel(user.getMobile());
-					//翻译预警类型
-	         		param = new SysParamSingleCond();
-	         		param.setTenantId(Constants.TENANT_ID);
-	         		param.setColumnValue(orderDetail.getWarningType());
-	         		param.setTypeCode(Constants.TYPE_CODE);
-	         		param.setParamCode(Constants.ORD_WARNING_TYPE);
-	         		SysParam sysParam = iCacheSV.getSysParamSingle(param);
-	         		if(sysParam!=null){
-	         			orderDetail.setWarningType(sysParam.getColumnDesc());
-	         		}
-	         		//翻译订单状态
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(orderDetail.getState());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_STATE);
-            		SysParam stateOrder = iCacheSV.getSysParamSingle(param);
-            		if(stateOrder!=null){
-            			orderDetail.setState(stateOrder.getColumnDesc());
-            		}
-            		
-            		//翻译订单类型
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(orderDetail.getOrderType());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORDER_TYPE);
-            		SysParam typeOrder = iCacheSV.getSysParamSingle(param);
-            		if(typeOrder!=null){
-            			orderDetail.setOrderType(typeOrder.getColumnDesc());
-            		}
-            		//翻译订单来源
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(orderDetail.getChlId());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_CHL_ID);
-            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
-            		if(chldParam!=null){
-            			orderDetail.setChlId(chldParam.getColumnDesc());
-            		}
-            		//翻译配货方式
-            		param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(orderDetail.getLogisticsType());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_LOGISTICS_TYPE);
-            		SysParam logicOrder = iCacheSV.getSysParamSingle(param);
-            		if(logicOrder!=null){
-            			orderDetail.setLogisticsType(logicOrder.getColumnDesc());
-            		}
+					//翻译
+					this.translateFileds(orderDetail, iCacheSV);
+					//
 					List<ProductInfo> proList = orderWarm.getProdInfo();
-					//获取图片
 					if (!CollectionUtil.isEmpty(proList)) {
 						for (ProductInfo vo:proList) {
 							ProductVo product = new ProductVo();
@@ -213,5 +163,48 @@ public class AlertOrderController {
   				LOG.error("关闭订单报错：", e);
   			}
   			return responseData;
-  		}		
+  		}
+  		
+  		
+  		/**
+	     * 翻译订单字段
+	     * @param orderDetail
+	     * @param iCacheSV
+	     * @author caofz
+	     * @ApiDocMethod
+	     * @ApiCode 
+	     * @RestRelativeURL
+	     */
+	    private void translateFileds(OrderWarmDetail orderDetail,ICacheSV iCacheSV) {
+	    	//翻译预警类型
+			SysParam sysParam = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
+					Constants.TYPE_CODE, Constants.ORD_WARNING_TYPE,orderDetail.getWarningType(), iCacheSV);
+     		if(sysParam!=null){
+     			orderDetail.setWarningType(sysParam.getColumnDesc());
+     		}
+     		//翻译订单状态
+     		SysParam stateOrder = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
+					Constants.TYPE_CODE, Constants.ORD_STATE,orderDetail.getState(), iCacheSV);
+    		if(stateOrder!=null){
+    			orderDetail.setState(stateOrder.getColumnDesc());
+    		}
+    		//翻译订单类型
+     		SysParam typeOrder = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
+					Constants.TYPE_CODE, Constants.ORDER_TYPE,orderDetail.getOrderType(), iCacheSV);
+    		if(typeOrder!=null){
+    			orderDetail.setOrderType(typeOrder.getColumnDesc());
+    		}
+    		//翻译订单来源
+    		SysParam chldParam = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
+					Constants.TYPE_CODE, Constants.ORD_CHL_ID,orderDetail.getChlId(), iCacheSV);
+    		if(chldParam!=null){
+    			orderDetail.setChlId(chldParam.getColumnDesc());
+    		}
+    		//翻译配货方式
+    		SysParam logicOrder = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID,Constants.TYPE_CODE,
+    				Constants.ORD_LOGISTICS_TYPE,orderDetail.getLogisticsType(),iCacheSV);
+    		if(logicOrder!=null){
+    			orderDetail.setLogisticsType(logicOrder.getColumnDesc());
+    		}
+		}
 }

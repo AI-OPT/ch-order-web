@@ -4,7 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -22,12 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.ch.order.web.controller.constant.Constants;
 import com.ai.ch.order.web.model.BehindQueryOrderLisReqVo;
-import com.ai.ch.order.web.model.order.LogisticsDetail;
 import com.ai.ch.order.web.model.order.OrdProdVo;
 import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.ch.order.web.utils.TranslateFiledsUtil;
 import com.ai.ch.order.web.vo.Key;
 import com.ai.ch.order.web.vo.KeyType;
 import com.ai.opt.base.vo.BaseResponse;
@@ -42,7 +41,6 @@ import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
-import com.ai.platform.common.api.cache.param.SysParamSingleCond;
 import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
 import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
@@ -71,8 +69,10 @@ import com.ai.slp.order.api.orderstate.param.WaitRebateResponse;
 import com.ai.slp.product.api.storageserver.interfaces.IStorageNumSV;
 import com.ai.slp.product.api.storageserver.param.StorageNumBackReq;
 import com.ai.slp.product.api.storageserver.param.StorageNumUserReq;
+import com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV;
+import com.ai.slp.route.api.routemanage.param.RouteIdParamRequest;
+import com.ai.slp.route.api.routemanage.param.RouteResponse;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.changhong.upp.business.entity.upp_599_001_01.RespInfo;
 import com.changhong.upp.business.entity.upp_801_001_01.GrpBody;
@@ -136,6 +136,7 @@ public class PaidOrderController {
 			BehindQueryOrderLisReqVo reqVo,String afterSaleState) {
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
+		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 		
 		IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 		BehindQueryOrderListRequest req = new BehindQueryOrderListRequest();
@@ -174,9 +175,17 @@ public class PaidOrderController {
 			req.setPageNo(Integer.parseInt(strPageNo));
 			req.setPageSize(Integer.parseInt(strPageSize));
 			BehindQueryOrderListResponse resultInfo = iOrderListSV.behindQueryOrderList(req);
-			PageInfo<BehindParentOrdOrderVo> result = resultInfo.getPageInfo();
-			responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",
-					result);
+			if(resultInfo!=null && resultInfo.getResponseHeader().isSuccess()) {
+				PageInfo<BehindParentOrdOrderVo> result = resultInfo.getPageInfo();
+				List<BehindParentOrdOrderVo> vo = result.getResult();
+				for (BehindParentOrdOrderVo behindParentOrdOrderVo : vo) {
+					SysParam chldParam = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
+							Constants.TYPE_CODE,Constants.ORD_CHL_ID,behindParentOrdOrderVo.getChlid(), iCacheSV);
+					behindParentOrdOrderVo.setChlidname(chldParam == null ? "" : chldParam.getColumnDesc());
+				}
+				responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",
+						result);
+			}
 		} catch (Exception e) {
 			responseData = new ResponseData<PageInfo<BehindParentOrdOrderVo>>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
 			LOG.error("获取信息出错：", e);
@@ -188,8 +197,6 @@ public class PaidOrderController {
 	@RequestMapping("/changeDetail")
 	public ModelAndView changeFirstDetail(HttpServletRequest request, String orderId, String flag,String sourceFlag) {
 		request.setAttribute("sourceFlag", sourceFlag);
-		long start=System.currentTimeMillis();
-    	LOG.info("开始执行售后详情查询changeDetail，当前时间戳："+start);
 		GeneralSSOClientUser user = (GeneralSSOClientUser) request.getSession()
 				.getAttribute(SSOClientConstants.USER_SESSION_KEY);
 		ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
@@ -200,81 +207,59 @@ public class PaidOrderController {
 			queryRequest.setOrderId(Long.parseLong(orderId));
 			OrderDetail orderDetail = new OrderDetail();
 			List<OrdProdVo> prodList = new ArrayList<OrdProdVo>();
-			long dubboStart=System.currentTimeMillis();
-	    	LOG.info("开始执行售后详情查询changeDetail,获取后场IOrderListSV详情查询服务，当前时间戳："+dubboStart);
 			IOrderListSV iOrderListSV = DubboConsumerFactory.getService(IOrderListSV.class);
 			QueryOrderResponse orderResponse = iOrderListSV.queryOrder(queryRequest);
-			long dubboEnd=System.currentTimeMillis();
-	    	LOG.info("开始执行售后详情查询changeDetail，获取后场IOrderListSV详情查询服务,当前时间戳："+dubboEnd+",用时:"+(dubboEnd-dubboStart)+"毫秒");
 			OrdOrderVo ordOrderVo = null;
 			if (orderResponse != null && orderResponse.getResponseHeader().isSuccess()) {
 				ordOrderVo = orderResponse.getOrdOrderVo();
 				if (ordOrderVo != null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
 					// 总退款金额
-					orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
-					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalfee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountfee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
-					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
-					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidFee()));
-					long userStart=System.currentTimeMillis();
-			    	LOG.info("开始执行售后详情查询changeDetail，获取售后操作人服务,当前时间戳："+userStart);
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustfee()));
+					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidfee()));
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
 					userReq.setTenantId(user.getTenantId());
-					userReq.setNo(orderDetail.getOperId());
+					userReq.setNo(orderDetail.getOperid());
 					SysUserQueryResponse response = iSysUserQuerySV.queryUserInfo(userReq);
-					long userEnd=System.currentTimeMillis();
-			    	LOG.info("开始执行售后详情查询changeDetail，获取售后操作人服务,当前时间戳："+userEnd+",用时:"+(userEnd-userStart)+"毫秒");
-					if (response != null) {
-						orderDetail.setUsername(response.getName());
+					if (response != null && response.getResponseHeader().isSuccess()) {
+						orderDetail.setAfterSalesOperator(response.getName());
 					}
-					// 翻译物流公司
-					SysParamSingleCond expressParam = new SysParamSingleCond();
-					expressParam.setTenantId(Constants.TENANT_ID);
-					expressParam.setColumnValue(orderDetail.getExpressId());
-					expressParam.setTypeCode(Constants.TYPE_CODE);
-					expressParam.setParamCode(Constants.ORD_EXPRESS);
-					long cacheStart=System.currentTimeMillis();
-			    	LOG.info("开始执行售后详情查询changeDetail，获取公共中心缓存服务,当前时间戳："+cacheStart);
-					SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
-					long cacheEnd=System.currentTimeMillis();
-			    	LOG.info("开始执行售后详情查询changeDetail，获取公共中心缓存服务,当前时间戳："+userEnd+",用时:"+(cacheEnd-cacheStart)+"毫秒");
-					if (sysParam != null) {
-						orderDetail.setExpressName(sysParam.getColumnDesc());
+					//翻译
+					TranslateFiledsUtil.translateFileds(orderDetail, iCacheSV);
+					//查询仓库信息
+					if (orderDetail.getRouteid() != null) {
+						// 查询仓库名称
+						IRouteManageSV iRouteManageSV = DubboConsumerFactory.getService(IRouteManageSV.class);
+						RouteIdParamRequest routeRequest = new RouteIdParamRequest();
+						routeRequest.setRouteId(orderDetail.getRouteid());
+						RouteResponse routeInfo = iRouteManageSV.findRouteInfo(routeRequest);
+						if(routeInfo!=null && routeInfo.getResponseHeader().isSuccess()) {
+							orderDetail.setRoutename(routeInfo.getRouteName()); 
+						}
 					}
-					// 翻译订单来源
-					SysParamSingleCond param = new SysParamSingleCond();
-					param.setTenantId(Constants.TENANT_ID);
-					param.setColumnValue(orderDetail.getChlId());
-					param.setTypeCode(Constants.TYPE_CODE);
-					param.setParamCode(Constants.ORD_CHL_ID);
-					long cacheAStart=System.currentTimeMillis();
-			    	LOG.info("开始执行售后详情查询changeDetail，操作公共中心缓存服务,当前时间戳："+cacheAStart);
-					SysParam chldParam = iCacheSV.getSysParamSingle(param);
-					long cacheAEnd=System.currentTimeMillis();
-			    	LOG.info("开始执行售后详情查询changeDetail，操作公共中心缓存服务,当前时间戳："+userEnd+",用时:"+(cacheAEnd-cacheAStart)+"毫秒");
-					if (chldParam != null) {
-						orderDetail.setChlId(chldParam.getColumnDesc());
-					}
+					
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if (!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
 							OrdProdVo product = new OrdProdVo();
 							// 翻译金额
-							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
-							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSaleprice()));
+							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustfee()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductimage().getVfsId(),
+									ordProductVo.getProductimage().getPicType()));
 							product.setProdState(ordProductVo.getState());
-							product.setProdName(ordProductVo.getProdName());
-							product.setBuySum(ordProductVo.getBuySum());
-							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
-							product.setJfFee(ordProductVo.getJfFee());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-									ordProductVo.getProdExtendInfo()));   // 售后图片  
-							product.setProdTotalFee(AmountUtil.LiToYuan(ordProductVo.getTotalFee()));
+							product.setProdName(ordProductVo.getProdname());
+							product.setBuySum(ordProductVo.getBuysum());
+							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponfee()));
+							product.setJfFee(ordProductVo.getJffee());
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageurl(),
+									ordProductVo.getProdextendinfo()));   // 售后图片  
+							product.setProdTotalFee(AmountUtil.LiToYuan(ordProductVo.getTotalfee()));
 							prodList.add(product);
 						}
 					}
@@ -362,64 +347,56 @@ public class PaidOrderController {
 				if (ordOrderVo != null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
 					// 总退款金额
-					orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalFee()));
-					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdTotalFee(AmountUtil.LiToYuan(ordOrderVo.getTotalfee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountfee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
-					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
-					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidFee()));
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustfee()));
+					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidfee()));
 					// 获取售后操作人
 					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
 					SysUserQueryRequest userReq = new SysUserQueryRequest();
 					userReq.setTenantId(user.getTenantId());
-					userReq.setNo(orderDetail.getOperId());
+					userReq.setNo(orderDetail.getOperid());
 					SysUserQueryResponse response = iSysUserQuerySV.queryUserInfo(userReq);
-					if (response != null) {
-						orderDetail.setUsername(response.getName());
+					if (response != null &&response.getResponseHeader().isSuccess()) {
+						orderDetail.setAfterSalesOperator(response.getName());
 					}
-					// 翻译物流公司
-					SysParamSingleCond expressParam = new SysParamSingleCond();
-					expressParam.setTenantId(Constants.TENANT_ID);
-					expressParam.setColumnValue(orderDetail.getExpressId());
-					expressParam.setTypeCode(Constants.TYPE_CODE);
-					expressParam.setParamCode(Constants.ORD_EXPRESS);
-					SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
-					if (sysParam != null) {
-						orderDetail.setExpressName(sysParam.getColumnDesc());
+					//翻译
+					TranslateFiledsUtil.translateFileds(orderDetail, iCacheSV);
+					
+					//查询仓库信息
+					if (orderDetail.getRouteid() != null) {
+						// 查询仓库名称
+						IRouteManageSV iRouteManageSV = DubboConsumerFactory.getService(IRouteManageSV.class);
+						RouteIdParamRequest routeRequest = new RouteIdParamRequest();
+						routeRequest.setRouteId(orderDetail.getRouteid());
+						RouteResponse routeInfo = iRouteManageSV.findRouteInfo(routeRequest);
+						if(routeInfo!=null && routeInfo.getResponseHeader().isSuccess()) {
+							orderDetail.setRoutename(routeInfo.getRouteName()); 
+						}
 					}
-					// 翻译订单来源
-					SysParamSingleCond param = new SysParamSingleCond();
-					param.setTenantId(Constants.TENANT_ID);
-					param.setColumnValue(orderDetail.getChlId());
-					param.setTypeCode(Constants.TYPE_CODE);
-					param.setParamCode(Constants.ORD_CHL_ID);
-					SysParam chldParam = iCacheSV.getSysParamSingle(param);
-					if (chldParam != null) {
-						orderDetail.setChlId(chldParam.getColumnDesc());
-					}
+					
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if (!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
 							OrdProdVo product = new OrdProdVo();
 							// 翻译金额
-							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
-							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(),
-									ordProductVo.getProductImage().getPicType()));
+							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSaleprice()));
+							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustfee()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductimage().getVfsId(),
+									ordProductVo.getProductimage().getPicType()));
 							product.setProdState(ordProductVo.getState());
-							product.setProdName(ordProductVo.getProdName());
-							product.setBuySum(ordProductVo.getBuySum());
-							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
-							product.setJfFee(ordProductVo.getJfFee());
-							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageUrl(),
-									ordProductVo.getProdExtendInfo()));   // 售后图片  
-							product.setGiveJF(ordProductVo.getGiveJF());
+							product.setProdName(ordProductVo.getProdname());
+							product.setBuySum(ordProductVo.getBuysum());
+							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponfee()));
+							product.setJfFee(ordProductVo.getJffee());
+							product.setAfterSaleImageUrl(ImageUtil.getImage(ordProductVo.getImageurl(),
+									ordProductVo.getProdextendinfo()));   // 售后图片  
+							product.setGiveJF(ordProductVo.getGivejf());
 							prodList.add(product);
 						}
 					}
 					orderDetail.setProdList(prodList);
-					
-					// 翻译物流信息
-				//	orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
 				}
 			}
 			model.put("order", orderDetail);
@@ -642,9 +619,9 @@ public class PaidOrderController {
 				}
 			}else {
 				// 退款
-				ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
-						banlanceIfId);
-				if ("1".equals(resposne.getStatusCode())) {
+			//	ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
+			//			banlanceIfId);
+			//	if ("1".equals(resposne.getStatusCode())) {
 					// 修改退款金额
 					boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
 					if (!flag) {
@@ -652,9 +629,9 @@ public class PaidOrderController {
 						return responseData;
 					}
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
-				} else {
-					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
-				}
+			//	} else {
+			//		responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
+			//	}
 			}
 		}
 		return responseData;
@@ -708,7 +685,7 @@ public class PaidOrderController {
 	 */
 	private ResponseData<String> shopback(String accountId, String openId, String appId, String oid, String bisId,
 			String backCash,String token) {
-		System.out.println("用户积分撤销开始>>>>");
+		LOG.info("用户积分撤销开始>>>>");
 		ResponseData<String> responseData = null;
 		Map<String, String> params = new HashMap<String, String>();
 		params.put("accountId", accountId);
@@ -935,14 +912,14 @@ public class PaidOrderController {
 							IStorageNumSV iStorageNumSV = DubboConsumerFactory.getService(IStorageNumSV.class);
 							for (OrdProductVo prod : prodList) {
 								StorageNumUserReq storageReq = new StorageNumUserReq();
-								storageReq.setSkuId(prod.getSkuId());
-								storageReq.setSkuNum(prod.getBuySum().intValue());
+								storageReq.setSkuId(prod.getSkuid());
+								storageReq.setSkuNum(prod.getBuysum().intValue());
 								storageReq.setTenantId(user.getTenantId());
 								BaseResponse baseResponse = iStorageNumSV.backSaleNumOfProduct(storageReq);
 								//增加库存量
 								StorageNumBackReq backReq = new StorageNumBackReq();
-								backReq.setSkuId(prod.getSkuId());
-								 Map<String, Integer> storageNum = JSON.parseObject(prod.getSkuStorageId(),
+								backReq.setSkuId(prod.getSkuid());
+								 Map<String, Integer> storageNum = JSON.parseObject(prod.getSkustorageid(),
 						                    new com.alibaba.fastjson.TypeReference<Map<String, Integer>>(){});
 								backReq.setTenantId(user.getTenantId());
 								backReq.setStorageNum(storageNum);
@@ -970,54 +947,6 @@ public class PaidOrderController {
 			}
 			return responseData;
 		}
-		
-		 /**
-		 * 获取物流信息
-		 * @param com
-		 * @param oderNo
-		 * @return  List<LogisticsDetail>
-		 */
-		private static List<LogisticsDetail> getLogisticsDetails(String com,String oderNo) {
-			Map<String, String> params = new HashMap<String, String>();
-			params.put("orderNo", oderNo);
-			params.put("com", com);
-			Map<String, String> headers = new HashMap<String, String>();
-			headers.put("appkey", Constants.LOGISTICS_APPKEY);
-			String param = JSON.toJSONString(params);
-			try {
-				String result = HttpClientUtil.sendPost(Constants.LOGISTICS_URL,param,headers);
-				 //将返回结果，转换为JSON对象 
-		        JSONObject json=JSON.parseObject(result);
-		        String reqResultCode=json.getString("resultCode");
-		        if("000000".equals(reqResultCode)){
-		        	JSONObject data=JSON.parseObject(json.getString("data"));
-		        	JSONObject responseHeader=JSON.parseObject(data.getString("responseHeader"));
-		        	String success = responseHeader.getString("success");
-		        	if("true".equals(success)){
-						String dataStr =data.getString("messages");
-						JSONArray messages = JSONArray.parseArray(dataStr);
-						Iterator<Object> it = messages.iterator();
-						List<LogisticsDetail> logisticsDetails = new ArrayList<LogisticsDetail>();
-						while (it.hasNext()) {
-							LogisticsDetail detail = new LogisticsDetail();
-							JSONObject ob = (JSONObject) it.next();
-							detail.setTime(ob.getString("time"));
-							detail.setContext(ob.getString("context"));
-							logisticsDetails.add(detail);
-						}
-						return logisticsDetails;
-		        	}
-				} else {
-					// 请求过程失败
-					LOG.error("物流信息请求失败,请求错误码："+ reqResultCode);
-				}
-			} catch (Exception e) {
-				e.printStackTrace();
-				LOG.error("物流信息请求失败,请求错误码：", e);
-			}
-			return null;
-		}
-		
 		
 	/**
 	 * 修改订单状态

@@ -24,7 +24,8 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.InfoTranslateUtil;
+import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.ch.order.web.utils.TranslateFiledsUtil;
 import com.ai.net.xss.util.CollectionUtil;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
@@ -35,6 +36,9 @@ import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
+import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
+import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.BehindParentOrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
@@ -43,6 +47,9 @@ import com.ai.slp.order.api.orderlist.param.OrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.OrdProductVo;
 import com.ai.slp.order.api.orderlist.param.QueryOrderRequest;
 import com.ai.slp.order.api.orderlist.param.QueryOrderResponse;
+import com.ai.slp.route.api.routemanage.interfaces.IRouteManageSV;
+import com.ai.slp.route.api.routemanage.param.RouteIdParamRequest;
+import com.ai.slp.route.api.routemanage.param.RouteResponse;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -116,7 +123,7 @@ public class OrderListController {
 						OrdOrderListVo orderListVo=new OrdOrderListVo();
 						BeanUtils.copyProperties(orderListVo, behindParentOrdOrderVo);
 						//翻译订单来源
-						SysParam chldParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+						SysParam chldParam = TranslateFiledsUtil.translateInfo(Constants.TENANT_ID, 
 								Constants.TYPE_CODE,Constants.ORD_CHL_ID,orderListVo.getChlid(), iCacheSV);
 						orderListVo.setChlidname(chldParam == null ? "" : chldParam.getColumnDesc());
 						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustfee()));
@@ -167,20 +174,29 @@ public class OrderListController {
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
 					//获取售后操作人
-			//		ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
-			//		SysUserQueryRequest  userReq = new SysUserQueryRequest ();
-			//		userReq.setTenantId(user.getTenantId());
-			//		userReq.setNo(orderDetail.getOperId());
-			//		SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
-			//		if(response!=null){
-			//			orderDetail.setUsername(response.getName());
-			//		}
+					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+					SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+					userReq.setTenantId(user.getTenantId());
+					userReq.setNo(orderDetail.getOperid());
+					SysUserQueryResponse response = iSysUserQuerySV.queryUserInfo(userReq);
+					if(response!=null && response.getResponseHeader().isSuccess() ){
+						orderDetail.setAfterSalesOperator(response.getName());
+					}
 					
 					//翻译字段
-					this.translateFileds(orderDetail,iCacheSV);
-            		
-            		
-            		//翻译订单应收/优惠金额、运费
+					TranslateFiledsUtil.translateFileds(orderDetail,iCacheSV);
+					//查询仓库信息
+					if (orderDetail.getRouteid() != null) {
+						// 查询仓库名称
+						IRouteManageSV iRouteManageSV = DubboConsumerFactory.getService(IRouteManageSV.class);
+						RouteIdParamRequest routeRequest = new RouteIdParamRequest();
+						routeRequest.setRouteId(orderDetail.getRouteid());
+						RouteResponse routeInfo = iRouteManageSV.findRouteInfo(routeRequest);
+						if(routeInfo!=null && routeInfo.getResponseHeader().isSuccess()) {
+							orderDetail.setRoutename(routeInfo.getRouteName()); 
+						}
+					}
+            		//翻译订单应收/优惠金额、运费(厘转元)
 					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustfee()));
 					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountfee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
@@ -192,7 +208,7 @@ public class OrderListController {
 							//翻译金额
 							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSaleprice()));
 							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustfee()));
-						//	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductimage().getVfsId(), ordProductVo.getProductimage().getPicType()));
 							product.setProdState(orderDetail.getBusicode());
 							product.setProdName(ordProductVo.getProdname());
 							product.setBuySum(ordProductVo.getBuysum());
@@ -236,7 +252,6 @@ public class OrderListController {
 					Constants.OrdOrder.State.REFUND_COMPLETE.equals(state)) {   //退款完成
 				return new ModelAndView("jsp/order/afterComplete", model);
 			}
-			//}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error("订单详情查询报错：", e);
@@ -245,48 +260,6 @@ public class OrderListController {
 	}
     
     
-    /**
-     * 翻译订单字段
-     * @param orderDetail
-     * @param iCacheSV
-     * @author caofz
-     * @ApiDocMethod
-     * @ApiCode 
-     * @RestRelativeURL
-     */
-    private void translateFileds(OrderDetail orderDetail,ICacheSV iCacheSV) {
-    	//翻译配送方式
-		SysParam logisticsParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				Constants.ORD_LOGISTICS_TYPE,Constants.LOGISTICS_TYPE
-				,orderDetail.getLogisticstype(), iCacheSV);
-		orderDetail.setLogisticstype(logisticsParam == null ? "" : logisticsParam.getColumnDesc());
-		//翻译订单类型
-		SysParam chldParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				Constants.TYPE_CODE,Constants.ORD_CHL_ID
-				,orderDetail.getChlid(), iCacheSV);
-		orderDetail.setChlidname(chldParam == null ? "" : chldParam.getColumnDesc());
-		//翻译订单类型
-		SysParam sysParamOrderType = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				"ORD_ORDER", "ORDER_TYPE",orderDetail.getOrdertype(), iCacheSV);
-		orderDetail.setOrdertypename(sysParamOrderType == null ? "" : sysParamOrderType.getColumnDesc());
-		// 翻译业务类型
-		SysParam sysParamBusiCode = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				"ORD_ORDER", "BUSI_CODE",orderDetail.getBusicode(), iCacheSV);
-		orderDetail.setBusicodename(sysParamBusiCode == null ? "" : sysParamBusiCode.getColumnDesc());
-		//翻译物流公司
-		SysParam sysParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				Constants.TYPE_CODE,Constants.ORD_EXPRESS,orderDetail.getExpressid(), iCacheSV);
-		orderDetail.setExpressName(sysParam == null ? "" : sysParam.getColumnDesc());
-		//翻译发票类型
-		SysParam sysInvoiceParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				Constants.ORD_OD_INVOICE,Constants.INVOICE_TYPE,orderDetail.getInvoicetype(), iCacheSV);
-		orderDetail.setInvoicetypename(sysInvoiceParam == null ? "" : sysInvoiceParam.getColumnDesc());
-		//翻译支付方式
-		SysParam sysPayStyleParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
-				Constants.ORD_OD_FEE_TOTAL,Constants.PAY_STYLE,orderDetail.getPaystyle(), iCacheSV);
-		orderDetail.setPaystylename(sysPayStyleParam == null ? "" : sysPayStyleParam.getColumnDesc());
-	}
-
 	/**
 	 * 获取物流信息
 	 * @param com
