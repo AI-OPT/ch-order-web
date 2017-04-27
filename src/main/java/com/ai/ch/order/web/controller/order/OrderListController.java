@@ -24,7 +24,7 @@ import com.ai.ch.order.web.model.order.OrderDetail;
 import com.ai.ch.order.web.model.order.OrderListQueryParams;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
-import com.ai.ch.order.web.utils.ImageUtil;
+import com.ai.ch.order.web.utils.InfoTranslateUtil;
 import com.ai.net.xss.util.CollectionUtil;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
@@ -35,10 +35,6 @@ import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
 import com.ai.platform.common.api.cache.interfaces.ICacheSV;
 import com.ai.platform.common.api.cache.param.SysParam;
-import com.ai.platform.common.api.cache.param.SysParamSingleCond;
-import com.ai.platform.common.api.sysuser.interfaces.ISysUserQuerySV;
-import com.ai.platform.common.api.sysuser.param.SysUserQueryRequest;
-import com.ai.platform.common.api.sysuser.param.SysUserQueryResponse;
 import com.ai.slp.order.api.orderlist.interfaces.IOrderListSV;
 import com.ai.slp.order.api.orderlist.param.BehindParentOrdOrderVo;
 import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
@@ -72,6 +68,7 @@ public class OrderListController {
     public ResponseData<PageInfo<OrdOrderListVo>> getList(HttpServletRequest request,OrderListQueryParams queryParams){
     	ResponseData<PageInfo<OrdOrderListVo>> responseData = null;
 	    try{
+	    	ICacheSV iCacheSV = DubboConsumerFactory.getService(ICacheSV.class);
 	    	BehindQueryOrderListRequest queryRequest = new BehindQueryOrderListRequest();
 			//拷贝属性
 	    	BeanUtils.copyProperties(queryRequest, queryParams);
@@ -118,6 +115,10 @@ public class OrderListController {
 					for (BehindParentOrdOrderVo behindParentOrdOrderVo : result) {
 						OrdOrderListVo orderListVo=new OrdOrderListVo();
 						BeanUtils.copyProperties(orderListVo, behindParentOrdOrderVo);
+						//翻译订单来源
+						SysParam chldParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+								Constants.TYPE_CODE,Constants.ORD_CHL_ID,orderListVo.getChlid(), iCacheSV);
+						orderListVo.setChlidname(chldParam == null ? "" : chldParam.getColumnDesc());
 						orderListVo.setTotalAdjustFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getAdjustfee()));
 						orderListVo.setOrderTotalDiscountFee(AmountUtil.LiToYuan(behindParentOrdOrderVo.getDiscountfee()));
 						orderListVo.setTotalJF(behindParentOrdOrderVo.getPoints());
@@ -166,88 +167,53 @@ public class OrderListController {
 				if(ordOrderVo!=null) {
 					BeanUtils.copyProperties(orderDetail, ordOrderVo);
 					//获取售后操作人
-					ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
-					SysUserQueryRequest  userReq = new SysUserQueryRequest ();
-					userReq.setTenantId(user.getTenantId());
-					userReq.setNo(orderDetail.getOperId());
-					SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
-					if(response!=null){
-						orderDetail.setUsername(response.getName());
-					}
-					//翻译配送方式
-					SysParamSingleCond	paramLogistics = new SysParamSingleCond();
-					paramLogistics.setTenantId(Constants.TENANT_ID);
-					paramLogistics.setColumnValue(orderDetail.getLogisticsType());
-					paramLogistics.setTypeCode(Constants.ORD_LOGISTICS_TYPE);
-					paramLogistics.setParamCode(Constants.LOGISTICS_TYPE);
-            		SysParam LogisticsParam = iCacheSV.getSysParamSingle(paramLogistics);
-            		if(LogisticsParam!=null){
-            			orderDetail.setLogisticsType(LogisticsParam.getColumnDesc());
-            		}
-					//翻译订单来源
-					SysParamSingleCond	param = new SysParamSingleCond();
-            		param.setTenantId(Constants.TENANT_ID);
-            		param.setColumnValue(orderDetail.getChlId());
-            		param.setTypeCode(Constants.TYPE_CODE);
-            		param.setParamCode(Constants.ORD_CHL_ID);
-            		SysParam chldParam = iCacheSV.getSysParamSingle(param);
-            		if(chldParam!=null){
-            			orderDetail.setChlId(chldParam.getColumnDesc());
-            		}
-            		//翻译物流公司
-					SysParamSingleCond	expressParam = new SysParamSingleCond();
-					expressParam.setTenantId(Constants.TENANT_ID);
-					expressParam.setColumnValue(orderDetail.getExpressId());
-					expressParam.setTypeCode(Constants.TYPE_CODE);
-					expressParam.setParamCode(Constants.ORD_EXPRESS);
-            		SysParam sysParam = iCacheSV.getSysParamSingle(expressParam);
-            		if(sysParam!=null){
-            			orderDetail.setExpressName(sysParam.getColumnDesc());
-            		}
+			//		ISysUserQuerySV iSysUserQuerySV = DubboConsumerFactory.getService(ISysUserQuerySV.class);
+			//		SysUserQueryRequest  userReq = new SysUserQueryRequest ();
+			//		userReq.setTenantId(user.getTenantId());
+			//		userReq.setNo(orderDetail.getOperId());
+			//		SysUserQueryResponse  response = iSysUserQuerySV.queryUserInfo(userReq);
+			//		if(response!=null){
+			//			orderDetail.setUsername(response.getName());
+			//		}
+					
+					//翻译字段
+					this.translateFileds(orderDetail,iCacheSV);
+            		
+            		
             		//翻译订单应收/优惠金额、运费
-					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustFee()));
-					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountFee()));
+					orderDetail.setOrdAdjustFee(AmountUtil.LiToYuan(ordOrderVo.getAdjustfee()));
+					orderDetail.setOrdDiscountFee(AmountUtil.LiToYuan(ordOrderVo.getDiscountfee()));
 					orderDetail.setOrdFreight(AmountUtil.LiToYuan(ordOrderVo.getFreight()));
-					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidFee()));
+					orderDetail.setUpdateFee(AmountUtil.LiToYuan(ordOrderVo.getPaidfee()));
 					List<OrdProductVo> productList = ordOrderVo.getProductList();
 					if(!CollectionUtil.isEmpty(productList)) {
 						for (OrdProductVo ordProductVo : productList) {
 							OrdProdVo product = new OrdProdVo();
 							//翻译金额
-							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSalePrice()));
-							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustFee()));
-							product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
-							product.setProdState(orderDetail.getBusiCode());
-							product.setProdName(ordProductVo.getProdName());
-							product.setBuySum(ordProductVo.getBuySum());
-							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponFee()));
-							product.setJfFee(ordProductVo.getJfFee());
-							product.setGiveJF(ordProductVo.getGiveJF());
-							product.setCusServiceFlag(ordProductVo.getCusServiceFlag());
-							product.setProdDetalId(ordProductVo.getProdDetalId());
-							product.setSkuId(ordProductVo.getSkuId());
+							product.setProdSalePrice(AmountUtil.LiToYuan(ordProductVo.getSaleprice()));
+							product.setProdAdjustFee(AmountUtil.LiToYuan(ordProductVo.getAdjustfee()));
+						//	product.setImageUrl(ImageUtil.getImage(ordProductVo.getProductImage().getVfsId(), ordProductVo.getProductImage().getPicType()));
+							product.setProdState(orderDetail.getBusicode());
+							product.setProdName(ordProductVo.getProdname());
+							product.setBuySum(ordProductVo.getBuysum());
+							product.setProdCouponFee(AmountUtil.LiToYuan(ordProductVo.getCouponfee()));
+							product.setJfFee(ordProductVo.getJffee());
+							product.setGiveJF(ordProductVo.getGivejf());
+							product.setCusServiceFlag(ordProductVo.getCusserviceflag());
+							product.setProdDetalId(ordProductVo.getProddetalid());
+							product.setSkuId(ordProductVo.getSkuid());
 							prodList.add(product);
 						}
 					}
 					orderDetail.setProdList(prodList);
 					// 翻译物流信息
-					orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressId(),orderDetail.getExpressOddNumber()));
+					orderDetail.setLogisticsDetail(getLogisticsDetails(orderDetail.getExpressid(),orderDetail.getExpressoddnumber()));
 				}
 			}
 			model.put("orderDetail", orderDetail);
 			if(Constants.OrdOrder.State.WAIT_PAY.equals(state)) { //待付款
 				return new ModelAndView("jsp/order/unpaidOrderDetail", model);
 			}
-			/* OFC待配货跳转页面*/
-			/*if(Constants.OrdOrder.Flag.OFC.equals(Flag)) {
-				if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state)) {
-					return new ModelAndView("jsp/order/OFCPaidOrderDetails", model);
-				}
-				if(Constants.OrdOrder.State.WAIT_CONFIRM.equals(state)) { //已发货
-					return new ModelAndView("jsp/order/alreadySendGoods", model);
-				}*/
-				//TODO 退货其它状态(OFC的情况下)
-			//}else {
 			/* up平台跳转页面*/
 			if(Constants.OrdOrder.State.WAIT_DISTRIBUTION.equals(state) ||Constants.OrdOrder.State.PAID.equals(state)) { //已付款(待配货)
 				return new ModelAndView("jsp/order/paidOrderDetails", model);
@@ -278,7 +244,50 @@ public class OrderListController {
 		return null;
 	}
     
+    
     /**
+     * 翻译订单字段
+     * @param orderDetail
+     * @param iCacheSV
+     * @author caofz
+     * @ApiDocMethod
+     * @ApiCode 
+     * @RestRelativeURL
+     */
+    private void translateFileds(OrderDetail orderDetail,ICacheSV iCacheSV) {
+    	//翻译配送方式
+		SysParam logisticsParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				Constants.ORD_LOGISTICS_TYPE,Constants.LOGISTICS_TYPE
+				,orderDetail.getLogisticstype(), iCacheSV);
+		orderDetail.setLogisticstype(logisticsParam == null ? "" : logisticsParam.getColumnDesc());
+		//翻译订单类型
+		SysParam chldParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				Constants.TYPE_CODE,Constants.ORD_CHL_ID
+				,orderDetail.getChlid(), iCacheSV);
+		orderDetail.setChlidname(chldParam == null ? "" : chldParam.getColumnDesc());
+		//翻译订单类型
+		SysParam sysParamOrderType = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				"ORD_ORDER", "ORDER_TYPE",orderDetail.getOrdertype(), iCacheSV);
+		orderDetail.setOrdertypename(sysParamOrderType == null ? "" : sysParamOrderType.getColumnDesc());
+		// 翻译业务类型
+		SysParam sysParamBusiCode = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				"ORD_ORDER", "BUSI_CODE",orderDetail.getBusicode(), iCacheSV);
+		orderDetail.setBusicodename(sysParamBusiCode == null ? "" : sysParamBusiCode.getColumnDesc());
+		//翻译物流公司
+		SysParam sysParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				Constants.TYPE_CODE,Constants.ORD_EXPRESS,orderDetail.getExpressid(), iCacheSV);
+		orderDetail.setExpressName(sysParam == null ? "" : sysParam.getColumnDesc());
+		//翻译发票类型
+		SysParam sysInvoiceParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				Constants.ORD_OD_INVOICE,Constants.INVOICE_TYPE,orderDetail.getInvoicetype(), iCacheSV);
+		orderDetail.setInvoicetypename(sysInvoiceParam == null ? "" : sysInvoiceParam.getColumnDesc());
+		//翻译支付方式
+		SysParam sysPayStyleParam = InfoTranslateUtil.translateInfo(Constants.TENANT_ID, 
+				Constants.ORD_OD_FEE_TOTAL,Constants.PAY_STYLE,orderDetail.getPaystyle(), iCacheSV);
+		orderDetail.setPaystylename(sysPayStyleParam == null ? "" : sysPayStyleParam.getColumnDesc());
+	}
+
+	/**
 	 * 获取物流信息
 	 * @param com
 	 * @param oderNo
