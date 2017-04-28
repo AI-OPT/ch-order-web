@@ -619,9 +619,9 @@ public class PaidOrderController {
 				}
 			}else {
 				// 退款
-			//	ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
-			//			banlanceIfId);
-			//	if ("1".equals(resposne.getStatusCode())) {
+				ResponseData<String> resposne = agreedRefund(request, orderId, updateInfo, parentOrderId, updateMoney,
+						banlanceIfId);
+				if ("1".equals(resposne.getStatusCode())) {
 					// 修改退款金额
 					boolean flag = updateOrderMoney(request, orderId, updateInfo, updateMoney);
 					if (!flag) {
@@ -629,9 +629,9 @@ public class PaidOrderController {
 						return responseData;
 					}
 					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请成功", null);
-			//	} else {
-			//		responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
-			//	}
+				} else {
+					responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "退款申请失败", "9999");
+				}
 			}
 		}
 		return responseData;
