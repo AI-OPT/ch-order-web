@@ -56,7 +56,6 @@ public class DeliverGoodsController {
 				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, baseResponse.getResponseHeader().getResultMessage(), null);
 			}
 		} catch (Exception e) {
-			System.out.println(e.getStackTrace());
 			LOG.info(e.getMessage());
 			data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "发货失败,出现未知异常", null);
 		}
