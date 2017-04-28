@@ -247,7 +247,7 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 				processing: false,
 				message: "查询中，请等待...",
 				url: url,
-				data:{"orderId":obj,"expressid":expressCompany,"expressoddnumber":expressIdValue},
+				data:{"orderId":obj,"expressId":expressCompany,"expressOddNumber":expressIdValue},
 	  	        success: function (data) {
 	  	        	if(data.statusCode == "1"){
 	  	        	//调到订单列表页面
@@ -258,7 +258,6 @@ define('app/jsp/order/sendGoods', function (require, exports, module) {
 						 var busiCode =	$("#deliveryModal_busiCode").val();
 						 var Flag = $("#deliveryModal_flag").val();
 						 var url = _base+"/order/orderListDetail?orderId="+ orderId +"&pOrderId="+pOrderId+"&state="+state+"&busiCode="+busiCode+"&Flag="+Flag;
-						 //alert(url);
 						 location.href = url;
     	        	}else{
     	        		var d = Dialog({
