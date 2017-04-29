@@ -29,8 +29,8 @@ public class LogoutController {
 		String logOutBackUrl = SSOClientUtil.getLogOutBackUrlRuntime(request);
 		String casServerLoginUrl=SSOClientUtil.getCasServerLoginUrlRuntime(request);
 		String casServerUrlPrefix=SSOClientUtil.getCasServerUrlPrefixRuntime(request);
-		System.out.println("【LogoutController】casServerLoginUrl="+casServerLoginUrl);
-		System.out.println("【LogoutController】casServerUrlPrefix="+casServerUrlPrefix);
+		LOG.info("【LogoutController】casServerLoginUrl="+casServerLoginUrl);
+		LOG.info("【LogoutController】casServerUrlPrefix="+casServerUrlPrefix);
 		try {
 			if(user!=null){
 					session.removeAttribute(SSOClientConstants.USER_SESSION_KEY);
