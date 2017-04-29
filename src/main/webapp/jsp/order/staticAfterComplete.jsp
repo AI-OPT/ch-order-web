@@ -88,7 +88,7 @@
 								                <td>${sp.prodSalePrice}/${sp.buySum }件</td>
 								                <td><fmt:formatDate value="${orderDetail.ordertime}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 								                <td>${orderDetail.statename}</td>
-								                <td>${sp.prodAdjustFee}</td>
+								                <td>${orderDetail.updateFee}</td>
 							              </tr> 
 						              </c:forEach>
                                     </tbody>
@@ -146,7 +146,7 @@
                             	<ul>
                             		<li class="col-md-6">
                             			<p class="word">退款金额：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.updateFee}</p>
                             		</li>
                             	</ul>
                             	</div>

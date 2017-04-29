@@ -154,8 +154,8 @@
                             		</li>
                             		<li class="col-md-6">
                             			<p class="word">收货地址：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${order.provincecode}${order.citycode }${order.countycode}
-					                    ${order.address }&nbsp;${order.contactname}</p>
+                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.provincecode}${orderDetail.citycode }${orderDetail.countycode}
+					                    ${orderDetail.address }&nbsp;${orderDetail.contactname}</p>
                             		</li>
                             	</ul>
                             </div>
@@ -170,11 +170,20 @@
                             			<p class="word">业务类型：</p>
                             			<p class="wide-field" style="word-break:break-all;">${orderDetail.busicodename}</p>
                             		</li>
-                            		<li class="col-md-6">
-                            			<p class="word">退款金额：</p>
-                            			<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
-                            		</li>
-                            		
+                            		<c:choose>
+                            		<c:when test="${orderDetail.state == 312}">
+	                            		<li class="col-md-6">
+	                            			<p class="word">退款金额：</p>
+											<p class="wide-field" style="word-break:break-all;">${orderDetail.updateFee}</p>			
+	                            		</li>
+                            		</c:when>
+                           			<c:otherwise>
+                            			<li class="col-md-6">
+	                            			<p class="word">退款金额：</p>
+                           					<p class="wide-field" style="word-break:break-all;">${orderDetail.ordAdjustFee}</p>
+	                            		</li>
+                           			</c:otherwise>
+                            		</c:choose>
                             	</ul>
                             		<ul>
                             		<li class="col-md-6">
