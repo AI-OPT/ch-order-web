@@ -59,7 +59,6 @@ public class DeliveryGoodsPrintController {
 			responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询出错,出现未知异常");
 			LOG.error("查询信息出错",e);
 		}
-		System.out.println(JSON.toJSON(responseData));
 		return responseData;
 	}
 	
