@@ -50,11 +50,8 @@ define('app/jsp/order/orderList', function (require, exports, module) {
     	},
     	
 		 _detailPage:function(orderid,state,pOrderId){
-//		    window.location.href = _base+"/order/orderListDetail?orderId="
-//		            + orderid+"&state="+state+"&pOrderId="+pOrderId
-		    var href = _base+"/order/orderListDetail?orderId="
+		    window.location.href = _base+"/order/orderListDetail?orderId="
 		            + orderid+"&state="+state+"&pOrderId="+pOrderId
-		    $('#mainFrame').attr('src', href);
 		},
 		_changeWaitOrderState:function(state){
 			$(".order-list-table a").removeClass("current");
