@@ -8,9 +8,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
+import com.ai.slp.order.api.orderlist.param.BehindQueryOrderListRequest;
 import com.ai.slp.order.api.sesdata.interfaces.ISesDataRefreshSV;
 import com.ai.slp.order.api.sesdata.param.SesDataByPageRequest;
 import com.ai.slp.order.api.sesdata.param.SesDataResponse;
@@ -47,5 +49,17 @@ public class SesDataRefreshController {
 	@RequestMapping("/toRefreshPage")
 	public ModelAndView toRefreshPage(){
 		return new ModelAndView("jsp/ses/refreshSesData");
+	}
+	
+	
+	@RequestMapping(value="/deleteSesData",produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String deleteSesData(String orderTimeBegin,String orderTimeEnd) {
+		BehindQueryOrderListRequest request=new BehindQueryOrderListRequest();
+		request.setOrderTimeBegin(orderTimeBegin);
+		request.setOrderTimeEnd(orderTimeEnd);
+		ISesDataRefreshSV sesDataRefreshSV = DubboConsumerFactory.getService(ISesDataRefreshSV.class);
+		SesDataResponse response = sesDataRefreshSV.deleteSesData(request);
+		return JSON.toJSONString(response);
 	}
 }
