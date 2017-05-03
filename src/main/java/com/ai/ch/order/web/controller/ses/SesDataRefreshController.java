@@ -25,6 +25,16 @@ public class SesDataRefreshController {
 	
 	private static Logger logger=LoggerFactory.getLogger(SesDataRefreshController.class);
 	
+	/**
+	 * 数据库刷新数据到es
+	 * @param request
+	 * @param req
+	 * @return
+	 * @author caofz
+	 * @ApiDocMethod
+	 * @ApiCode 
+	 * @RestRelativeURL
+	 */
 	@RequestMapping(value="/refreshSesData",produces="text/html;charset=UTF-8")
 	public ModelAndView refreshSesData(HttpServletRequest request,SesDataByPageRequest req){
 		try {
@@ -46,12 +56,22 @@ public class SesDataRefreshController {
 		return new ModelAndView("jsp/ses/refreshSuccess") ;
 	}
 	
+	//跳转页面
 	@RequestMapping("/toRefreshPage")
 	public ModelAndView toRefreshPage(){
 		return new ModelAndView("jsp/ses/refreshSesData");
 	}
 	
-	
+	/**
+	 * 删除es数据
+	 * @param orderTimeBegin
+	 * @param orderTimeEnd
+	 * @return
+	 * @author caofz
+	 * @ApiDocMethod
+	 * @ApiCode 
+	 * @RestRelativeURL
+	 */
 	@RequestMapping(value="/deleteSesData",produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String deleteSesData(String orderTimeBegin,String orderTimeEnd) {
