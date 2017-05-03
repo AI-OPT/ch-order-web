@@ -26,7 +26,7 @@ public class SesDataRefreshController {
 	private static Logger logger=LoggerFactory.getLogger(SesDataRefreshController.class);
 	
 	/**
-	 * 数据库刷新数据到es
+	 * 数据库刷新数据到es(性能测试备用)
 	 * @param request
 	 * @param req
 	 * @return
@@ -63,7 +63,7 @@ public class SesDataRefreshController {
 	}
 	
 	/**
-	 * 删除es数据
+	 * 删除es数据(性能测试备用)
 	 * @param orderTimeBegin
 	 * @param orderTimeEnd
 	 * @return
