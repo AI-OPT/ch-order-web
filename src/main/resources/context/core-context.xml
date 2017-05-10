@@ -40,13 +40,13 @@
 	<!-- 构造函数注入 支付中心密钥 -->
 	<bean id="key" class="com.ai.ch.order.web.vo.Key">
 		<constructor-arg index="0">
-			<value>classpath:CO20161100000001.pfx</value>
+			<value>classpath:CO20160900000009.pfx</value>
 		</constructor-arg>
 		<constructor-arg index="1">
 			<value>111111</value>
 		</constructor-arg>
 		<constructor-arg index="2">
-			<value>classpath:PubKey.cer</value>
+			<value>classpath:mobile.cer</value>
 		</constructor-arg>
 	</bean>
 	
