@@ -827,6 +827,7 @@ public class PaidOrderController {
 			LOG.info("发起参数子订单号>>>>"+reqInfo.getGrpBody().getMerSeqId());
 			LOG.info("发起参数金额>>>>"+reqInfo.getGrpBody().getRefundAmt());
 			LOG.info("退款时间>>>>"+reqInfo.getGrpBody().getRefundDate());
+			LOG.info("退款地址url>>>>"+Constants.CH_PAY_URL);
 			BusinessHandler handler = businessHandlerFactory.getInstance(TranType.REFUND_APPLY);
 			RespInfo rp = (RespInfo) handler.process(Constants.CH_PAY_URL, reqInfo, key.getKey(KeyType.PRIVATE_KEY),
 					key.getKey(KeyType.PUBLIC_KEY));
