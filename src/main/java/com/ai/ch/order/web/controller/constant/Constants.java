@@ -314,7 +314,9 @@ public final class Constants {
     public static final String CH_REFUND_URL = loader.getProperty(CH_REFUND_KEY); 
     
     /**一级商户**/
-    public static final String ch_pay_first_merchant = "CO20161100000001"; 
+    private static final String CH_PAY_FIRST_KEY = "ch.pay.first.merchant";  
+    public static final String ch_pay_first_merchant = loader.getProperty(CH_PAY_FIRST_KEY); 
     /**二级商户**/
-    public static final String ch_pay_two_merchant = "CO20161100000002"; 
+    private static final String CH_PAY_TWO_KEY = "ch.pay.two.merchant";  
+    public static final String ch_pay_two_merchant = loader.getProperty(CH_PAY_TWO_KEY); 
 }
