@@ -70,6 +70,7 @@ public class InvoiceUtils {
 		authorizationJson.put("loginName",CryptUtils.decrypt(Constants.INVOICE_PRINT_USERNAME));
 		authorizationJson.put("password", CryptUtils.decrypt(Constants.INVOICE_PRINT_PASSWORD));
 		authorizationJson.put("interFaceCode", operateType);
+		log.info("获取授权id参数:"+authorizationJson.toString());
 		try {
 			httpPost.setEntity(new StringEntity(authorizationJson.toString(), "UTF-8"));
 			httpPost.setHeader(HTTP.CONTENT_TYPE, "application/json");
