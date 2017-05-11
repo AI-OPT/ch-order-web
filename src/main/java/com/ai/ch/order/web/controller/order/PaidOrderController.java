@@ -845,6 +845,7 @@ public class PaidOrderController {
 				responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "申请退款成功", null);
 			}
 		} catch (Exception e) {
+			LOG.info("退款出现异常>>>>>>"+e.getMessage());
 			responseData = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "申请退款失败", null);
 		}
 		return responseData;
