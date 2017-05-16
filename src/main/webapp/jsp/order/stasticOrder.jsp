@@ -143,7 +143,7 @@
 				{{if ordextendes!=null}}
 						{{for ordextendes ~orderData = #data}}  
 							<!-- 子订单 -->
-								{{for prodinfos ~parentProdSize=prodsize ~cOrderId=orderid 
+								{{for prodinfos ~parentProdSize=prodsize ~cOrderId=orderid ~parentOrderId=parentorderid 
 									~busiCode=busicode ~state=state ~stateName=statename
 									~parentInd = #index ~parentOrder =~orderData }}	
 								<!-- 商品 {{:~parentInd}}-->        						
@@ -159,10 +159,10 @@
 									<td rowspan="{{:~parentOrder.totalprodsize}}">{{:~parentOrder.deliveryflagname}}</td>
 								{{/if}}
 								<!-- 子订单不存在的情况-->
-								{{if #index ==0 && ~state==11}}
+								{{if #index ==0 && ~parentOrderId==0}}
 									<td rowspan="{{:~parentProdSize}}"></td>
 								{{/if}}
-								{{if #index ==0 && ~state!=11 }}
+								{{if #index ==0 && ~parentOrderId!=0}}
 									<td rowspan="{{:~parentProdSize}}">{{:~subStr(2,~cOrderId)}}</td>
 								{{/if}}
 
