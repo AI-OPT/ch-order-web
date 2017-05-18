@@ -17,20 +17,26 @@
 	                 <div class="col-lg-12"><!--删格化-->
 	                    <div class="main-box clearfix"><!--白色背景-->
 	                    	<!--查询条件-->
-	                    	<div class="form-label" id="selectDiv">
+	                    	<div class="form-label">
 					           <ul>
-					                <li class="col-md-4">
-					                    <p class="word">开始时间</p>
-					                    <p><input name="control_date" readonly class="int-text int-medium " type="text"  id="orderTimeBegin" name="orderTimeBegin"/>
-					                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
-					                    </p>
-					                </li>
-					                <li class="col-md-4">
-					                    <p class="word">结束时间</p>
-					                    <p><input name="control_date" readonly class="int-text int-medium " type="text"  id="orderTimeEnd" name="orderTimeEnd"/>
-					                     <span class="time"><i class="fa  fa-calendar" ></i></span>
-					                    </p>
-					                </li> 
+					                <li class="col-md-4" id="dateDiv1">
+											<p class="word">开始时间</p>
+											<p>
+												<input class="int-text int-medium " readonly
+													onFocus="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})"
+													id="orderTimeBegin" name="control_date" /> <span class="time">
+													<i class="fa  fa-calendar"></i>
+												</span>
+											</p>
+										</li>
+										<li class="col-md-4" id="dateDiv2">
+											<p class="word">结束时间</p>
+											<p>
+												<input class="int-text int-medium " readonly
+													onFocus="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})"
+													id="orderTimeEnd" name="control_date" /> <span class="time"><i class="fa  fa-calendar"></i></span>
+											</p>
+										</li>
 					                <li class="col-md-4">
 					            		<p><input type="button" class="biu-btn btn-primary btn-blue btn-mini" value="查询" id="search"></p>
 					            	</li> 
@@ -130,12 +136,28 @@
 			{{/if}}	
  </script> 
   <script type="text/javascript">
-  <%-- 展示日历 --%>
-	$('#selectDiv').delegate('.fa-calendar','click',function(){
+	<%-- 展示日历 --%>
+	$('#dateDiv1').delegate('.fa-calendar', 'click', function() {
 		var calInput = $(this).parent().prev();
 		var timeId = calInput.attr('id');
-		console.log("click calendar "+timeId);
-		WdatePicker({el:timeId,readOnly:true});
+		WdatePicker({
+			el : timeId,
+			readOnly : true,
+			dateFmt : 'yyyy-MM-dd',
+			isShowClear : true,
+			maxDate : '#F{$dp.$D(\'orderTimeEnd\')}'
+		});
+	});
+	$('#dateDiv2').delegate('.fa-calendar', 'click', function() {
+		var calInput = $(this).parent().prev();
+		var timeId = calInput.attr('id');
+		WdatePicker({
+			el : timeId,
+			readOnly : true,
+			dateFmt : 'yyyy-MM-dd',
+			isShowClear : true,
+			minDate : '#F{$dp.$D(\'orderTimeBegin\')}'
+		});
 	});
 			var pager;
 			(function () {

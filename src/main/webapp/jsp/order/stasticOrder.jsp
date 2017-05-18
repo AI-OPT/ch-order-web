@@ -18,21 +18,27 @@
 	                    <div class="main-box clearfix"><!--白色背景-->
 	                    	<!--查询条件-->
 	                    	<form id="dataForm" method="post" >
-		                    	<div class="form-label"  id="dateDiv">
-						           <ul>
-						                <li class="col-md-6">
-						                    <p class="word">开始时间</p>
-						                    <p><input class="int-text int-medium " readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})" id="orderTimeBegin" name="control_date" id="orderTimeBegin" />
-						                   <span class="time"> <i class="fa  fa-calendar" ></i></span>
-						                    </p>
-						                </li>
-						                <li class="col-md-6">
-						                    <p class="word">结束时间</p>
-						                    <p><input class="int-text int-medium " readonly onClick="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:false,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})" id="orderTimeEnd" name="control_date"/>
-						                     <span class="time"><i class="fa  fa-calendar" ></i></span>
-						                    </p>
-						                </li>  
-						            </ul> 
+		                    	<div class="form-label">
+						            <ul>
+										<li class="col-md-6" id="dateDiv1">
+											<p class="word">开始时间</p>
+											<p>
+												<input class="int-text int-medium " readonly
+													onFocus="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true,maxDate:'#F{$dp.$D(\'orderTimeEnd\')}'})"
+													id="orderTimeBegin" name="control_date" /> <span class="time">
+													<i class="fa  fa-calendar"></i>
+												</span>
+											</p>
+										</li>
+										<li class="col-md-6" id="dateDiv2">
+											<p class="word">结束时间</p>
+											<p>
+												<input class="int-text int-medium " readonly
+													onFocus="WdatePicker({dateFmt:'yyyy-MM-dd',isShowClear:true,minDate:'#F{$dp.$D(\'orderTimeBegin\')}'})"
+													id="orderTimeEnd" name="control_date" /> <span class="time"><i class="fa  fa-calendar"></i></span>
+											</p>
+										</li>
+									</ul>
 									<ul>
 									 	<li class="col-md-6">
 						                   	<p class="word" >按商品查询</p>
@@ -178,11 +184,28 @@
 			{{/if}}				
   </script> 
    <script type="text/javascript">
-   <%-- 展示日历 --%>
-		$('#dateDiv').delegate('.fa-calendar','click',function(){
+		<%-- 展示日历 --%>
+		$('#dateDiv1').delegate('.fa-calendar', 'click', function() {
 			var calInput = $(this).parent().prev();
 			var timeId = calInput.attr('id');
-			WdatePicker({el:timeId,readOnly:true});
+			WdatePicker({
+				el : timeId,
+				readOnly : true,
+				dateFmt : 'yyyy-MM-dd',
+				isShowClear : true,
+				maxDate : '#F{$dp.$D(\'orderTimeEnd\')}'
+			});
+		});
+		$('#dateDiv2').delegate('.fa-calendar', 'click', function() {
+			var calInput = $(this).parent().prev();
+			var timeId = calInput.attr('id');
+			WdatePicker({
+				el : timeId,
+				readOnly : true,
+				dateFmt : 'yyyy-MM-dd',
+				isShowClear : true,
+				minDate : '#F{$dp.$D(\'orderTimeBegin\')}'
+			});
 		});
 		
 		var pager;
