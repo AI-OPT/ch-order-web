@@ -1,5 +1,7 @@
 package com.ai.ch.order.web.utils;
 
+import com.ai.opt.sdk.util.StringUtil;
+
 /**
  * SQL安全处理
  * 
@@ -21,11 +23,11 @@ public class SQLSafeUtils {
 	 * @RestRelativeURL
 	 */
 	public static String safe(String field) {
-		if (field != null) {
-			field = field.replaceAll("'", "");
-			field = field.replaceAll(";", "");
-			field = field.replaceAll("--", "");
-			field = field.replaceAll("/**/", "");
+		if (!StringUtil.isBlank(field)) {
+			field = field.replaceAll("'", "＇");
+			field = field.replaceAll(";", "；");
+			field = field.replaceAll("--", "－－");
+			field = field.replaceAll("/\\*\\*/", "／＊＊／");
 		}
 		return field;
 	}
