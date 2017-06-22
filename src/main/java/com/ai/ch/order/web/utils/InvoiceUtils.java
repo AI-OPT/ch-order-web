@@ -1,5 +1,7 @@
 package com.ai.ch.order.web.utils;
 
+import java.io.IOException;
+
 import org.apache.http.HttpHost;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -83,6 +85,9 @@ public class InvoiceUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("请求失败："+e);
+		}finally {
+			//关闭资源
+			close(client);
 		}
 		return null;
 	}
@@ -111,7 +116,22 @@ public class InvoiceUtils {
 		} catch (Exception e) {
 			e.printStackTrace();
 			log.info("请求失败："+e);
+		}finally {
+			close(client);
 		}
 		return retVal;
+	}
+	
+	/**
+	 * 释放资源
+	 */
+	public static void close(CloseableHttpClient client) {
+		if(client!=null) {
+			try {
+				client.close();
+			} catch (IOException e) {
+				log.debug("CloseableHttpClient close IOException:" + e.getMessage());  
+			}
+		}
 	}
 }

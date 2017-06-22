@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ai.ch.order.web.model.order.InvoicePrintQueryVo;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.ch.order.web.utils.RequestParameterUtils;
+import com.ai.ch.order.web.utils.SQLSafeUtils;
 import com.ai.opt.base.vo.PageInfo;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.util.BeanUtils;
@@ -38,6 +39,7 @@ public class InvoicePrintQueryContoller {
         String strPageSize=(null==request.getParameter("pageSize"))?"10":request.getParameter("pageSize");
 		//
 		InvoicePrintRequest requestVo = RequestParameterUtils.request2Bean(request, InvoicePrintRequest.class);
+		requestVo.setInvoiceTitle(SQLSafeUtils.safe(requestVo.getInvoiceTitle()));
 		//
 		//
 		requestVo.setPageNo(Integer.parseInt(strPageNo));
