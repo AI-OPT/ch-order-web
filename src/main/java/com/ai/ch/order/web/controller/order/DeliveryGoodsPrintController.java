@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.ch.order.web.utils.AmountUtil;
 import com.ai.opt.base.vo.BaseResponse;
+import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
@@ -50,10 +51,20 @@ public class DeliveryGoodsPrintController {
 			req.setTenantId(user.getTenantId());
 			IDeliverGoodsPrintSV deliverGoodsPrintSV = DubboConsumerFactory.getService(IDeliverGoodsPrintSV.class);
 			DeliverGoodsPrintResponse response = deliverGoodsPrintSV.query(req);
-			if(response!=null && response.getResponseHeader().isSuccess()) {
-				responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",response);
+			//返回说明判断
+			if(response!=null) {
+				ResponseHeader header = response.getResponseHeader();
+				if(header!=null) {
+					if(header.isSuccess()) {
+						responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_SUCCESS, "查询成功",response);
+					}else {
+						responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, header.getResultMessage());
+					}
+				}else {
+					responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
+				}
 			}else {
-				responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
+				responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询失败");
 			}
 		} catch (Exception e) {			
 			responseData = new ResponseData<DeliverGoodsPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "查询出错,出现未知异常");
@@ -95,10 +106,19 @@ public class DeliveryGoodsPrintController {
 			req.setTenantId(user.getTenantId());
 			IDeliverGoodsPrintSV deliveryOrderPrintSV = DubboConsumerFactory.getService(IDeliverGoodsPrintSV.class);
 			BaseResponse response = deliveryOrderPrintSV.print(req);
-			if(response!=null && response.getResponseHeader().isSuccess()) {
-				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_SUCCESS, "发货单打印成功",response);
+			if(response!=null) {
+				ResponseHeader header = response.getResponseHeader();
+				if(header!=null) {
+					if(header.isSuccess()) {
+						responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_SUCCESS, "发货单打印成功",response);
+					}else {
+						responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, header.getResultMessage());
+					}
+				}else {
+					responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "发货单打印失败");
+				}
 			}else {
-				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
+				responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "发货单打印失败");
 			}
 		} catch (Exception e) {			
 			responseData = new ResponseData<BaseResponse>(ResponseData.AJAX_STATUS_FAILURE, "打印出错,出现未知异常");

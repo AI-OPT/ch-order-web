@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.opt.base.vo.BaseResponse;
+import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
@@ -50,10 +51,20 @@ public class DeliverGoodsController {
 			req.setTenantId(user.getTenantId());
 			IDeliverGoodsSV deliverGoodsSV = DubboConsumerFactory.getService(IDeliverGoodsSV.class);
 			BaseResponse baseResponse = deliverGoodsSV.deliverGoods(req);
-			if(baseResponse!=null&&baseResponse.getResponseHeader().isSuccess()) {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "发货成功", null);
+			//后台返回进行判断
+			if(baseResponse!=null) {
+				ResponseHeader header = baseResponse.getResponseHeader();
+				if(header!=null) {
+					if(header.isSuccess()) {
+						data = new ResponseData<String>(ResponseData.AJAX_STATUS_SUCCESS, "发货成功",null);
+					}else {
+						data = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, header.getResultMessage());
+					}
+				}else {
+					data = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "发货失败");
+				}
 			}else {
-				data=new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, baseResponse.getResponseHeader().getResultMessage(), null);
+				data = new ResponseData<String>(ResponseData.AJAX_STATUS_FAILURE, "发货失败");
 			}
 		} catch (Exception e) {
 			LOG.info(e.getMessage());

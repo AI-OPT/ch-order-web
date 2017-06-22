@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ai.ch.order.web.model.sso.client.GeneralSSOClientUser;
 import com.ai.opt.base.vo.BaseResponse;
+import com.ai.opt.base.vo.ResponseHeader;
 import com.ai.opt.sdk.dubbo.util.DubboConsumerFactory;
 import com.ai.opt.sdk.web.model.ResponseData;
 import com.ai.opt.sso.client.filter.SSOClientConstants;
@@ -74,10 +75,20 @@ public class DeliveryOrderPrintController {
 			req.setUserId(orderUserId); //订单用户id
 			req.setTenantId(user.getTenantId());
 			DeliveryOrderPrintResponse response = iDeliveryOrderPrintSV.noMergePrint(req);
-			if(response!=null && response.getResponseHeader().isSuccess()) {
-				responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_SUCCESS, "提货单不合并查询成功",response);
+			//后台返回信息判断
+			if(response!=null) {
+				ResponseHeader header = response.getResponseHeader();
+				if(header!=null) {
+					if(header.isSuccess()) {
+						responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_SUCCESS, "提货单不合并查询成功",response);
+					}else {
+						responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, header.getResultMessage());
+					}
+				}else {
+					responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "提货单不合并查询失败");
+				}
 			}else {
-				responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, response.getResponseHeader().getResultMessage());
+				responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "提货单不合并查询失败");
 			}
 		} catch (Exception e) {
 			responseData = new ResponseData<DeliveryOrderPrintResponse>(ResponseData.AJAX_STATUS_FAILURE, "提货单不合并查询出错,出现未知异常");
